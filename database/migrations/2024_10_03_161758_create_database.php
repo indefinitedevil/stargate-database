@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name', 32);
             $table->text('description');
+            $table->smallInteger('body')->default(10);
+            $table->smallInteger('vigor')->default(10);
             $table->timestamps();
         });
         Schema::create('feats', function (Blueprint $table) {
@@ -63,6 +65,8 @@ return new class extends Migration
             $table->boolean('repeatable')->default(false);
             $table->foreignId('card_type_id')->nullable()->constrained();
             $table->smallInteger('cards')->default(0);
+            $table->smallInteger('body')->default(0);
+            $table->smallInteger('vigor')->default(0);
             $table->timestamps();
         });
         Schema::create('skill_specialty', function (Blueprint $table) {
