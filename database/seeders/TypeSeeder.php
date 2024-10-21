@@ -15,39 +15,39 @@ class TypeSeeder extends Seeder
     {
         // seed specialty types
         DB::table('specialty_types')->insert([
-            [1, 'Archeo-Anthropology'],
-            [2, 'Medical'],
-            [3, 'Language'],
-            [4, 'Mythology'],
+            ['id' => 1, 'name' => 'Archeo-Anthropology'],
+            ['id' => 2, 'name' => 'Medical'],
+            ['id' => 3, 'name' => 'Language'],
+            ['id' => 4, 'name' => 'Mythology'],
         ]);
         // seed card types
         DB::table('card_types')->insert([
-            [1,'Computing'],
-            [2,'Cryptography'],
-            [3,'Electrical Engineering'],
-            [4,'Explosives Training'],
-            [5,'Larceny'],
-            [6,'Mechanical Engineering'],
-            [7,'Paramedic'],
-            [8,'Signals Intelligence'],
+            ['id' => 1, 'name' => 'Computing'],
+            ['id' => 2, 'name' => 'Cryptography'],
+            ['id' => 3, 'name' => 'Electrical Engineering'],
+            ['id' => 4, 'name' => 'Explosives Training'],
+            ['id' => 5, 'name' => 'Larceny'],
+            ['id' => 6, 'name' => 'Mechanical Engineering'],
+            ['id' => 7, 'name' => 'Paramedic'],
+            ['id' => 8, 'name' => 'Signals Intelligence'],
         ]);
         // seed log types
         DB::table('log_types')->insert([
-            [1, 'Character Creation'],
-            [2, 'Downtime'],
-            [3, 'Plot'],
+            ['id' => 1, 'name' => 'Character Creation'],
+            ['id' => 2, 'name' => 'Downtime'],
+            ['id' => 3, 'name' => 'Plot'],
         ]);
         // seed discount types
         DB::table('discount_types')->insert([
-            [1, 'Skill'],
-            [2, 'Teacher'],
-            [3, 'Plot'],
+            ['id' => 1, 'name' => 'Skill'],
+            ['id' => 2, 'name' => 'Teacher'],
+            ['id' => 3, 'name' => 'Plot'],
         ]);
         // seed status
         DB::table('status')->insert([
-            [0, 'New'],
-            [1, 'Played'],
-            [2, 'Dead'],
+            ['id' => 1, 'name' => 'New'],
+            ['id' => 2, 'name' => 'Played'],
+            ['id' => 3, 'name' => 'Dead'],
         ]);
     }
 }

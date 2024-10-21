@@ -15,124 +15,546 @@ class FeatSeeder extends Seeder
     {
         // seed feats
         DB::table('feats')->insert([
-            [1, 'Dodge!', '', 0],
-            [2, 'Die Hard', '', 0],
-            [3, 'Flash of Insight', '', 0],
-            [4, 'Total Focus', '', 0],
-            [5, 'Last Heroic Act', '', 0],
-            [6, 'All Guns Blazing', '', 0],
-            [7, 'A Very Distinctive...', '', 0],
-            [8, 'Bodyguard', '', 0],
-            [9, 'Botch Job', '', 0],
-            [10, 'Cat-like Reflexes', '', 0],
-            [11, 'Codebreaker', '', 0],
-            [12, 'Cauterise', '', 0],
-            [13, 'Drug Resistance', '', 0],
-            [14, 'Escape Artist', '', 0],
-            [15, 'Firm Grip', '', 0],
-            [16, 'Fly It Like You Stole It', '', 0],
-            [17, 'Get Back In The Fight', '', 0],
-            [18, 'Hunker Down', '', 0],
-            [19, 'Explosives Insight', '', 0],
-            [20, 'Electrical Insight', '', 0],
-            [21, 'Computing Insight', '', 0],
-            [22, 'Communications Insight', '', 0],
-            [23, 'Mechanical Insight', '', 0],
-            [24, 'Larceny Insight', '', 0],
-            [25, 'Medical Insight', '', 0],
-            [26, 'Interrogator', '', 0],
-            [27, 'Killing Blow', '', 0],
-            [28, 'Emergency Measures', '', 1],
-            [29, 'Marksman', '', 0],
-            [30, 'Natural Resistance', '', 0],
-            [31, 'Negotiator', '', 0],
-            [32, 'Numb3rs', '', 0],
-            [33, 'Old College Professor', '', 0],
-            [34, 'On Your Feet Soldier', '', 0],
-            [35, 'Polyglot', '', 0],
-            [36, 'Technical Mentor', '', 0],
-            [37, 'Tick Tock Motherfucker', '', 0],
-            [38, 'Tomb Raider', '', 0],
-            [39, 'Torture Resistance', '', 0],
-            [40, 'Tracker', '', 0],
-            [41, 'We Have A Job To Do', '', 0],
-            [42, 'Cryptographic Insight', '', 0],
+            [
+                'id' => 1,
+                'name' => 'Dodge!',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 2,
+                'name' => 'Die Hard',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 3,
+                'name' => 'Flash of Insight',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 4,
+                'name' => 'Total Focus',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 5,
+                'name' => 'Last Heroic Act',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 6,
+                'name' => 'All Guns Blazing',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 7,
+                'name' => 'A Very Distinctive...',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 8,
+                'name' => 'Bodyguard',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 9,
+                'name' => 'Botch Job',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 10,
+                'name' => 'Cat-like Reflexes',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 11,
+                'name' => 'Codebreaker',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 12,
+                'name' => 'Cauterise',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 13,
+                'name' => 'Drug Resistance',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 14,
+                'name' => 'Escape Artist',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 15,
+                'name' => 'Firm Grip',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 16,
+                'name' => 'Fly It Like You Stole It',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 17,
+                'name' => 'Get Back In The Fight',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 18,
+                'name' => 'Hunker Down',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 19,
+                'name' => 'Explosives Insight',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 20,
+                'name' => 'Electrical Insight',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 21,
+                'name' => 'Computing Insight',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 22,
+                'name' => 'Communications Insight',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 23,
+                'name' => 'Mechanical Insight',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 24,
+                'name' => 'Larceny Insight',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 25,
+                'name' => 'Medical Insight',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 26,
+                'name' => 'Interrogator',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 27,
+                'name' => 'Killing Blow',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 28,
+                'name' => 'Emergency Measures',
+                'description' => '',
+                'per_event' => 1
+            ],
+            [
+                'id' => 29,
+                'name' => 'Marksman',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 30,
+                'name' => 'Natural Resistance',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 31,
+                'name' => 'Negotiator',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 32,
+                'name' => 'Numb3rs',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 33,
+                'name' => 'Old College Professor',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 34,
+                'name' => 'On Your Feet Soldier',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 35,
+                'name' => 'Polyglot',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 36,
+                'name' => 'Technical Mentor',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 37,
+                'name' => 'Tick Tock Motherfucker',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 38,
+                'name' => 'Tomb Raider',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 39,
+                'name' => 'Torture Resistance',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 40,
+                'name' => 'Tracker',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 41,
+                'name' => 'We Have A Job To Do',
+                'description' => '',
+                'per_event' => 0
+            ],
+            [
+                'id' => 42,
+                'name' => 'Cryptographic Insight',
+                'description' => '',
+                'per_event' => 0
+            ],
         ]);
+
         // seed background feats
         DB::table('background_feat')->insert([
-            [1, 1],
-            [1, 2],
-            [1, 3],
-            [1, 4],
-            [1, 5],
-            [2, 1],
-            [2, 2],
-            [2, 3],
-            [2, 4],
-            [2, 5],
-            [3, 1],
-            [3, 2],
-            [3, 3],
-            [3, 4],
-            [3, 5],
+            [
+                'background_id' => 1,
+                'feat_id' => 1
+            ],
+            [
+                'background_id' => 1,
+                'feat_id' => 2
+            ],
+            [
+                'background_id' => 1,
+                'feat_id' => 3
+            ],
+            [
+                'background_id' => 1,
+                'feat_id' => 4
+            ],
+            [
+                'background_id' => 1,
+                'feat_id' => 5
+            ],
+            [
+                'background_id' => 2,
+                'feat_id' => 1
+            ],
+            [
+                'background_id' => 2,
+                'feat_id' => 2
+            ],
+            [
+                'background_id' => 2,
+                'feat_id' => 3
+            ],
+            [
+                'background_id' => 2,
+                'feat_id' => 4
+            ],
+            [
+                'background_id' => 2,
+                'feat_id' => 5
+            ],
+            [
+                'background_id' => 3,
+                'feat_id' => 1
+            ],
+            [
+                'background_id' => 3,
+                'feat_id' => 2
+            ],
+            [
+                'background_id' => 3,
+                'feat_id' => 3
+            ],
+            [
+                'background_id' => 3,
+                'feat_id' => 4
+            ],
+            [
+                'background_id' => 3,
+                'feat_id' => 5
+            ],
         ]);
+
         // seed skill feats
         DB::table('feat_skill')->insert([
-            [1, 9],
-            [2, 11],
-            [2, 42],
-            [3, 9],
-            [3, 20],
-            [4, 9],
-            [4, 19],
-            [5, 14],
-            [5, 24],
-            [6, 9],
-            [6, 23],
-            [7, 17],
-            [7, 25],
-            [8, 9],
-            [8, 22],
-            [9, 38],
-            [11, 3],
-            [12, 13],
-            [12, 30],
-            [14, 35],
-            [15, 37],
-            [16, 28],
-            [21, 32],
-            [22, 17],
-            [22, 37],
-            [24, 10],
-            [24, 34],
-            [27, 7],
-            [27, 8],
-            [28, 33],
-            [29, 40],
-            [30, 3],
-            [32, 7],
-            [33, 26],
-            [35, 41],
-            [36, 28],
-            [38, 31],
-            [42, 3],
-            [43, 13],
-            [43, 39],
-            [44, 16],
-            [60, 30],
-            [69, 40],
-            [71, 12],
-            [73, 27],
-            [73, 29],
-            [75, 18],
-            [76, 6],
-            [78, 10],
-            [78, 27],
-            [81, 10],
-            [82, 15],
-            [82, 27],
-            [87, 28],
-            [88, 36],
+            [
+                'skill_id' => 1,
+                'feat_id' => 9
+            ],
+            [
+                'skill_id' => 2,
+                'feat_id' => 11
+            ],
+            [
+                'skill_id' => 2,
+                'feat_id' => 42
+            ],
+            [
+                'skill_id' => 3,
+                'feat_id' => 9
+            ],
+            [
+                'skill_id' => 3,
+                'feat_id' => 20
+            ],
+            [
+                'skill_id' => 4,
+                'feat_id' => 9
+            ],
+            [
+                'skill_id' => 4,
+                'feat_id' => 19
+            ],
+            [
+                'skill_id' => 5,
+                'feat_id' => 14
+            ],
+            [
+                'skill_id' => 5,
+                'feat_id' => 24
+            ],
+            [
+                'skill_id' => 6,
+                'feat_id' => 9
+            ],
+            [
+                'skill_id' => 6,
+                'feat_id' => 23
+            ],
+            [
+                'skill_id' => 7,
+                'feat_id' => 17
+            ],
+            [
+                'skill_id' => 7,
+                'feat_id' => 25
+            ],
+            [
+                'skill_id' => 8,
+                'feat_id' => 9
+            ],
+            [
+                'skill_id' => 8,
+                'feat_id' => 22
+            ],
+            [
+                'skill_id' => 9,
+                'feat_id' => 38
+            ],
+            [
+                'skill_id' => 11,
+                'feat_id' => 3
+            ],
+            [
+                'skill_id' => 12,
+                'feat_id' => 13
+            ],
+            [
+                'skill_id' => 12,
+                'feat_id' => 30
+            ],
+            [
+                'skill_id' => 14,
+                'feat_id' => 35
+            ],
+            [
+                'skill_id' => 15,
+                'feat_id' => 37
+            ],
+            [
+                'skill_id' => 16,
+                'feat_id' => 28
+            ],
+            [
+                'skill_id' => 21,
+                'feat_id' => 32
+            ],
+            [
+                'skill_id' => 22,
+                'feat_id' => 17
+            ],
+            [
+                'skill_id' => 22,
+                'feat_id' => 37
+            ],
+            [
+                'skill_id' => 24,
+                'feat_id' => 10
+            ],
+            [
+                'skill_id' => 24,
+                'feat_id' => 34
+            ],
+            [
+                'skill_id' => 27,
+                'feat_id' => 7
+            ],
+            [
+                'skill_id' => 27,
+                'feat_id' => 8
+            ],
+            [
+                'skill_id' => 28,
+                'feat_id' => 33
+            ],
+            [
+                'skill_id' => 29,
+                'feat_id' => 40
+            ],
+            [
+                'skill_id' => 30,
+                'feat_id' => 3
+            ],
+            [
+                'skill_id' => 32,
+                'feat_id' => 7
+            ],
+            [
+                'skill_id' => 33,
+                'feat_id' => 26
+            ],
+            [
+                'skill_id' => 35,
+                'feat_id' => 41
+            ],
+            [
+                'skill_id' => 36,
+                'feat_id' => 28
+            ],
+            [
+                'skill_id' => 38,
+                'feat_id' => 31
+            ],
+            [
+                'skill_id' => 42,
+                'feat_id' => 3
+            ],
+            [
+                'skill_id' => 43,
+                'feat_id' => 13
+            ],
+            [
+                'skill_id' => 43,
+                'feat_id' => 39
+            ],
+            [
+                'skill_id' => 44,
+                'feat_id' => 16
+            ],
+            [
+                'skill_id' => 60,
+                'feat_id' => 30
+            ],
+            [
+                'skill_id' => 69,
+                'feat_id' => 40
+            ],
+            [
+                'skill_id' => 71,
+                'feat_id' => 12
+            ],
+            [
+                'skill_id' => 73,
+                'feat_id' => 27
+            ],
+            [
+                'skill_id' => 73,
+                'feat_id' => 29
+            ],
+            [
+                'skill_id' => 75,
+                'feat_id' => 18
+            ],
+            [
+                'skill_id' => 76,
+                'feat_id' => 6
+            ],
+            [
+                'skill_id' => 78,
+                'feat_id' => 10
+            ],
+            [
+                'skill_id' => 78,
+                'feat_id' => 27
+            ],
+            [
+                'skill_id' => 81,
+                'feat_id' => 10
+            ],
+            [
+                'skill_id' => 82,
+                'feat_id' => 15
+            ],
+            [
+                'skill_id' => 82,
+                'feat_id' => 27
+            ],
+            [
+                'skill_id' => 87,
+                'feat_id' => 28
+            ],
+            [
+                'skill_id' => 88,
+                'feat_id' => 36
+            ],
         ]);
     }
 }

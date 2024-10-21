@@ -27,7 +27,7 @@ return new class extends Migration
             $table->boolean('per_event')->default(false);
             $table->timestamps();
         });
-        Schema::create('skill_category', function (Blueprint $table) {
+        Schema::create('skill_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32);
             $table->smallInteger('cost');
@@ -47,17 +47,14 @@ return new class extends Migration
         Schema::create('discount_types', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32);
-            $table->timestamps();
         });
         Schema::create('log_types', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32);
-            $table->timestamps();
         });
         Schema::create('status', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32);
-            $table->timestamps();
         });
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
@@ -69,8 +66,6 @@ return new class extends Migration
             $table->smallInteger('specialties')->default(0);
             $table->foreignId('specialty_type_id')->nullable()->constrained();
             $table->boolean('repeatable')->default(false);
-            $table->foreignId('card_type_id')->nullable()->constrained();
-            $table->smallInteger('cards')->default(0);
             $table->smallInteger('body')->default(0);
             $table->smallInteger('vigor')->default(0);
             $table->timestamps();
@@ -136,22 +131,23 @@ return new class extends Migration
             $table->foreignId('background_id')->constrained();
             $table->text('history');
             $table->text('plot_notes');
-            $table->foreignId('status_id')->constrained();
+            $table->unsignedBigInteger('status');
             $table->timestamps();
+            $table->foreign('status')->references('id')->on('status');
         });
-        Schema::create('character_skill', function (Blueprint $table) {
+        Schema::create('character_skills', function (Blueprint $table) {
             $table->id();
             $table->foreignId('character_id')->constrained();
             $table->foreignId('skill_id')->constrained();
             $table->boolean('completed')->default(false);
             $table->boolean('discount_used')->default(false);
-            $table->bigInteger('discount_used_by')->nullable();
+            $table->unsignedBigInteger('discount_used_by')->nullable();
             $table->timestamps();
-            $table->foreign('discount_used_by')->references('id')->on('character_skill');
+            $table->foreign('discount_used_by')->references('id')->on('character_skills');
         });
         Schema::create('character_skill_skill_specialty', function (Blueprint $table) {
             $table->foreignId('character_skill_id')->constrained();
-            $table->bigInteger('skill_specialty_id');
+            $table->unsignedBigInteger('skill_specialty_id');
             $table->timestamps();
             $table->foreign('skill_specialty_id')->references('id')->on('skill_specialty');
         });
@@ -162,7 +158,7 @@ return new class extends Migration
             $table->foreignId('skill_id')->constrained();
             $table->smallInteger('amount_trained')->default(0);
             $table->boolean('locked')->default(false);
-            $table->bigInteger('teacher_id')->nullable();
+            $table->unsignedBigInteger('teacher_id')->nullable();
             $table->timestamps();
             $table->foreign('teacher_id')->references('id')->on('characters');
         });
