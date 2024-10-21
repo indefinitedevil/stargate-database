@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->smallInteger('body')->default(10);
             $table->smallInteger('vigor')->default(10);
+            $table->smallInteger('months')->default(36);
             $table->timestamps();
         });
         Schema::create('feats', function (Blueprint $table) {

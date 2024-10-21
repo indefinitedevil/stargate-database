@@ -13,8 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        (new BackgroundSeeder())->run();
-        (new SkillSeeder())->run();
-        (new FeatSeeder())->run();
+        $this->call([
+            BackgroundSeeder::class,
+            SkillSeeder::class,
+            FeatSeeder::class,
+        ]);
     }
 }
