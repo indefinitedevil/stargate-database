@@ -14,7 +14,7 @@ class BackgroundSeeder extends Seeder
     public function run(): void
     {
         // seed backgrounds
-        DB::table('backgrounds')->insert([
+        DB::table('backgrounds')->insertOrIgnore([
             [
                 'id' => 1,
                 'name' => 'Military',

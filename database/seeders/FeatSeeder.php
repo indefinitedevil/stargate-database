@@ -14,7 +14,7 @@ class FeatSeeder extends Seeder
     public function run(): void
     {
         // seed feats
-        DB::table('feats')->insert([
+        DB::table('feats')->insertOrIgnore([
             [
                 'id' => 1,
                 'name' => 'Dodge!',
@@ -270,7 +270,7 @@ class FeatSeeder extends Seeder
         ]);
 
         // seed background feats
-        DB::table('background_feat')->insert([
+        DB::table('background_feat')->insertOrIgnore([
             [
                 'background_id' => 1,
                 'feat_id' => 1
@@ -334,7 +334,7 @@ class FeatSeeder extends Seeder
         ]);
 
         // seed skill feats
-        DB::table('feat_skill')->insert([
+        DB::table('feat_skill')->insertOrIgnore([
             [
                 'skill_id' => 1,
                 'feat_id' => 9
