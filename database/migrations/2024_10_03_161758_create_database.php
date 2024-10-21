@@ -85,6 +85,7 @@ return new class extends Migration
             $table->foreignId('card_type_id')->constrained();
             $table->foreignId('skill_id')->constrained();
             $table->smallInteger('number');
+            $table->boolean('total')->default(true);
             $table->timestamps();
         });
         Schema::create('background_feat', function (Blueprint $table) {
@@ -115,9 +116,18 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('skill_id');
             $table->unsignedBigInteger('prereq_id');
+            $table->boolean('always_required')->default(false);
             $table->timestamps();
             $table->foreign('skill_id')->references('id')->on('skills');
             $table->foreign('prereq_id')->references('id')->on('skills');
+        });
+        Schema::create('skill_lockouts', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('skill_id');
+            $table->unsignedBigInteger('lockout_id');
+            $table->timestamps();
+            $table->foreign('skill_id')->references('id')->on('skills');
+            $table->foreign('lockout_id')->references('id')->on('skills');
         });
         Schema::create('characters', function (Blueprint $table) {
             $table->id();
@@ -141,8 +151,9 @@ return new class extends Migration
         });
         Schema::create('character_skill_skill_specialty', function (Blueprint $table) {
             $table->foreignId('character_skill_id')->constrained();
-            $table->foreignId('skill_specialty_id')->constrained();
+            $table->bigInteger('skill_specialty_id');
             $table->timestamps();
+            $table->foreign('skill_specialty_id')->references('id')->on('skill_specialty');
         });
         Schema::create('character_log', function (Blueprint $table) {
             $table->id();
