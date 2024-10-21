@@ -1232,6 +1232,7 @@ class SkillSeeder extends Seeder
 
     public function seedSkillSpecialties()
     {
+        // Archeo-anthropology
         DB::table('skill_specialty')->insertOrIgnore([
             [
                 'id' => 3,
@@ -1278,6 +1279,9 @@ class SkillSeeder extends Seeder
                 'name' => 'Native American',
                 'specialty_type_id' => 1,
             ],
+        ]);
+        // Medical
+        DB::table('skill_specialty')->insertOrIgnore([
             [
                 'id' => 10,
                 'name' => 'Cardiothoracic',
@@ -1308,6 +1312,9 @@ class SkillSeeder extends Seeder
                 'name' => 'Plastic Surgery',
                 'specialty_type_id' => 2,
             ],
+        ]);
+        // Linguistics
+        DB::table('skill_specialty')->insertOrIgnore([
             [
                 'id' => 21,
                 'name' => 'Arabic',
@@ -1403,6 +1410,9 @@ class SkillSeeder extends Seeder
                 'name' => 'Swedish',
                 'specialty_type_id' => 3,
             ],
+        ]);
+        // Mythology
+        DB::table('skill_specialty')->insertOrIgnore([
             [
                 'id' => 38,
                 'name' => 'Aztec/Mayan',
@@ -1431,6 +1441,46 @@ class SkillSeeder extends Seeder
             [
                 'id' => 36,
                 'name' => 'Norse',
+                'specialty_type_id' => 4,
+            ],
+            [
+                'id' => 41,
+                'name' => 'Japanese',
+                'specialty_type_id' => 4,
+            ],
+            [
+                'id' => 42,
+                'name' => 'Chinese',
+                'specialty_type_id' => 4,
+            ],
+            [
+                'id' => 43,
+                'name' => 'Native American',
+                'specialty_type_id' => 4,
+            ],
+            [
+                'id' => 44,
+                'name' => 'Aboriginal',
+                'specialty_type_id' => 4,
+            ],
+            [
+                'id' => 45,
+                'name' => 'Eastern European',
+                'specialty_type_id' => 4,
+            ],
+            [
+                'id' => 46,
+                'name' => 'Greco-Roman',
+                'specialty_type_id' => 4,
+            ],
+            [
+                'id' => 47,
+                'name' => 'Egyptian',
+                'specialty_type_id' => 4,
+            ],
+            [
+                'id' => 48,
+                'name' => 'Celtic',
                 'specialty_type_id' => 4,
             ],
         ]);
