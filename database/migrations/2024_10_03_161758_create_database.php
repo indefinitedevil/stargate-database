@@ -33,22 +33,27 @@ return new class extends Migration
             $table->boolean('scaling');
             $table->timestamps();
         });
-        Schema::create('specialty_type', function (Blueprint $table) {
+        Schema::create('specialty_types', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32);
             $table->timestamps();
         });
-        Schema::create('card_type', function (Blueprint $table) {
+        Schema::create('card_types', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32);
             $table->timestamps();
         });
-        Schema::create('discount_type', function (Blueprint $table) {
+        Schema::create('discount_types', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32);
             $table->timestamps();
         });
-        Schema::create('log_type', function (Blueprint $table) {
+        Schema::create('log_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 32);
+            $table->timestamps();
+        });
+        Schema::create('status', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32);
             $table->timestamps();
@@ -73,6 +78,12 @@ return new class extends Migration
             $table->id();
             $table->string('name', 32);
             $table->foreignId('specialty_type_id')->constrained();
+            $table->timestamps();
+        });
+        Schema::create('card_type_skill', function (Blueprint $table) {
+            $table->foreignId('card_type_id')->constrained();
+            $table->foreignId('skill_id')->constrained();
+            $table->smallInteger('number');
             $table->timestamps();
         });
         Schema::create('background_feat', function (Blueprint $table) {
@@ -107,13 +118,41 @@ return new class extends Migration
             $table->foreign('skill_id')->references('id')->on('skills');
             $table->foreign('prereq_id')->references('id')->on('skills');
         });
-        Schema::create('skill_lockouts', function (Blueprint $table) {
+        Schema::create('characters', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('skill_id');
-            $table->unsignedBigInteger('lockout_id');
+            $table->foreignId('player_id')->constrained();
+            $table->string('name', 64);
+            $table->foreignId('background_id')->constrained();
+            $table->text('history');
+            $table->text('plot_notes');
+            $table->foreignId('status_id')->constrained();
             $table->timestamps();
-            $table->foreign('skill_id')->references('id')->on('skills');
-            $table->foreign('lockout_id')->references('id')->on('skills');
+        });
+        Schema::create('character_skill', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('character_id')->constrained();
+            $table->foreignId('skill_id')->constrained();
+            $table->boolean('completed')->default(false);
+            $table->boolean('discount_used')->default(false);
+            $table->bigInteger('discount_used_by')->nullable();
+            $table->timestamps();
+            $table->foreign('discount_used_by')->references('id')->on('character_skill');
+        });
+        Schema::create('character_skill_skill_specialty', function (Blueprint $table) {
+            $table->foreignId('character_skill_id')->constrained();
+            $table->foreignId('skill_specialty_id')->constrained();
+            $table->timestamps();
+        });
+        Schema::create('character_log', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('character_id')->constrained();
+            $table->foreignId('log_type_id')->constrained();
+            $table->foreignId('skill_id')->constrained();
+            $table->smallInteger('amount_trained')->default(0);
+            $table->boolean('locked')->default(false);
+            $table->bigInteger('teacher_id')->nullable();
+            $table->timestamps();
+            $table->foreign('teacher_id')->references('id')->on('characters');
         });
     }
 
