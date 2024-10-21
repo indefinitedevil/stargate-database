@@ -13,8 +13,19 @@ class SkillSeeder extends Seeder
      */
     public function run(): void
     {
-        // seed skill categories
-        DB::table('skill_categories')->insert([
+        $this->seedSkillCategories();
+        $this->seedSkills();
+        $this->seedSkillSpecialties();
+        $this->seedSkillPrereqs();
+        $this->seedSkillLockouts();
+        $this->seedSkillDiscounts();
+        $this->seedCardSkills();
+        $this->seedBackgroundSkills();
+    }
+
+    public function seedSkillCategories()
+    {
+        DB::table('skill_categories')->insertOrIgnore([
             [
                 'id' => 1,
                 'name' => 'Technical',
@@ -52,9 +63,21 @@ class SkillSeeder extends Seeder
                 'scaling' => 0,
             ],
         ]);
+    }
 
-        // seed skills
-        DB::table('skills')->insert([
+    public function seedSkills()
+    {
+        $this->seedTechnicalSkills();
+        $this->seedSocialScienceSkills();
+        $this->seedComplexSkills();
+        $this->seedBasicSkills();
+        $this->seedCombatSkills();
+        $this->seedAlienSkills();
+    }
+
+    public function seedTechnicalSkills()
+    {
+        DB::table('skills')->upsert([
             [
                 'id' => 1,
                 'name' => 'Computing',
@@ -159,6 +182,23 @@ class SkillSeeder extends Seeder
                 'body' => 0,
                 'vigor' => 0,
             ],
+        ], 'id', [
+            'name',
+            'description',
+            'skill_category_id',
+            'upkeep',
+            'cost',
+            'specialties',
+            'specialty_type_id',
+            'repeatable',
+            'body',
+            'vigor',
+        ]);
+    }
+
+    public function seedSocialScienceSkills()
+    {
+        DB::table('skills')->upsert([
             [
                 'id' => 9,
                 'name' => 'Archeo-Anthropology',
@@ -328,6 +368,49 @@ class SkillSeeder extends Seeder
                 'body' => 0,
                 'vigor' => 0,
             ],
+            [
+                'id' => 86,
+                'name' => 'Physiology (B)',
+                'skill_category_id' => 2,
+                'description' => 'Discounted variant',
+                'upkeep' => 0,
+                'cost' => 3,
+                'specialties' => 0,
+                'specialty_type_id' => NULL,
+                'repeatable' => 0,
+                'body' => 0,
+                'vigor' => 0,
+            ],
+            [
+                'id' => 87,
+                'name' => 'Medical Doctor (B)',
+                'skill_category_id' => 2,
+                'description' => 'Discounted variant',
+                'upkeep' => 0,
+                'cost' => 3,
+                'specialties' => 0,
+                'specialty_type_id' => NULL,
+                'repeatable' => 0,
+                'body' => 0,
+                'vigor' => 0,
+            ],
+        ], 'id', [
+            'name',
+            'description',
+            'skill_category_id',
+            'upkeep',
+            'cost',
+            'specialties',
+            'specialty_type_id',
+            'repeatable',
+            'body',
+            'vigor',
+        ]);
+    }
+
+    public function seedComplexSkills()
+    {
+        DB::table('skills')->upsert([
             [
                 'id' => 22,
                 'name' => 'Armorer',
@@ -589,9 +672,39 @@ class SkillSeeder extends Seeder
                 'vigor' => 0,
             ],
             [
+                'id' => 88,
+                'name' => 'Subject Matter Expert',
+                'skill_category_id' => 3,
+                'description' => '',
+                'upkeep' => 0,
+                'cost' => 0,
+                'specialties' => 0,
+                'specialty_type_id' => NULL,
+                'repeatable' => 0,
+                'body' => 0,
+                'vigor' => 0,
+            ],
+        ], 'id', [
+            'name',
+            'description',
+            'skill_category_id',
+            'upkeep',
+            'cost',
+            'specialties',
+            'specialty_type_id',
+            'repeatable',
+            'body',
+            'vigor',
+        ]);
+    }
+
+    public function seedBasicSkills()
+    {
+        DB::table('skills')->upsert([
+            [
                 'id' => 44,
                 'name' => 'Test Pilot',
-                'skill_category_id' => 3,
+                'skill_category_id' => 4,
                 'description' => '',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -939,6 +1052,23 @@ class SkillSeeder extends Seeder
                 'body' => 0,
                 'vigor' => 0,
             ],
+        ], 'id', [
+            'name',
+            'description',
+            'skill_category_id',
+            'upkeep',
+            'cost',
+            'specialties',
+            'specialty_type_id',
+            'repeatable',
+            'body',
+            'vigor',
+        ]);
+    }
+
+    public function seedCombatSkills()
+    {
+        DB::table('skills')->upsert([
             [
                 'id' => 73,
                 'name' => 'Accuracy Training',
@@ -1082,49 +1212,27 @@ class SkillSeeder extends Seeder
                 'body' => 0,
                 'vigor' => 0,
             ],
-            [
-                'id' => 86,
-                'name' => 'Physiology (B)',
-                'skill_category_id' => 2,
-                'description' => 'Discounted variant',
-                'upkeep' => 0,
-                'cost' => 3,
-                'specialties' => 0,
-                'specialty_type_id' => NULL,
-                'repeatable' => 0,
-                'body' => 0,
-                'vigor' => 0,
-            ],
-            [
-                'id' => 87,
-                'name' => 'Medical Doctor (B)',
-                'skill_category_id' => 2,
-                'description' => 'Discounted variant',
-                'upkeep' => 0,
-                'cost' => 3,
-                'specialties' => 0,
-                'specialty_type_id' => NULL,
-                'repeatable' => 0,
-                'body' => 0,
-                'vigor' => 0,
-            ],
-            [
-                'id' => 88,
-                'name' => 'Subject Matter Expert',
-                'skill_category_id' => 3,
-                'description' => '',
-                'upkeep' => 0,
-                'cost' => 0,
-                'specialties' => 0,
-                'specialty_type_id' => NULL,
-                'repeatable' => 0,
-                'body' => 0,
-                'vigor' => 0,
-            ],
+        ], 'id', [
+            'name',
+            'description',
+            'skill_category_id',
+            'upkeep',
+            'cost',
+            'specialties',
+            'specialty_type_id',
+            'repeatable',
+            'body',
+            'vigor',
         ]);
+    }
 
-        // seed skill specialties
-        DB::table('skill_specialty')->insert([
+    public function seedAlienSkills()
+    {
+    }
+
+    public function seedSkillSpecialties()
+    {
+        DB::table('skill_specialty')->insertOrIgnore([
             [
                 'id' => 3,
                 'name' => 'Celtic',
@@ -1326,9 +1434,11 @@ class SkillSeeder extends Seeder
                 'specialty_type_id' => 4,
             ],
         ]);
+    }
 
-        // seed skill prereqs
-        DB::table('skill_prereqs')->insert([
+    public function seedSkillPrereqs()
+    {
+        DB::table('skill_prereqs')->insertOrIgnore([
             [
                 'skill_id' => 16,
                 'prereq_id' => 7,
@@ -1410,9 +1520,11 @@ class SkillSeeder extends Seeder
                 'always_required' => 0,
             ],
         ]);
+    }
 
-        // seed skill lockouts
-        DB::table('skill_lockouts')->insert([
+    public function seedSkillLockouts()
+    {
+        DB::table('skill_lockouts')->insertOrIgnore([
             [
                 'skill_id' => 16,
                 'lockout_id' => 18,
@@ -1430,9 +1542,11 @@ class SkillSeeder extends Seeder
                 'lockout_id' => 86,
             ],
         ]);
+    }
 
-        // seed skill discounts
-        DB::table('skill_discounts')->insert([
+    public function seedSkillDiscounts()
+    {
+        DB::table('skill_discounts')->insertOrIgnore([
             [
                 'discounting_skill' => 46,
                 'discounted_skill' => 13,
@@ -1529,9 +1643,11 @@ class SkillSeeder extends Seeder
                 'discount' => 3,
             ],
         ]);
+    }
 
-        // seed skill cards
-        DB::table('card_type_skill')->insert([
+    public function seedCardSkills()
+    {
+        DB::table('card_type_skill')->insertOrIgnore([
             [
                 'skill_id' => 1,
                 'card_type_id' => 1,
@@ -1665,9 +1781,11 @@ class SkillSeeder extends Seeder
                 'total' => 1,
             ],
         ]);
+    }
 
-        // seed background skills
-        DB::table('background_skill')->insert([
+    public function seedBackgroundSkills()
+    {
+        DB::table('background_skill')->insertOrIgnore([
             [
                 'background_id' => 1,
                 'skill_id' => 71,
