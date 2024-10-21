@@ -13,8 +13,14 @@ class FeatSeeder extends Seeder
      */
     public function run(): void
     {
-        // seed feats
-        DB::table('feats')->insertOrIgnore([
+        $this->seedFeats();
+        $this->seedBackgroundFeats();
+        $this->seedSkillFeats();
+    }
+
+    public function seedFeats()
+    {
+        DB::table('feats')->upsert([
             [
                 'id' => 1,
                 'name' => 'Dodge!',
@@ -267,10 +273,17 @@ class FeatSeeder extends Seeder
                 'description' => '',
                 'per_event' => 0
             ],
+        ], 'id', [
+            'name',
+            'description',
+            'per_event',
         ]);
+    }
 
-        // seed background feats
-        DB::table('background_feat')->insertOrIgnore([
+    public function seedBackgroundFeats()
+    {
+        DB::table('background_feat')->truncate();
+        DB::table('background_feat')->insert([
             [
                 'background_id' => 1,
                 'feat_id' => 1
@@ -332,9 +345,12 @@ class FeatSeeder extends Seeder
                 'feat_id' => 5
             ],
         ]);
+    }
 
-        // seed skill feats
-        DB::table('feat_skill')->insertOrIgnore([
+    public function seedSkillFeats()
+    {
+        DB::table('feat_skill')->truncate();
+        DB::table('feat_skill')->insert([
             [
                 'skill_id' => 1,
                 'feat_id' => 9
@@ -445,11 +461,11 @@ class FeatSeeder extends Seeder
             ],
             [
                 'skill_id' => 27,
-                'feat_id' => 7
+                'feat_id' => 8
             ],
             [
                 'skill_id' => 27,
-                'feat_id' => 8
+                'feat_id' => 15
             ],
             [
                 'skill_id' => 28,
