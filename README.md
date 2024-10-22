@@ -32,6 +32,6 @@ It is seeded with tables representing the rules.
 
 ## Contributing
 
-You can set up pull requests to contribute to this project.
-
 A useful focus for contributions at the moment would be filling in the description fields for feats and skills in `database/seeders`.
+
+Once the GUI is in place, testing it and raising issues would be appreciated.
