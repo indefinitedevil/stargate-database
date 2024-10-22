@@ -48,6 +48,7 @@ class TypeSeeder extends Seeder
             ['id' => 1, 'name' => 'New'],
             ['id' => 2, 'name' => 'Played'],
             ['id' => 3, 'name' => 'Dead'],
+            ['id' => 4, 'name' => 'Retired'],
         ]);
     }
 }

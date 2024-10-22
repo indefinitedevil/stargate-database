@@ -18,259 +18,347 @@ class FeatSeeder extends Seeder
         $this->seedSkillFeats();
     }
 
+    /**
+     * Feat descriptions last updated with Season Two V1.1 by Ki 2024-10-22
+     */
     public function seedFeats()
     {
+        $insightDescription = 'You can use this feat to automatically solve one problem card from a skill game that you are attempting of the appropriate type (with a time of 0). You must state that you are using this feat before the problem solving has begun and indicate which card it is to be used on before any are revealed - and only one feat of this type can be used per problem (no matter how many people are helping with the problem).
+
+This feat can **also** be used to select an additional card from your deck to attempt to solve a problem. You can use one extra card, (selected at random), from those in your deck that are not in your hand. You can declare this at any time during the problem card game, and it does not have to be declared before the game begins. This may be used by a Technical Mentor joining the game. There is no limit to this use of the feat, however you **_must_** be able to physrep the additional card you have drawn.';
         DB::table('feats')->upsert([
             [
                 'id' => 1,
                 'name' => 'Dodge!',
-                'description' => '',
+                'description' => 'This enables the character to dodge out of harm\'s way and take less damage from a blow. This feat negates one full damage call, and you and anything you are carrying take no damage or effects.
+
+The exception to this is the Lethal call – used in response to a call of Lethal, this feat immediately restores you to 1 Body.',
                 'per_event' => 0
             ],
             [
                 'id' => 2,
                 'name' => 'Die Hard',
-                'description' => '',
+                'description' => 'Providing you are above zero Body, you refresh Body to your current maximum. This feat has a 10 minute \'cooldown\' between uses.
+
+This feat cannot be used whilst you are inside the 10 minute cooldown period of Get Back in The Fight.',
                 'per_event' => 0
             ],
             [
                 'id' => 3,
                 'name' => 'Flash of Insight',
-                'description' => '',
+                'description' => 'The player may request a hint as to how to approach or solve a particular problem. This may be used as a form of \'Spider Sense\' (ref\'s discretion). You may be asked if you want to use this feat by a ref in certain situations.
+This feat costs 2 Vigor unless you have a skill that is relevant to the problem. Skills which grant a discount on this feat are listed in the Skill Description. This discount may also be granted at the discretion of the Event Referee.',
                 'per_event' => 0
             ],
             [
                 'id' => 4,
                 'name' => 'Total Focus',
-                'description' => '',
+                'description' => 'This can be used for a character to continue a non-combat task after time-out. They can receive their results at time-in the following morning.
+
+In the case of a 24-hour event this may be used for a player to go out of character to sleep, while their character continues their non-combat task.
+
+This feat costs zero Vigor to use, however it prevents your Vigor track from refreshing back up to full overnight.',
                 'per_event' => 0
             ],
             [
                 'id' => 5,
                 'name' => 'Last Heroic Act',
-                'description' => '',
+                'description' => 'This feat allows you to carry out a final heroic action and lasts for up to 5 minutes, or until the action is completed (if shorter). The feat can only be used for "heroic" actions. These should be selfless in nature such as protecting others at the cost of your own life. Selfish actions such as carrying out revenge may not benefit from this feat.
+
+Whilst under the effects of this feat you may ignore all damage and all restraining calls and ignore the effects on any previously opened wound cards. You also immediately gain all combat skills. Once the feat has run its duration you become Terminal, and this cannot be changed by any means. Your character either dies, or is for some appropriate reason no longer able to serve with the SEF and must be retired.
+
+**THIS FEAT MAY BE USED EVEN WHEN YOU HAVE ZERO VIGOR.**',
                 'per_event' => 0
             ],
             [
                 'id' => 6,
                 'name' => 'All Guns Blazing',
-                'description' => '',
+                'description' => 'For five minutes after using this feat, the player is not required to roleplay changing their magazine.
+
+Only weapons with the All Guns Blazing trait can be used with this feat.',
                 'per_event' => 0
             ],
             [
                 'id' => 7,
                 'name' => 'A Very Distinctive...',
-                'description' => '',
+                'description' => 'You may use this feat to gain an insight into the motivations and allegiance of a group or an individual you are observing. For this feat you should use the call "Very Distinctive X" where X can be stance/boots/sound/watch/tattoo etc. E.g. "That guy works for the Yakuza, you can tell by their Very Distinctive tattoos".',
                 'per_event' => 0
             ],
             [
                 'id' => 8,
                 'name' => 'Bodyguard',
-                'description' => '',
+                'description' => 'You can nominate an attack that would normally hit another person or object (within 10 feet of you) to hit you instead. You cannot avoid this damage by any means.',
                 'per_event' => 0
             ],
             [
                 'id' => 9,
                 'name' => 'Botch Job',
-                'description' => '',
+                'description' => 'Within reason (ref\'s discretion), you improvise with what you have and immediately solve a skill game card problem.
+
+The device will only work for 1 scene before it breaks down again. Future attempts to fix the problem will have +1 problem card added to the skill game unless it is a Demolitions problem. If this feat is used on a Demolition Skill Game, the device detonates at the end of the scene.',
                 'per_event' => 0
             ],
             [
                 'id' => 10,
                 'name' => 'Cat-like Reflexes',
-                'description' => '',
+                'description' => 'You can ignore calls of Knockback, Mass Knockback, and Global Knockback for five minutes. Call "Resist" to any subsequent calls during this time.',
                 'per_event' => 0
             ],
             [
                 'id' => 11,
                 'name' => 'Codebreaker',
-                'description' => '',
+                'description' => 'You may spend one point of Vigor to decode a specific word in a Ciphers problem, without attempting the attendant Skill Card Game.',
                 'per_event' => 0
             ],
             [
                 'id' => 12,
                 'name' => 'Cauterise',
-                'description' => '',
+                'description' => 'AKA "Don’t Have Time To Bleed."
+
+This feat negates a bleed effect on yourself or another character.',
                 'per_event' => 0
             ],
             [
                 'id' => 13,
                 'name' => 'Drug Resistance',
-                'description' => '',
+                'description' => 'The character can resist the effects of a drug that has entered into their system for up to five minutes per point of Vigor spent.
+
+This must be role-played, as the effects of the drug are slowly creeping up on the character.',
                 'per_event' => 0
             ],
             [
                 'id' => 14,
                 'name' => 'Escape Artist',
-                'description' => '',
+                'description' => 'You are an expert at twisting and turning your way out of bonds. You may use this skill to escape from being tied up. At referee\'s discretion this may allow you to help with movement in a confined space.',
                 'per_event' => 0
             ],
             [
                 'id' => 15,
                 'name' => 'Firm Grip',
-                'description' => '',
+                'description' => 'This feat negates a call of "Disarm" called against your character.',
                 'per_event' => 0
             ],
             [
                 'id' => 16,
                 'name' => 'Fly It Like You Stole It',
-                'description' => '',
+                'description' => 'After five minutes of familiarising yourself with a craft for which you do not possess the relevant Alien Technology Skill, you may spend Vigor to fly the craft as normal.
+
+Basic Alien Craft cost 2 Vigor to operate. More Complex Craft may have an increased Vigor Cost, or increased familiarisation time at the Event Referee\'s discretion.
+
+You may spend additional points of Vigor to reduce the time needed to use this ability, at a rate of 1 Vigor per five minutes, to a minimum of 30 seconds.',
                 'per_event' => 0
             ],
             [
                 'id' => 17,
                 'name' => 'Get Back In The Fight',
-                'description' => '',
+                'description' => 'Providing they are above Zero Body, a target character you select regains Body to their current maximum. This feat may not be used on yourself.
+
+This feat breaks Stun and Paralysis.
+
+This feat has a 10 minute cooldown between uses on the same target. This feat has no effect on someone inside their cooldown period from using Die Hard, and your Vigor is refunded in such an instance.',
                 'per_event' => 0
             ],
             [
                 'id' => 18,
                 'name' => 'Hunker Down',
-                'description' => '',
+                'description' => 'AKA "Got Time to Duck?"
+
+If you are carrying an appropriately modern shield physrep, you may stand still and call this feat. Until you move again, your shield counts as standard cover for you and one other person within five feet.',
                 'per_event' => 0
             ],
             [
                 'id' => 19,
                 'name' => 'Explosives Insight',
-                'description' => '',
+                'description' => $insightDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 20,
                 'name' => 'Electrical Insight',
-                'description' => '',
+                'description' => $insightDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 21,
                 'name' => 'Computing Insight',
-                'description' => '',
+                'description' => $insightDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 22,
                 'name' => 'Communications Insight',
-                'description' => '',
+                'description' => $insightDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 23,
                 'name' => 'Mechanical Insight',
-                'description' => '',
+                'description' => $insightDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 24,
                 'name' => 'Larceny Insight',
-                'description' => '',
+                'description' => $insightDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 25,
                 'name' => 'Medical Insight',
-                'description' => '',
+                'description' => $insightDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 26,
                 'name' => 'Interrogator',
-                'description' => '',
+                'description' => 'After five minutes of roleplay with someone, or observing someone else doing so, this feat compels a target over which you hold a position of authority to truthfully answer questions put to them.
+
+Some (non-exhaustive) examples of positions of authority:
+- A criminal has been captured and placed under arrest.
+- A Senior Officer is asking questions about a previous mission.
+- A lawyer is cross-examining a witness.
+
+Using this feat costs 2 Vigor.
+
+NOTE: Holding your gun to someone\'s head is a threat, not a position of authority. While an interrogation scene may involve enhanced techniques with the OC consent of all involved, this is not the primary or only way to make use of this feat.',
                 'per_event' => 0
             ],
             [
                 'id' => 27,
                 'name' => 'Killing Blow',
-                'description' => '',
+                'description' => 'This feat allows you to make either the Lethal or Sleep call against a Stunned, Unconscious, restrained. or unresisting target.
+
+This can be called with any weapon, including unarmed strikes. This is a close quarter skill and requires you to be within five feet of the target in order to use this call.
+
+Note: For monstrous/non-humanoid creatures, a visible weak spot must be present for them to be a valid target.
+
+This feat **cannot** be given to an NPC without approval from the System Referees.',
                 'per_event' => 0
             ],
             [
                 'id' => 28,
                 'name' => 'Emergency Measures',
-                'description' => '',
+                'description' => 'Once per Event, you may choose to complete 1 Surgical Procedure caused by a wound card in 60 seconds. This may be used at any time, including when a surgery would otherwise fail. Mechanically, this counts as solving all Problem Cards and Complications presented by the Procedure. This must be roleplayed by performing some sort of dramatic and non-standard medical solution.',
                 'per_event' => 1
             ],
             [
                 'id' => 29,
                 'name' => 'Marksman',
-                'description' => '',
+                'description' => 'This feat allows you to make the Lethal call when using ranged weapons with the Accurate trait.
+Before making a call of Lethal, you must spend 15 seconds bracing and aiming a ranged weapon. During this period you cannot make any other calls, use any other feats, or move faster than a slow walking pace. Taking any other actions resets your count. Taking damage, however, does not reset your count.
+
+Certain weapons will reduce this time to 10 or even 5 seconds - See the Personal Weapon Systems and Heavy Weapons tables for details.
+
+This feat **cannot** be given to an NPC without approval from the System Referees.',
                 'per_event' => 0
             ],
             [
                 'id' => 30,
                 'name' => 'Natural Resistance',
-                'description' => '',
+                'description' => 'The character can resist the effects of any one natural toxin or disease.
+
+Note: Although you are resistant to the toxin or disease you still get some symptoms and should roleplay a reduced effect. (Even if you won\'t die or take damage from the source).
+
+This Feat costs 1 Vigor to use, which remains \'spent\' and does not refresh until you are cured of the disease. Some diseases that can be found on other planets may not be resisted. If this is the case, the Event Referee will inform you when you spend the feat, and your Vigor is refunded.',
                 'per_event' => 0
             ],
             [
                 'id' => 31,
                 'name' => 'Negotiator',
-                'description' => '',
+                'description' => 'Providing there has been no combat in the last 10 seconds, a character may force a target to listen to them. This target must listen and make no offensive moves against the character or their allies.
+
+The target does not need to be swayed by the character.
+
+The effect will end after 5 minutes OR if a referee believes the negotiations have broken down or failed OR if the target is attacked.
+
+You may spend multiple points of Vigor to affect multiple targets in a group, but if the effect ends on any target it ends for all affected.',
                 'per_event' => 0
             ],
             [
                 'id' => 32,
                 'name' => 'Numb3rs',
-                'description' => '',
+                'description' => 'This feat allows you to use mathematical modelling to assist in solving problems. You may spend this feat when working on or assisting on any Technical Skill Game to reduce the time on the solution cards by 10%. You may use this feat even on Skill Games you do not have the relevant Technology Skill for, and do not count towards the two player per problem limit **unless** you play a solution card',
                 'per_event' => 0
             ],
             [
                 'id' => 33,
                 'name' => 'Old College Professor',
-                'description' => '',
+                'description' => 'You may act as though you have a non-Alien, non-Combat skill you don\'t have for the solution of one particular problem. This does not confer any cards, feats, or special abilities. You need to roleplay where the knowledge of this skill has come from.',
                 'per_event' => 0
             ],
             [
                 'id' => 34,
                 'name' => 'On Your Feet Soldier',
-                'description' => '',
+                'description' => 'Using your skill and appropriate PhysReps, (bandages or dressings etc.), you can cause an otherwise **WOUNDED** character (a character who is at Zero Body) to be able to run with your assistance.
+
+This feat ends when you are no longer in physical contact with the player OR up to a maximum of five minutes, whichever is shorter.
+
+During this time, the player is no longer Bleeding, but cannot use Skills or any weapons other than Pistols.
+
+This feat breaks Stun and Paralysis.
+
+Once the effect of this feat ends, if the character has not been stabilised, they begin bleeding again.',
                 'per_event' => 0
             ],
             [
                 'id' => 35,
                 'name' => 'Polyglot',
-                'description' => '',
+                'description' => 'You can pick up languages extremely quickly. You may identify the base roots of an Alien language, and spend 1 Vigor per Scene to speak it. After a period of time interacting with an Alien Culture this cost may be waived by the Event Referee at their discretion.',
                 'per_event' => 0
             ],
             [
                 'id' => 36,
                 'name' => 'Technical Mentor',
-                'description' => '',
+                'description' => 'You, or another player you designate, can now play a card on a problem which is already being worked on by two people.
+
+Only one additional card may be played on a problem, and once a Mentor card has been played on a problem, no-one else can use Technical Mentor on that problem.',
                 'per_event' => 0
             ],
             [
                 'id' => 37,
                 'name' => 'Tick Tock Motherfucker',
-                'description' => '',
+                'description' => 'Use of this feat reduces the time required to deploy a pre-made explosive with the bomb trait (claymore, IED etc) to 30 seconds.',
                 'per_event' => 0
             ],
             [
                 'id' => 38,
                 'name' => 'Tomb Raider',
-                'description' => '',
+                'description' => 'You can study an ancient artefact outside of your specialty area and after a period of time (ref\'s discretion) you can identify pertinent and relevant information.',
                 'per_event' => 0
             ],
             [
                 'id' => 39,
                 'name' => 'Torture Resistance',
-                'description' => '',
+                'description' => 'This feat allows you to:
+- Ignore the effects of torture or the feats \'Interrogator\' and \'Negotiator\' for one scene.
+- If you have been affected by alien mind control, you may resist and break out of the mind control for 5 minutes.
+- Reduce Stun and Paralyse time from 30 and 10 seconds to 0 seconds and grants immunity to further Stun or Paralyse calls for another 60 seconds.
+
+Note: This does not work on Psychology Challenges.',
                 'per_event' => 0
             ],
             [
                 'id' => 40,
                 'name' => 'Tracker',
-                'description' => '',
+                'description' => 'You can track by asking the referee for details about local tracks and which direction they lead. Following tracks must be done slowly. You can find out the number of individuals that have gone past, the type, (bipedal, quadruped), and approximate size. You can also get a sense of the speed of movement.',
                 'per_event' => 0
             ],
             [
                 'id' => 41,
                 'name' => 'We Have A Job To Do',
-                'description' => '',
+                'description' => 'Through calls of encouragement/a speech the user inspires all friendly personnel who can hear, restoring their Vigor to their maximum or to 10, whichever is lower.
+
+This feat can only be used once per scene.
+
+Once affected by this feat (from anyone), you cannot be affected by another "We Have A Job To Do" feat in the same scene.
+
+**This feat does not affect the character who made the call.**',
                 'per_event' => 0
             ],
             [
                 'id' => 42,
                 'name' => 'Cryptographic Insight',
-                'description' => '',
+                'description' => $insightDescription,
                 'per_event' => 0
             ],
         ], 'id', [

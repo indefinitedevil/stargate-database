@@ -30,7 +30,7 @@ It is seeded with tables representing the rules.
 - [ ] Add GUI for character viewing
 - [ ] Add GUI for log viewing
 - [ ] Add skill descriptions
-- [ ] Add feat descriptions
+- [x] ~~Add feat descriptions~~ - Ki
 - [ ] Add user registration system
 - [ ] Add permissions system
 
@@ -43,6 +43,6 @@ It is seeded with tables representing the rules.
 
 ## Contributing
 
-A useful focus for contributions at the moment would be filling in the description fields for feats and skills in `database/seeders`.
+A useful focus for contributions at the moment would be filling in the description fields for skills in `database/seeders`.
 
 Once the GUI is in place, testing it and raising issues would be appreciated.
