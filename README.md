@@ -18,10 +18,11 @@ It is seeded with tables representing the rules.
 1. Bob trains Cryptography in downtime
 2. This creates a `character_skills` entry for Bob's character to show that Bob is learning it
 3. This also creates a `character_logs` entry for the training with the details of the training (months spent, whether there was a trainer, etc)
-4. If this training entry results in Cryptography being completed, the `character_skills` entry is updated to reflect this
-5. Completed entries in `character_skills` are then consolidated into the character's current state
-6. Bob's Cryptography card count is based off of the total of cards available from all skills that have Cryptography cards (as per `card_type_skill` table) that are not basic skills (determined by the `total` column)
-7. Because Cryptography offers Cryptographic Insight, that is also added to Bob's character
+4. As a scaling skill, the total cost is determined by the number of entries from the `character_skills` table in the same category that are `completed = true`
+5. If this training entry results in Cryptography being completed, the `character_skills` entry is updated to reflect this
+6. Completed entries in `character_skills` are then consolidated into the character's current state
+7. Bob's Cryptography card count is based off of the total of cards available from all skills that have Cryptography cards (as per `card_type_skill` table) that are not basic skills (determined by the `total` column)
+8. Because Cryptography offers Cryptographic Insight, that is also added to Bob's character
 
 ## Installation
 
