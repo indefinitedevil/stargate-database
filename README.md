@@ -3,7 +3,7 @@
 This is a Laravel application designed to serve as an initial model for the Stargate LARP Season 2 character database.
 It is seeded with tables representing the rules.
 
-- Up to date with rules v1.1
+- Up to date with S2 rules v1.1 mechanics
 
 ## Design Intent
 
@@ -30,7 +30,7 @@ It is seeded with tables representing the rules.
 - [ ] Add GUI for character viewing
 - [ ] Add GUI for log viewing
 - [ ] Add skill descriptions
-- [x] ~~Add feat descriptions~~ - Ki
+- [x] ~~Add feat descriptions~~ - Ki 2024-10-22
 - [ ] Add user registration system
 - [ ] Add permissions system
 
@@ -43,6 +43,6 @@ It is seeded with tables representing the rules.
 
 ## Contributing
 
-A useful focus for contributions at the moment would be filling in the description fields for skills in `database/seeders`.
+A useful focus for contributions at the moment would be filling in the description fields for skills in `database/seeders`. Markdown will be available.
 
 Once the GUI is in place, testing it and raising issues would be appreciated.
