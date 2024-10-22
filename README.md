@@ -24,6 +24,16 @@ It is seeded with tables representing the rules.
 7. Bob's Cryptography card count is based off of the total of cards available from all skills that have Cryptography cards (as per `card_type_skill` table) that are not basic skills (determined by the `total` column)
 8. Because Cryptography offers Cryptographic Insight, that is also added to Bob's character
 
+### To-do
+
+- [ ] Add GUI for character creation and editing
+- [ ] Add GUI for character viewing
+- [ ] Add GUI for log viewing
+- [ ] Add skill descriptions
+- [ ] Add feat descriptions
+- [ ] Add user registration system
+- [ ] Add permissions system
+
 ## Installation
 
 1. Clone the repository
