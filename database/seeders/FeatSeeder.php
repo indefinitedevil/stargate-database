@@ -26,6 +26,7 @@ class FeatSeeder extends Seeder
         $insightDescription = 'You can use this feat to automatically solve one problem card from a skill game that you are attempting of the appropriate type (with a time of 0). You must state that you are using this feat before the problem solving has begun and indicate which card it is to be used on before any are revealed - and only one feat of this type can be used per problem (no matter how many people are helping with the problem).
 
 This feat can **also** be used to select an additional card from your deck to attempt to solve a problem. You can use one extra card, (selected at random), from those in your deck that are not in your hand. You can declare this at any time during the problem card game, and it does not have to be declared before the game begins. This may be used by a Technical Mentor joining the game. There is no limit to this use of the feat, however you **_must_** be able to physrep the additional card you have drawn.';
+
         DB::table('feats')->upsert([
             [
                 'id' => 1,
@@ -47,6 +48,7 @@ This feat cannot be used whilst you are inside the 10 minute cooldown period of 
                 'id' => 3,
                 'name' => 'Flash of Insight',
                 'description' => 'The player may request a hint as to how to approach or solve a particular problem. This may be used as a form of \'Spider Sense\' (ref\'s discretion). You may be asked if you want to use this feat by a ref in certain situations.
+
 This feat costs 2 Vigor unless you have a skill that is relevant to the problem. Skills which grant a discount on this feat are listed in the Skill Description. This discount may also be granted at the discretion of the Event Referee.',
                 'per_event' => 0
             ],

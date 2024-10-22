@@ -18,7 +18,7 @@ class BackgroundSeeder extends Seeder
             [
                 'id' => 1,
                 'name' => 'Military',
-                'description' => 'You are a serving member of a NATO or Allied Armed Force. You have a particular area of expertise which is why you have been assigned to the program.. Bringing your specialist skills and combat expertise to the SEF you can work under heavy fire on alien planets.',
+                'description' => 'You are a serving member of a NATO or Allied Armed Force. You have a particular area of expertise which is why you have been assigned to the program. Bringing your specialist skills and combat expertise to the SEF you can work under heavy fire on alien planets.',
                 'body' => 10,
                 'vigor' => 10,
                 'months' => 36,
