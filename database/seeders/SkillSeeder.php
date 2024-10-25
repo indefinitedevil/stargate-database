@@ -1455,7 +1455,7 @@ class SkillSeeder extends Seeder
             ],
             [
                 'id' => 43,
-                'name' => 'Native American',
+                'name' => 'Indo-Aryan',
                 'specialty_type_id' => 4,
             ],
             [
@@ -1488,6 +1488,7 @@ class SkillSeeder extends Seeder
 
     public function seedSkillPrereqs()
     {
+        DB::table('skill_prereqs')->truncate();
         DB::table('skill_prereqs')->insertOrIgnore([
             [
                 'skill_id' => 16,
@@ -1574,6 +1575,7 @@ class SkillSeeder extends Seeder
 
     public function seedSkillLockouts()
     {
+        DB::table('skill_lockouts')->truncate();
         DB::table('skill_lockouts')->insertOrIgnore([
             [
                 'skill_id' => 16,
@@ -1596,6 +1598,7 @@ class SkillSeeder extends Seeder
 
     public function seedSkillDiscounts()
     {
+        DB::table('skill_discounts')->truncate();
         DB::table('skill_discounts')->insertOrIgnore([
             [
                 'discounting_skill' => 46,
@@ -1697,6 +1700,7 @@ class SkillSeeder extends Seeder
 
     public function seedCardSkills()
     {
+        DB::table('card_type_skill')->truncate();
         DB::table('card_type_skill')->insertOrIgnore([
             [
                 'skill_id' => 1,
@@ -1835,6 +1839,7 @@ class SkillSeeder extends Seeder
 
     public function seedBackgroundSkills()
     {
+        DB::table('background_skill')->truncate();
         DB::table('background_skill')->insertOrIgnore([
             [
                 'background_id' => 1,
