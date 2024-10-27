@@ -363,6 +363,14 @@ Once affected by this feat (from anyone), you cannot be affected by another "We 
                 'description' => $insightDescription,
                 'per_event' => 0
             ],
+            [
+                'id' => 43,
+                'name' => 'Basic Insight',
+                'description' => 'This feat applies to Basic skills that provide cards.
+
+' . $insightDescription,
+                'per_event' => 0
+            ],
         ], 'id', [
             'name',
             'description',
@@ -660,6 +668,10 @@ Once affected by this feat (from anyone), you cannot be affected by another "We 
             [
                 'skill_id' => 88,
                 'feat_id' => 36
+            ],
+            [
+                'skill_id' => 88,
+                'feat_id' => 43
             ],
         ]);
     }
