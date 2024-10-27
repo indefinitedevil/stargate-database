@@ -2,12 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * @property Background background
+ * @property Collection skills
+ * @property Collection trainedSkills
+ * @property Collection displayedTrainedSkills
+ * @property Collection hiddenTrainedSkills
+ * @property Collection trainingSkills
+ * @property Feat[] feats
+ * @property int body
+ * @property int vigor
+ * @property Object[] cards
+ */
 class Character extends Model
 {
     use HasFactory;
@@ -29,15 +42,23 @@ class Character extends Model
             ->orderBy('skills.name');
     }
 
-    public function trainedSkills() {
+    public function trainedSkills(): HasMany
+    {
         return $this->skills()->where('completed', true);
     }
 
-    public function displayedTrainedSkills() {
+    public function displayedTrainedSkills(): HasMany
+    {
         return $this->trainedSkills()->where('skills.display', true);
     }
 
-    public function trainingSkills() {
+    public function hiddenTrainedSkills(): HasMany
+    {
+        return $this->trainedSkills()->where('skills.display', false);
+    }
+
+    public function trainingSkills(): HasMany
+    {
         return $this->skills()->where('completed', false);
     }
 
@@ -53,7 +74,8 @@ class Character extends Model
         return $feats;
     }
 
-    public function getBodyAttribute() {
+    public function getBodyAttribute(): int
+    {
         $body = $this->background->body;
         foreach ($this->trainedSkills as $characterSkill) {
             $body += $characterSkill->skill->body;
@@ -61,7 +83,8 @@ class Character extends Model
         return $body;
     }
 
-    public function getVigorAttribute() {
+    public function getVigorAttribute(): int
+    {
         $vigor = $this->background->vigor;
         foreach ($this->trainedSkills as $characterSkill) {
             $vigor += $characterSkill->skill->vigor;
@@ -69,7 +92,8 @@ class Character extends Model
         return $vigor;
     }
 
-    public function getCardsAttribute() {
+    public function getCardsAttribute(): array
+    {
         $unsortedCards = [];
         foreach ($this->trainedSkills as $characterSkill) {
             $skillCards = $characterSkill->skill->cards;
@@ -98,7 +122,8 @@ class Character extends Model
         return $cards;
     }
 
-    private function nameCompare($a, $b) {
+    private function nameCompare($a, $b): int
+    {
         return strcmp($a->name, $b->name);
     }
 }

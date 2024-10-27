@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * @property Character character
+ * @property Skill skill
+ * @property CharacterSkill discountUsedBy
+ * @property CharacterSkill discountedBy
+ */
 class CharacterSkill extends Model
 {
     use HasFactory;
