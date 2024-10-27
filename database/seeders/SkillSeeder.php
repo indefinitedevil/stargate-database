@@ -895,6 +895,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 5,
                 'body' => 1,
                 'vigor' => 0,
+                'display' => 0,
             ],
             [
                 'id' => 61,
@@ -908,6 +909,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 0,
             ],
             [
                 'id' => 62,
@@ -921,6 +923,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 0,
             ],
             [
                 'id' => 63,
@@ -934,6 +937,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 0,
             ],
             [
                 'id' => 64,
@@ -947,6 +951,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 0,
             ],
             [
                 'id' => 65,
@@ -960,6 +965,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 0,
             ],
             [
                 'id' => 66,
@@ -973,6 +979,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 0,
             ],
             [
                 'id' => 67,
@@ -986,6 +993,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 0,
             ],
             [
                 'id' => 68,
@@ -999,6 +1007,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 0,
             ],
             [
                 'id' => 69,
@@ -1025,6 +1034,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 5,
                 'body' => 0,
                 'vigor' => 1,
+                'display' => 0,
             ],
             [
                 'id' => 71,
