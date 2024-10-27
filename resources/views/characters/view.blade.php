@@ -27,7 +27,7 @@
             <div>
                 <h4>Background</h4>
                 <ul>
-                    @foreach($character->background->skills as $skill)
+                    @foreach ($character->background->skills as $skill)
                         <li>{{ $skill->name }}</li>
                     @endforeach
                 </ul>
@@ -35,33 +35,35 @@
             <div>
                 <h4>Trained</h4>
                 <ul>
-                    @foreach($character->trainedSkills as $characterSkill)
+                    @foreach ($character->displayedTrainedSkills as $characterSkill)
                         <li>{{ $characterSkill->skill->name }}</li>
                     @endforeach
                 </ul>
             </div>
-            <div>
-                <h4>Training</h4>
-                <ul>
-                    @foreach($character->trainingSkills as $characterSkill)
-                        <li>{{ $characterSkill->skill->name }}</li>
-                    @endforeach
-                </ul>
-            </div>
+            @if (!empty($character->trainingSkills))
+                <div>
+                    <h4>Training</h4>
+                    <ul>
+                        @foreach ($character->trainingSkills as $characterSkill)
+                            <li>{{ $characterSkill->skill->name }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
         <h3>Feats</h3>
         <ul class="grid">
-            @foreach($character->feats as $feat)
+            @foreach ($character->feats as $feat)
                 <li>{{ $feat->name }}</li>
             @endforeach
         </ul>
         @if (!empty($character->cards))
-        <h3>Cards</h3>
-        <ul class="grid">
-            @foreach($character->cards as $card)
-                <li>{{ $card->name }} ({{ $card->number }})</li>
-            @endforeach
-        </ul>
+            <h3>Cards</h3>
+            <ul class="grid">
+                @foreach ($character->cards as $card)
+                    <li>{{ $card->name }} ({{ $card->number }})</li>
+                @endforeach
+            </ul>
         @endif
     </main>
 </div>

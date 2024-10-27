@@ -33,6 +33,10 @@ class Character extends Model
         return $this->skills()->where('completed', true);
     }
 
+    public function displayedTrainedSkills() {
+        return $this->trainedSkills()->where('skills.display', true);
+    }
+
     public function trainingSkills() {
         return $this->skills()->where('completed', false);
     }
