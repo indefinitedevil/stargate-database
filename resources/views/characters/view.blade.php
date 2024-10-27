@@ -12,8 +12,16 @@
 <body class="">
 <div id="app">
     <main id="main" class="container">
-        <p><strong>Name:</strong> {{ $character->name }}</p>
-        <p><strong>Background:</strong> {{ $character->background->name }}</p>
+        <div class="grid">
+            <p>
+                <strong>Name:</strong> {{ $character->name }}<br>
+                <strong>Background:</strong> {{ $character->background->name }}
+            </p>
+            <p>
+                <strong>Body:</strong> {{ $character->body }}<br>
+                <strong>Vigor:</strong> {{ $character->vigor }}
+            </p>
+        </div>
         <h3>Skills</h3>
         <div class="grid">
             <div>
@@ -43,10 +51,18 @@
         </div>
         <h3>Feats</h3>
         <ul class="grid">
-            @foreach($character->feats() as $feat)
+            @foreach($character->feats as $feat)
                 <li>{{ $feat->name }}</li>
             @endforeach
         </ul>
+        @if (!empty($character->cards))
+        <h3>Cards</h3>
+        <ul class="grid">
+            @foreach($character->cards as $card)
+                <li>{{ $card->name }} ({{ $card->number }})</li>
+            @endforeach
+        </ul>
+        @endif
     </main>
 </div>
 </body>
