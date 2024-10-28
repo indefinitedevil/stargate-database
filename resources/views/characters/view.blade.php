@@ -40,7 +40,7 @@
                     @endforeach
                 </ul>
             </div>
-            @if (!empty($character->trainingSkills))
+            @if ($character->trainingSkills->count())
                 <div>
                     <h4>Training</h4>
                     <ul>

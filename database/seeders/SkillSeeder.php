@@ -90,6 +90,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 2,
@@ -103,6 +104,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 3,
@@ -116,6 +118,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 4,
@@ -129,6 +132,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 5,
@@ -142,6 +146,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 6,
@@ -155,6 +160,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 7,
@@ -168,6 +174,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 8,
@@ -181,6 +188,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
         ], 'id', [
             'name',
@@ -193,6 +201,7 @@ class SkillSeeder extends Seeder
             'repeatable',
             'body',
             'vigor',
+            'display',
         ]);
     }
 
@@ -211,6 +220,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 10,
@@ -224,6 +234,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 1,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 11,
@@ -237,6 +248,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 12,
@@ -250,6 +262,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 13,
@@ -263,6 +276,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 14,
@@ -276,6 +290,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 15,
@@ -289,6 +304,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 16,
@@ -302,6 +318,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 17,
@@ -315,6 +332,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 18,
@@ -328,6 +346,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 19,
@@ -341,6 +360,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 20,
@@ -354,6 +374,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 21,
@@ -367,6 +388,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 86,
@@ -380,6 +402,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 87,
@@ -393,6 +416,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
         ], 'id', [
             'name',
@@ -405,6 +429,7 @@ class SkillSeeder extends Seeder
             'repeatable',
             'body',
             'vigor',
+            'display',
         ]);
     }
 
@@ -423,6 +448,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 23,
@@ -436,6 +462,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 24,
@@ -449,6 +476,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 27,
@@ -462,6 +490,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 28,
@@ -475,6 +504,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 29,
@@ -488,6 +518,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 30,
@@ -501,6 +532,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 31,
@@ -514,6 +546,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 32,
@@ -527,6 +560,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 33,
@@ -540,6 +574,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 34,
@@ -553,6 +588,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 35,
@@ -566,6 +602,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 36,
@@ -579,6 +616,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 20,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 37,
@@ -592,6 +630,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 38,
@@ -605,6 +644,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 39,
@@ -618,6 +658,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 40,
@@ -631,6 +672,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 41,
@@ -644,6 +686,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 42,
@@ -657,6 +700,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 43,
@@ -670,6 +714,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 88,
@@ -683,6 +728,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
         ], 'id', [
             'name',
@@ -695,6 +741,7 @@ class SkillSeeder extends Seeder
             'repeatable',
             'body',
             'vigor',
+            'display',
         ]);
     }
 
@@ -713,6 +760,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 45,
@@ -726,6 +774,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 20,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 46,
@@ -739,6 +788,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 47,
@@ -752,6 +802,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 48,
@@ -765,6 +816,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 49,
@@ -778,6 +830,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 50,
@@ -791,6 +844,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 51,
@@ -804,6 +858,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 52,
@@ -817,6 +872,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 53,
@@ -830,6 +886,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 10,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 54,
@@ -843,6 +900,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 55,
@@ -856,6 +914,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 56,
@@ -869,6 +928,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 57,
@@ -882,6 +942,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 60,
@@ -1021,6 +1082,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 70,
@@ -1048,6 +1110,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 72,
@@ -1061,6 +1124,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 10,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
         ], 'id', [
             'name',
@@ -1073,6 +1137,7 @@ class SkillSeeder extends Seeder
             'repeatable',
             'body',
             'vigor',
+            'display',
         ]);
     }
 
@@ -1091,6 +1156,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 74,
@@ -1104,6 +1170,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 75,
@@ -1117,6 +1184,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 76,
@@ -1130,6 +1198,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 77,
@@ -1143,6 +1212,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 78,
@@ -1156,6 +1226,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 79,
@@ -1169,6 +1240,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 80,
@@ -1182,6 +1254,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 81,
@@ -1195,6 +1268,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 82,
@@ -1208,6 +1282,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 83,
@@ -1221,6 +1296,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'display' => 1,
             ],
         ], 'id', [
             'name',
@@ -1233,6 +1309,7 @@ class SkillSeeder extends Seeder
             'repeatable',
             'body',
             'vigor',
+            'display',
         ]);
     }
 
