@@ -365,7 +365,7 @@ Once affected by this feat (from anyone), you cannot be affected by another "We 
             ],
             [
                 'id' => 43,
-                'name' => 'Basic Insight',
+                'name' => 'Basic Skill Insight',
                 'description' => 'This feat applies to Basic skills that provide cards.
 
 ' . $insightDescription,
