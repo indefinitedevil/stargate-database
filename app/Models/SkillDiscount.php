@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property Skill discountedSkill
+ * @property Skill discountingSkill
+ * @property int discount
+ */
 class SkillDiscount extends Model
 {
     use HasFactory;

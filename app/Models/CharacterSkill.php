@@ -7,14 +7,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property Character character
  * @property Skill skill
+ * @property int skill_id
+ * @property bool discount_used
  * @property CharacterSkill discountUsedBy
  * @property CharacterSkill discountedBy
  * @property Collection skillSpecialties
+ * @property Collection characterLogs
+ * @property bool completed
+ * @property int cost
+ * @property int trained
  */
 class CharacterSkill extends Model
 {
@@ -44,5 +51,44 @@ class CharacterSkill extends Model
     {
         return $this->belongsToMany(SkillSpecialty::class)
             ->orderBy('skill_specialties.name');
+    }
+
+    public function getCostAttribute(): int
+    {
+        if ($this->completed) {
+            return 0;
+        }
+        if ($this->skill->cost) {
+            $cost = $this->skill->cost;
+        } else {
+            $cost = $this->skill->skillCategory->cost;
+            if ($this->skill->skillCategory->scaling) {
+                $completedCategorySkills = $this->character->trainedSkills()->where('skills.skill_category_id', $this->skill->skill_category_id)->count();
+                $cost += $completedCategorySkills;
+            }
+        }
+        if ($this->discountedBy) {
+            $skillDiscount = SkillDiscount::where('discounted_skill_id', $this->skill_id)
+                ->where('discounting_skill_id', $this->discountedBy->skill_id)
+                ->first();
+            if ($skillDiscount) {
+                $cost -= $skillDiscount->discount;
+            }
+        }
+        return $cost;
+    }
+
+    public function characterLogs(): HasMany
+    {
+        return $this->hasMany(CharacterLog::class);
+    }
+
+    public function getTrainedAttribute(): int
+    {
+        $trained = 0;
+        foreach ($this->characterLogs as $characterLog) {
+            $trained += $characterLog->amount_trained;
+        }
+        return $trained;
     }
 }

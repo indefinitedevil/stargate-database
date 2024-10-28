@@ -60,6 +60,7 @@
                         @foreach ($character->trainingSkills as $characterSkill)
                             <li>
                                 {{ $characterSkill->skill->name }}
+                                ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                 @if($characterSkill->skill->specialties)
                                     <ul>
                                         @foreach ($characterSkill->skillSpecialties as $specialty)
