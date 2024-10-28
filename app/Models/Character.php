@@ -38,6 +38,7 @@ class Character extends Model
     public function skills(): HasMany
     {
         return $this->hasMany(CharacterSkill::class)
+            ->select('character_skills.*')
             ->join('skills', 'character_skills.skill_id', '=', 'skills.id')
             ->orderBy('skills.name');
     }
@@ -71,7 +72,7 @@ class Character extends Model
             }
         }
         usort($feats, array($this, 'nameCompare'));
-        return $feats;
+        return $this->uniqueArray($feats);
     }
 
     public function getBodyAttribute(): int
@@ -125,5 +126,18 @@ class Character extends Model
     private function nameCompare($a, $b): int
     {
         return strcmp($a->name, $b->name);
+    }
+
+    private function uniqueArray($array): array
+    {
+        $ids = [];
+        $uniqueArray = [];
+        foreach ($array as $item) {
+            if (!in_array($item->id, $ids)) {
+                $ids[] = $item->id;
+                $uniqueArray[] = $item;
+            }
+        }
+        return $uniqueArray;
     }
 }

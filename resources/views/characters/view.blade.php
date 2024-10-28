@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@php use App\Models\Feat; @endphp
+    <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -36,7 +37,19 @@
                 <h4>Trained</h4>
                 <ul>
                     @foreach ($character->displayedTrainedSkills as $characterSkill)
-                        <li>{{ $characterSkill->skill->name }}</li>
+                        <li>{{ $characterSkill->skill->name }}
+                            @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
+                                *
+                                @php $flashOfInsight = true; @endphp
+                            @endif
+                            @if($characterSkill->skill->specialties)
+                                <ul>
+                                    @foreach ($characterSkill->skillSpecialties as $specialty)
+                                        <li>{{ $specialty->name }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </li>
                     @endforeach
                 </ul>
             </div>
@@ -45,10 +58,22 @@
                     <h4>Training</h4>
                     <ul>
                         @foreach ($character->trainingSkills as $characterSkill)
-                            <li>{{ $characterSkill->skill->name }}</li>
+                            <li>
+                                {{ $characterSkill->skill->name }}
+                                @if($characterSkill->skill->specialties)
+                                    <ul>
+                                        @foreach ($characterSkill->skillSpecialties as $specialty)
+                                            <li>{{ $specialty->name }}</li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
                         @endforeach
                     </ul>
                 </div>
+            @endif
+            @if(!empty($flashOfInsight))
+                <p>* Flash of Insight discount available</p>
             @endif
         </div>
         <h3>Feats</h3>
