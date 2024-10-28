@@ -36,15 +36,15 @@
             <div>
                 <h4>Trained</h4>
                 <ul>
-                    @foreach ($character->displayedTrainedSkills as $characterSkill)
-                        <li>{{ $characterSkill->skill->name }}
+                    @foreach ($character->displayedTrainedSkills->sortBy('name') as $characterSkill)
+                        <li>{{ $characterSkill->name }}
                             @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
                                 *
                                 @php $flashOfInsight = true; @endphp
                             @endif
-                            @if($characterSkill->skill->specialties)
+                            @if($characterSkill->skill->specialties > 1)
                                 <ul>
-                                    @foreach ($characterSkill->skillSpecialties as $specialty)
+                                    @foreach ($characterSkill->specialties as $specialty)
                                         <li>{{ $specialty->name }}</li>
                                     @endforeach
                                 </ul>
@@ -57,11 +57,11 @@
                 <div>
                     <h4>Training</h4>
                     <ul>
-                        @foreach ($character->trainingSkills as $characterSkill)
+                        @foreach ($character->trainingSkills->sortBy('name') as $characterSkill)
                             <li>
-                                {{ $characterSkill->skill->name }}
+                                {{ $characterSkill->name }}
                                 ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
-                                @if($characterSkill->skill->specialties)
+                                @if($characterSkill->skill->specialties > 1)
                                     <ul>
                                         @foreach ($characterSkill->skillSpecialties as $specialty)
                                             <li>{{ $specialty->name }}</li>
@@ -80,7 +80,12 @@
         <h3>Feats</h3>
         <ul class="grid">
             @foreach ($character->feats as $feat)
-                <li>{{ $feat->name }}</li>
+                <li>
+                    {{ $feat->name }}
+                    @if ($feat->per_event)
+                        ({{ $feat->getPerEvent($character) }})
+                    @endif
+                </li>
             @endforeach
         </ul>
         @if (!empty($character->cards))

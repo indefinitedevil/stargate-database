@@ -223,20 +223,6 @@ class SkillSeeder extends Seeder
                 'display' => 1,
             ],
             [
-                'id' => 10,
-                'name' => 'Additional Archeo-Anthrology Speciality',
-                'skill_category_id' => 3,
-                'description' => '',
-                'upkeep' => 0,
-                'cost' => 0,
-                'specialties' => 1,
-                'specialty_type_id' => 1,
-                'repeatable' => 1,
-                'body' => 0,
-                'vigor' => 0,
-                'display' => 1,
-            ],
-            [
                 'id' => 11,
                 'name' => 'Astrophysics',
                 'skill_category_id' => 2,
@@ -436,6 +422,20 @@ class SkillSeeder extends Seeder
     public function seedComplexSkills()
     {
         DB::table('skills')->upsert([
+            [
+                'id' => 10,
+                'name' => 'Additional Archeo-Anthrology Speciality',
+                'skill_category_id' => 3,
+                'description' => '',
+                'upkeep' => 0,
+                'cost' => 0,
+                'specialties' => 1,
+                'specialty_type_id' => 1,
+                'repeatable' => 1,
+                'body' => 0,
+                'vigor' => 0,
+                'display' => 0,
+            ],
             [
                 'id' => 22,
                 'name' => 'Armorer',
@@ -1320,7 +1320,7 @@ class SkillSeeder extends Seeder
     public function seedSkillSpecialties()
     {
         // Archeo-anthropology
-        DB::table('skill_specialty')->insertOrIgnore([
+        DB::table('skill_specialties')->insertOrIgnore([
             [
                 'id' => 3,
                 'name' => 'Celtic',
@@ -1368,7 +1368,7 @@ class SkillSeeder extends Seeder
             ],
         ]);
         // Medical
-        DB::table('skill_specialty')->insertOrIgnore([
+        DB::table('skill_specialties')->insertOrIgnore([
             [
                 'id' => 10,
                 'name' => 'Cardiothoracic',
@@ -1401,7 +1401,7 @@ class SkillSeeder extends Seeder
             ],
         ]);
         // Linguistics
-        DB::table('skill_specialty')->insertOrIgnore([
+        DB::table('skill_specialties')->insertOrIgnore([
             [
                 'id' => 21,
                 'name' => 'Arabic',
@@ -1497,9 +1497,24 @@ class SkillSeeder extends Seeder
                 'name' => 'Swedish',
                 'specialty_type_id' => 3,
             ],
+            [
+                'id' => 49,
+                'name' => 'Ogham',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'id' => 50,
+                'name' => 'Hungarian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'id' => 51,
+                'name' => 'Cherokee',
+                'specialty_type_id' => 3,
+            ],
         ]);
         // Mythology
-        DB::table('skill_specialty')->insertOrIgnore([
+        DB::table('skill_specialties')->insertOrIgnore([
             [
                 'id' => 38,
                 'name' => 'Aztec/Mayan',

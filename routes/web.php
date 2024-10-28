@@ -5,5 +5,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     //return view('welcome');
-    return view('characters.view', ['character' => Character::find(2)]);
+    return view('characters.view', ['character' => Character::find(4)]);
 });

@@ -53,6 +53,20 @@ class CharacterSkill extends Model
             ->orderBy('skill_specialties.name');
     }
 
+    public function getSpecialtiesAttribute(): Collection
+    {
+        if (Skill::ARCHEO_ANTHROPOLOGY == $this->skill_id && $this->completed) {
+            $additionalSpecialties = $this->character->skills()
+                ->where('skill_id', Skill::ADDITIONAL_AA_SPEC)
+                ->where('completed', true)
+                ->getResults();
+            foreach ($additionalSpecialties as $additionalSpecialty) {
+                $this->skillSpecialties->concat($additionalSpecialty->skillSpecialties);
+            }
+        }
+        return $this->skillSpecialties->sortBy('name');
+    }
+
     public function getCostAttribute(): int
     {
         if ($this->completed) {
@@ -68,10 +82,10 @@ class CharacterSkill extends Model
             }
         }
         if ($this->discountedBy) {
-            $skillDiscount = SkillDiscount::where('discounted_skill_id', $this->skill_id)
+            $skillDiscounts = SkillDiscount::where('discounted_skill_id', $this->skill_id)
                 ->where('discounting_skill_id', $this->discountedBy->skill_id)
-                ->first();
-            if ($skillDiscount) {
+                ->all();
+            foreach ($skillDiscounts as $skillDiscount) {
                 $cost -= $skillDiscount->discount;
             }
         }
@@ -90,5 +104,16 @@ class CharacterSkill extends Model
             $trained += $characterLog->amount_trained;
         }
         return $trained;
+    }
+
+    public function getNameAttribute(): string
+    {
+        if (1 == $this->skill->specialties) {
+            if ($this->skillSpecialties->count()) {
+                return $this->skill->name . ' (' . $this->skillSpecialties->first()->name . ')';
+            }
+            return $this->skill->name . ' (Not selected)';
+        }
+        return $this->skill->name;
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
+ * @property string name
  * @property Collection cards
  * @property Collection feats
  * @property int skill_category_id
@@ -27,6 +28,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Skill extends Model
 {
     use HasFactory;
+
+    const ARCHEO_ANTHROPOLOGY = 9;
+    const ADDITIONAL_AA_SPEC = 10;
 
     public function cards(): BelongsToMany
     {
