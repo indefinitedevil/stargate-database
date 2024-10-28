@@ -1768,11 +1768,6 @@ class SkillSeeder extends Seeder
                 'discount' => 3,
             ],
             [
-                'discounting_skill' => 56,
-                'discounted_skill' => 41,
-                'discount' => 3,
-            ],
-            [
                 'discounting_skill' => 57,
                 'discounted_skill' => 19,
                 'discount' => 3,
