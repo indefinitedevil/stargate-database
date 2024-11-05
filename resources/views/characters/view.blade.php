@@ -1,102 +1,124 @@
 @php use App\Models\Feat; @endphp
-    <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<x-app-layout>
+    <x-slot name="title">{{ $character->name }}</x-slot>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-300 leading-tight">
+            {{ sprintf(__('Character: %s'), $character->name) }}
+        </h2>
+    </x-slot>
 
-    <title>{{ $character->name }}</title>
-    <link rel="stylesheet" href="<?php echo asset('css/boilerplate.css')?>" type="text/css">
-    <link rel="stylesheet" href="<?php echo asset('css/app.css')?>" type="text/css">
-
-</head>
-<body class="">
-<div id="app">
-    <main id="main" class="container">
-        <div class="grid">
-            <p>
-                <strong>Name:</strong> {{ $character->name }}<br>
-                <strong>Background:</strong> {{ $character->background->name }}
-            </p>
-            <p>
-                <strong>Body:</strong> {{ $character->body }}<br>
-                <strong>Vigor:</strong> {{ $character->vigor }}
-            </p>
-        </div>
-        <h3>Skills</h3>
-        <div class="grid">
-            <div>
-                <h4>Background</h4>
-                <ul>
-                    @foreach ($character->background->skills as $skill)
-                        <li>{{ $skill->name }}</li>
-                    @endforeach
-                </ul>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+                <div class="grid grid-cols-4">
+                    <p class="mt-1">
+                        <strong>{{ __('Name') }}:</strong> {{ $character->name }}
+                    </p>
+                    <p class="mt-1">
+                        <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
+                    </p>
+                    <p class="mt-1">
+                        <strong>{{ __('Body') }}:</strong> {{ $character->body }}
+                    </p>
+                    <p class="mt-1">
+                        <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }}
+                    </p>
+                </div>
             </div>
-            <div>
-                <h4>Trained</h4>
-                <ul>
-                    @foreach ($character->displayedTrainedSkills->sortBy('name') as $characterSkill)
-                        <li>{{ $characterSkill->name }}
-                            @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
-                                *
-                                @php $flashOfInsight = true; @endphp
-                            @endif
-                            @if($characterSkill->skill->specialties > 1)
+
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+                <div class="">
+                    <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
+                        {{ __('Skills') }}
+                    </h2>
+                    <div class="grid grid-cols-4">
+                        <div class="mt-1">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Background</h3>
+                            <ul>
+                                @foreach ($character->background->skills as $skill)
+                                    <li>{{ $skill->name }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <div class="mt-1">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Trained</h3>
+                            <ul>
+                                @foreach ($character->displayedTrainedSkills->sortBy('name') as $characterSkill)
+                                    <li>{{ $characterSkill->name }}
+                                        @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
+                                            *
+                                            @php $flashOfInsight = true; @endphp
+                                        @endif
+                                        @if($characterSkill->skill->specialties > 1)
+                                            <ul>
+                                                @foreach ($characterSkill->specialties as $specialty)
+                                                    <li>{{ $specialty->name }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @if ($character->trainingSkills->count())
+                            <div class="mt-1">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Training</h3>
                                 <ul>
-                                    @foreach ($characterSkill->specialties as $specialty)
-                                        <li>{{ $specialty->name }}</li>
+                                    @foreach ($character->trainingSkills->sortBy('name') as $characterSkill)
+                                        <li>
+                                            {{ $characterSkill->name }}
+                                            ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
+                                            @if($characterSkill->skill->specialties > 1)
+                                                <ul>
+                                                    @foreach ($characterSkill->skillSpecialties as $specialty)
+                                                        <li>{{ $specialty->name }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </li>
                                     @endforeach
                                 </ul>
-                            @endif
-                        </li>
-                    @endforeach
-                </ul>
+                            </div>
+                        @endif
+                    </div>
+                    @if(!empty($flashOfInsight))
+                        <p class="mt-1">* Flash of Insight discount available</p>
+                    @endif
+                </div>
             </div>
-            @if ($character->trainingSkills->count())
-                <div>
-                    <h4>Training</h4>
-                    <ul>
-                        @foreach ($character->trainingSkills->sortBy('name') as $characterSkill)
+
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+                <div class="">
+                    <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
+                        {{ __('Feats') }}
+                    </h2>
+                    <ul class="grid grid-cols-4 mt-1">
+                        @foreach ($character->feats as $feat)
                             <li>
-                                {{ $characterSkill->name }}
-                                ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
-                                @if($characterSkill->skill->specialties > 1)
-                                    <ul>
-                                        @foreach ($characterSkill->skillSpecialties as $specialty)
-                                            <li>{{ $specialty->name }}</li>
-                                        @endforeach
-                                    </ul>
+                                {{ $feat->name }}
+                                @if ($feat->per_event)
+                                    ({{ $feat->getPerEvent($character) }})
                                 @endif
                             </li>
                         @endforeach
                     </ul>
                 </div>
-            @endif
-            @if(!empty($flashOfInsight))
-                <p>* Flash of Insight discount available</p>
+            </div>
+
+            @if (!empty($character->cards))
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+                    <div class="">
+                        <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
+                            {{ __('Cards') }}
+                        </h2>
+                        <ul class="grid grid-cols-4 mt-1">
+                            @foreach ($character->cards as $card)
+                                <li>{{ $card->name }} ({{ $card->number }})</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             @endif
         </div>
-        <h3>Feats</h3>
-        <ul class="grid">
-            @foreach ($character->feats as $feat)
-                <li>
-                    {{ $feat->name }}
-                    @if ($feat->per_event)
-                        ({{ $feat->getPerEvent($character) }})
-                    @endif
-                </li>
-            @endforeach
-        </ul>
-        @if (!empty($character->cards))
-            <h3>Cards</h3>
-            <ul class="grid">
-                @foreach ($character->cards as $card)
-                    <li>{{ $card->name }} ({{ $card->number }})</li>
-                @endforeach
-            </ul>
-        @endif
-    </main>
-</div>
-</body>
-</html>
+    </div>
+</x-app-layout>

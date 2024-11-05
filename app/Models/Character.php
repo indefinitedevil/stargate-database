@@ -15,7 +15,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property Collection trainedSkills
  * @property Collection displayedTrainedSkills
  * @property Collection hiddenTrainedSkills
- * @property Collection trainingSkills
+ * @property Collection trainingSkill
+ * @property Status status
  * @property Feat[] feats
  * @property int body
  * @property int vigor
@@ -27,7 +28,7 @@ class Character extends Model
 
     public function player(): BelongsTo
     {
-        return $this->belongsTo(Player::class);
+        return $this->belongsTo(User::class);
     }
 
     public function background(): HasOne
@@ -50,7 +51,9 @@ class Character extends Model
 
     public function displayedTrainedSkills(): HasMany
     {
-        return $this->trainedSkills()->where('skills.display', true);
+        return $this->trainedSkills()
+            ->where('discount_used', false)
+            ->where('skills.display', true);
     }
 
     public function hiddenTrainedSkills(): HasMany
@@ -61,6 +64,11 @@ class Character extends Model
     public function trainingSkills(): HasMany
     {
         return $this->skills()->where('completed', false);
+    }
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class);
     }
 
     public function getFeatsAttribute()

@@ -1,9 +1,26 @@
 <?php
 
-use App\Models\Character;
+use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    //return view('welcome');
-    return view('characters.view', ['character' => Character::find(4)]);
+    return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/characters', [CharacterController::class, 'index'])->name('characters.index');
+    Route::get('/characters/view/{characterId}', [CharacterController::class, 'view'])->name('characters.view');
+});
+
+require __DIR__.'/auth.php';

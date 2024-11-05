@@ -19,13 +19,14 @@ class CharacterController extends Controller
         return view('characters.create');
     }
 
-    public function view() {
-        return view('characters.view', ['character' => Character::find(1)]);
+    public function view($characterId) {
+        return view('characters.view', ['character' => Character::find($characterId)]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'player_id' => 'required|exists:players,id',
             'name' => 'required|string|max:255',
             'background_id' => 'required|exists:backgrounds,id',
         ]);

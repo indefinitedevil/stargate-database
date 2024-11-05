@@ -52,7 +52,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 32);
         });
-        Schema::create('status', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32);
         });
@@ -126,14 +126,13 @@ return new class extends Migration
         });
         Schema::create('characters', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('player_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('name', 64);
             $table->foreignId('background_id')->constrained();
             $table->text('history');
             $table->text('plot_notes');
-            $table->unsignedBigInteger('status');
+            $table->foreignId('status_id');
             $table->timestamps();
-            $table->foreign('status')->references('id')->on('status');
         });
         Schema::create('character_skills', function (Blueprint $table) {
             $table->id();
