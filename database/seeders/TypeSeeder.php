@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\CharacterSkill;
+use App\Models\Skill;
+use App\Models\SkillSpecialty;
+use App\Models\Status;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +19,7 @@ class TypeSeeder extends Seeder
     {
         // seed specialty types
         DB::table('specialty_types')->insertOrIgnore([
-            ['id' => 1, 'name' => 'Archeo-Anthropology'],
+            ['id' => Skill::ARCHEO_ANTHROPOLOGY, 'name' => 'Archeo-Anthropology'],
             ['id' => 2, 'name' => 'Medical'],
             ['id' => 3, 'name' => 'Language'],
             ['id' => 4, 'name' => 'Mythology'],
@@ -44,11 +48,11 @@ class TypeSeeder extends Seeder
             ['id' => 3, 'name' => 'Plot'],
         ]);
         // seed status
-        DB::table('status')->insertOrIgnore([
-            ['id' => 1, 'name' => 'New'],
-            ['id' => 2, 'name' => 'Played'],
-            ['id' => 3, 'name' => 'Dead'],
-            ['id' => 4, 'name' => 'Retired'],
+        DB::table('statuses')->insertOrIgnore([
+            ['id' => Status::NEW, 'name' => 'New'],
+            ['id' => Status::PLAYED, 'name' => 'Played'],
+            ['id' => Status::DEAD, 'name' => 'Dead'],
+            ['id' => Status::RETIRED, 'name' => 'Retired'],
         ]);
     }
 }

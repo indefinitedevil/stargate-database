@@ -33,16 +33,13 @@
                             <div>
                                 <label for="name">Name</label>
                                 <input id="name" class="{{ $fieldClass }}" type="text" name="name" required
-                                       @if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) disabled
-                                       @endif
                                        value="{{ $character->name }}"/>
                             </div>
 
                             <div>
                                 <label for="former_rank">Former Rank</label>
-                                <input id="former_rank" class="{{ $fieldClass }}" type="text" name="former_rank" required
-                                       @if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) disabled
-                                       @endif
+                                <input id="former_rank" class="{{ $fieldClass }}" type="text" name="former_rank"
+                                       @if (Status::NEW === $character->status_id) disabled @endif
                                        value="{{ $character->former_rank }}"/>
                             </div>
 
@@ -66,22 +63,16 @@
 
                             <div>
                                 <label for="history">History</label>
-                                @if (in_array($character->status_id, [Status::DEAD, Status::RETIRED]))
-                                    <p class="mt-1">{!! nl2br($character->history) !!}</p>
-                                @else
-                                    <textarea id="history" class="{{ $fieldClass }}" rows="12"
-                                              name="history">{{ $character->history }}</textarea>
-                                @endif
+                                <textarea id="history" class="{{ $fieldClass }}" rows="12"
+                                          name="history">{{ $character->history }}</textarea>
                             </div>
 
-                            @if (!in_array($character->status_id, [Status::DEAD, Status::RETIRED]))
-                                <div class="flex items-center gap-4">
-                                    <button type="submit"
-                                            class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
-                                        Save
-                                    </button>
-                                </div>
-                            @endif
+                            <div class="flex items-center gap-4">
+                                <button type="submit"
+                                        class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+                                    Save
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -59,8 +59,8 @@
                                             @php $flashOfInsight = true; @endphp
                                         @endif
                                         @if($characterSkill->skill->specialties > 1)
-                                            <ul>
-                                                @foreach ($characterSkill->specialties as $specialty)
+                                            <ul class="list-disc list-inside">
+                                                @foreach ($characterSkill->allSpecialties as $specialty)
                                                     <li>{{ $specialty->name }}</li>
                                                 @endforeach
                                             </ul>

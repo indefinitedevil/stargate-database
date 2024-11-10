@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property CharacterSkill discountUsedBy
  * @property CharacterSkill discountedBy
  * @property Collection skillSpecialties
+ * @property Collection specialties
+ * @property Collection allSpecialties
  * @property Collection characterLogs
  * @property bool completed
  * @property int cost
@@ -54,6 +56,11 @@ class CharacterSkill extends Model
     }
 
     public function getSpecialtiesAttribute(): Collection
+    {
+        return $this->skillSpecialties->sortBy('name');
+    }
+
+    public function getAllSpecialtiesAttribute(): Collection
     {
         if (Skill::ARCHEO_ANTHROPOLOGY == $this->skill_id && $this->completed) {
             $additionalSpecialties = $this->character->skills()
@@ -115,5 +122,27 @@ class CharacterSkill extends Model
             return $this->skill->name . ' (Not selected)';
         }
         return $this->skill->name;
+    }
+
+    public function getLockedAttribute(): bool
+    {
+        return $this->characterLogs->where('locked', true)->count() > 0;
+    }
+
+    public function getRequiredAttribute(): bool
+    {
+        return $this->character->skills()
+                ->join('skill_prereqs', 'skills.id', '=', 'skill_prereqs.skill_id')
+                ->where('skill_prereqs.prereq_id', $this->skill_id)
+                ->count() > 0;
+    }
+
+    public function getRequiredByAttribute()
+    {
+        $skills = $this->character->skills()
+            ->join('skill_prereqs', 'skills.id', '=', 'skill_prereqs.skill_id')
+            ->where('skill_prereqs.prereq_id', $this->skill_id)
+            ->get('skills.name');
+        return $skills->implode('name', ', ');
     }
 }

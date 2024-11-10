@@ -1595,82 +1595,127 @@ class SkillSeeder extends Seeder
             [
                 'skill_id' => 16,
                 'prereq_id' => 7,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 31,
                 'prereq_id' => 19,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 31,
                 'prereq_id' => 20,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 36,
                 'prereq_id' => 7,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 37,
                 'prereq_id' => 19,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 37,
                 'prereq_id' => 20,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 41,
                 'prereq_id' => 15,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 44,
                 'prereq_id' => 39,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 45,
                 'prereq_id' => 35,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 73,
                 'prereq_id' => 83,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 75,
                 'prereq_id' => 81,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 77,
                 'prereq_id' => 83,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 82,
                 'prereq_id' => 79,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 83,
                 'prereq_id' => 80,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 86,
                 'prereq_id' => 16,
-                'always_required' => 0,
+                'always_required' => 1,
             ],
             [
                 'skill_id' => 87,
                 'prereq_id' => 18,
-                'always_required' => 0,
+                'always_required' => 1,
+            ],
+            [
+                'skill_id' => 61,
+                'prereq_id' => 1,
+                'always_required' => 1,
+            ],
+            [
+                'skill_id' => 62,
+                'prereq_id' => 2,
+                'always_required' => 1,
+            ],
+            [
+                'skill_id' => 63,
+                'prereq_id' => 3,
+                'always_required' => 1,
+            ],
+            [
+                'skill_id' => 64,
+                'prereq_id' => 4,
+                'always_required' => 1,
+            ],
+            [
+                'skill_id' => 65,
+                'prereq_id' => 5,
+                'always_required' => 1,
+            ],
+            [
+                'skill_id' => 66,
+                'prereq_id' => 6,
+                'always_required' => 1,
+            ],
+            [
+                'skill_id' => 67,
+                'prereq_id' => 7,
+                'always_required' => 1,
+            ],
+            [
+                'skill_id' => 68,
+                'prereq_id' => 8,
+                'always_required' => 1,
+            ],
+            [
+                'skill_id' => 10,
+                'prereq_id' => 9,
+                'always_required' => 1,
             ],
         ]);
     }

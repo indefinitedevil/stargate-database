@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property Background background
@@ -58,6 +61,51 @@ class Character extends Model
             ->select('character_skills.*')
             ->join('skills', 'character_skills.skill_id', '=', 'skills.id')
             ->orderBy('skills.name');
+    }
+
+    public function getAvailableSkillsAttribute(): Collection
+    {
+        $prereqSkills = SkillPrereq::select('skill_prereqs.skill_id')
+            ->leftJoin('character_skills', function (JoinClause $join) {
+                $join->on('skill_prereqs.prereq_id', '=', 'character_skills.skill_id');
+                $join->on('character_skills.character_id', '=', DB::raw($this->id));
+            })
+            ->whereNull('character_skills.id');
+        $lockoutSkills = SkillLockout::select('skill_lockouts.lockout_id')
+            ->join('character_skills', function (JoinClause $join) {
+                $join->on('skill_lockouts.skill_id', '=', 'character_skills.skill_id');
+                $join->on('character_skills.character_id', '=', DB::raw($this->id));
+            });
+        $skills = Skill::select('skills.*')
+            ->leftJoin('character_skills', function (JoinClause $join) {
+                $join->on('skills.id', '=', 'character_skills.skill_id');
+                $join->on('character_skills.character_id', '=', DB::raw($this->id));
+            })
+            ->whereNotIn('skills.id', $prereqSkills)
+            ->whereNotIn('skills.id', $lockoutSkills)
+            ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
+            ->where(function (Builder $query) {
+                $query->whereNull('character_skills.id')
+                    ->orWhere('skills.repeatable', '>', DB::raw(0));
+            });
+
+        $prereqSkills = SkillPrereq::select('skill_prereqs.skill_id')
+            ->join('background_skill', function (JoinClause $join) {
+                $join->on('skill_prereqs.prereq_id', '=', 'background_skill.skill_id');
+                $join->on('background_skill.background_id', '=', DB::raw($this->background_id));
+            });
+        $lockoutSkills = SkillLockout::select('skill_lockouts.lockout_id')
+            ->join('background_skill', function (JoinClause $join) {
+                $join->on('skill_lockouts.skill_id', '=', 'background_skill.skill_id');
+                $join->on('background_skill.background_id', '=', DB::raw($this->background_id));
+            });
+        $backgroundSkills = Skill::select('skills.*')
+            ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
+            ->whereIn('skills.id', $prereqSkills)
+            ->whereNotIn('skills.id', $lockoutSkills);
+
+        return $skills->union($backgroundSkills)
+            ->orderBy('name')->get();
     }
 
     public function trainedSkills(): HasMany
