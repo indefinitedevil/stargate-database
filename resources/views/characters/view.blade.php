@@ -18,7 +18,7 @@
                         <strong>{{ __('Name') }}:</strong> {{ $character->name }}
                     </p>
                     <p class="mt-1">
-                        <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
+                        <strong>{{ __('Rank') }}:</strong> {{ $character->rank }} @if ($character->former_rank) ({{ $character->former_rank }}) @endif
                     </p>
                     <p class="mt-1">
                         <strong>{{ __('Body') }}:</strong> {{ $character->body }}
@@ -26,12 +26,15 @@
                     <p class="mt-1">
                         <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }}
                     </p>
+                    <p class="mt-1">
+                        <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
+                    </p>
                 </div>
             </div>
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                 <div class="">
-                    <a href="{{ route('characters.edit', ['characterId' => $character->id]) }}"
+                    <a href="{{ route('characters.edit-skills', ['characterId' => $character->id]) }}"
                        class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
                     >{{ __('Edit Skills') }}</a>
                     <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
@@ -130,7 +133,7 @@
                     <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
                         {{ __('History') }}
                     </h2>
-                    <p class="mt-1">{{ nl2br($character->history) }}</p>
+                    <p class="mt-1">{!! nl2br($character->history) !!}</p>
                 </div>
             </div>
         </div>

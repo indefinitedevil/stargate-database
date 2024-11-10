@@ -21,8 +21,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property User player
  * @property int body
  * @property int vigor
+ * @property string rank
+ * @property string former_rank
  * @property string history
- * @property string plotNotes
+ * @property string plot_notes
  * @property Object[] cards
  */
 class Character extends Model
@@ -36,6 +38,8 @@ class Character extends Model
         'status_id',
         'history',
         'plot_notes',
+        'rank',
+        'former_rank',
     ];
 
     public function player(): BelongsTo

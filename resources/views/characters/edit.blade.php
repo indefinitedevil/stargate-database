@@ -27,39 +27,61 @@
                             </div>
                         @endif
                         <input type="hidden" name="user_id" value="{{ $character->user_id }}">
-                        <input type="hidden" name="character_id" value="{{$character->id }}">
+                        <input type="hidden" name="id" value="{{$character->id }}">
                         <input type="hidden" name="status_id" value="{{ $character->status_id }}">
                         <div class="grid grid-cols-1 gap-6">
                             <div>
                                 <label for="name">Name</label>
                                 <input id="name" class="{{ $fieldClass }}" type="text" name="name" required
+                                       @if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) disabled
+                                       @endif
                                        value="{{ $character->name }}"/>
                             </div>
 
                             <div>
+                                <label for="former_rank">Former Rank</label>
+                                <input id="former_rank" class="{{ $fieldClass }}" type="text" name="former_rank" required
+                                       @if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) disabled
+                                       @endif
+                                       value="{{ $character->former_rank }}"/>
+                            </div>
+
+                            <div>
                                 <label for="background">Background</label>
-                                <select id="background" name="background_id" class="{{ $fieldClass }}" required>
-                                    @foreach(Background::all() as $background)
-                                        <option value="{{ $background->id }}"
-                                                @if($background->id === $character->background_id) selected @endif >
-                                            {{ $background->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                @if (Status::NEW === $character->status_id)
+                                    <select id="background" name="background_id" class="{{ $fieldClass }}" required>
+                                        @foreach(Background::all() as $background)
+                                            <option value="{{ $background->id }}"
+                                                    @if($background->id === $character->background_id) selected @endif >
+                                                {{ $background->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                @else
+                                    <input type="hidden" name="background_id" value="{{ $character->background_id }}">
+                                    <input type="text" class="{{ $fieldClass }}"
+                                           value="{{ $character->background->name }}" disabled>
+                                @endif
                             </div>
 
                             <div>
                                 <label for="history">History</label>
-                                <textarea id="history" class="{{ $fieldClass }}"
-                                          name="history">{{ $character->history }}</textarea>
+                                @if (in_array($character->status_id, [Status::DEAD, Status::RETIRED]))
+                                    <p class="mt-1">{!! nl2br($character->history) !!}</p>
+                                @else
+                                    <textarea id="history" class="{{ $fieldClass }}" rows="12"
+                                              name="history">{{ $character->history }}</textarea>
+                                @endif
                             </div>
 
-                            <div class="flex items-center gap-4">
-                                <button type="submit"
-                                        class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
-                                    Create
-                                </button>
-                            </div>
+                            @if (!in_array($character->status_id, [Status::DEAD, Status::RETIRED]))
+                                <div class="flex items-center gap-4">
+                                    <button type="submit"
+                                            class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+                                        Save
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                     </form>
                 </div>
