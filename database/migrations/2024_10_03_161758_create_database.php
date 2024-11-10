@@ -129,8 +129,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('name', 64);
             $table->foreignId('background_id')->constrained();
-            $table->text('history');
-            $table->text('plot_notes');
+            $table->text('history')->default('');
+            $table->text('plot_notes')->default('');
             $table->foreignId('status_id');
             $table->timestamps();
         });

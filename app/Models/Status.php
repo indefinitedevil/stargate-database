@@ -10,5 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Status extends Model
 {
-    use HasFactory;
+    const NEW = 1;
+    const PLAYED = 2;
+    const DEAD = 3;
+    const RETIRED = 4;
 }

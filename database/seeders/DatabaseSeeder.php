@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             BackgroundSeeder::class,
             SkillSeeder::class,
             FeatSeeder::class,
+            TestSeeder::class,
         ]);
     }
 }

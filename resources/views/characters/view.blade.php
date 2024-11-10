@@ -2,6 +2,9 @@
 <x-app-layout>
     <x-slot name="title">{{ $character->name }}</x-slot>
     <x-slot name="header">
+        <a href="{{ route('characters.edit', ['characterId' => $character->id]) }}"
+           class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
+        >{{ __('Edit') }}</a>
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-300 leading-tight">
             {{ sprintf(__('Character: %s'), $character->name) }}
         </h2>
@@ -33,7 +36,7 @@
                     </h2>
                     <div class="grid grid-cols-4">
                         <div class="mt-1">
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Background</h3>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Background') }}</h3>
                             <ul>
                                 @foreach ($character->background->skills as $skill)
                                     <li>{{ $skill->name }}</li>
@@ -41,7 +44,7 @@
                             </ul>
                         </div>
                         <div class="mt-1">
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Trained</h3>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Trained') }}</h3>
                             <ul>
                                 @foreach ($character->displayedTrainedSkills->sortBy('name') as $characterSkill)
                                     <li>{{ $characterSkill->name }}
@@ -62,7 +65,7 @@
                         </div>
                         @if ($character->trainingSkills->count())
                             <div class="mt-1">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Training</h3>
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Training') }}</h3>
                                 <ul>
                                     @foreach ($character->trainingSkills->sortBy('name') as $characterSkill)
                                         <li>
@@ -82,7 +85,7 @@
                         @endif
                     </div>
                     @if(!empty($flashOfInsight))
-                        <p class="mt-1">* Flash of Insight discount available</p>
+                        <p class="mt-1">{{ __('* Flash of Insight discount available') }}</p>
                     @endif
                 </div>
             </div>
@@ -119,6 +122,14 @@
                     </div>
                 </div>
             @endif
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+                <div class="">
+                    <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
+                        {{ __('History') }}
+                    </h2>
+                    <p class="mt-1">{{ nl2br($character->history) }}</p>
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>

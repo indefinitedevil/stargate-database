@@ -18,13 +18,25 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property Collection trainingSkill
  * @property Status status
  * @property Feat[] feats
+ * @property User player
  * @property int body
  * @property int vigor
+ * @property string history
+ * @property string plotNotes
  * @property Object[] cards
  */
 class Character extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'name',
+        'background_id',
+        'status_id',
+        'history',
+        'plot_notes',
+    ];
 
     public function player(): BelongsTo
     {
