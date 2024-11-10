@@ -27,19 +27,21 @@ It is seeded with tables representing the rules.
 ### To-do
 
 - [ ] Add GUI for character creation and editing
-- [ ] Add GUI for character viewing
+- [x] ~~Add GUI for character viewing~~
 - [ ] Add GUI for log viewing
 - [ ] Add skill descriptions
 - [x] ~~Add feat descriptions~~ - Ki 2024-10-22
-- [ ] Add user registration system
+- [x] ~~Add user registration system~~
 - [ ] Add permissions system
 
 ## Installation
 
 1. Clone the repository
-2. Set up your local environment
+2. Set up your local environment (ddev recommended)
 3. Run `composer install`
 4. Run `php artisan migrate --seed`
+5. Run `npm install`
+6. Run `npm run build`
 
 ## Contributing
 
