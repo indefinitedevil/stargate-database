@@ -67,6 +67,32 @@
                             @endforeach
                         </ul>
                     </div>
+                    @if ($character->trainingSkills->count())
+                        <div class="mt-1">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Training') }}</h3>
+                            <ul>
+                                @foreach ($character->trainingSkills->sortBy('name') as $characterSkill)
+                                    <li>
+                                        {{ $characterSkill->name }}
+                                        ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
+                                        <i class="fa-solid fa-pencil" title="Edit skill"></i>
+                                        @if ($characterSkill->locked)
+                                            <i class="fa-solid fa-lock" title="Expenditure is locked"></i>
+                                        @else
+                                            <i class="fa-solid fa-trash" title="Remove skill"></i>
+                                        @endif
+                                        @if($characterSkill->skill->specialties > 1)
+                                            <ul>
+                                                @foreach ($characterSkill->skillSpecialties as $specialty)
+                                                    <li>{{ $specialty->name }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
             </div>
 
