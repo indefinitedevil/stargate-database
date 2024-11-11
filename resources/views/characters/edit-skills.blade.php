@@ -149,6 +149,27 @@
                                 </div>
                             @endif
 
+                            @if ($editSkill && ($editSkill->discountAvailable || $editSkill->discountedBy->count()))
+                                <div>
+                                    <label for="discount">Discount</label>
+                                    <select id="discount" name="discount_id" class="{{ $fieldClass }}" multiple>
+                                        <option value="">No discount</option>
+                                        @foreach($editSkill->discountedBy as $discount)
+                                            <option value="{{ $discount->id }}" selected>
+                                                {{ $discount->skill->name }}
+                                            </option>
+                                        @endforeach
+                                        @foreach($editSkill->discountsAvailable as $discount)
+                                            <option value="{{ $discount->id }}"
+                                                    @if($editSkill->discountedBy->contains(['id' => $discount->id])) selected @endif
+                                            >
+                                                {{ $discount->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
                             <div>
                                 <label for="completed">Completed</label>
                                 <input type="checkbox" id="completed" name="completed" class=""

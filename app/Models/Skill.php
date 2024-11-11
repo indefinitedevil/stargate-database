@@ -66,11 +66,11 @@ class Skill extends Model
 
     public function discountedBy(): HasMany
     {
-        return $this->hasMany(SkillDiscount::class, 'discounted_skill_id');
+        return $this->hasMany(SkillDiscount::class, 'discounted_skill');
     }
 
     public function discounts(): HasMany
     {
-        return $this->hasMany(SkillDiscount::class, 'discounting_skill_id');
+        return $this->hasMany(SkillDiscount::class, 'discounting_skill');
     }
 }

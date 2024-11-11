@@ -17,11 +17,11 @@ class SkillDiscount extends Model
 
     public function discountedSkill(): BelongsTo
     {
-        return $this->belongsTo(Skill::class, 'discounted_skill_id');
+        return $this->belongsTo(Skill::class, 'discounted_skill');
     }
 
     public function discountingSkill(): BelongsTo
     {
-        return $this->belongsTo(Skill::class, 'discounting_skill_id');
+        return $this->belongsTo(Skill::class, 'discounting_skill');
     }
 }

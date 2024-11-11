@@ -86,7 +86,7 @@ class Character extends Model
             ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
             ->where(function (Builder $query) {
                 $query->whereNull('character_skills.id')
-                    ->orWhere('skills.repeatable', '>', DB::raw(0));
+                    ->orWhere('skills.repeatable', '>', 0);
             });
 
         $prereqSkills = SkillPrereq::select('skill_prereqs.skill_id')

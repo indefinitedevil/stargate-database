@@ -15,8 +15,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property Skill skill
  * @property int skill_id
  * @property bool discount_used
+ * @property bool discount_available
  * @property CharacterSkill discountUsedBy
- * @property CharacterSkill discountedBy
+ * @property Collection discountedBy
  * @property Collection skillSpecialties
  * @property Collection specialties
  * @property Collection allSpecialties
@@ -44,9 +45,9 @@ class CharacterSkill extends Model
         return $this->hasOne(CharacterSkill::class, 'id', 'discount_used_by');
     }
 
-    public function discountedBy(): HasOne
+    public function discountedBy(): HasMany
     {
-        return $this->hasOne(CharacterSkill::class, 'discount_used_by', 'id');
+        return $this->hasMany(CharacterSkill::class, 'discount_used_by', 'id');
     }
 
     public function skillSpecialties(): BelongsToMany
@@ -89,8 +90,8 @@ class CharacterSkill extends Model
             }
         }
         if ($this->discountedBy) {
-            $skillDiscounts = SkillDiscount::where('discounted_skill_id', $this->skill_id)
-                ->where('discounting_skill_id', $this->discountedBy->skill_id)
+            $skillDiscounts = SkillDiscount::where('discounted_skill', $this->skill_id)
+                ->where('discounting_skill', $this->discountedBy->skill_id)
                 ->all();
             foreach ($skillDiscounts as $skillDiscount) {
                 $cost -= $skillDiscount->discount;
@@ -144,5 +145,29 @@ class CharacterSkill extends Model
             ->where('skill_prereqs.prereq_id', $this->skill_id)
             ->get('skills.name');
         return $skills->implode('name', ', ');
+    }
+
+    public function getDiscountAvailableAttribute(): bool
+    {
+        return $this->skill->discounts()
+                ->where('discounted_skill', $this->skill_id)
+                ->join('character_skills', 'discounting_skill', '=', 'character_skills.skill_id')
+                ->where('character_skills.character_id', $this->character_id)
+                ->where('character_skills.completed', true)
+                ->where('character_skills.discount_used', false)
+                ->count() > 1;
+    }
+
+    public function getDiscountsAvailableAttribute(): Collection
+    {
+        return $this->skill->discounts()
+            ->where('discounted_skill', $this->skill_id)
+            ->join('skills', 'skills.id', '=', 'skill_discounts.discounting_skill')
+            ->join('character_skills', 'discounting_skill', '=', 'character_skills.skill_id')
+            ->where('character_skills.character_id', $this->character_id)
+            ->where('character_skills.completed', true)
+            ->where('character_skills.discount_used', false)
+            ->select('skills.name', 'character_skills.id', 'skill_discounts.discount')
+            ->get();
     }
 }
