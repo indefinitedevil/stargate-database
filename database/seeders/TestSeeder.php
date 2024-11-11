@@ -13,7 +13,7 @@ class TestSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert([
+        DB::table('users')->insertOrIgnore([
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => Hash::make('password'),
