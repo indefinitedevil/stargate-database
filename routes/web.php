@@ -22,10 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/characters', [CharacterController::class, 'index'])->name('characters.index');
     Route::get('/characters/view/{characterId}', [CharacterController::class, 'view'])->name('characters.view');
     Route::get('/characters/edit/{characterId}', [CharacterController::class, 'edit'])->name('characters.edit');
-    Route::get('/characters/edit-skills/{characterId}', [CharacterController::class, 'editSkills'])->name('characters.edit-skills');
+    Route::get('/characters/edit/{characterId}/skills', [CharacterController::class, 'editSkills'])->name('characters.edit-skills');
+    Route::get('/characters/edit/{characterId}/skills/{skillId}', [CharacterController::class, 'editSkills'])->name('characters.edit-skill');
     Route::get('/characters/create', [CharacterController::class, 'create'])->name('characters.create');
     Route::post('/characters/store', [CharacterController::class, 'store'])->name('characters.store');
-    Route::post('/characters/store-skills', [CharacterController::class, 'storeSkills'])->name('characters.store-skills');
+    Route::post('/characters/store-skill', [CharacterController::class, 'storeSkill'])->name('characters.store-skill');
 });
 
 require __DIR__.'/auth.php';

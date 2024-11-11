@@ -53,7 +53,7 @@
                                         <i class="fa-solid fa-user-lock"
                                            title="{{ sprintf('Required by %s', $characterSkill->requiredBy) }}"></i>
                                     @else
-                                        <i class="fa-solid fa-pencil" title="Edit skill"></i>
+                                        <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i class="fa-solid fa-pencil" title="Edit skill"></i></a>
                                         <i class="fa-solid fa-trash" title="Remove skill"></i>
                                     @endif
                                     @if($characterSkill->skill->specialties > 1)
@@ -98,7 +98,7 @@
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                 <div class="mt-1">
-                    <form method="POST" action="{{ route('characters.store-skills') }}">
+                    <form method="POST" action="{{ route('characters.store-skill') }}">
                         @csrf
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -109,17 +109,50 @@
                                 </ul>
                             </div>
                         @endif
+                        @if (!empty($editSkill))
+                            <input type="hidden" name="edit_skill" value="{{ $editSkill->id }}">
+                        @endif
                         <input type="hidden" name="character_id" value="{{$character->id }}">
                         <div class="grid grid-cols-1 gap-6">
                             <div>
                                 <label for="skill">Skill</label>
                                 <select id="skill" name="skill_id" class="{{ $fieldClass }}" required>
+                                    @if (!empty($editSkill))
+                                        <option value="{{ $editSkill->skill_id }}" selected="selected">
+                                            {{ $editSkill->skill->name }}
+                                        </option>
+                                    @else
+                                        <option value="">Select a skill</option>
+                                    @endif
                                     @foreach($character->availableSkills as $skill)
                                         <option value="{{ $skill->id }}">
                                             {{ $skill->name }}
                                         </option>
                                     @endforeach
                                 </select>
+                            </div>
+
+                            @if ($editSkill && $editSkill->skill->specialties > 0)
+                                <div>
+                                    <label for="specialty">Specialty</label>
+                                    <select id="specialty" name="specialty_id" class="{{ $fieldClass }}"
+                                            @if ($editSkill->skill->specialties > 1) multiple @endif>
+                                    >
+                                        @foreach($editSkill->skill->specialtyType->skillSpecialties as $specialty)
+                                            <option value="{{ $specialty->id }}"
+                                                    @if($editSkill->skillSpecialties->contains($specialty)) selected @endif
+                                            >
+                                                {{ $specialty->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
+                            <div>
+                                <label for="completed">Completed</label>
+                                <input type="checkbox" id="completed" name="completed" class=""
+                                        @if (!empty($editSkill) && $editSkill->completed) checked="checked" @endif>
                             </div>
 
                             <div class="flex items-center gap-4">

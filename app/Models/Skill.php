@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string name
  * @property Collection cards
  * @property Collection feats
+ * @property Collection specialtyList
  * @property int skill_category_id
  * @property SkillCategory skillCategory
  * @property bool upkeep
@@ -48,14 +49,14 @@ class Skill extends Model
         return $this->belongsTo(SkillCategory::class);
     }
 
-    public function specialtyType(): HasOne
+    public function specialtyType(): BelongsTo
     {
-        return $this->hasOne(SpecialtyType::class);
+        return $this->belongsTo(SpecialtyType::class);
     }
 
-    public function specialties(): HasMany
+    public function getSpecialtyListAttribute(): Collection
     {
-        return $this->hasMany(SkillSpecialty::class);
+        return $this->specialtyType->skillSpecialties;
     }
 
     public function characters(): HasManyThrough
