@@ -129,8 +129,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('name', 64);
             $table->foreignId('background_id')->constrained();
-            $table->text('history')->default('');
-            $table->text('plot_notes')->default('');
+            $table->text('history');
+            $table->text('plot_notes');
             $table->foreignId('status_id');
             $table->timestamps();
         });
@@ -156,6 +156,7 @@ return new class extends Migration
             $table->foreignId('log_type_id')->constrained();
             $table->foreignId('skill_id')->constrained();
             $table->smallInteger('amount_trained')->default(0);
+            $table->string('notes', 255)->default('');
             $table->boolean('locked')->default(false);
             $table->unsignedBigInteger('teacher_id')->nullable();
             $table->timestamps();
