@@ -111,6 +111,11 @@ class CharacterController extends Controller
         $characterSkill->save();
 
         if ($request->get('discounted_by', [])) {
+            foreach ($characterSkill->discountedBy as $discountedBy) {
+                $discountedBy->discount_used = false;
+                $discountedBy->discount_used_by = null;
+                $discountedBy->save();
+            }
             foreach ($request->get('discounted_by') as $discountedBy) {
                 $discountingSkill = CharacterSkill::find($discountedBy);
                 $discountingSkill->discount_used = true;
@@ -118,6 +123,20 @@ class CharacterController extends Controller
                 $discountingSkill->save();
             }
         }
+
+        return redirect(route('characters.edit-skills', ['characterId' => $characterSkill->character->id]));
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function removeSkill($characterId, $skillId)
+    {
+        $characterSkill = CharacterSkill::find($skillId);
+        if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
+            throw ValidationException::withMessages(['Character can no longer be modified.']);
+        }
+        $characterSkill->delete();
 
         return redirect(route('characters.edit-skills', ['characterId' => $characterSkill->character->id]));
     }
