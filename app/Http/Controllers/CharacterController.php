@@ -93,7 +93,7 @@ class CharacterController extends Controller
         if (!empty($validatedData['id'])) {
             $characterSkill = CharacterSkill::find($validatedData['id']);
             if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
-                return redirect(route('characters.view', ['characterId' => $characterSkill->character->id]));
+                throw ValidationException::withMessages(['Character can no longer be modified.']);
             }
         } else {
             $existing = CharacterSkill::where('character_id', $validatedData['character_id'])
