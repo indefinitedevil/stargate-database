@@ -432,7 +432,7 @@ class SkillSeeder extends Seeder
                 'cost' => 0,
                 'specialties' => 1,
                 'specialty_type_id' => 1,
-                'repeatable' => 1,
+                'repeatable' => 20,
                 'body' => 0,
                 'vigor' => 0,
                 'display' => 0,

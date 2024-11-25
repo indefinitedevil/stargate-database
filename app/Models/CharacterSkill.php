@@ -30,6 +30,14 @@ class CharacterSkill extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'character_id',
+        'skill_id',
+        'completed',
+        'discount_used',
+        'discount_used_by',
+    ];
+
     public function character(): BelongsTo
     {
         return $this->belongsTo(Character::class);
@@ -90,10 +98,10 @@ class CharacterSkill extends Model
             }
         }
         if ($this->discountedBy) {
-            $skillDiscounts = SkillDiscount::where('discounted_skill', $this->skill_id)
-                ->where('discounting_skill', $this->discountedBy->skill_id)
-                ->all();
-            foreach ($skillDiscounts as $skillDiscount) {
+            foreach ($this->discountedBy as $discountedBy) {
+                $skillDiscount = SkillDiscount::where('discounted_skill', $this->skill_id)
+                    ->where('discounting_skill', $discountedBy->skill_id)
+                    ->first();
                 $cost -= $skillDiscount->discount;
             }
         }
@@ -149,8 +157,7 @@ class CharacterSkill extends Model
 
     public function getDiscountAvailableAttribute(): bool
     {
-        return $this->skill->discounts()
-                ->where('discounted_skill', $this->skill_id)
+        return $this->skill->hasMany(SkillDiscount::class, 'discounted_skill')
                 ->join('character_skills', 'discounting_skill', '=', 'character_skills.skill_id')
                 ->where('character_skills.character_id', $this->character_id)
                 ->where('character_skills.completed', true)
@@ -160,8 +167,7 @@ class CharacterSkill extends Model
 
     public function getDiscountsAvailableAttribute(): Collection
     {
-        return $this->skill->discounts()
-            ->where('discounted_skill', $this->skill_id)
+        return $this->skill->hasMany(SkillDiscount::class, 'discounted_skill')
             ->join('skills', 'skills.id', '=', 'skill_discounts.discounting_skill')
             ->join('character_skills', 'discounting_skill', '=', 'character_skills.skill_id')
             ->where('character_skills.character_id', $this->character_id)

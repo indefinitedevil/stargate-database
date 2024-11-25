@@ -75,7 +75,7 @@
                                     <li>
                                         {{ $characterSkill->name }}
                                         ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
-                                        <i class="fa-solid fa-pencil" title="Edit skill"></i>
+                                        <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i class="fa-solid fa-pencil" title="Edit skill"></i></a>
                                         @if ($characterSkill->locked)
                                             <i class="fa-solid fa-lock" title="Expenditure is locked"></i>
                                         @else
@@ -110,7 +110,7 @@
                             </div>
                         @endif
                         @if (!empty($editSkill))
-                            <input type="hidden" name="edit_skill" value="{{ $editSkill->id }}">
+                            <input type="hidden" name="id" value="{{ $editSkill->id }}">
                         @endif
                         <input type="hidden" name="character_id" value="{{$character->id }}">
                         <div class="grid grid-cols-1 gap-6">
@@ -151,8 +151,8 @@
 
                             @if ($editSkill && ($editSkill->discountAvailable || $editSkill->discountedBy->count()))
                                 <div>
-                                    <label for="discount">Discount</label>
-                                    <select id="discount" name="discount_id" class="{{ $fieldClass }}" multiple>
+                                    <label for="discounted_by">Discount</label>
+                                    <select id="discounted_by" name="discounted_by[]" class="{{ $fieldClass }}" multiple>
                                         <option value="">No discount</option>
                                         @foreach($editSkill->discountedBy as $discount)
                                             <option value="{{ $discount->id }}" selected>
@@ -172,7 +172,7 @@
 
                             <div>
                                 <label for="completed">Completed</label>
-                                <input type="checkbox" id="completed" name="completed" class=""
+                                <input type="checkbox" id="completed" name="completed" class="" value="1"
                                         @if (!empty($editSkill) && $editSkill->completed) checked="checked" @endif>
                             </div>
 

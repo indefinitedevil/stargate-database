@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Character;
 use App\Models\CharacterSkill;
+use App\Models\Skill;
 use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class CharacterController extends Controller
 {
@@ -21,11 +23,13 @@ class CharacterController extends Controller
         return view('characters.create');
     }
 
-    public function view($characterId) {
+    public function view($characterId)
+    {
         return view('characters.view', ['character' => Character::find($characterId)]);
     }
 
-    public function edit($characterId) {
+    public function edit($characterId)
+    {
         $character = Character::find($characterId);
         if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
             return redirect(route('characters.view', ['characterId' => $character->id]));
@@ -33,7 +37,8 @@ class CharacterController extends Controller
         return view('characters.edit', ['character' => $character]);
     }
 
-    public function editSkills($characterId, $skillId = null) {
+    public function editSkills($characterId, $skillId = null)
+    {
         $character = Character::find($characterId);
         if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
             return redirect(route('characters.view', ['characterId' => $character->id]));
@@ -71,12 +76,18 @@ class CharacterController extends Controller
         return redirect(route('characters.view', ['characterId' => $character->id]));
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function storeSkill(Request $request)
     {
         $validatedData = $request->validate([
             'id' => 'integer|exists:character_skills,id',
             'character_id' => 'integer|exists:characters,id',
             'skill_id' => 'required|exists:skills,id',
+            'completed' => 'boolean',
+            'discount_used' => 'boolean',
+            'discount_used_by' => 'integer|exists:character_skills,id',
         ]);
 
         if (!empty($validatedData['id'])) {
@@ -85,10 +96,29 @@ class CharacterController extends Controller
                 return redirect(route('characters.view', ['characterId' => $characterSkill->character->id]));
             }
         } else {
+            $existing = CharacterSkill::where('character_id', $validatedData['character_id'])
+                ->where('skill_id', $validatedData['skill_id'])
+                ->count();
+            if ($existing) {
+                $skill = Skill::find($validatedData['skill_id']);
+                if (!$skill->repeatable || $skill->repeatable <= $existing) {
+                    throw ValidationException::withMessages(['Skill has already been taken the maximum number of times.']);
+                }
+            }
             $characterSkill = new CharacterSkill();
         }
         $characterSkill->fill($validatedData);
         $characterSkill->save();
+
+        if ($request->get('discounted_by', [])) {
+            foreach ($request->get('discounted_by') as $discountedBy) {
+                $discountingSkill = CharacterSkill::find($discountedBy);
+                $discountingSkill->discount_used = true;
+                $discountingSkill->discount_used_by = $characterSkill->id;
+                $discountingSkill->save();
+            }
+        }
+
         return redirect(route('characters.edit-skills', ['characterId' => $characterSkill->character->id]));
     }
 }
