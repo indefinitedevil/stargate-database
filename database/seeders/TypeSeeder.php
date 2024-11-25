@@ -19,7 +19,7 @@ class TypeSeeder extends Seeder
     {
         // seed specialty types
         DB::table('specialty_types')->insertOrIgnore([
-            ['id' => Skill::ARCHEO_ANTHROPOLOGY, 'name' => 'Archeo-Anthropology'],
+            ['id' => 1, 'name' => 'Archeo-Anthropology'],
             ['id' => 2, 'name' => 'Medical'],
             ['id' => 3, 'name' => 'Language'],
             ['id' => 4, 'name' => 'Mythology'],

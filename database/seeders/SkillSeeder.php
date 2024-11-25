@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Skill;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -209,7 +210,7 @@ class SkillSeeder extends Seeder
     {
         DB::table('skills')->upsert([
             [
-                'id' => 9,
+                'id' => Skill::ARCHEO_ANTHROPOLOGY,
                 'name' => 'Archeo-Anthropology',
                 'skill_category_id' => 2,
                 'description' => '',
