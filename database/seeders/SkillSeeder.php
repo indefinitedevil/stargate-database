@@ -424,7 +424,7 @@ class SkillSeeder extends Seeder
     {
         DB::table('skills')->upsert([
             [
-                'id' => 10,
+                'id' => Skill::ADDITIONAL_AA_SPEC,
                 'name' => 'Additional Archeo-Anthrology Speciality',
                 'skill_category_id' => 3,
                 'description' => '',
