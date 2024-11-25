@@ -53,8 +53,10 @@
                                         <i class="fa-solid fa-user-lock"
                                            title="{{ sprintf('Required by %s', $characterSkill->requiredBy) }}"></i>
                                     @else
-                                        <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i class="fa-solid fa-pencil" title="Edit skill"></i></a>
-                                        <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i class="fa-solid fa-trash" title="Remove skill"></i></a>
+                                        <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
+                                                class="fa-solid fa-pencil" title="Edit skill"></i></a>
+                                        <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
+                                                class="fa-solid fa-trash" title="Remove skill"></i></a>
                                     @endif
                                     @if($characterSkill->skill->specialties > 1)
                                         <ul class="list-disc list-inside">
@@ -75,11 +77,13 @@
                                     <li>
                                         {{ $characterSkill->name }}
                                         ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
-                                        <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i class="fa-solid fa-pencil" title="Edit skill"></i></a>
+                                        <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
+                                                class="fa-solid fa-pencil" title="Edit skill"></i></a>
                                         @if ($characterSkill->locked)
                                             <i class="fa-solid fa-lock" title="Expenditure is locked"></i>
                                         @else
-                                            <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i class="fa-solid fa-trash" title="Remove skill"></i></a>
+                                            <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
+                                                    class="fa-solid fa-trash" title="Remove skill"></i></a>
                                         @endif
                                         @if($characterSkill->skill->specialties > 1)
                                             <ul>
@@ -113,75 +117,118 @@
                             <input type="hidden" name="id" value="{{ $editSkill->id }}">
                         @endif
                         <input type="hidden" name="character_id" value="{{$character->id }}">
-                        <div class="grid grid-cols-1 gap-6">
-                            <div>
-                                <label for="skill">Skill</label>
-                                <select id="skill" name="skill_id" class="{{ $fieldClass }}" required>
-                                    @if (!empty($editSkill))
-                                        <option value="{{ $editSkill->skill_id }}" selected="selected">
-                                            {{ $editSkill->skill->name }}
-                                        </option>
-                                    @else
-                                        <option value="">Select a skill</option>
-                                    @endif
-                                    @foreach($character->availableSkills as $skill)
-                                        <option value="{{ $skill->id }}">
-                                            {{ $skill->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            @if ($editSkill && $editSkill->skill->specialties > 0)
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="grid gap-6">
                                 <div>
-                                    <label for="specialty">Specialty</label>
-                                    <select id="specialty" name="specialty_id" class="{{ $fieldClass }}"
-                                            @if ($editSkill->skill->specialties > 1) multiple @endif>
+                                    <label for="skill">Skill</label>
+                                    @php $skills = []; @endphp
+                                    <select id="skill" name="skill_id" class="{{ $fieldClass }}" required
+                                            onchange="showSkillDescription(this.value)">
                                     >
-                                        @foreach($editSkill->skill->specialtyType->skillSpecialties as $specialty)
-                                            <option value="{{ $specialty->id }}"
-                                                    @if($editSkill->skillSpecialties->contains($specialty)) selected @endif
-                                            >
-                                                {{ $specialty->name }}
+                                        @if (!empty($editSkill))
+                                            @php
+                                                $skills[] = $editSkill->skill;
+                                            @endphp
+                                            <option value="{{ $editSkill->skill_id }}" selected="selected">
+                                                {{ $editSkill->skill->name }}
+                                            </option>
+                                        @else
+                                            <option value="">Select a skill</option>
+                                        @endif
+                                        @foreach($character->availableSkills as $skill)
+                                            @php
+                                                $skills[] = $skill;
+                                            @endphp
+                                            <option value="{{ $skill->id }}">
+                                                {{ $skill->name }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
-                            @endif
 
-                            @if ($editSkill && ($editSkill->discountAvailable || $editSkill->discountedBy->count()))
+                                @if ($editSkill && $editSkill->skill->specialties > 0)
+                                    <div>
+                                        <label for="specialty">Specialty</label>
+                                        <select id="specialty" name="specialty_id" class="{{ $fieldClass }}"
+                                                @if ($editSkill->skill->specialties > 1) multiple @endif>
+                                            >
+                                            @foreach($editSkill->skill->specialtyType->skillSpecialties as $specialty)
+                                                <option value="{{ $specialty->id }}"
+                                                        @if($editSkill->skillSpecialties->contains($specialty)) selected @endif
+                                                >
+                                                    {{ $specialty->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
+
+                                @if ($editSkill && ($editSkill->discountAvailable || $editSkill->discountedBy->count()))
+                                    <div>
+                                        <label for="discounted_by">Discount</label>
+                                        <select id="discounted_by" name="discounted_by[]" class="{{ $fieldClass }}"
+                                                multiple>
+                                            <option value="">No discount</option>
+                                            @foreach($editSkill->discountedBy as $discount)
+                                                <option value="{{ $discount->id }}" selected>
+                                                    {{ $discount->skill->name }}
+                                                </option>
+                                            @endforeach
+                                            @foreach($editSkill->discountsAvailable as $discount)
+                                                <option value="{{ $discount->id }}"
+                                                        @if($editSkill->discountedBy->contains(['id' => $discount->id])) selected @endif
+                                                >
+                                                    {{ $discount->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
+
                                 <div>
-                                    <label for="discounted_by">Discount</label>
-                                    <select id="discounted_by" name="discounted_by[]" class="{{ $fieldClass }}" multiple>
-                                        <option value="">No discount</option>
-                                        @foreach($editSkill->discountedBy as $discount)
-                                            <option value="{{ $discount->id }}" selected>
-                                                {{ $discount->skill->name }}
-                                            </option>
-                                        @endforeach
-                                        @foreach($editSkill->discountsAvailable as $discount)
-                                            <option value="{{ $discount->id }}"
-                                                    @if($editSkill->discountedBy->contains(['id' => $discount->id])) selected @endif
-                                            >
-                                                {{ $discount->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <label for="completed">Completed</label>
+                                    <input type="checkbox" id="completed" name="completed" class="" value="1"
+                                           @if (!empty($editSkill) && $editSkill->completed) checked="checked" @endif>
                                 </div>
-                            @endif
 
+                                <div class="flex items-center gap-4">
+                                    <button type="submit"
+                                            class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
                             <div>
-                                <label for="completed">Completed</label>
-                                <input type="checkbox" id="completed" name="completed" class="" value="1"
-                                        @if (!empty($editSkill) && $editSkill->completed) checked="checked" @endif>
+                                @foreach($skills as $skill)
+                                    <div id="skill-description-{{ $skill->id }}" class="skill-description mt-1 @if (!$editSkill || $editSkill->skill->id != $skill->id) hidden @endif">
+                                        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ $skill->name }}</h3>
+                                        <p>{{ $skill->description }}</p>
+                                        @if ($skill->feats->count())
+                                            <h4 class="text-md font-medium text-gray-900 dark:text-gray-100">{{ __('Feats') }}</h4>
+                                            <ul>
+                                                @foreach($skill->feats as $feat)
+                                                    <li>
+                                                        {{ $feat->name }}
+                                                        <i class="fa-regular fa-circle-question" title="{{ $feat->description }}"
+                                                           data-tooltip-target="feat-{{ $feat->id }}"
+                                                        ></i>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </div>
+                                @endforeach
                             </div>
-
-                            <div class="flex items-center gap-4">
-                                <button type="submit"
-                                        class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
-                                    Save
-                                </button>
-                            </div>
+                            <script>
+                                function showSkillDescription(skillId) {
+                                    let skills = document.querySelectorAll('.skill-description');
+                                    skills.forEach(function (skill) {
+                                        skill.classList.add('hidden');
+                                    });
+                                    let skill = document.getElementById('skill-description-' + skillId);
+                                    skill.classList.remove('hidden');
+                                }
+                            </script>
                         </div>
                     </form>
                 </div>

@@ -108,6 +108,9 @@
                                 @if ($feat->per_event)
                                     ({{ $feat->getPerEvent($character) }})
                                 @endif
+                                <i class="fa-regular fa-circle-question" title="{{ $feat->description }}"
+                                   data-tooltip-target="feat-{{ $feat->id }}"
+                                ></i>
                             </li>
                         @endforeach
                     </ul>
