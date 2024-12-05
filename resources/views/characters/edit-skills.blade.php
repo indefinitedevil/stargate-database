@@ -44,6 +44,7 @@
                         <ul>
                             @foreach ($character->trainedSkills->sortBy('name') as $characterSkill)
                                 <li>{{ $characterSkill->name }}
+                                    ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                     @if ($characterSkill->locked)
                                         <i class="fa-solid fa-lock" title="Expenditure is locked"></i>
                                     @elseif ($characterSkill->discount_used)
@@ -182,6 +183,10 @@
                                                 </option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                @else
+                                    <div>
+                                        <p>To apply a discount, first save the skill, then edit the saved skill to select applicable discounts.</p>
                                     </div>
                                 @endif
 
