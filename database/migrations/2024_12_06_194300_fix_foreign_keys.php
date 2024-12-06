@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\CharacterSkill;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +17,7 @@ return new class extends Migration
             $table->foreign('character_skill_id')->references('id')->on('character_skills')->onDelete('cascade');
         });
         Schema::table('character_log', function (Blueprint $table) {
-            $table->dropForeignIdFor('character_skill_id');
+            $table->dropForeignIdFor(CharacterSkill::class);
             $table->foreign('character_skill_id')->references('id')->on('character_skills')->onDelete('cascade');
         });
     }
