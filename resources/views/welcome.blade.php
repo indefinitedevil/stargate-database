@@ -13,6 +13,9 @@
                     @guest
                         <p>You'll need to <a class="underline" href="{{ route('login') }}">log in</a>@if (Route::has('register')) or  <a class="underline" href="{{ route('register') }}">register</a>@endif to access the character creator.</p>
                     @endguest
+                    @auth
+                        @include('partials.help')
+                    @endauth
                 </div>
             </div>
         </div>
