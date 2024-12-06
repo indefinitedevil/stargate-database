@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property string name
@@ -72,5 +71,22 @@ class Skill extends Model
     public function discounts(): HasMany
     {
         return $this->hasMany(SkillDiscount::class, 'discounting_skill');
+    }
+
+    public function cost(Character $character = null, CharacterSkill $characterSkill = null): int
+    {
+        if ($this->attributes['cost']) {
+            return $this->attributes['cost'];
+        }
+        $category = $this->skillCategory;
+        if ($character && $category->scaling) {
+            $completedCategorySkills = $character->trainedSkills()
+                ->where('skills.skill_category_id', $this->skill_category_id);
+            if ($characterSkill) {
+                $completedCategorySkills = $completedCategorySkills->where('character_skills.id', '!=', $characterSkill->id);
+            }
+            return $category->cost + $completedCategorySkills->count();
+        }
+        return $category->cost;
     }
 }

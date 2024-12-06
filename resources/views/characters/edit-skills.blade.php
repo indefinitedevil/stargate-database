@@ -1,6 +1,5 @@
 @php
-    use App\Models\Background;
-    use App\Models\Feat;use App\Models\Status;
+    use App\Models\Status;
     $fieldClass = 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block w-full';
 @endphp
 <x-app-layout>
@@ -42,7 +41,11 @@
                     <div class="mt-1">
                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Trained') }}</h3>
                         <ul>
+                            @php
+                                $totalTraining = 0;
+                            @endphp
                             @foreach ($character->trainedSkills->sortBy('name') as $characterSkill)
+                                @php $totalTraining += $characterSkill->trained; @endphp
                                 <li>{{ $characterSkill->name }}
                                     ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                     @if ($characterSkill->locked)
@@ -55,9 +58,9 @@
                                            title="{{ sprintf('Required by %s', $characterSkill->requiredBy) }}"></i>
                                     @else
                                         <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                class="fa-solid fa-pencil" title="Edit skill"></i></a>
+                                                    class="fa-solid fa-pencil" title="Edit skill"></i></a>
                                         <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                class="fa-solid fa-trash" title="Remove skill"></i></a>
+                                                    class="fa-solid fa-trash" title="Remove skill"></i></a>
                                     @endif
                                     @if($characterSkill->skill->specialties > 1)
                                         <ul class="list-disc list-inside">
@@ -69,6 +72,10 @@
                                 </li>
                             @endforeach
                         </ul>
+                        @if (Status::NEW == $character->status_id)
+                            <p class="mt-1">Total training: {{ $totalTraining }}
+                                /{{ $character->background->months }}</p>
+                        @endif
                     </div>
                     @if ($character->trainingSkills->count())
                         <div class="mt-1">
@@ -79,12 +86,12 @@
                                         {{ $characterSkill->name }}
                                         ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                         <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                class="fa-solid fa-pencil" title="Edit skill"></i></a>
+                                                    class="fa-solid fa-pencil" title="Edit skill"></i></a>
                                         @if ($characterSkill->locked)
                                             <i class="fa-solid fa-lock" title="Expenditure is locked"></i>
                                         @else
                                             <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                    class="fa-solid fa-trash" title="Remove skill"></i></a>
+                                                        class="fa-solid fa-trash" title="Remove skill"></i></a>
                                         @endif
                                         @if($characterSkill->skill->specialties > 1)
                                             <ul>
@@ -98,6 +105,22 @@
                             </ul>
                         </div>
                     @endif
+                    <div class="mt-1">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Feats') }}</h3>
+                        <ul>
+                            @foreach ($character->feats as $feat)
+                                <li>
+                                    {{ $feat->name }}
+                                    @if ($feat->per_event)
+                                        ({{ $feat->getPerEvent($character) }})
+                                    @endif
+                                    <i class="fa-regular fa-circle-question" title="{{ $feat->description }}"
+                                       data-tooltip-target="feat-{{ $feat->id }}"
+                                    ></i>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
 
@@ -117,34 +140,45 @@
                         @if (!empty($editSkill))
                             <input type="hidden" name="id" value="{{ $editSkill->id }}">
                         @endif
+                        @php $skills = []; @endphp
                         <input type="hidden" name="character_id" value="{{$character->id }}">
                         <div class="grid grid-cols-2 gap-6">
                             <div class="grid gap-6">
                                 <div>
                                     <label for="skill">Skill</label>
-                                    @php $skills = []; @endphp
-                                    <select id="skill" name="skill_id" class="{{ $fieldClass }}" required
-                                            onchange="showSkillDescription(this.value)">
-                                    >
-                                        @if (!empty($editSkill))
-                                            @php
-                                                $skills[] = $editSkill->skill;
-                                            @endphp
-                                            <option value="{{ $editSkill->skill_id }}" selected="selected">
-                                                {{ $editSkill->skill->name }}
-                                            </option>
-                                        @else
-                                            <option value="">Select a skill</option>
-                                        @endif
-                                        @foreach($character->availableSkills as $skill)
-                                            @php
-                                                $skills[] = $skill;
-                                            @endphp
-                                            <option value="{{ $skill->id }}">
-                                                {{ $skill->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    @if ($editSkill && $editSkill->completed)
+                                        @php
+                                            $skills[] = $editSkill->skill;
+                                        @endphp
+                                        <input type="hidden" name="skill_id" value="{{$editSkill->skill_id }}">
+                                        <input type="text" class="{{ $fieldClass }}"
+                                               value="{{ $editSkill->name }}" disabled>
+                                    @else
+                                        <select id="skill" name="skill_id" class="{{ $fieldClass }}" required
+                                                onchange="showSkillDescription(this.value)">
+                                            >
+                                            @if (!empty($editSkill))
+                                                @php
+                                                    $skills[] = $editSkill->skill;
+                                                @endphp
+                                                <option value="{{ $editSkill->skill_id }}" selected="selected">
+                                                    {{ $editSkill->name }}
+                                                    ({{ $editSkill->cost }} months)
+                                                </option>
+                                            @else
+                                                <option value="">Select a skill</option>
+                                            @endif
+                                            @foreach($character->availableSkills as $skill)
+                                                @php
+                                                    $skills[] = $skill;
+                                                @endphp
+                                                <option value="{{ $skill->id }}">
+                                                    {{ $skill->name }}
+                                                    ({{ $skill->cost($character) }} months)
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </div>
 
                                 @if ($editSkill && $editSkill->skill->specialties > 0)
@@ -170,23 +204,25 @@
                                         <select id="discounted_by" name="discounted_by[]" class="{{ $fieldClass }}"
                                                 multiple>
                                             <option value="">No discount</option>
-                                            @foreach($editSkill->discountedBy as $discount)
-                                                <option value="{{ $discount->id }}" selected>
-                                                    {{ $discount->skill->name }}
+                                            @foreach($editSkill->discountedBy as $discountingSkill)
+                                                <option value="{{ $discountingSkill->id }}" selected>
+                                                    {{ $discountingSkill->name }}
+                                                    (-{{ $discountingSkill->discountFor($editSkill->skill_id) }} months)
                                                 </option>
                                             @endforeach
-                                            @foreach($editSkill->discountsAvailable as $discount)
-                                                <option value="{{ $discount->id }}"
-                                                        @if($editSkill->discountedBy->contains(['id' => $discount->id])) selected @endif
+                                            @foreach($editSkill->discountsAvailable as $discountingSkill)
+                                                <option value="{{ $discountingSkill->id }}"
+                                                        @if($editSkill->discountedBy->contains(['id' => $discountingSkill->id])) selected @endif
                                                 >
-                                                    {{ $discount->name }}
+                                                    {{ $discountingSkill->name }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
                                 @else
                                     <div>
-                                        <p>To apply a discount, first save the skill, then edit the saved skill to select applicable discounts.</p>
+                                        <p>To apply a discount, first save the skill, then edit the saved skill to
+                                            select applicable discounts.</p>
                                     </div>
                                 @endif
 
@@ -205,7 +241,8 @@
                             </div>
                             <div>
                                 @foreach($skills as $skill)
-                                    <div id="skill-description-{{ $skill->id }}" class="skill-description mt-1 @if (!$editSkill || $editSkill->skill->id != $skill->id) hidden @endif">
+                                    <div id="skill-description-{{ $skill->id }}"
+                                         class="skill-description mt-1 @if (!$editSkill || $editSkill->skill->id != $skill->id) hidden @endif">
                                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ $skill->name }}</h3>
                                         <p>{{ $skill->description }}</p>
                                         @if ($skill->feats->count())
@@ -214,7 +251,8 @@
                                                 @foreach($skill->feats as $feat)
                                                     <li>
                                                         {{ $feat->name }}
-                                                        <i class="fa-regular fa-circle-question" title="{{ $feat->description }}"
+                                                        <i class="fa-regular fa-circle-question"
+                                                           title="{{ $feat->description }}"
                                                            data-tooltip-target="feat-{{ $feat->id }}"
                                                         ></i>
                                                     </li>

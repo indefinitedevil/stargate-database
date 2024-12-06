@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Character;
+use App\Models\CharacterLog;
 use App\Models\CharacterSkill;
+use App\Models\LogType;
 use App\Models\Skill;
 use App\Models\Status;
 use Illuminate\Http\Request;
@@ -90,6 +92,7 @@ class CharacterController extends Controller
             'discount_used_by' => 'integer|exists:character_skills,id',
         ]);
 
+        $newlyCompleted = false;
         if (!empty($validatedData['id'])) {
             $characterSkill = CharacterSkill::find($validatedData['id']);
             if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
@@ -107,6 +110,10 @@ class CharacterController extends Controller
             }
             $characterSkill = new CharacterSkill();
         }
+        $validatedData['completed'] = $validatedData['completed'] ?? false;
+        if (!$characterSkill->completed && $validatedData['completed']) {
+            $newlyCompleted = true;
+        }
         $characterSkill->fill($validatedData);
         $characterSkill->save();
 
@@ -121,6 +128,30 @@ class CharacterController extends Controller
                 $discountingSkill->discount_used = true;
                 $discountingSkill->discount_used_by = $characterSkill->id;
                 $discountingSkill->save();
+            }
+        }
+
+        if (Status::NEW == $characterSkill->character->status_id) {
+            if ($newlyCompleted) {
+                $log = new CharacterLog();
+                $logData = [
+                    'character_id' => $characterSkill->character_id,
+                    'character_skill_id' => $characterSkill->id,
+                    'locked' => false,
+                    'amount_trained' => $characterSkill->cost,
+                    'log_type_id' => LogType::CHARACTER_CREATION,
+                    'teacher_id' => null,
+                ];
+                $log->fill($logData);
+                $log->save();
+            } else {
+                $log = CharacterLog::where('character_id', $characterSkill->character_id)
+                    ->where('character_skill_id', $characterSkill->id)
+                    ->where('log_type_id', LogType::CHARACTER_CREATION)
+                    ->first();
+                if ($log) {
+                    $log->delete();
+                }
             }
         }
 

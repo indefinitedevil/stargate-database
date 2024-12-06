@@ -35,6 +35,12 @@
                             </div>
 
                             <div>
+                                <label for="former_rank">Former Rank (if applicable)</label>
+                                <input id="former_rank" class="{{ $fieldClass }}" type="text" name="former_rank"
+                                       value="{{ $character->former_rank }}"/>
+                            </div>
+
+                            <div>
                                 <label for="background">Background</label>
                                 <select id="background" name="background_id" class="{{ $fieldClass }}" required>
                                     @foreach(Background::all() as $background)

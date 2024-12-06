@@ -148,13 +148,13 @@ return new class extends Migration
             $table->foreignId('character_skill_id')->constrained();
             $table->unsignedBigInteger('skill_specialty_id');
             $table->timestamps();
-            $table->foreign('skill_specialty_id')->references('id')->on('skill_specialty');
+            $table->foreign('skill_specialty_id')->references('id')->on('skill_specialty')->cascadeOnDelete();
         });
         Schema::create('character_log', function (Blueprint $table) {
             $table->id();
             $table->foreignId('character_id')->constrained();
             $table->foreignId('log_type_id')->constrained();
-            $table->foreignId('skill_id')->constrained();
+            $table->foreignId('character_skill_id')->constrained();
             $table->smallInteger('amount_trained')->default(0);
             $table->string('notes', 255)->default('');
             $table->boolean('locked')->default(false);

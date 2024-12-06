@@ -22,6 +22,15 @@ class CharacterLog extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'character_id',
+        'log_type_id',
+        'character_skill_id',
+        'amount_trained',
+        'locked',
+        'teacher_id',
+    ];
+
     public function logType(): BelongsTo
     {
         return $this->belongsTo(LogType::class);

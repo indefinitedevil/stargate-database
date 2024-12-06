@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property Collection feats
  * @property int body
  * @property int vigor
+ * @property int months
  */
 class Background extends Model
 {

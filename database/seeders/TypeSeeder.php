@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\CharacterSkill;
+use App\Models\LogType;
 use App\Models\Skill;
 use App\Models\SkillSpecialty;
 use App\Models\Status;
@@ -37,9 +38,9 @@ class TypeSeeder extends Seeder
         ]);
         // seed log types
         DB::table('log_types')->insertOrIgnore([
-            ['id' => 1, 'name' => 'Character Creation'],
-            ['id' => 2, 'name' => 'Downtime'],
-            ['id' => 3, 'name' => 'Plot'],
+            ['id' => LogType::CHARACTER_CREATION, 'name' => 'Character Creation'],
+            ['id' => LogType::DOWNTIME, 'name' => 'Downtime'],
+            ['id' => LogType::PLOT, 'name' => 'Plot'],
         ]);
         // seed discount types
         DB::table('discount_types')->insertOrIgnore([

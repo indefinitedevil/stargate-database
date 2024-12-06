@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property Collection characterLogs
  * @property bool completed
  * @property int cost
+ * @property int remainingCost
  * @property int trained
  */
 class CharacterSkill extends Model
@@ -85,18 +86,7 @@ class CharacterSkill extends Model
 
     public function getCostAttribute(): int
     {
-        if ($this->completed) {
-            return 0;
-        }
-        if ($this->skill->cost) {
-            $cost = $this->skill->cost;
-        } else {
-            $cost = $this->skill->skillCategory->cost;
-            if ($this->skill->skillCategory->scaling) {
-                $completedCategorySkills = $this->character->trainedSkills()->where('skills.skill_category_id', $this->skill->skill_category_id)->count();
-                $cost += $completedCategorySkills;
-            }
-        }
+        $cost = $this->skill->cost($this->character, $this);
         if ($this->discountedBy) {
             foreach ($this->discountedBy as $discountedBy) {
                 $skillDiscount = SkillDiscount::where('discounted_skill', $this->skill_id)
@@ -106,6 +96,14 @@ class CharacterSkill extends Model
             }
         }
         return $cost;
+    }
+
+    public function getRemainingCostAttribute(): int
+    {
+        if ($this->completed) {
+            return 0;
+        }
+        return $this->cost - $this->trained;
     }
 
     public function characterLogs(): HasMany
@@ -175,5 +173,13 @@ class CharacterSkill extends Model
             ->where('character_skills.discount_used', false)
             ->select('skills.name', 'character_skills.id', 'skill_discounts.discount')
             ->get();
+    }
+
+    public function discountFor($discountedSkillId): int
+    {
+        $discount = SkillDiscount::where('discounting_skill', $this->skill_id)
+            ->where('discounted_skill', $discountedSkillId)
+            ->first();
+        return $discount->discount ?? 0;
     }
 }
