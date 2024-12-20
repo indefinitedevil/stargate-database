@@ -77,11 +77,6 @@
                     </form>
                 </div>
             </div>
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-                <div class="mt-1">
-                    <p>Once you've created your character, you can move onto adding skills. You can come back and edit these details afterwards if you need to.</p>
-                </div>
-            </div>
         </div>
     </div>
 </x-app-layout>
