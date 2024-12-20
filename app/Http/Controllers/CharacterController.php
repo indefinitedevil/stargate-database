@@ -58,7 +58,7 @@ class CharacterController extends Controller
             'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:255',
             'rank' => 'sometimes|string|max:64|nullable',
-            'former_rank' => 'sometimes|string|max:64',
+            'former_rank' => 'sometimes|string|max:64|nullable',
             'background_id' => 'required|exists:backgrounds,id',
             'status_id' => 'required|exists:statuses,id',
             'history' => 'sometimes|string|nullable',
