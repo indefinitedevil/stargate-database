@@ -57,12 +57,12 @@ class CharacterController extends Controller
             'id' => 'integer|exists:characters,id',
             'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:255',
-            'rank' => 'string|max:64',
+            'rank' => 'sometimes|string|max:64|nullable',
             'former_rank' => 'sometimes|string|max:64',
             'background_id' => 'required|exists:backgrounds,id',
             'status_id' => 'required|exists:statuses,id',
-            'history' => 'sometimes|string',
-            'plot_notes' => 'string',
+            'history' => 'sometimes|string|nullable',
+            'plot_notes' => 'sometimes|string|nullable',
         ]);
 
         if (!empty($validatedData['id'])) {
