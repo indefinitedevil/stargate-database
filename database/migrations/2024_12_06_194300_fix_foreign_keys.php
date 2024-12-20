@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('character_skill_skill_specialty', function (Blueprint $table) {
-            $table->dropForeign('character_skill_skill_specialty_character_skill_id_foreign');
+            $table->dropForeign(['character_skill_id']);
             $table->foreign('character_skill_id')->references('id')->on('character_skills')->onDelete('cascade');
         });
         Schema::table('character_logs', function (Blueprint $table) {
