@@ -58,10 +58,10 @@ class CharacterController extends Controller
             'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:255',
             'rank' => 'string|max:64',
-            'former_rank' => 'string|max:64',
+            'former_rank' => 'sometimes|string|max:64',
             'background_id' => 'required|exists:backgrounds,id',
             'status_id' => 'required|exists:statuses,id',
-            'history' => 'string',
+            'history' => 'sometimes|string',
             'plot_notes' => 'string',
         ]);
 
