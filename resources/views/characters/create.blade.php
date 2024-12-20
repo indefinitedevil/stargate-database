@@ -36,8 +36,7 @@
 
                             <div>
                                 <label for="former_rank">Former Rank (if applicable)</label>
-                                <input id="former_rank" class="{{ $fieldClass }}" type="text" name="former_rank"
-                                       value="{{ $character->former_rank }}"/>
+                                <input id="former_rank" class="{{ $fieldClass }}" type="text" name="former_rank"/>
                             </div>
 
                             <div>
