@@ -73,6 +73,10 @@ class CharacterController extends Controller
         } else {
             $character = new Character();
         }
+        $validatedData['history'] = $validatedData['history'] ?? '';
+        $validatedData['plot_notes'] = $validatedData['plot_notes'] ?? '';
+        $validatedData['former_rank'] = $validatedData['former_rank'] ?? '';
+        $validatedData['rank'] = $validatedData['rank'] ?? '';
         $character->fill($validatedData);
         $character->save();
         return redirect(route('characters.view', ['characterId' => $character->id]));
