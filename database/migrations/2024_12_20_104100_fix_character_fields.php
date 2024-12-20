@@ -13,8 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('characters', function (Blueprint $table) {
-            $table->string('history')->default('')->change();
-            $table->string('plot_notes')->default('')->change();
+            $table->text('history')->default('')->change();
+            $table->text('plot_notes')->default('')->change();
         });
     }
 
