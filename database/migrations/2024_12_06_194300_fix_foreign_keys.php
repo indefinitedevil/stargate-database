@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('character_skill_id')->references('id')->on('character_skills')->onDelete('cascade');
         });
         Schema::table('character_logs', function (Blueprint $table) {
-            $table->dropForeignIdFor(CharacterSkill::class);
+            $table->dropForeign(['character_skill_id']);
             $table->foreign('character_skill_id')->references('id')->on('character_skills')->onDelete('cascade');
         });
     }
