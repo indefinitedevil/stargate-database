@@ -138,6 +138,11 @@ class Character extends Model
     public function getFeatsAttribute()
     {
         $feats = $this->background->feats->all();
+        foreach ($this->background->skills as $skill) {
+            if (!empty($skill->feats)) {
+                $feats = array_merge($feats, $skill->feats->all());
+            }
+        }
         foreach ($this->trainedSkills as $characterSkill) {
             if (!empty($characterSkill->skill->feats)) {
                 $feats = array_merge($feats, $characterSkill->skill->feats->all());
