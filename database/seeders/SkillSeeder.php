@@ -168,9 +168,10 @@ class SkillSeeder extends Seeder
                 'name' => 'Paramedic',
                 'skill_category_id' => 1,
                 'description' => 'You are a trained paramedic. You can treat and assist in the treatment of medical injuries.
-**Medical Abilities:** Stabilise Casualty, Read All Wound Cards, Prep for Movement
-**Treatable Keywords:** First Aid, Minor Procedure
-**Assisting Keywords:** All',
+
+* **Medical Abilities:** Stabilise Casualty, Read All Wound Cards, Prep for Movement
+* **Treatable Keywords:** First Aid, Minor Procedure
+* **Assisting Keywords:** All',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -312,9 +313,9 @@ This Skill reduces the time on all Medical Card problems by 10%. This stacks wit
                 'skill_category_id' => 2,
                 'description' => 'You are a trained medical doctor. You can treat and assist in the treatment of medical injuries, using the RED times on the Medical Skill Game card.
 
-**Medical Abilities:** Stabilise Casualty, Read All Wound Tokens, Prep for Movement
-**Treatable Keywords:** All
-**Assisting Keywords:** All
+* **Medical Abilities:** Stabilise Casualty, Read All Wound Tokens, Prep for Movement
+* **Treatable Keywords:** All
+* **Assisting Keywords:** All
 
 This skill reduces the training time of Physiology to 3 months, regardless of how many other Science and Social skills you have.',
                 'upkeep' => 0,
@@ -446,9 +447,9 @@ This skill reduces the training time of Medical Doctor to 3 months, regardless o
                 'skill_category_id' => 2,
                 'description' => 'You are a trained medical doctor. You can treat and assist in the treatment of medical injuries, using the RED times on the Medical Skill Game card.
 
-**Medical Abilities:** Stabilise Casualty, Read All Wound Tokens, Prep for Movement
-**Treatable Keywords:** All
-**Assisting Keywords:** All
+* **Medical Abilities:** Stabilise Casualty, Read All Wound Tokens, Prep for Movement
+* **Treatable Keywords:** All
+* **Assisting Keywords:** All
 
 This skill reduces the training time of Physiology to 3 months, regardless of how many other Science and Social skills you have.',
                 'upkeep' => 0,
@@ -1377,7 +1378,7 @@ Allows the use of a Public Order Shield. (+1BP).',
 
 You gain access to the Bleed Call for any Primitive Weapon capable of making it.
 
-You gain the following abilities using Primitive Weapons.
+You gain the following abilities using Primitive Weapons:
 * Disarm (Costs 1 Vigor): Your opponent must drop/place their weapon on the floor, or otherwise release it with both hands.',
                 'upkeep' => 0,
                 'cost' => 9,
