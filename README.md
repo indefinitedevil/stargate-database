@@ -26,13 +26,17 @@ It is seeded with tables representing the rules.
 
 ### To-do
 
-- [ ] Add GUI for character creation and editing
+- [x] Add GUI for character creation and editing
+- [ ] Improve character GUI
+- [ ] Add downtime system and GUI
+- [ ] Add character log system and GUI
 - [x] ~~Add GUI for character viewing~~
-- [ ] Add GUI for log viewing
 - [ ] Add skill descriptions
 - [x] ~~Add feat descriptions~~ - Ki 2024-10-22
 - [x] ~~Add user registration system~~
-- [ ] Add permissions system
+- [ ] Add user permissions system
+- [ ] Add plot co mode
+- [ ] Add ability to add new skills/specialties
 
 ## Installation
 
