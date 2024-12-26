@@ -1,5 +1,6 @@
 @php
     use App\Models\Status;
+    use Illuminate\Support\Str;
     $fieldClass = 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block w-full';
 @endphp
 <x-app-layout>
@@ -244,7 +245,7 @@
                                     <div id="skill-description-{{ $skill->id }}"
                                          class="skill-description mt-1 @if (!$editSkill || $editSkill->skill->id != $skill->id) hidden @endif">
                                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ $skill->name }}</h3>
-                                        <p>{{ $skill->description }}</p>
+                                        <p>{{ Str::of($skill->description)->markdown() }}</p>
                                         @if ($skill->feats->count())
                                             <h4 class="text-md font-medium text-gray-900 dark:text-gray-100">{{ __('Feats') }}</h4>
                                             <ul>
