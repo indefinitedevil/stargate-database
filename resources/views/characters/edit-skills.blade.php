@@ -245,7 +245,7 @@
                                     <div id="skill-description-{{ $skill->id }}"
                                          class="skill-description mt-1 @if (!$editSkill || $editSkill->skill->id != $skill->id) hidden @endif">
                                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ $skill->name }}</h3>
-                                        <p>{{ Str::of($skill->description)->markdown() }}</p>
+                                        {!! Str::of($skill->description)->markdown() !!}
                                         @if ($skill->feats->count())
                                             <h4 class="text-md font-medium text-gray-900 dark:text-gray-100">{{ __('Feats') }}</h4>
                                             <ul>
