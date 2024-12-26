@@ -3,7 +3,7 @@
 This is a Laravel application designed to serve as an initial model for the Stargate LARP Season 2 character database.
 It is seeded with tables representing the rules.
 
-- Up to date with S2 rules v1.1 mechanics
+- Up to date with S2 rules v1.1 mechanics as of 26th December 2024
 
 ## Design Intent
 
@@ -31,24 +31,25 @@ It is seeded with tables representing the rules.
 - [ ] Add downtime system and GUI
 - [ ] Add character log system and GUI
 - [x] ~~Add GUI for character viewing~~
-- [ ] Add skill descriptions
+- [x] ~~Add skill descriptions~~
 - [x] ~~Add feat descriptions~~ - Ki 2024-10-22
 - [x] ~~Add user registration system~~
 - [ ] Add user permissions system
 - [ ] Add plot co mode
 - [ ] Add ability to add new skills/specialties
+- [ ] Add bulk print option (PDF?)
+- [ ] Add print layout character sheet
 
 ## Installation
 
 1. Clone the repository
 2. Set up your local environment (ddev recommended)
 3. Run `composer install`
-4. Run `php artisan migrate --seed`
-5. Run `npm install`
-6. Run `npm run build`
+4. Run `php artisan key:generate` to generate a new key for your local environment or get one from an existing environment (existing key needed for using database dumps without issues)
+5. Run `php artisan migrate --seed`
+6. Run `npm install`
+7. Run `npm run build`
 
 ## Contributing
-
-A useful focus for contributions at the moment would be filling in the description fields for skills in `database/seeders`. Markdown will be available.
 
 Once the GUI is in place, testing it and raising issues would be appreciated.
