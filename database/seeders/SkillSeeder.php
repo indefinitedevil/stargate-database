@@ -83,7 +83,7 @@ class SkillSeeder extends Seeder
                 'id' => 1,
                 'name' => 'Computing',
                 'skill_category_id' => 1,
-                'description' => '',
+                'description' => 'The study of computer systems. This skill allows you to hack into other operating systems and develop new systems yourself as well as countermeasures towards hackers.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -97,7 +97,7 @@ class SkillSeeder extends Seeder
                 'id' => 2,
                 'name' => 'Cryptography',
                 'skill_category_id' => 1,
-                'description' => '',
+                'description' => 'Cryptography is the study of codes, ciphers, and hidden meanings, used for code breaking.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -111,7 +111,7 @@ class SkillSeeder extends Seeder
                 'id' => 3,
                 'name' => 'Electrical Engineering',
                 'skill_category_id' => 1,
-                'description' => '',
+                'description' => 'This deals with the study and applications of electricity, electromagnetic forces, and electronics. Also deals with power, control systems, integrated circuits, and circuit boards.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -125,7 +125,7 @@ class SkillSeeder extends Seeder
                 'id' => 4,
                 'name' => 'Explosives Training',
                 'skill_category_id' => 1,
-                'description' => '',
+                'description' => 'Expertise in making and disposing a variety of devices aimed at blowing things up. Grants the knowledge of where to place a device for maximum effect. This is sometimes used in conjunction with other skills to make elaborate devices.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -139,7 +139,7 @@ class SkillSeeder extends Seeder
                 'id' => 5,
                 'name' => 'Larceny',
                 'skill_category_id' => 1,
-                'description' => '',
+                'description' => 'Larceny is the ability to breach physical security measures. You can pick locks, bypass security measures, hotwire cars, open locked doors etc.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -153,7 +153,7 @@ class SkillSeeder extends Seeder
                 'id' => 6,
                 'name' => 'Mechanical Engineering',
                 'skill_category_id' => 1,
-                'description' => '',
+                'description' => 'This deals with Thermodynamics and Kinematics. This skill is fundamental in the design, manufacture, and maintenance of mechanical systems, vehicles, industrial equipment & robotics.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -167,7 +167,10 @@ class SkillSeeder extends Seeder
                 'id' => 7,
                 'name' => 'Paramedic',
                 'skill_category_id' => 1,
-                'description' => '',
+                'description' => 'You are a trained paramedic. You can treat and assist in the treatment of medical injuries.
+**Medical Abilities:** Stabilise Casualty, Read All Wound Cards, Prep for Movement
+**Treatable Keywords:** First Aid, Minor Procedure
+**Assisting Keywords:** All',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -181,7 +184,7 @@ class SkillSeeder extends Seeder
                 'id' => 8,
                 'name' => 'Signals Intelligence (SIGINT)',
                 'skill_category_id' => 1,
-                'description' => '',
+                'description' => 'The study, use and maintenance of telecommunications, monitoring & satellite technology. This also grants the knowledge required for the development of new signalling devices.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -213,7 +216,13 @@ class SkillSeeder extends Seeder
                 'id' => Skill::ARCHEO_ANTHROPOLOGY,
                 'name' => 'Archeo-Anthropology',
                 'skill_category_id' => 2,
-                'description' => '',
+                'description' => 'You hold a qualification in Archaeology or Anthropology. You understand:
+* The development of human societies across Earth.
+* How to identify and recognise the artefacts, myths, and cultures of our ancestors.
+* How to recognise the cultural roots and ethos of an alien world’s history.
+* How to identify and recognise the key elements of alien languages. (This does not grant the ability to read languages beyond those you are skilled in.)
+
+Characters with Archaeo-Anthropology must also select two specialist cultures. Additional Specialty areas may be learned as a Complex Skill, requiring 6 Months of Training. Having this skill may aid you with assimilating into an Alien culture similar to one of your specialties, as if you were truly a native.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 2,
@@ -227,7 +236,7 @@ class SkillSeeder extends Seeder
                 'id' => 11,
                 'name' => 'Astrophysics',
                 'skill_category_id' => 2,
-                'description' => '',
+                'description' => 'This incorporates astronomy, the calculation of stellar distances and the exploration of other worlds. It also includes stellar navigation and stellar matter.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -241,7 +250,7 @@ class SkillSeeder extends Seeder
                 'id' => 12,
                 'name' => 'Botany',
                 'skill_category_id' => 2,
-                'description' => '',
+                'description' => 'Botany is the study of plant life. Botany covers a wide range of scientific disciplines that study plants, algae, and fungi including structure, growth, reproduction, metabolism, development, diseases, and chemical properties and evolutionary relationships between the different groups.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -255,7 +264,11 @@ class SkillSeeder extends Seeder
                 'id' => 13,
                 'name' => 'Genetics & Evolutionary Biology',
                 'skill_category_id' => 2,
-                'description' => '',
+                'description' => 'Evolutionary Biology is the study of how living things have developed in response to their native environments. In addition to the study of Genetics, this field can be applied to determine how a living organism came to be and what sort of environments shaped it.
+
+Conversely, it can also be used to theorise how an organism would adapt in response to a given environment.
+
+This Skill reduces the time on all Medical Card problems by 10%. This stacks with Pathology to make a 20% reduction.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -269,7 +282,7 @@ class SkillSeeder extends Seeder
                 'id' => 14,
                 'name' => 'Linguistics',
                 'skill_category_id' => 2,
-                'description' => '',
+                'description' => 'The linguistics skill is the study and application of language. With this skill you can communicate effectively in any Earth language both spoken and written. Alien languages may become available to be gained in play at a future time.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -283,7 +296,7 @@ class SkillSeeder extends Seeder
                 'id' => 15,
                 'name' => 'Material Science',
                 'skill_category_id' => 2,
-                'description' => '',
+                'description' => 'The study of materials & their properties and uses. This includes Chemistry and Physics.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -297,7 +310,13 @@ class SkillSeeder extends Seeder
                 'id' => 16,
                 'name' => 'Medical Doctor',
                 'skill_category_id' => 2,
-                'description' => '',
+                'description' => 'You are a trained medical doctor. You can treat and assist in the treatment of medical injuries, using the RED times on the Medical Skill Game card.
+
+**Medical Abilities:** Stabilise Casualty, Read All Wound Tokens, Prep for Movement
+**Treatable Keywords:** All
+**Assisting Keywords:** All
+
+This skill reduces the training time of Physiology to 3 months, regardless of how many other Science and Social skills you have.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -311,7 +330,9 @@ class SkillSeeder extends Seeder
                 'id' => 17,
                 'name' => 'Pathology',
                 'skill_category_id' => 2,
-                'description' => '',
+                'description' => 'Pathology is the study and diagnosis of disease; this is done through the examination of organs, tissues, bodily fluids, and autopsies. It also encompasses the related scientific study of disease processes.
+
+This Skill reduces the time on all Medical Card problems by 10%. This stacks with Genetics and Evolutionary Biology for a 20% total reduction.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -325,7 +346,9 @@ class SkillSeeder extends Seeder
                 'id' => 18,
                 'name' => 'Physiology',
                 'skill_category_id' => 2,
-                'description' => '',
+                'description' => 'Physiology is the study of the mechanical, physical, and biochemical functions of animals, the study of anatomy and the interaction of cells. This skill combines both human and animal physiology.
+
+This skill reduces the training time of Medical Doctor to 3 months, regardless of how many other Science and Social skills you have.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -339,7 +362,20 @@ class SkillSeeder extends Seeder
                 'id' => 19,
                 'name' => 'Psychology',
                 'skill_category_id' => 2,
-                'description' => '',
+                'description' => 'You have spent time learning about human psychology, enabling you to both lie convincingly and detect when others are doing so. You can understand and anticipate actions and analyse the dysfunctional.
+
+After role-playing with someone for at least five minutes you may spend 1 Vigor to do any *one* of the following:
+* See whether someone’s last statement was a lie.
+* See whether someone in the general conversation is concealing something.
+* Find out what someone is trying to achieve (in broad terms) through their words.
+* Detect their current emotional state.
+
+You may Spend 1 Vigor to falsify a response to a Psychological Challenge if these abilities are used against you.
+
+After role-playing with someone for at least twenty minutes you may spend 2 Vigor to do the following:
+* Detect someone’s psychological flaws.
+
+You may spend additional points of Vigor to reduce the time needed to use these abilities, at a rate of 1 Vigor per five minutes, to a minimum of 1 minute.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -353,7 +389,18 @@ class SkillSeeder extends Seeder
                 'id' => 20,
                 'name' => 'Psychotherapy',
                 'skill_category_id' => 2,
-                'description' => '',
+                'description' => 'You are able to provide comfort and support when your fellows need it most. After roleplaying with someone for at least five minutes outside of combat, you may Spend 1 Vigor to do either or both of the following.
+* Refresh your target’s Vigor to full, regardless of their maximum Vigor.
+* Detect their current emotional state.
+
+After role-playing with someone for at least twenty minutes you may spend 1 Vigor to do the following:
+* Treat the Psychological element of a Wound token with the Psychology Category, restoring the patient to 1 Body.
+
+You may spend additional points of Vigor to reduce the time needed to use these abilities, at a rate of 1 Vigor per five minutes, to a minimum of 1 minute.
+
+Possession of this skill means that you cannot be targeted by its effect by another therapist, as you know all the tricks that they use.
+
+Note: The requirement is time spent roleplaying with your target. The form of that roleplay could be a cup of tea with the padre, a chat with your best mate about how this is all a bit shit and you\'re knackered, going for a jog around the camp because the Sgt Major thinks exercise endorphins are the cure for all - while the skill is called psychotherapy because it interacts with the psychology wound tokens, the use in play can be tailored to your character type.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -367,7 +414,7 @@ class SkillSeeder extends Seeder
                 'id' => 21,
                 'name' => 'Pure Mathematics',
                 'skill_category_id' => 2,
-                'description' => '',
+                'description' => 'The study of numbers, algebra, geometry, statistics, and the flow of how numbers affect the world.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -381,7 +428,9 @@ class SkillSeeder extends Seeder
                 'id' => 86,
                 'name' => 'Physiology (B)',
                 'skill_category_id' => 2,
-                'description' => 'Discounted variant',
+                'description' => 'Physiology is the study of the mechanical, physical, and biochemical functions of animals, the study of anatomy and the interaction of cells. This skill combines both human and animal physiology.
+
+This skill reduces the training time of Medical Doctor to 3 months, regardless of how many other Science and Social skills you have.',
                 'upkeep' => 0,
                 'cost' => 3,
                 'specialties' => 0,
@@ -395,7 +444,13 @@ class SkillSeeder extends Seeder
                 'id' => 87,
                 'name' => 'Medical Doctor (B)',
                 'skill_category_id' => 2,
-                'description' => 'Discounted variant',
+                'description' => 'You are a trained medical doctor. You can treat and assist in the treatment of medical injuries, using the RED times on the Medical Skill Game card.
+
+**Medical Abilities:** Stabilise Casualty, Read All Wound Tokens, Prep for Movement
+**Treatable Keywords:** All
+**Assisting Keywords:** All
+
+This skill reduces the training time of Physiology to 3 months, regardless of how many other Science and Social skills you have.',
                 'upkeep' => 0,
                 'cost' => 3,
                 'specialties' => 0,
@@ -427,7 +482,7 @@ class SkillSeeder extends Seeder
                 'id' => Skill::ADDITIONAL_AA_SPEC,
                 'name' => 'Additional Archeo-Anthrology Speciality',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'Having this skill may aid you with assimilating into an Alien culture similar to one of your specialties, as if you were truly a native.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 1,
@@ -441,7 +496,10 @@ class SkillSeeder extends Seeder
                 'id' => 22,
                 'name' => 'Armorer',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You can repair damaged weapons and equipment. It is also possible for you to make weapons or ammunition if you have the required tools and supplies. (See an event referee).
+* It takes 5 minutes to repair Primitive Weapons, or weapons with the Robust Trait.
+* It takes 10 minutes to repair any weapon except Heavy Weapons
+* It takes 20 minutes to repair Heavy Weapons',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -455,7 +513,7 @@ class SkillSeeder extends Seeder
                 'id' => 23,
                 'name' => 'Astronaut',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You are adept at using spacesuits and manoeuvring in Zero-Gravity environments. When combined with Pilot, this grants the ability to pilot Earth Spacecraft such as the Space Shuttle. When Combined with Technology Skills, they may allow you to ignore relevant environmental penalties to skill games at Event Ref discretion.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -469,7 +527,7 @@ class SkillSeeder extends Seeder
                 'id' => 24,
                 'name' => 'CasEvac Specialist',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'This Skill grants the ability ‘Prep For Movement’ if you do not already possess it.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -483,7 +541,7 @@ class SkillSeeder extends Seeder
                 'id' => 27,
                 'name' => 'Close Protection',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You are a trained Bodyguard or have received other High Value Target (HVT) protection training.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -497,7 +555,7 @@ class SkillSeeder extends Seeder
                 'id' => 28,
                 'name' => 'Dreaming Spires',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You have access to the best research establishments in the world, and the library card to prove it. You are a very well-known academic and during downtime you tend to learn pieces of information from the world of academia. Information gained in this way can refer to new technology discoveries and procedures, or academic rumours which may be helpful to your character.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -511,7 +569,9 @@ class SkillSeeder extends Seeder
                 'id' => 29,
                 'name' => 'Forensic Science',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You understand the basics of forensic science.
+
+You can also use forensics in conjunction with other skills you have to enable you to interpret information according to your skills.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -525,7 +585,9 @@ class SkillSeeder extends Seeder
                 'id' => 30,
                 'name' => 'History and Philosophy',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You have a grasp of History and have a basic knowledge of the main events that have occurred throughout recorded history.
+
+You have studied the art of thought, from the Greek philosophers to modern ethicists.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -539,7 +601,9 @@ class SkillSeeder extends Seeder
                 'id' => 31,
                 'name' => 'Hypnosis',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You are knowledgeable in Hypnosis as a subset of psychology. If the subject is willing, you may:
+* After 5 minutes of roleplay, detect the subject’s emotional state once every 15 minutes.
+* After 20 minutes of roleplay, detect the subject’s psychological flaws or hidden information in their mind.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -553,7 +617,9 @@ class SkillSeeder extends Seeder
                 'id' => 32,
                 'name' => 'Insider Information',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You have access to the best covert skills training in the world. You are highly connected among the intelligence community, during downtime you tend to learn pieces of information from the world of covert intelligence,
+
+This can be information around new technology discoveries or procedures or can be intel rumours which may be helpful to your character.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -567,7 +633,7 @@ class SkillSeeder extends Seeder
                 'id' => 33,
                 'name' => 'Interrogation/Investigation',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You are knowledgeable in interrogation, and the psychology of investigation.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -581,7 +647,7 @@ class SkillSeeder extends Seeder
                 'id' => 34,
                 'name' => 'Law',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You are an expert in both military and civilian law. You are qualified for and experienced in representing both civilian and military personnel in court. If you spend time with alien cultures, you may be able to also take their own legal systems as a skill.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -595,7 +661,13 @@ class SkillSeeder extends Seeder
                 'id' => 35,
                 'name' => 'Leadership',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'Once per Scene, you can take one other character under your wing.
+
+If you are actively leading them or protecting them and you are within 50 feet with line of sight, both you and they gain +2 Body.
+
+You may also spend a further three months adding additional people to the effects of this skill.
+
+There is no maximum number of times you can purchase this upgrade, but no character may gain more than +2 Body gained from this skill at any one time.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -609,7 +681,7 @@ class SkillSeeder extends Seeder
                 'id' => 36,
                 'name' => 'Medical Specialism',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'The following skills improve the range of medical knowledge, allowing characters to excel in a particular field. Learning specialties will allow you to speed up treatments when they relate to your specialist area and may allow other effects to occur.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 1,
@@ -623,7 +695,7 @@ class SkillSeeder extends Seeder
                 'id' => 37,
                 'name' => 'Micro-Expressions',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'This Skill allows the use of Psychology or Psychotherapy skills through observation rather than direct interaction with the Subject. This includes Audio and Visual Recordings.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -637,7 +709,7 @@ class SkillSeeder extends Seeder
                 'id' => 38,
                 'name' => 'Negotiation',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You are a trained negotiator, skilled in conflict resolution without violence.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -651,7 +723,7 @@ class SkillSeeder extends Seeder
                 'id' => 39,
                 'name' => 'Piloting',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You are an accomplished pilot of Human Aircraft. If you have Astronaut, this applies to the Space Shuttle and similar Earth level spacecraft.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -665,7 +737,7 @@ class SkillSeeder extends Seeder
                 'id' => 40,
                 'name' => 'Politics and Bureaucracy',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You understand the basics of the political system and the back-office politics that occur behind the scenes. You also understand how to navigate and manipulate the red tape of systems such as the civil service or military requisitions. If you spend time with alien cultures, you may be able to apply this skill to those cultures as well.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -679,7 +751,7 @@ class SkillSeeder extends Seeder
                 'id' => 41,
                 'name' => 'Quantum Physics',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'The study of radioactivity & the fundamental principles of the universe. This includes Nuclear Physics.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -693,7 +765,9 @@ class SkillSeeder extends Seeder
                 'id' => 42,
                 'name' => 'Religion and Occult',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You are knowledgeable in the major Earth religions, their beliefs, and practices.
+
+You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -707,7 +781,7 @@ class SkillSeeder extends Seeder
                 'id' => 43,
                 'name' => 'SERE Training',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You have completed a military SERE (Survival, Evasion, Resistance and Escape) course, the Intelligence community equivalent, or perhaps you are simply a very skilled liar. For whatever reason, you are able to resist interrogation.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -721,7 +795,7 @@ class SkillSeeder extends Seeder
                 'id' => 88,
                 'name' => 'Subject Matter Expert',
                 'skill_category_id' => 3,
-                'description' => '',
+                'description' => 'You are particularly knowledgeable in a given area, and in managing projects relating to it.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -753,7 +827,7 @@ class SkillSeeder extends Seeder
                 'id' => 44,
                 'name' => 'Test Pilot',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You are an accomplished pilot of experimental craft.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -767,7 +841,7 @@ class SkillSeeder extends Seeder
                 'id' => 45,
                 'name' => 'Leadership Extra Person',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You can take one extra person under your wing.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -781,7 +855,7 @@ class SkillSeeder extends Seeder
                 'id' => 46,
                 'name' => 'Basic Biology',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You have learnt the basic techniques of biology.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -795,7 +869,7 @@ class SkillSeeder extends Seeder
                 'id' => 47,
                 'name' => 'Basic Botany',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You have learnt the basic techniques of botany.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -809,7 +883,7 @@ class SkillSeeder extends Seeder
                 'id' => 48,
                 'name' => 'Basic Chemistry',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You have learnt the basic techniques of chemistry.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -823,7 +897,7 @@ class SkillSeeder extends Seeder
                 'id' => 49,
                 'name' => 'Basic Computers',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You have learnt the basic techniques of computer science. You gain the ability to use one card from Computing and one card from Communications when preparing for a skill game.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -837,7 +911,7 @@ class SkillSeeder extends Seeder
                 'id' => 50,
                 'name' => 'Basic Engineering',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You have learnt the basic techniques of engineering. You gain the ability to use one card from Mechanical Engineering and one card from Electrical Engineering when preparing for a skill game.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -851,7 +925,7 @@ class SkillSeeder extends Seeder
                 'id' => 51,
                 'name' => 'Basic Explosives Training',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You have learnt the basic techniques of Explosives & Demolitions. You can only use C4 & Claymores. You gain the ability to use one card from Explosives Training when preparing for a skill game.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -865,7 +939,7 @@ class SkillSeeder extends Seeder
                 'id' => 52,
                 'name' => 'Basic Geology',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You have a good understanding of rocks, minerals, and landscapes.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -879,7 +953,7 @@ class SkillSeeder extends Seeder
                 'id' => 53,
                 'name' => 'Basic Language',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You have learnt to speak/read/write one specific Language. This skill may be bought repeatedly for extra languages with each reducing the cost of Linguistics skill. The cost of the Linguistics skill may be reduced to zero months through multiple purchases of this skill.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 1,
@@ -893,7 +967,7 @@ class SkillSeeder extends Seeder
                 'id' => 54,
                 'name' => 'Basic Larceny',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You have learnt the basic techniques of Larceny. You gain the ability to use one card from Larceny when preparing for a skill game.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -907,7 +981,7 @@ class SkillSeeder extends Seeder
                 'id' => 55,
                 'name' => 'Basic Mathematics',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You have learnt the basic techniques of mathematics. You gain the ability to use one card from Cryptography when preparing for a skill game.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -921,7 +995,7 @@ class SkillSeeder extends Seeder
                 'id' => 56,
                 'name' => 'Basic Physics',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You have learnt the basic techniques of physics.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -935,7 +1009,7 @@ class SkillSeeder extends Seeder
                 'id' => 57,
                 'name' => 'Basic Psychology',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You may spend 3 Vigor to falsify the response to a psychological challenge.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -949,7 +1023,11 @@ class SkillSeeder extends Seeder
                 'id' => 60,
                 'name' => 'Endurance Training',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You have spent a long time in the gymnasium and have honed your Body. This comes with a price, and you must maintain your endurance.
+
+You gain 1 Body Hit. You must spend 1 Month of Training or Research time every downtime maintaining this skill or it is lost. (You only begin maintaining this skill once you have it.) This Skill can be repeatedly trained, granting +1 Body each time to a max of +5. Maintaining this skill only takes 1 month regardless of level. If you have more than one level of this skill, failure to maintain loses one level per DT in which maintenance is not completed.
+
+Additionally, at +4 Body or above, you may ignore the restrictions imposed on weapons by the Mounted Trait.',
                 'upkeep' => 1,
                 'cost' => 0,
                 'specialties' => 0,
@@ -963,7 +1041,7 @@ class SkillSeeder extends Seeder
                 'id' => 61,
                 'name' => 'Expert Knowledge: Computing',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -977,7 +1055,7 @@ class SkillSeeder extends Seeder
                 'id' => 62,
                 'name' => 'Expert Knowledge: Cryptography',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -991,7 +1069,7 @@ class SkillSeeder extends Seeder
                 'id' => 63,
                 'name' => 'Expert Knowledge: Electrical Engineering',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1005,7 +1083,7 @@ class SkillSeeder extends Seeder
                 'id' => 64,
                 'name' => 'Expert Knowledge: Explosives Training',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1019,7 +1097,7 @@ class SkillSeeder extends Seeder
                 'id' => 65,
                 'name' => 'Expert Knowledge: Larceny',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1033,7 +1111,7 @@ class SkillSeeder extends Seeder
                 'id' => 66,
                 'name' => 'Expert Knowledge: Mechanical Engineering',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1047,7 +1125,7 @@ class SkillSeeder extends Seeder
                 'id' => 67,
                 'name' => 'Expert Knowledge: Paramedic',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1061,7 +1139,7 @@ class SkillSeeder extends Seeder
                 'id' => 68,
                 'name' => 'Expert Knowledge: Signals Intelligence',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1075,7 +1153,9 @@ class SkillSeeder extends Seeder
                 'id' => 69,
                 'name' => 'Fish and Game',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You are an expert hunter. You can find food, water, and shelter while you\'re in the wilderness. You\'re also good at capturing small animals and fishing.
+
+This Skill allows the use of ‘Negotiator’ feats on animal targets if you also have the Negotiator Skill.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1089,7 +1169,7 @@ class SkillSeeder extends Seeder
                 'id' => 70,
                 'name' => 'Heroic Vigor',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'This increases your Heroic Vigor by 1. This Skill can be repeatedly trained, granting +1 Vigor each time to a max of +5. This may be lost if you undertake actions deemed non-heroic.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1103,7 +1183,7 @@ class SkillSeeder extends Seeder
                 'id' => 71,
                 'name' => 'Medic',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'Stabilise - with 10 Seconds of appropriate Roleplay, you may negate a Bleed effect on yourself or another player. **This ability does not cost Vigor.**',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1117,7 +1197,7 @@ class SkillSeeder extends Seeder
                 'id' => 72,
                 'name' => 'Mythology',
                 'skill_category_id' => 4,
-                'description' => '',
+                'description' => 'You have knowledge of one specific area of Religion/occult knowledge – For example, Judeo-Christian dogma, or Yoga Positions.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 1,
@@ -1149,7 +1229,7 @@ class SkillSeeder extends Seeder
                 'id' => 73,
                 'name' => 'Accuracy Training',
                 'skill_category_id' => 5,
-                'description' => '',
+                'description' => 'You gain access to the Lethal call for any non-melee weapon with the accurate trait capable of using it.',
                 'upkeep' => 0,
                 'cost' => 12,
                 'specialties' => 0,
@@ -1163,7 +1243,8 @@ class SkillSeeder extends Seeder
                 'id' => 74,
                 'name' => 'Boxing',
                 'skill_category_id' => 5,
-                'description' => '',
+                'description' => 'You gain the following ability:
+* Strike (unlimited): You may call damage with fists.',
                 'upkeep' => 0,
                 'cost' => 3,
                 'specialties' => 0,
@@ -1177,7 +1258,9 @@ class SkillSeeder extends Seeder
                 'id' => 75,
                 'name' => 'Breacher',
                 'skill_category_id' => 5,
-                'description' => '',
+                'description' => 'Allows the use of Future Warrior armour (+8 BP).
+
+Allows use of a Riot Shield (+2 BP).',
                 'upkeep' => 0,
                 'cost' => 3,
                 'specialties' => 0,
@@ -1191,7 +1274,7 @@ class SkillSeeder extends Seeder
                 'id' => 76,
                 'name' => 'Gunnery Training',
                 'skill_category_id' => 5,
-                'description' => '',
+                'description' => 'You gain access to the Covering Fire and Spray Fire calls for any weapon capable of using them that you have access to.',
                 'upkeep' => 0,
                 'cost' => 6,
                 'specialties' => 0,
@@ -1205,7 +1288,11 @@ class SkillSeeder extends Seeder
                 'id' => 77,
                 'name' => 'Heavy Weapons',
                 'skill_category_id' => 5,
-                'description' => '',
+                'description' => 'You can use all weapons in the Heavy Weapons Table. Any calls you already had access to can now be applied to Heavy Weapons capable of using them.
+
+* You gain access to the Explosive call for any weapon capable of using it.
+* You gain access to the Rend call for any weapon capable of using it.
+* You gain access to the Spray Fire and Heavy Fire Calls.',
                 'upkeep' => 0,
                 'cost' => 6,
                 'specialties' => 0,
@@ -1219,7 +1306,13 @@ class SkillSeeder extends Seeder
                 'id' => 78,
                 'name' => 'Martial Arts',
                 'skill_category_id' => 5,
-                'description' => '',
+                'description' => 'You gain the following abilities using your hands:
+* Strike (unlimited): You cause damage as per Boxing.
+* Grapple (Costs 1 Vigor) You can keep the target restrained for 10 seconds. The target may still use small weapons, (not Unarmed strikes), against you, provided they were holding them when the grapple began. You MUST use both hands to grapple, or it ends immediately. ANY unarmed call you make after the grapple begins, (Except Knockout), ends it. If you are incapacitated or rendered unconscious the grapple automatically ends.
+* Throw (Costs 1 Vigor): You call “Knockback”. The target must role-play being thrown away from you and Knocked Down.
+* Break Hold (Costs 1 Vigor): You call “Break Hold”. The target must release you from a grapple, or you can resist a throw as you’ve broken their hold.
+* Sleep (costs 1 additional Vigor on top of the Grapple) You can, after 10 seconds of grappling an opponent, render a person unconscious immediately.
+* Disarm (Costs 1 Vigor): Your opponent must drop/place what they are holding on the floor, or otherwise release it with both hands.',
                 'upkeep' => 0,
                 'cost' => 12,
                 'specialties' => 0,
@@ -1233,7 +1326,8 @@ class SkillSeeder extends Seeder
                 'id' => 79,
                 'name' => 'Melee',
                 'skill_category_id' => 5,
-                'description' => '',
+                'description' => 'You gain the following ability:
+* Strike (unlimited): You may call damage with melee weapons.',
                 'upkeep' => 0,
                 'cost' => 3,
                 'specialties' => 0,
@@ -1247,7 +1341,9 @@ class SkillSeeder extends Seeder
                 'id' => 80,
                 'name' => 'Pistols',
                 'skill_category_id' => 5,
-                'description' => '',
+                'description' => 'You can use all weapons in the Pistols Table.
+* Ranged (unlimited): You may call damage with a pistol.
+You gain access to the Stun call for any weapon in the Pistols table capable of using it',
                 'upkeep' => 0,
                 'cost' => 3,
                 'specialties' => 0,
@@ -1261,7 +1357,9 @@ class SkillSeeder extends Seeder
                 'id' => 81,
                 'name' => 'Point Man',
                 'skill_category_id' => 5,
-                'description' => '',
+                'description' => 'Allows the use of Ablative Hardweave (+6 BP).
+
+Allows the use of a Public Order Shield. (+1BP).',
                 'upkeep' => 0,
                 'cost' => 3,
                 'specialties' => 0,
@@ -1275,7 +1373,12 @@ class SkillSeeder extends Seeder
                 'id' => 82,
                 'name' => 'Primitive Weaponry',
                 'skill_category_id' => 5,
-                'description' => '',
+                'description' => 'You can use all weapons in the Primitive Weapons Table. Additionally, if you have the Armorer Skill, you may create weapons using primitive materials.
+
+You gain access to the Bleed Call for any Primitive Weapon capable of making it.
+
+You gain the following abilities using Primitive Weapons.
+* Disarm (Costs 1 Vigor): Your opponent must drop/place their weapon on the floor, or otherwise release it with both hands.',
                 'upkeep' => 0,
                 'cost' => 9,
                 'specialties' => 0,
@@ -1289,7 +1392,11 @@ class SkillSeeder extends Seeder
                 'id' => 83,
                 'name' => 'Tactical Training',
                 'skill_category_id' => 5,
-                'description' => '',
+                'description' => 'You can use all weapons in the Personal Weapon Systems Table.
+
+You gain access to the Bleed and Knockback calls for any weapon in the Personal Weapon Systems table capable of using them.
+
+You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weapon Table capable of using them.',
                 'upkeep' => 0,
                 'cost' => 6,
                 'specialties' => 0,
