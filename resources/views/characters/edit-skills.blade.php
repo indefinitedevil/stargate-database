@@ -6,6 +6,21 @@
 <x-app-layout>
     <x-slot name="title">{{ __('Edit character skills') }}</x-slot>
     <x-slot name="header">
+        @can('delete', $character)
+            <a href="{{ route('characters.delete', ['characterId' => $character->id]) }}"
+               class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
+            >{{ __('Delete') }}</a>
+        @endcan
+        @can('edit', $character)
+            <a href="{{ route('characters.edit', ['characterId' => $character->id]) }}"
+               class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
+            >{{ __('Edit') }}</a>
+        @endcan
+        @can('approve', $character)
+            <a href="{{ route('characters.approve', ['characterId' => $character->id]) }}"
+               class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
+            >{{ __('Approve') }}</a>
+        @endcan
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ sprintf(__('Edit character skills: %s'), $character->name) }}
         </h2>
@@ -13,22 +28,8 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-                <div class="grid grid-cols-4">
-                    <p class="mt-1">
-                        <strong>{{ __('Name') }}:</strong> {{ $character->name }}
-                    </p>
-                    <p class="mt-1">
-                        <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
-                    </p>
-                    <p class="mt-1">
-                        <strong>{{ __('Body') }}:</strong> {{ $character->body }}
-                    </p>
-                    <p class="mt-1">
-                        <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }}
-                    </p>
-                </div>
-            </div>
+            @include('partials.character-details', ['character' => $character])
+
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                 <div class="grid grid-cols-4 clear-both">
                     <div class="mt-1">
@@ -42,11 +43,7 @@
                     <div class="mt-1">
                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Trained') }}</h3>
                         <ul>
-                            @php
-                                $totalTraining = 0;
-                            @endphp
                             @foreach ($character->trainedSkills->sortBy('name') as $characterSkill)
-                                @php $totalTraining += $characterSkill->trained; @endphp
                                 <li>{{ $characterSkill->name }}
                                     ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                     @if ($characterSkill->locked)
@@ -59,9 +56,9 @@
                                            title="{{ sprintf('Required by %s', $characterSkill->requiredBy) }}"></i>
                                     @else
                                         <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                    class="fa-solid fa-pencil" title="Edit skill"></i></a>
+                                                class="fa-solid fa-pencil" title="Edit skill"></i></a>
                                         <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                    class="fa-solid fa-trash" title="Remove skill"></i></a>
+                                                class="fa-solid fa-trash" title="Remove skill"></i></a>
                                     @endif
                                     @if($characterSkill->skill->specialties > 1)
                                         <ul class="list-disc list-inside">
@@ -74,8 +71,8 @@
                             @endforeach
                         </ul>
                         @if (Status::NEW == $character->status_id)
-                            <p class="mt-1">Total training: {{ $totalTraining }}
-                                /{{ $character->background->months }}</p>
+                            <p class="mt-1">Total training: {{ $character->completedTrainingMonths }}
+                                / {{ $character->background->months }}</p>
                         @endif
                     </div>
                     @if ($character->trainingSkills->count())
@@ -87,12 +84,12 @@
                                         {{ $characterSkill->name }}
                                         ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                         <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                    class="fa-solid fa-pencil" title="Edit skill"></i></a>
+                                                class="fa-solid fa-pencil" title="Edit skill"></i></a>
                                         @if ($characterSkill->locked)
                                             <i class="fa-solid fa-lock" title="Expenditure is locked"></i>
                                         @else
                                             <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                        class="fa-solid fa-trash" title="Remove skill"></i></a>
+                                                    class="fa-solid fa-trash" title="Remove skill"></i></a>
                                         @endif
                                         @if($characterSkill->skill->specialties > 1)
                                             <ul>

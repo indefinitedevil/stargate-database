@@ -2,12 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\CharacterSkill;
 use App\Models\LogType;
-use App\Models\Skill;
-use App\Models\SkillSpecialty;
 use App\Models\Status;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -49,12 +45,12 @@ class TypeSeeder extends Seeder
             ['id' => 3, 'name' => 'Plot'],
         ]);
         // seed status
-        DB::table('statuses')->insertOrIgnore([
+        DB::table('statuses')->upsert([
             ['id' => Status::NEW, 'name' => 'New'],
             ['id' => Status::APPROVED, 'name' => 'Approved'],
             ['id' => Status::PLAYED, 'name' => 'Played'],
             ['id' => Status::DEAD, 'name' => 'Dead'],
             ['id' => Status::RETIRED, 'name' => 'Retired'],
-        ]);
+        ], 'id');
     }
 }

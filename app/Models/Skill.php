@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
+ * @property int id
  * @property string name
  * @property Collection cards
  * @property Collection feats
@@ -80,12 +81,27 @@ class Skill extends Model
         }
         $category = $this->skillCategory;
         if ($character && $category->scaling) {
-            $completedCategorySkills = $character->trainedSkills()
-                ->where('skills.skill_category_id', $this->skill_category_id);
-            if ($characterSkill) {
-                $completedCategorySkills = $completedCategorySkills->where('character_skills.id', '!=', $characterSkill->id);
+            if (Status::NEW == $character->status_id) {
+                static $scalingCosts = [];
+                if (empty($scalingCosts[$category->id])) {
+                    $scalingCosts[$category->id] = [];
+                }
+                if (!isset($scalingCosts[$category->id][$this->id])) {
+                    $scalingCosts[$category->id][$this->id] = count(array_unique(array_diff_key($scalingCosts[$category->id], [$this->id => 0])));
+                }
+                $countSkills = $scalingCosts[$category->id][$this->id];
+            } else {
+                static $completedCategorySkills = [];
+                if (empty($completedCategorySkills[$category->id])) {
+                    $completedCategorySkills[$category->id] = $character->trainedSkills()
+                        ->where('skills.skill_category_id', $this->skill_category_id);
+                }
+                $countSkills = $completedCategorySkills[$category->id]->count();
+                if ($characterSkill) {
+                    $countSkills = $completedCategorySkills[$category->id]->where('character_skills.id', '!=', $characterSkill->id)->count();
+                }
             }
-            return $category->cost + $completedCategorySkills->count();
+            return $category->cost + $countSkills;
         }
         return $category->cost;
     }
