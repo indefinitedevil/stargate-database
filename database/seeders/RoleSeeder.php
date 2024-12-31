@@ -18,6 +18,8 @@ class RoleSeeder extends Seeder
         $createCharacter = Permission::findOrCreate('create character');
         $editOwnCharacter = Permission::findOrCreate('edit own character');
         $editAllCharacters = Permission::findOrCreate('edit all characters');
+        $deleteOwnCharacter = Permission::findOrCreate('delete own character');
+        $deleteAllCharacters = Permission::findOrCreate('delete all characters');
         $endOwnCharacter = Permission::findOrCreate('end own character');
         $endAllCharacters = Permission::findOrCreate('end all characters');
         $viewOwnLog = Permission::findOrCreate('view own log');
@@ -53,6 +55,7 @@ class RoleSeeder extends Seeder
         $plotCoordinator->syncPermissions([
             $viewAllCharacters,
             $editAllCharacters,
+            $deleteAllCharacters,
             $endAllCharacters,
             $viewAllLogs,
             $editAllLogs,
@@ -77,6 +80,7 @@ class RoleSeeder extends Seeder
             $viewOwnCharacter,
             $createCharacter,
             $editOwnCharacter,
+            $deleteOwnCharacter,
             $endOwnCharacter,
             $viewOwnLog,
             $createLog,
