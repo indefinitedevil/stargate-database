@@ -43,6 +43,9 @@ class RoleSeeder extends Seeder
         $editBackground = Permission::findOrCreate('edit background');
         $deleteBackground = Permission::findOrCreate('delete background');
         $modifyRoles = Permission::findOrCreate('modify roles');
+        $viewAllUsers = Permission::findOrCreate('view all users');
+        $editAllUsers = Permission::findOrCreate('edit all users');
+        $deleteAllUsers = Permission::findOrCreate('delete all users');
 
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
@@ -53,6 +56,9 @@ class RoleSeeder extends Seeder
 
         $admin->syncPermissions([
             $modifyRoles,
+            $viewAllUsers,
+            $editAllUsers,
+            $deleteAllUsers,
         ]);
 
         $plotCoordinator->syncPermissions([
@@ -68,6 +74,7 @@ class RoleSeeder extends Seeder
             $addSkillSpecialty,
             $editSkillSpecialty,
             $deleteSkillSpecialty,
+            $viewAllUsers,
         ]);
 
         $systemReferee->syncPermissions([

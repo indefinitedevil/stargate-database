@@ -14,32 +14,10 @@
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                 <div class="mt-1">
                     <h3 class="text-lg font-semibold">{{ __('Active characters') }}</h3>
-                    <ul class="list-disc list-inside">
-                        @if (count($activeCharacters) == 0)
-                            <li>{{ __('No characters found') }}</li>
-                        @else
-                            @foreach ($activeCharacters as $character)
-                                <li>
-                                    <a class="underline" href="{{ route('characters.view', $character) }}">
-                                        {{ $character->name }}</a>
-                                    ({{ $character->background->name }})
-                                    - {{ $character->status->name }}
-                                </li>
-                            @endforeach
-                        @endif
-                    </ul>
+                    @include('characters.partials.index', ['characters' => $activeCharacters, 'hideUser' => true,])
                     @if (count($inactiveCharacters) > 0)
                         <h3 class="text-lg font-semibold mt-3">{{ __('Inactive characters') }}</h3>
-                        <ul class="list-disc list-inside">
-                            @foreach ($inactiveCharacters as $character)
-                                <li>
-                                    <a class="underline" href="{{ route('characters.view', $character) }}">
-                                        {{ $character->name }}</a>
-                                    ({{ $character->background->name }})
-                                    - {{ $character->status->name }}
-                                </li>
-                            @endforeach
-                        </ul>
+                        @include('characters.partials.index', ['characters' => $inactiveCharacters, 'hideUser' => true,])
                     @endif
                 </div>
             </div>

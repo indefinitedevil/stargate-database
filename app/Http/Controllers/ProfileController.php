@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,16 @@ class ProfileController extends Controller
     {
         return view('profile.edit', [
             'user' => $request->user(),
+        ]);
+    }
+    public function view(Request $request, $userId)
+    {
+        $user = User::find($userId);
+        if ($request->user()->cannot('view', $user)) {
+            return redirect(route('dashboard'));
+        }
+        return view('profile.view', [
+            'user' => $user,
         ]);
     }
 
