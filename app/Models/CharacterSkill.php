@@ -166,7 +166,7 @@ class CharacterSkill extends Model
                 ->where('character_skills.character_id', $this->character_id)
                 ->where('character_skills.completed', true)
                 ->where('character_skills.discount_used', false)
-                ->count() > 1;
+                ->count() > 0;
     }
 
     public function getDiscountsAvailableAttribute(): Collection
