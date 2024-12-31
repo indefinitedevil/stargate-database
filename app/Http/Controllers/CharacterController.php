@@ -15,7 +15,7 @@ class CharacterController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->user()->cannot('view any', Character::class)) {
+        if ($request->user()->cannot('viewAny', Character::class)) {
             return redirect(route('dashboard'));
         }
         return view('characters.index', [

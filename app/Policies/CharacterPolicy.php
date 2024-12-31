@@ -14,7 +14,7 @@ class CharacterPolicy
      */
     public function viewAny(User $user): Response
     {
-        return $user->can('view all characters') || $user->can('view own characters')
+        return $user->can('view all characters') || $user->can('view own character')
             ? Response::allow()
             : Response::deny('You are not authorized to view this character.');
     }
@@ -28,7 +28,7 @@ class CharacterPolicy
         if ($user->can('view all characters')) {
             $view = true;
         }
-        if ($user->can('view own characters') && $user->id === $character->user_id) {
+        if ($user->can('view own character') && $user->id === $character->user_id) {
             $view = true;
         }
         return $view
@@ -55,7 +55,7 @@ class CharacterPolicy
         if ($user->can('update all characters')) {
             $update = true;
         }
-        if ($user->can('update own characters') && $user->id === $character->user_id) {
+        if ($user->can('update own character') && $user->id === $character->user_id) {
             $update = true;
         }
         return $update
@@ -75,7 +75,7 @@ class CharacterPolicy
         if ($user->can('delete all characters')) {
             $delete = true;
         }
-        if ($user->can('delete own characters') && $user->id === $character->user_id) {
+        if ($user->can('delete own character') && $user->id === $character->user_id) {
             $delete = true;
         }
         return $delete

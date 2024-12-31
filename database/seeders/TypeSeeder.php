@@ -45,12 +45,12 @@ class TypeSeeder extends Seeder
             ['id' => 3, 'name' => 'Plot'],
         ]);
         // seed status
-        DB::table('statuses')->insertOrIgnore([
+        DB::table('statuses')->upsert([
             ['id' => Status::NEW, 'name' => 'New'],
             ['id' => Status::APPROVED, 'name' => 'Approved'],
             ['id' => Status::PLAYED, 'name' => 'Played'],
             ['id' => Status::DEAD, 'name' => 'Dead'],
             ['id' => Status::RETIRED, 'name' => 'Retired'],
-        ]);
+        ], 'id');
     }
 }
