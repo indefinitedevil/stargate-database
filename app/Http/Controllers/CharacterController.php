@@ -19,7 +19,8 @@ class CharacterController extends Controller
             return redirect(route('dashboard'));
         }
         return view('characters.index', [
-            'characters' => auth()->user()->characters
+            'activeCharacters' => auth()->user()->characters->whereIn('status_id', [Status::NEW, Status::APPROVED, Status::PLAYED]),
+            'inactiveCharacters' => auth()->user()->characters->whereIn('status_id', [Status::DEAD, Status::RETIRED]),
         ]);
     }
 
