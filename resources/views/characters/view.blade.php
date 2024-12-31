@@ -5,6 +5,9 @@
 <x-app-layout>
     <x-slot name="title">{{ $character->name }}</x-slot>
     <x-slot name="header">
+        <a href="{{ route('characters.print', ['characterId' => $character->id]) }}"
+           class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
+        >{{ __('Print') }}</a>
         @can('delete', $character)
             <a href="{{ route('characters.delete', ['characterId' => $character->id]) }}"
                class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
@@ -27,7 +30,9 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            @include('partials.character-details', ['character' => $character])
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+                @include('characters.partials.details', ['character' => $character])
+            </div>
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                 <div class="">
@@ -142,6 +147,16 @@
                     <p class="mt-1">{!! nl2br($character->history) !!}</p>
                 </div>
             </div>
+            @can('view hidden notes')
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+                    <div class="">
+                        <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
+                            {{ __('Plot notes') }}
+                        </h2>
+                        <p class="mt-1">{!! nl2br($character->plot_notes) !!}</p>
+                    </div>
+                </div>
+            @endcan
         </div>
     </div>
 </x-app-layout>

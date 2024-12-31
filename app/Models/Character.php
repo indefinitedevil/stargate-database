@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\DB;
  * @property Background background
  * @property Collection skills
  * @property Collection trainedSkills
+ * @property Collection displayedSkills
  * @property Collection displayedTrainedSkills
  * @property Collection hiddenTrainedSkills
  * @property Collection trainingSkill
@@ -128,7 +129,6 @@ class Character extends Model
     public function displayedTrainedSkills(): HasMany
     {
         return $this->trainedSkills()
-            ->where('discount_used', false)
             ->where('skills.display', true);
     }
 

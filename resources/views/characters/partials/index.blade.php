@@ -13,6 +13,8 @@
                 @if (empty($hideStatus))
                 - {{ $character->status->name }}
                 @endif
+                -
+                <a class="underline" href="{{ route('characters.print', $character) }}"><i class="fa-solid fa-print" title="{{ __('Print') }}"></i></a>
             </li>
         @endforeach
     @endif
