@@ -51,6 +51,7 @@ class TypeSeeder extends Seeder
         // seed status
         DB::table('statuses')->insertOrIgnore([
             ['id' => Status::NEW, 'name' => 'New'],
+            ['id' => Status::APPROVED, 'name' => 'Approved'],
             ['id' => Status::PLAYED, 'name' => 'Played'],
             ['id' => Status::DEAD, 'name' => 'Dead'],
             ['id' => Status::RETIRED, 'name' => 'Retired'],
