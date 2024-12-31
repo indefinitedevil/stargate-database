@@ -44,9 +44,11 @@ It is seeded with tables representing the rules.
 
 1. Clone the repository
 2. Set up your local environment (ddev recommended)
+   1. If running ddev, run the following commands withini the ddev shell (`ddev ssh`) 
 3. Run `composer install`
 4. Run `php artisan key:generate` to generate a new key for your local environment or get one from an existing environment (existing key needed for using database dumps without issues)
-5. Run `php artisan migrate --seed`
+5. Run `php artisan migrate --seed` to install/migrate database tables and any data seeding
+   1. Also run this after any update that involves database changes
 6. Run `npm install`
 7. Run `npm run build`
 

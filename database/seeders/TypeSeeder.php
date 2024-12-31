@@ -2,12 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\CharacterSkill;
 use App\Models\LogType;
-use App\Models\Skill;
-use App\Models\SkillSpecialty;
 use App\Models\Status;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
