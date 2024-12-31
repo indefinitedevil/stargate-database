@@ -33,6 +33,9 @@ class RoleSeeder extends Seeder
         $addSkill = Permission::findOrCreate('add skill');
         $editSkill = Permission::findOrCreate('edit skill');
         $deleteSkill = Permission::findOrCreate('delete skill');
+        $addSkillSpecialty = Permission::findOrCreate('add skill specialty');
+        $editSkillSpecialty = Permission::findOrCreate('edit skill specialty');
+        $deleteSkillSpecialty = Permission::findOrCreate('delete skill specialty');
         $addFeat = Permission::findOrCreate('add feat');
         $editFeat = Permission::findOrCreate('edit feat');
         $deleteFeat = Permission::findOrCreate('delete feat');
@@ -62,6 +65,9 @@ class RoleSeeder extends Seeder
             $addHiddenNotes,
             $editHiddenNotes,
             $viewHiddenNotes,
+            $addSkillSpecialty,
+            $editSkillSpecialty,
+            $deleteSkillSpecialty,
         ]);
 
         $systemReferee->syncPermissions([
@@ -74,6 +80,9 @@ class RoleSeeder extends Seeder
             $addBackground,
             $editBackground,
             $deleteBackground,
+            $addSkillSpecialty,
+            $editSkillSpecialty,
+            $deleteSkillSpecialty,
         ]);
 
         $player->syncPermissions([
