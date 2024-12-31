@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 class Status extends Model
 {
     const NEW = 1;
-    const PLAYED = 2;
-    const DEAD = 3;
-    const RETIRED = 4;
+    const APPROVED = 2;
+    const PLAYED = 3;
+    const DEAD = 4;
+    const RETIRED = 5;
 }
