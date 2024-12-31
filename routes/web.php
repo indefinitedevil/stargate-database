@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/characters', [CharacterController::class, 'index'])->name('characters.index');
+    Route::get('/characters/all', [CharacterController::class, 'all'])->name('characters.all');
     Route::get('/characters/view/{characterId}', [CharacterController::class, 'view'])->name('characters.view');
     Route::get('/characters/edit/{characterId}', [CharacterController::class, 'edit'])->name('characters.edit');
     Route::get('/characters/delete/{characterId}', [CharacterController::class, 'delete'])->name('characters.delete');

@@ -1,3 +1,6 @@
+@php
+    use App\Models\Character;
+@endphp
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,8 +20,17 @@
                             {{ __('Dashboard') }}
                         </x-nav-link>
                         <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.index')">
-                            {{ __('Characters') }}
+                            @can('viewAll', Character::class)
+                                {{ __('My Characters') }}
+                            @else
+                                {{ __('Characters') }}
+                            @endcan
                         </x-nav-link>
+                        @can('viewAll', Character::class)
+                            <x-nav-link :href="route('characters.all')" :active="request()->routeIs('characters.all')">
+                                {{ __('All Characters') }}
+                            </x-nav-link>
+                        @endcan
                     @else
                         <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                             {{ __('Log in') }}
@@ -38,7 +50,7 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
-                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                                 <div>{{ Auth::user()->name }}</div>
 
                                 <div class="ms-1">

@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\DB;
  * @property Status status
  * @property Feat[] feats
  * @property User player
+ * @property User user
  * @property int body
  * @property int vigor
  * @property string rank
@@ -52,6 +53,11 @@ class Character extends Model
     ];
 
     public function player(): BelongsTo
+    {
+        return $this->user();
+    }
+
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

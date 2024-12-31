@@ -18,6 +18,15 @@ class CharacterPolicy
             ? Response::allow()
             : Response::deny('You are not authorized to view this character.');
     }
+    /**
+     * Determine whether the user can view any models.
+     */
+    public function viewAll(User $user): Response
+    {
+        return $user->can('view all characters')
+            ? Response::allow()
+            : Response::deny('You are not authorized to view all characters.');
+    }
 
     /**
      * Determine whether the user can view the model.
