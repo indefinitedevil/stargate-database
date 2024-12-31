@@ -35,7 +35,7 @@ class AssignRole extends Command
         return 0;
     }
 
-    protected function getUser(): User
+    protected function getUser(): ?User
     {
         $userId = $this->argument('user');
         if (is_numeric($userId)) {
