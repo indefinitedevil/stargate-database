@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\DB;
  * @property int id
  * @property string name
  * @property int user_id
+ * @property int background_id
+ * @property int status_id
  * @property Background background
  * @property Collection skills
  * @property Collection trainedSkills
