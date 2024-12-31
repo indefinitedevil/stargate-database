@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\DB;
  * @property string history
  * @property string plot_notes
  * @property Object[] cards
+ * @property int completedTrainingMonths
  */
 class Character extends Model
 {
@@ -173,6 +174,15 @@ class Character extends Model
             $vigor += $characterSkill->skill->vigor;
         }
         return $vigor;
+    }
+
+    public function getCompletedTrainingMonthsAttribute(): int
+    {
+        $totalTraining = 0;
+        foreach ($this->trainedSkills as $characterSkill) {
+            $totalTraining += $characterSkill->trained;
+        }
+        return $totalTraining;
     }
 
     public function getCardsAttribute(): array

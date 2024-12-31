@@ -1,4 +1,7 @@
-@php use App\Models\Feat; @endphp
+@php
+    use App\Models\Feat;
+    use App\Models\Status;
+@endphp
 <x-app-layout>
     <x-slot name="title">{{ $character->name }}</x-slot>
     <x-slot name="header">
@@ -24,31 +27,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-                <div class="grid grid-cols-4">
-                    <p class="mt-1">
-                        <strong>{{ __('Name') }}:</strong> {{ $character->name }}
-                    </p>
-                    <p class="mt-1">
-                        <strong>{{ __('Rank') }}
-                            :</strong> {!! $character->rank ?: '<abbr title="To be determined">TBD</abbr>' !!} @if ($character->former_rank)
-                            ({{ $character->former_rank }})
-                        @endif
-                    </p>
-                    <p class="mt-1">
-                        <strong>{{ __('Body') }}:</strong> {{ $character->body }}
-                    </p>
-                    <p class="mt-1">
-                        <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }}
-                    </p>
-                    <p class="mt-1">
-                        <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
-                    </p>
-                    <p class="mt-1">
-                        <strong>{{ __('Status') }}:</strong> {{ $character->status->name }}
-                    </p>
-                </div>
-            </div>
+            @include('partials.character-details', ['character' => $character])
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                 <div class="">
@@ -88,6 +67,10 @@
                                     </li>
                                 @endforeach
                             </ul>
+                            @if (Status::NEW == $character->status_id)
+                                <p class="mt-1">Total training: {{ $character->completedTrainingMonths }}
+                                    / {{ $character->background->months }}</p>
+                            @endif
                         </div>
                         @if ($character->trainingSkills->count())
                             <div class="mt-1">

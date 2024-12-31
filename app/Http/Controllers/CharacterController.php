@@ -57,8 +57,44 @@ class CharacterController extends Controller
             return redirect(route('characters.view', ['characterId' => $characterId]));
         }
         $character = Character::find($characterId);
+        if (count($character->trainingSkills) > 1) {
+            throw ValidationException::withMessages(['Character may not have more than one skill in training at character creation.']);
+        }
+        $usedMonths = 0;
+        foreach ($character->trainedSkills->sortBy('name') as $skill) {
+            $log = new CharacterLog();
+            $logData = [
+                'character_id' => $character->id,
+                'character_skill_id' => $skill->id,
+                'locked' => true,
+                'amount_trained' => $skill->cost,
+                'log_type_id' => LogType::CHARACTER_CREATION,
+                'teacher_id' => null,
+            ];
+            $log->fill($logData);
+            $log->save();
+            $usedMonths += $skill->cost;
+        }
+        foreach ($character->trainingSkills as $skill) {
+            $log = new CharacterLog();
+            $logData = [
+                'character_id' => $character->id,
+                'character_skill_id' => $skill->id,
+                'locked' => true,
+                'amount_trained' => $character->background->months - $usedMonths,
+                'log_type_id' => LogType::CHARACTER_CREATION,
+                'teacher_id' => null,
+            ];
+            $log->fill($logData);
+            $log->save();
+            if ($character->background->months - $usedMonths == $skill->cost) {
+                $skill->completed = true;
+                $skill->save();
+            }
+        }
         $character->status_id = Status::APPROVED;
         $character->save();
+
         return redirect(route('characters.index'));
     }
 
