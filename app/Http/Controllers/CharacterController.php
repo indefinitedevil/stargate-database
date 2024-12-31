@@ -103,6 +103,10 @@ class CharacterController extends Controller
         if ($request->user()->cannot('delete', Character::find($characterId))) {
             return redirect(route('characters.view', ['characterId' => $characterId]));
         }
+        $characterLogs = CharacterLog::where('character_id', $characterId)->get();
+        foreach ($characterLogs as $log) {
+            $log->delete();
+        }
         $character = Character::find($characterId);
         $character->delete();
         return redirect(route('characters.index'));
