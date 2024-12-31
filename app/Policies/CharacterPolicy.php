@@ -50,7 +50,7 @@ class CharacterPolicy
      */
     public function create(User $user): Response
     {
-        return $user->can('create characters')
+        return $user->can('create character')
             ? Response::allow()
             : Response::deny('You are not authorized to create a character.');
     }
