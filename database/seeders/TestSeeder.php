@@ -19,6 +19,8 @@ class TestSeeder extends Seeder
             'email' => 'test@example.com',
             'password' => Hash::make('password'),
         ]);
-        User::find(1)->assignRole('player');
+        foreach (User::all() as $user) {
+            $user->assignRole('player');
+        }
     }
 }

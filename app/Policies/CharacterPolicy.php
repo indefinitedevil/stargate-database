@@ -49,18 +49,25 @@ class CharacterPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Character $character): Response
+    public function edit(User $user, Character $character): Response
     {
         $update = false;
-        if ($user->can('update all characters')) {
+        if ($user->can('edit all characters')) {
             $update = true;
         }
-        if ($user->can('update own character') && $user->id === $character->user_id) {
-            $update = true;
+        if ($user->can('edit own character') && $user->id === $character->user_id) {
+            $update = !in_array($character->status_id, [Status::DEAD, Status::RETIRED]);
         }
         return $update
             ? Response::allow()
             : Response::deny('You are not authorized to update this character.');
+    }
+
+    public function approve(User $user, Character $character): Response
+    {
+        return $user->can('edit all characters')
+            ? Response::allow()
+            : Response::deny('You are not authorized to approve this character.');
     }
 
     /**

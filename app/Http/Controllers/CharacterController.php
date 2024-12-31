@@ -41,7 +41,7 @@ class CharacterController extends Controller
 
     public function edit(Request $request, $characterId)
     {
-        if ($request->user()->cannot('update', Character::find($characterId))) {
+        if ($request->user()->cannot('edit', Character::find($characterId))) {
             return redirect(route('characters.view', ['characterId' => $characterId]));
         }
         $character = Character::find($characterId);
@@ -51,9 +51,52 @@ class CharacterController extends Controller
         return view('characters.edit', ['character' => $character]);
     }
 
+    public function approve(Request $request, $characterId)
+    {
+        if ($request->user()->cannot('approve', Character::find($characterId))) {
+            return redirect(route('characters.view', ['characterId' => $characterId]));
+        }
+        $character = Character::find($characterId);
+        $character->status_id = Status::APPROVED;
+        $character->save();
+        return redirect(route('characters.index'));
+    }
+
+    public function delete(Request $request, $characterId)
+    {
+        if ($request->user()->cannot('delete', Character::find($characterId))) {
+            return redirect(route('characters.view', ['characterId' => $characterId]));
+        }
+        $character = Character::find($characterId);
+        $character->delete();
+        return redirect(route('characters.index'));
+    }
+
+    public function retire(Request $request, $characterId)
+    {
+        if ($request->user()->cannot('edit', Character::find($characterId))) {
+            return redirect(route('characters.view', ['characterId' => $characterId]));
+        }
+        $character = Character::find($characterId);
+        $character->status_id = Status::RETIRED;
+        $character->save();
+        return redirect(route('characters.view', ['characterId' => $characterId]));
+    }
+
+    public function kill(Request $request, $characterId)
+    {
+        if ($request->user()->cannot('edit', Character::find($characterId))) {
+            return redirect(route('characters.view', ['characterId' => $characterId]));
+        }
+        $character = Character::find($characterId);
+        $character->status_id = Status::DEAD;
+        $character->save();
+        return redirect(route('characters.view', ['characterId' => $characterId]));
+    }
+
     public function editSkills(Request $request, $characterId, $skillId = null)
     {
-        if ($request->user()->cannot('update', Character::find($characterId))) {
+        if ($request->user()->cannot('edit', Character::find($characterId))) {
             return redirect(route('characters.view', ['characterId' => $characterId]));
         }
         $character = Character::find($characterId);
@@ -83,14 +126,14 @@ class CharacterController extends Controller
         if ($request->user()->cannot('create', Character::class)) {
             return redirect(route('characters.index'));
         }
-        if ($request->user()->cannot('update', Character::find($validatedData['id']))) {
+        if ($request->user()->cannot('edit', Character::find($validatedData['id']))) {
             return redirect(route('characters.view', ['characterId' => $validatedData['id']]));
         }
 
         if (!empty($validatedData['id'])) {
             $character = Character::find($validatedData['id']);
             if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
-                return redirect(route('characters.view', ['characterId' => $character->id]));
+                throw ValidationException::withMessages(['Character can no longer be modified.']);
             }
         } else {
             $character = new Character();
@@ -118,7 +161,7 @@ class CharacterController extends Controller
             'discount_used_by' => 'integer|exists:character_skills,id',
         ]);
 
-        if ($request->user()->cannot('update', Character::find($validatedData['character_id']))) {
+        if ($request->user()->cannot('edit', Character::find($validatedData['character_id']))) {
             return redirect(route('characters.view', ['characterId' => $validatedData['character_id']]));
         }
 
@@ -193,7 +236,7 @@ class CharacterController extends Controller
      */
     public function removeSkill(Request $request, $characterId, $skillId)
     {
-        if ($request->user()->cannot('update', Character::find($characterId))) {
+        if ($request->user()->cannot('edit', Character::find($characterId))) {
             return redirect(route('characters.view', ['characterId' => $characterId]));
         }
         $characterSkill = CharacterSkill::find($skillId);
