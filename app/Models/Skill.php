@@ -82,14 +82,18 @@ class Skill extends Model
         $category = $this->skillCategory;
         if ($character && $category->scaling) {
             if (Status::NEW == $character->status_id) {
-                static $scalingCosts = [];
-                if (empty($scalingCosts[$category->id])) {
-                    $scalingCosts[$category->id] = [];
+                if (empty($$characterSkill)) {
+                    $countSkills = 0;
+                } else {
+                    static $scalingCosts = [];
+                    if (empty($scalingCosts[$category->id])) {
+                        $scalingCosts[$category->id] = [];
+                    }
+                    if (!isset($scalingCosts[$category->id][$this->id])) {
+                        $scalingCosts[$category->id][$this->id] = count(array_unique(array_diff_key($scalingCosts[$category->id], [$this->id => 0])));
+                    }
+                    $countSkills = $scalingCosts[$category->id][$this->id];
                 }
-                if (!isset($scalingCosts[$category->id][$this->id])) {
-                    $scalingCosts[$category->id][$this->id] = count(array_unique(array_diff_key($scalingCosts[$category->id], [$this->id => 0])));
-                }
-                $countSkills = $scalingCosts[$category->id][$this->id];
             } else {
                 static $completedCategorySkills = [];
                 if (empty($completedCategorySkills[$category->id])) {
