@@ -33,6 +33,9 @@
                             <x-nav-link :href="route('plotco.skills')" :active="request()->routeIs('plotco.skills')">
                                 {{ __('Skill Breakdown') }}
                             </x-nav-link>
+                            <x-nav-link :href="route('plotco.attendance')" :active="request()->routeIs('plotco.attendance')">
+                                {{ __('Attendance') }}
+                            </x-nav-link>
                         @endcan
                     @else
                         <x-nav-link :href="route('login')" :active="request()->routeIs('login')">

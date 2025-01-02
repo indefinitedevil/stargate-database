@@ -1,5 +1,6 @@
 @php
     use App\Models\Skill;
+    use App\Models\SkillCategory;
     use App\Models\Status;
 @endphp
 <x-app-layout>
@@ -13,7 +14,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             @include('partials.errors')
-            @foreach ($categories as $category)
+            @foreach (SkillCategory::all() as $category)
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                     <h3 class="text-xl font-semibold">{!! sprintf('%s Skills', $category->name) !!}</h3>
                     <div class="grid grid-cols-3 gap-2">

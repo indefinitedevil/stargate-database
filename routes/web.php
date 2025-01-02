@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/plot-co/characters/print-all', [PlotcoController::class, 'printAll'])->name('plotco.print-all');
         Route::get('/plot-co/characters/print-some', [PlotcoController::class, 'printSome'])->name('plotco.print-some');
         Route::get('/plot-co/skills/', [PlotcoController::class, 'skills'])->name('plotco.skills');
+        Route::get('/plot-co/attendance/', [PlotcoController::class, 'attendance'])->name('plotco.attendance');
     });
 });
 

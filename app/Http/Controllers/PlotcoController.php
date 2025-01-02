@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Character;
-use App\Models\Skill;
-use App\Models\SkillCategory;
+use App\Models\Event;
 use App\Models\Status;
 use Illuminate\Http\Request;
 
@@ -27,9 +26,15 @@ class PlotcoController extends Controller
         if ($request->user()->cannot('viewAll', Character::class)) {
             return redirect(route('dashboard'));
         }
-        return view('plotco.skills', [
-            'categories' => SkillCategory::all(),
-        ]);
+        return view('plotco.skills');
+    }
+
+    public function attendance(Request $request)
+    {
+        if ($request->user()->cannot('viewAll', Character::class)) {
+            return redirect(route('dashboard'));
+        }
+        return view('plotco.attendance');
     }
 
     public function printAll(Request $request)
@@ -47,8 +52,15 @@ class PlotcoController extends Controller
         if ($request->user()->cannot('viewAll', Character::class)) {
             return redirect(route('dashboard'));
         }
+        if ($request->has('characters')) {
+            $characters = Character::whereIn('id', $request->get('characters'))->orderBy('name', 'asc')->get();
+        } elseif ($request->has('event')) {
+            $characters = Event::where('id', $request->get('event'))->first()->characters()->orderBy('name', 'asc')->get();
+        } else {
+            $characters = [];
+        }
         return view('characters.print', [
-            'characters' => Character::whereIn('id', $request->get('characters'))->orderBy('name', 'asc')->get(),
+            'characters' => $characters,
         ]);
     }
 }
