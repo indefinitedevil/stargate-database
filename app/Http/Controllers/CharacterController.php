@@ -19,7 +19,7 @@ class CharacterController extends Controller
             return redirect(route('dashboard'));
         }
         return view('characters.index', [
-            'activeCharacters' => auth()->user()->characters->whereIn('status_id', [Status::NEW, Status::APPROVED, Status::PLAYED])->sortBy('name'),
+            'activeCharacters' => auth()->user()->characters->whereIn('status_id', [Status::NEW, Status::READY, Status::APPROVED, Status::PLAYED])->sortBy('name'),
             'inactiveCharacters' => auth()->user()->characters->whereIn('status_id', [Status::DEAD, Status::RETIRED])->sortBy('name'),
         ]);
     }
@@ -29,7 +29,7 @@ class CharacterController extends Controller
             return redirect(route('characters.index'));
         }
         return view('characters.all', [
-            'newCharacters' => Character::all()->where('status_id', Status::NEW)->sortBy('name'),
+            'newCharacters' => Character::all()->where('status_id', Status::READY)->sortBy('name'),
             'activeCharacters' => Character::all()->whereIn('status_id', [Status::APPROVED, Status::PLAYED])->sortBy('name'),
             'inactiveCharacters' => Character::all()->whereIn('status_id', [Status::DEAD, Status::RETIRED])->sortBy('name'),
         ]);

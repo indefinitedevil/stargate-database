@@ -74,7 +74,7 @@ class CharacterPolicy
 
     public function approve(User $user, Character $character): Response
     {
-        return Status::NEW == $character->status_id && $user->can('edit all characters')
+        return Status::READY == $character->status_id && $user->can('edit all characters')
             ? Response::allow()
             : Response::deny('You are not authorized to approve this character.');
     }

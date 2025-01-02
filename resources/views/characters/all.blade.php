@@ -12,7 +12,7 @@
             @if (count($newCharacters) > 0)
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                     <div class="mt-1">
-                        <h3 class="text-lg font-semibold">{{ __('New characters') }}</h3>
+                        <h3 class="text-lg font-semibold">{{ __('Characters for approval') }}</h3>
                         @include('characters.partials.index', ['characters' => $newCharacters, 'hideStatus' => true,])
                     </div>
                 </div>
