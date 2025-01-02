@@ -253,6 +253,17 @@
                                                 @endforeach
                                             </ul>
                                         @endif
+                                        @if ($skill->cards->count())
+                                            <h4 class="text-md font-medium text-gray-900 dark:text-gray-100 mt-2">{{ __('Cards') }}</h4>
+                                            <ul class="grid grid-cols-4 gap-2">
+                                                @foreach($skill->cards as $card)
+                                                    <li>
+                                                        {{ $card->name }}
+                                                        ({{ $card->pivot->number }})
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
                                     </div>
                                 @endforeach
                             </div>
