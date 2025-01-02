@@ -4,14 +4,14 @@
 <x-print-layout>
     <x-slot name="title">{{ $character->name }}</x-slot>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight sm:px-6 lg:px-8">
-            {{ sprintf(__('Character: %s'), $character->name) }}
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ $character->name }}
         </h2>
     </x-slot>
 
     <div class="">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-2">
-            <div class="px-8 bg-white text-gray-800 mb-2">
+        <div class="max-w-7xl mx-auto space-y-2">
+            <div class="bg-white text-gray-800 mb-2">
                 <div class="grid grid-cols-3 gap-x-4">
                     <p class="mt-1 col-span-2">
                         <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="px-8 py-2 bg-white text-gray-800">
+            <div class="py-2 bg-white text-gray-800">
                 <div class="">
                     <h2 class="text-xl font-medium text-gray-900">
                         {{ __('Skills') }}
@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <div class="px-8 py-2 bg-white text-gray-800">
+            <div class="py-2 bg-white text-gray-800">
                 <div class="">
                     <h2 class="text-xl font-medium text-gray-900">
                         {{ __('Feats') }}
@@ -91,7 +91,7 @@
             </div>
 
             @if (!empty($character->cards))
-                <div class="px-8 py-2 bg-white text-gray-800">
+                <div class="py-2 bg-white text-gray-800">
                     <div class="">
                         <h2 class="text-xl font-medium text-gray-900">
                             {{ __('Cards') }}
@@ -105,7 +105,7 @@
                 </div>
             @endif
 
-            <div class="px-8 py-2 bg-white text-gray-800 mt-2">
+            <div class="py-2 bg-white text-gray-800 mt-2">
                 <div class="">
                     <div class="grid grid-cols-3 gap-x-4">
                         <table class="table-auto border border-collapse border-slate-600 w-full col-span-2">
@@ -171,8 +171,7 @@
                             <h2 class="text-xl font-medium text-gray-900">
                                 {{ __('Notes') }}
                             </h2>
-                            <p class="text-sm">Leave any notes on drug usage or anything else the plot co might need to
-                                know.</p>
+                            <p class="text-xs">{{ __('Leave notes on drug usage or anything else the plot co might need to know about.') }}</p>
                         </div>
                     </div>
                 </div>
