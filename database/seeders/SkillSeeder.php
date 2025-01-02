@@ -2110,8 +2110,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
 
     public function seedCardSkills()
     {
-        DB::table('card_type_skill')->truncate();
-        DB::table('card_type_skill')->insertOrIgnore([
+        DB::table('card_type_skill')->upsert([
             [
                 'skill_id' => 1,
                 'card_type_id' => 1,
@@ -2216,7 +2215,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             ],
             [
                 'skill_id' => 63,
-                'card_type_id' => 6,
+                'card_type_id' => 3,
                 'number' => 1,
                 'total' => 1,
             ],
@@ -2233,6 +2232,12 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'total' => 1,
             ],
             [
+                'skill_id' => 66,
+                'card_type_id' => 6,
+                'number' => 1,
+                'total' => 1,
+            ],
+            [
                 'skill_id' => 67,
                 'card_type_id' => 7,
                 'number' => 1,
@@ -2244,7 +2249,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'number' => 1,
                 'total' => 1,
             ],
-        ]);
+        ], 'id');
     }
 
     public function seedBackgroundSkills()
