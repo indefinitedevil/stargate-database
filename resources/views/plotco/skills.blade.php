@@ -17,11 +17,11 @@
                     @foreach($skills as $skill)
                         <div class="mt-1">
                             @php
-                                $characterSkills = $skill->characterSkills;
+                                $characterSkills = $skill->characterSkills->where('completed', true);
                                 $validCharacterSkills = [];
                                 foreach ($characterSkills as $characterSkill) {
                                     if (in_array($characterSkill->character->status_id, [Status::APPROVED, Status::PLAYED])) {
-                                        $validCharacterSkills[] = $characterSkill;
+                                        $validCharacterSkills[$characterSkill->skill->id] = $characterSkill;
                                     }
                                 }
                             @endphp
@@ -30,9 +30,12 @@
                                 @foreach($validCharacterSkills as $characterSkill)
                                     <li>
                                         {{ $characterSkill->character->name }}
+                                        @if ($characterSkill->skill->repeatable)
+                                            ({{ $characterSkill->level }})
+                                        @endif
                                         @if ($characterSkill->skill->specialties)
                                             <ul class="list-inside list-disc">
-                                                @foreach($characterSkill->specialties as $specialty)
+                                                @foreach($characterSkill->allSpecialties as $specialty)
                                                     <li>{{ $specialty->name }}</li>
                                                 @endforeach
                                             </ul>

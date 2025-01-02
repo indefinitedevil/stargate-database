@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int cost
  * @property int remainingCost
  * @property int trained
+ * @property int level
+ * @property string name
  */
 class CharacterSkill extends Model
 {
@@ -131,6 +133,9 @@ class CharacterSkill extends Model
             }
             return $this->skill->name . ' (Not selected)';
         }
+        if ($this->skill->repeatable) {
+            return $this->skill->name . ' (' . $this->level . ')';
+        }
         return $this->skill->name;
     }
 
@@ -184,5 +189,13 @@ class CharacterSkill extends Model
             ->where('discounted_skill', $discountedSkillId)
             ->first();
         return $discount->discount ?? 0;
+    }
+
+    public function getLevelAttribute(): int
+    {
+        if ($this->skill->repeatable) {
+            return $this->character->trainedSkills->where('skill_id', $this->skill_id)->count();
+        }
+        return 0;
     }
 }
