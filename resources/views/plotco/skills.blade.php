@@ -28,8 +28,7 @@
                                         }
                                     }
                                 @endphp
-                                <h4 class="text-lg font-semibold">{{ $skill->name }} ({{ count($validCharacterSkills) }}
-                                    )</h4>
+                                <h4 class="text-lg font-semibold">{{ sprintf('%s (%d)', $skill->name, count($validCharacterSkills)) }}</h4>
                                 <ul>
                                     @foreach($validCharacterSkills as $characterSkill)
                                         <li>
