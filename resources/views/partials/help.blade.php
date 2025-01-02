@@ -7,7 +7,8 @@
         <li>View the character</li>
         <li>Click on the "Edit Skills" button</li>
         <li>Add skills one by one</li>
+        <li>Mark skills as completed if you are buying the full skill, or leave it unchecked if you are only partially investing into it</li>
+        <li>Once you're happy, click the "Ready for approval" button (<i class="fa-solid fa-check"></i>) and the plot co will look over your sheet</li>
     </ol>
-    <p>You cannot assign months to skills at this point. Theoretically leftover months from character creation would be assigned to the first unfinished skill.</p>
-    <p>Assigning months to skills would be part of the downtime process.</p>
+    <p>Leftover months from character creation will be assigned to an unfinished skill. You may only have one unfinished skill.</p>
 </section>

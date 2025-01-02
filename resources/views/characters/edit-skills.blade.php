@@ -213,7 +213,7 @@
                                 <div>
                                     <label for="completed">{{ __('Completed') }}</label>
                                     <input type="checkbox" id="completed" name="completed" class="" value="1"
-                                           @if (!empty($editSkill) && $editSkill->completed) checked="checked" @endif>
+                                           @if (!empty($editSkill) && $editSkill->completed || Status::NEW == $character->status_id) checked="checked" @endif>
                                 </div>
 
                                 <div class="flex items-center gap-4">
