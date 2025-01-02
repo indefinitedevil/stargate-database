@@ -24,6 +24,7 @@ class TestSeeder extends Seeder
         */
         DB::table('users')->upsert([
             [
+                'name' => 'Test User',
                 'email' => 'test@example.com',
                 'password' => Hash::make(Random::generate()),
             ]
