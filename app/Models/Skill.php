@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property int body
  * @property int vigor
  * @property bool display
+ * @property bool scaling
+ * @property Collection characterSkills
  */
 class Skill extends Model
 {
@@ -59,9 +61,9 @@ class Skill extends Model
         return $this->specialtyType->skillSpecialties;
     }
 
-    public function characters(): HasManyThrough
+    public function characterSkills(): HasMany
     {
-        return $this->hasManyThrough(Character::class, CharacterSkill::class);
+        return $this->hasMany(CharacterSkill::class);
     }
 
     public function discountedBy(): HasMany

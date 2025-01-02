@@ -26,17 +26,6 @@ class CharacterController extends Controller
             'inactiveCharacters' => auth()->user()->characters->whereIn('status_id', [Status::DEAD, Status::RETIRED])->sortBy('name'),
         ]);
     }
-    public function all(Request $request)
-    {
-        if ($request->user()->cannot('viewAll', Character::class)) {
-            return redirect(route('characters.index'));
-        }
-        return view('characters.all', [
-            'newCharacters' => Character::all()->where('status_id', Status::READY)->sortBy('name'),
-            'activeCharacters' => Character::all()->whereIn('status_id', [Status::APPROVED, Status::PLAYED])->sortBy('name'),
-            'inactiveCharacters' => Character::all()->whereIn('status_id', [Status::DEAD, Status::RETIRED])->sortBy('name'),
-        ]);
-    }
 
     public function create(Request $request)
     {

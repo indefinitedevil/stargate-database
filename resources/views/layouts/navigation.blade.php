@@ -27,8 +27,11 @@
                             @endcan
                         </x-nav-link>
                         @can('viewAll', Character::class)
-                            <x-nav-link :href="route('characters.all')" :active="request()->routeIs('characters.all')">
+                            <x-nav-link :href="route('plotco.characters')" :active="request()->routeIs('plotco.characters')">
                                 {{ __('All Characters') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('plotco.skills')" :active="request()->routeIs('plotco.skills')">
+                                {{ __('Skill Breakdown') }}
                             </x-nav-link>
                         @endcan
                     @else
