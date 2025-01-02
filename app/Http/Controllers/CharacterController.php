@@ -73,6 +73,9 @@ class CharacterController extends Controller
         return view('characters.edit', ['character' => $character]);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function approve(Request $request, $characterId)
     {
         $character = Character::find($characterId);
@@ -83,7 +86,11 @@ class CharacterController extends Controller
             throw ValidationException::withMessages(['Character may not have more than one skill in training at character creation.']);
         }
         $usedMonths = 0;
+        $logs = [];
         foreach ($character->trainedSkills->sortBy('name') as $skill) {
+            if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
+                throw ValidationException::withMessages([sprintf('Character must select specialty for %s.', $skill->skill->name)]);
+            }
             $log = new CharacterLog();
             $logData = [
                 'character_id' => $character->id,
@@ -94,25 +101,40 @@ class CharacterController extends Controller
                 'teacher_id' => null,
             ];
             $log->fill($logData);
-            $log->save();
+            $logs[] = $log;
             $usedMonths += $skill->cost;
         }
         foreach ($character->trainingSkills as $skill) {
+            if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
+                throw ValidationException::withMessages([sprintf('Character must select specialty for %s.', $skill->skill->name)]);
+            }
+            $remainingMonths = $character->background->months - $usedMonths;
+            if ($remainingMonths > $skill->cost) {
+                throw ValidationException::withMessages(['Character must use all of their background training months.']);
+            }
             $log = new CharacterLog();
             $logData = [
                 'character_id' => $character->id,
                 'character_skill_id' => $skill->id,
                 'locked' => true,
-                'amount_trained' => $character->background->months - $usedMonths,
+                'amount_trained' => $remainingMonths,
                 'log_type_id' => LogType::CHARACTER_CREATION,
                 'teacher_id' => null,
             ];
             $log->fill($logData);
-            $log->save();
+            $logs[] = $log;
+            $usedMonths += $remainingMonths;
             if ($character->background->months - $usedMonths == $skill->cost) {
                 $skill->completed = true;
                 $skill->save();
             }
+        }
+        $remainingMonths = $character->background->months - $usedMonths;
+        if ($remainingMonths > 0) {
+            throw ValidationException::withMessages(['Character must use all of their background training months.']);
+        }
+        foreach ($logs as $log) {
+            $log->save();
         }
         $character->status_id = Status::APPROVED;
         $character->save();
@@ -218,6 +240,7 @@ class CharacterController extends Controller
             'id' => 'integer|exists:character_skills,id',
             'character_id' => 'integer|exists:characters,id',
             'skill_id' => 'required|exists:skills,id',
+            'specialty_id' => 'required|exists:skill_specialties,id',
             'completed' => 'boolean',
             'discount_used' => 'boolean',
             'discount_used_by' => 'integer|exists:character_skills,id',

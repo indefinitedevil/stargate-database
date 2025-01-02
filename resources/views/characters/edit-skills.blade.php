@@ -115,15 +115,7 @@
                 <div class="mt-1">
                     <form method="POST" action="{{ route('characters.store-skill') }}">
                         @csrf
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                        @include('partials.errors')
                         @if (!empty($editSkill))
                             <input type="hidden" name="id" value="{{ $editSkill->id }}">
                         @endif
@@ -144,7 +136,7 @@
                                         <select id="skill" name="skill_id" class="{{ $fieldClass }}" required
                                                 onchange="showSkillDescription(this.value)">
                                             >
-                                            @if ($editSkill && $editSkill->completed)
+                                            @if ($editSkill)
                                                 @php
                                                     $skills[] = $editSkill->skill;
                                                 @endphp
@@ -169,7 +161,7 @@
 
                                 @if ($editSkill && $editSkill->skill->specialties > 0)
                                     <div>
-                                        <label for="specialty">{{ __('Specialty' }}</label>
+                                        <label for="specialty">{{ __('Specialty') }}</label>
                                         <select id="specialty" name="specialty_id" class="{{ $fieldClass }}"
                                                 @if ($editSkill->skill->specialties > 1) multiple @endif>
                                             >
