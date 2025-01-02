@@ -131,7 +131,7 @@
                         <div class="grid grid-cols-2 gap-6">
                             <div class="grid gap-6">
                                 <div>
-                                    <label for="skill">Skill</label>
+                                    <label for="skill">{{ __('Skill') }}</label>
                                     @if ($editSkill && $editSkill->completed)
                                         @php
                                             $skills[] = $editSkill->skill;
@@ -152,15 +152,14 @@
                                                     ({{ $editSkill->cost }} months)
                                                 </option>
                                             @else
-                                                <option value="">Select a skill</option>
+                                                <option value="">{{ __('Select a skill') }}</option>
                                             @endif
                                             @foreach($character->availableSkills as $skill)
                                                 @php
                                                     $skills[] = $skill;
                                                 @endphp
                                                 <option value="{{ $skill->id }}">
-                                                    {{ $skill->name }}
-                                                    ({{ $skill->cost($character) }} months)
+                                                    {{ sprintf(__('%s (%s months)'), $skill->name, $skill->cost($character)) }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -169,7 +168,7 @@
 
                                 @if ($editSkill && $editSkill->skill->specialties > 0)
                                     <div>
-                                        <label for="specialty">Specialty</label>
+                                        <label for="specialty">{{ __('Specialty' }}</label>
                                         <select id="specialty" name="specialty_id" class="{{ $fieldClass }}"
                                                 @if ($editSkill->skill->specialties > 1) multiple @endif>
                                             >
@@ -186,14 +185,13 @@
 
                                 @if ($editSkill && ($editSkill->discountAvailable || $editSkill->discountedBy->count()))
                                     <div>
-                                        <label for="discounted_by">Discount</label>
+                                        <label for="discounted_by">{{ __('Discount') }}</label>
                                         <select id="discounted_by" name="discounted_by[]" class="{{ $fieldClass }}"
                                                 multiple>
-                                            <option value="">No discount</option>
+                                            <option value="">{{ __('No discount') }}</option>
                                             @foreach($editSkill->discountedBy as $discountingSkill)
                                                 <option value="{{ $discountingSkill->id }}" selected>
-                                                    {{ $discountingSkill->name }}
-                                                    (-{{ $discountingSkill->discountFor($editSkill->skill_id) }} months)
+                                                    {{ sprintf(__('%s (-%s months)'), $discountingSkill->name, $discountingSkill->discountFor($editSkill->skill_id)) }}
                                                 </option>
                                             @endforeach
                                             @foreach($editSkill->discountsAvailable as $discountingSkill)
@@ -207,13 +205,12 @@
                                     </div>
                                 @else
                                     <div>
-                                        <p>To apply a discount, first save the skill, then edit the saved skill to
-                                            select applicable discounts.</p>
+                                        <p>{{ __('To apply a discount, first save the skill, then edit the saved skill to select applicable discounts.') }}</p>
                                     </div>
                                 @endif
 
                                 <div>
-                                    <label for="completed">Completed</label>
+                                    <label for="completed">{{ __('Completed') }}</label>
                                     <input type="checkbox" id="completed" name="completed" class="" value="1"
                                            @if (!empty($editSkill) && $editSkill->completed) checked="checked" @endif>
                                 </div>
@@ -221,7 +218,7 @@
                                 <div class="flex items-center gap-4">
                                     <button type="submit"
                                             class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
-                                        Save
+                                        {{ __('Save') }}
                                     </button>
                                 </div>
                             </div>
@@ -235,8 +232,7 @@
                                         </div>
                                         @if ($skill->specialties)
                                             <div class="mt-1">
-                                                <p>To choose specialties, first save the skill, then edit the saved skill to
-                                                    select applicable specialties.</p>
+                                                <p>{{ __('To choose specialties, first save the skill, then edit the saved skill to select applicable specialties.') }}</p>
                                             </div>
                                         @endif
                                         @if ($skill->feats->count())
