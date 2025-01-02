@@ -81,8 +81,8 @@ class Skill extends Model
         }
         $category = $this->skillCategory;
         if ($character && $category->scaling) {
-            if (Status::NEW == $character->status_id) {
-                if (empty($$characterSkill)) {
+            if (in_array($character->status_id, [Status::NEW, Status::READY])) {
+                if (empty($characterSkill)) {
                     $countSkills = 0;
                 } else {
                     static $scalingCosts = [];

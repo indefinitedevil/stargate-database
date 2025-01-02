@@ -60,7 +60,7 @@
                                 </li>
                             @endforeach
                         </ul>
-                        @if (Status::NEW == $character->status_id)
+                        @if (in_array($character->status_id, [Status::NEW, Status::READY]))
                             <p class="mt-1">Total training: {{ $character->completedTrainingMonths }}
                                 / {{ $character->background->months }}</p>
                         @endif

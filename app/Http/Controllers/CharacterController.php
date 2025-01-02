@@ -85,14 +85,15 @@ class CharacterController extends Controller
         if ($request->user()->cannot('approve', $character)) {
             return redirect(route('characters.view', ['characterId' => $characterId]));
         }
+        $errors = [];
         if (count($character->trainingSkills) > 1) {
-            throw ValidationException::withMessages(['Character may not have more than one skill in training at character creation.']);
+            $errors[] = 'Character may not have more than one skill in training at character creation.';
         }
         $usedMonths = 0;
         $logs = [];
         foreach ($character->trainedSkills->sortBy('name') as $skill) {
             if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
-                throw ValidationException::withMessages([sprintf('Character must select specialty for %s.', $skill->skill->name)]);
+                $errors[] = sprintf('Character must select specialty for %s.', $skill->skill->name);
             }
             $log = new CharacterLog();
             $logData = [
@@ -107,34 +108,45 @@ class CharacterController extends Controller
             $logs[] = $log;
             $usedMonths += $skill->cost;
         }
-        foreach ($character->trainingSkills as $skill) {
-            if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
-                throw ValidationException::withMessages([sprintf('Character must select specialty for %s.', $skill->skill->name)]);
-            }
-            $remainingMonths = $character->background->months - $usedMonths;
-            if ($remainingMonths > $skill->cost) {
-                throw ValidationException::withMessages(['Character must use all of their background training months.']);
-            }
-            $log = new CharacterLog();
-            $logData = [
-                'character_id' => $character->id,
-                'character_skill_id' => $skill->id,
-                'locked' => true,
-                'amount_trained' => $remainingMonths,
-                'log_type_id' => LogType::CHARACTER_CREATION,
-                'teacher_id' => null,
-            ];
-            $log->fill($logData);
-            $logs[] = $log;
-            $usedMonths += $remainingMonths;
-            if ($character->background->months - $usedMonths == $skill->cost) {
-                $skill->completed = true;
-                $skill->save();
+        $remainingMonths = $character->background->months - $usedMonths;
+        if ($remainingMonths < 0) {
+            $errors[] = 'Character must not exceed their background training months.';
+        } else {
+            foreach ($character->trainingSkills as $skill) {
+                if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
+                    $errors[] = sprintf('Character must select specialty for %s.', $skill->skill->name);
+                }
+                $remainingMonths = $character->background->months - $usedMonths;
+                if ($remainingMonths > $skill->cost) {
+                    $errors[] = 'Character must use all of their background training months.';
+                }
+                $log = new CharacterLog();
+                $logData = [
+                    'character_id' => $character->id,
+                    'character_skill_id' => $skill->id,
+                    'locked' => true,
+                    'amount_trained' => $remainingMonths,
+                    'log_type_id' => LogType::CHARACTER_CREATION,
+                    'teacher_id' => null,
+                ];
+                $log->fill($logData);
+                $logs[] = $log;
+                $usedMonths += $remainingMonths;
+                if ($character->background->months - $usedMonths == $skill->cost) {
+                    $skill->completed = true;
+                    $skill->save();
+                }
             }
         }
         $remainingMonths = $character->background->months - $usedMonths;
         if ($remainingMonths > 0) {
-            throw ValidationException::withMessages(['Character must use all of their background training months.']);
+            $errors[] = 'Character must use all of their background training months.';
+        }
+        if ($remainingMonths < 0) {
+            $errors[] = 'Character must not exceed their background training months.';
+        }
+        if ($errors) {
+            throw ValidationException::withMessages($errors);
         }
         foreach ($logs as $log) {
             $log->save();
@@ -142,7 +154,7 @@ class CharacterController extends Controller
         $character->status_id = Status::APPROVED;
         $character->save();
 
-        $notes = $request->get('notes', '');
+        $notes = $request->post('notes', '');
         Mail::to($character->user->email)->send(new CharacterApproved($character, $notes));
 
         return redirect(route('characters.index'));
@@ -160,7 +172,7 @@ class CharacterController extends Controller
         $character->status_id = Status::NEW;
         $character->save();
 
-        $notes = $request->get('notes', '');
+        $notes = $request->post('notes', '');
         Mail::to($character->user->email)->send(new CharacterDenied($character, $notes));
 
         return redirect(route('characters.index'));
@@ -175,34 +187,45 @@ class CharacterController extends Controller
         if ($request->user()->cannot('edit', $character)) {
             return redirect(route('characters.view', ['characterId' => $characterId]));
         }
+        $errors = [];
         if (count($character->trainingSkills) > 1) {
-            throw ValidationException::withMessages(['Character may not have more than one skill in training at character creation.']);
+            $errors[] = 'Character may not have more than one skill in training at character creation.';
         }
         $usedMonths = 0;
-        $logs = [];
         foreach ($character->trainedSkills->sortBy('name') as $skill) {
             if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
-                throw ValidationException::withMessages([sprintf('Character must select specialty for %s.', $skill->skill->name)]);
+                $errors[] = sprintf('Character must select specialty for %s.', $skill->skill->name);
             }
             $usedMonths += $skill->cost;
         }
-        foreach ($character->trainingSkills as $skill) {
-            if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
-                throw ValidationException::withMessages([sprintf('Character must select specialty for %s.', $skill->skill->name)]);
-            }
-            $remainingMonths = $character->background->months - $usedMonths;
-            if ($remainingMonths > $skill->cost) {
-                throw ValidationException::withMessages(['Character must use all of their background training months.']);
-            }
-            $usedMonths += $remainingMonths;
-            if ($character->background->months - $usedMonths == $skill->cost) {
-                $skill->completed = true;
-                $skill->save();
+        $remainingMonths = $character->background->months - $usedMonths;
+        if ($remainingMonths < 0) {
+            $errors[] = 'Character must not exceed their background training months.';
+        } else {
+            foreach ($character->trainingSkills as $skill) {
+                if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
+                    $errors[] = sprintf('Character must select specialty for %s.', $skill->skill->name);
+                }
+                $remainingMonths = $character->background->months - $usedMonths;
+                if ($remainingMonths > $skill->cost) {
+                    $errors[] = 'Character must use all of their background training months.';
+                }
+                $usedMonths += $remainingMonths;
+                if ($character->background->months - $usedMonths == $skill->cost) {
+                    $skill->completed = true;
+                    $skill->save();
+                }
             }
         }
         $remainingMonths = $character->background->months - $usedMonths;
         if ($remainingMonths > 0) {
-            throw ValidationException::withMessages(['Character must use all of their background training months.']);
+            $errors[] = 'Character must use all of their background training months.';
+        }
+        if ($remainingMonths < 0) {
+            $errors[] = 'Character must not exceed their background training months.';
+        }
+        if ($errors) {
+            throw ValidationException::withMessages(array_unique($errors));
         }
         $character->status_id = Status::READY;
         $character->save();
