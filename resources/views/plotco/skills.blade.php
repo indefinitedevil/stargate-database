@@ -15,7 +15,7 @@
             @include('partials.errors')
             @foreach ($categories as $category)
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-                    <h3 class="text-xl font-semibold">{!! $category->name !!}</h3>
+                    <h3 class="text-xl font-semibold">{!! sprintf('%s Skills', $category->name) !!}</h3>
                     <div class="grid grid-cols-3 gap-2">
                         @foreach($category->skills->where('id', '!=', Skill::ADDITIONAL_AA_SPEC)->sortBy('name') as $skill)
                             <div class="mt-1">
