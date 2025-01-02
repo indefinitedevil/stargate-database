@@ -34,11 +34,11 @@ It is seeded with tables representing the rules.
 - [x] ~~Add skill descriptions~~
 - [x] ~~Add feat descriptions~~ - Ki 2024-10-22
 - [x] ~~Add user registration system~~
-- [ ] Add user permissions system
-- [ ] Add plot co mode
+- [x] Add user permissions system
+- [x] Add plot co mode
 - [ ] Add ability to add new skills/specialties
 - [ ] Add bulk print option (PDF?)
-- [ ] Add print layout character sheet
+- [x] Add print layout character sheet
 
 ## Installation
 
