@@ -46,9 +46,9 @@
                                            title="{{ sprintf('Required by %s', $characterSkill->requiredBy) }}"></i>
                                     @else
                                         <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                class="fa-solid fa-pencil" title="Edit skill"></i></a>
+                                                    class="fa-solid fa-pencil" title="Edit skill"></i></a>
                                         <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                class="fa-solid fa-trash" title="Remove skill"></i></a>
+                                                    class="fa-solid fa-trash" title="Remove skill"></i></a>
                                     @endif
                                     @if($characterSkill->skill->specialties > 1)
                                         <ul class="list-disc list-inside">
@@ -74,12 +74,12 @@
                                         {{ $characterSkill->name }}
                                         ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                         <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                class="fa-solid fa-pencil" title="Edit skill"></i></a>
+                                                    class="fa-solid fa-pencil" title="Edit skill"></i></a>
                                         @if ($characterSkill->locked)
                                             <i class="fa-solid fa-lock" title="Expenditure is locked"></i>
                                         @else
                                             <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                    class="fa-solid fa-trash" title="Remove skill"></i></a>
+                                                        class="fa-solid fa-trash" title="Remove skill"></i></a>
                                         @endif
                                         @if($characterSkill->skill->specialties > 1)
                                             <ul>
@@ -151,6 +151,12 @@
                                             @foreach($character->availableSkills as $skill)
                                                 @php
                                                     $skills[] = $skill;
+                                                    if ($skill->repeatable) {
+                                                        $count = $character->characterSkills->where('skill_id', $skill->id)->count();
+                                                        if ($count >= $skill->repeatable) {
+                                                            continue;
+                                                        }
+                                                    }
                                                 @endphp
                                                 <option value="{{ $skill->id }}">
                                                     {{ sprintf(__('%s (%s months)'), $skill->name, $skill->cost($character)) }}
@@ -162,7 +168,8 @@
 
                                 @if ($editSkill && $editSkill->skill->specialties > 0)
                                     <div>
-                                        <label for="specialty">{{ __('Specialty') }} ({{ $editSkill->skill->specialties }})</label>
+                                        <label for="specialty">{{ __('Specialty') }}
+                                            ({{ $editSkill->skill->specialties }})</label>
                                         <select id="specialty" name="specialty_id[]" class="{{ $fieldClass }}"
                                                 @if ($editSkill->skill->specialties > 1) multiple @endif>
                                             >
