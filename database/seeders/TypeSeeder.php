@@ -47,6 +47,7 @@ class TypeSeeder extends Seeder
         // seed status
         DB::table('statuses')->upsert([
             ['id' => Status::NEW, 'name' => 'New'],
+            ['id' => Status::READY, 'name' => 'Ready for Approval'],
             ['id' => Status::APPROVED, 'name' => 'Approved'],
             ['id' => Status::PLAYED, 'name' => 'Played'],
             ['id' => Status::DEAD, 'name' => 'Dead'],
