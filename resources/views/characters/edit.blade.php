@@ -58,7 +58,7 @@
                             </div>
 
                             <div>
-                                <label for="history">{{ __('History') }}</label>
+                                <x-input-label for="history" :value="__('History')"/>
                                 <textarea id="history" class="{{ $fieldClass }}" rows="12"
                                           name="history">{{ $character->history }}</textarea>
                             </div>
