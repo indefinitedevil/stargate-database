@@ -32,7 +32,7 @@ class CharacterApproved extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Character Approved',
+            subject: sprintf('Stargate Character Approved: %s', $this->character->name),
         );
     }
 

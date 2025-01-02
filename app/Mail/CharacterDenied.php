@@ -31,7 +31,7 @@ class CharacterDenied extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Character Denied',
+            subject: sprintf('Stargate Character Denied: %s', $this->character->name),
         );
     }
 
