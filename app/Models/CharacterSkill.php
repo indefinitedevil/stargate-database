@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
+ * @property int id
  * @property Character character
  * @property Skill skill
  * @property int skill_id
@@ -74,16 +75,26 @@ class CharacterSkill extends Model
 
     public function getAllSpecialtiesAttribute(): Collection
     {
+        $specialties = $this->skillSpecialties;
         if (Skill::ARCHEO_ANTHROPOLOGY == $this->skill_id && $this->completed) {
             $additionalSpecialties = $this->character->skills()
                 ->where('skill_id', Skill::ADDITIONAL_AA_SPEC)
                 ->where('completed', true)
-                ->getResults();
+                ->get();
             foreach ($additionalSpecialties as $additionalSpecialty) {
-                $this->skillSpecialties->concat($additionalSpecialty->skillSpecialties);
+                $specialties = $specialties->concat($additionalSpecialty->skillSpecialties);
+            }
+        } elseif ($this->skill->specialties) {
+            $additionalSpecialties = $this->character->skills()
+                ->whereNot('character_skills.id', $this->id)
+                ->where('skill_id', $this->skill_id)
+                ->where('completed', true)
+                ->get();
+            foreach ($additionalSpecialties as $additionalSpecialty) {
+                $specialties = $specialties->concat($additionalSpecialty->skillSpecialties);
             }
         }
-        return $this->skillSpecialties->sortBy('name');
+        return $specialties->sortBy('name');
     }
 
     public function getCostAttribute(): int

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int id
@@ -16,8 +16,8 @@ class SkillCategory extends Model
 {
     use HasFactory;
 
-    public function skills(): BelongsToMany
+    public function skills(): HasMany
     {
-        return $this->belongsToMany(Skill::class);
+        return $this->hasMany(Skill::class);
     }
 }
