@@ -143,7 +143,7 @@
                                         <select id="skill" name="skill_id" class="{{ $fieldClass }}" required
                                                 onchange="showSkillDescription(this.value)">
                                             >
-                                            @if (!empty($editSkill))
+                                            @if ($editSkill && $editSkill->completed)
                                                 @php
                                                     $skills[] = $editSkill->skill;
                                                 @endphp
@@ -173,7 +173,7 @@
                                         <select id="specialty" name="specialty_id" class="{{ $fieldClass }}"
                                                 @if ($editSkill->skill->specialties > 1) multiple @endif>
                                             >
-                                            @foreach($editSkill->skill->specialtyType->skillSpecialties as $specialty)
+                                            @foreach($editSkill->skill->specialtyType->skillSpecialties->sortBy('name') as $specialty)
                                                 <option value="{{ $specialty->id }}"
                                                         @if($editSkill->skillSpecialties->contains($specialty)) selected @endif
                                                 >
@@ -233,9 +233,15 @@
                                         <div class="space-y-1">
                                             {!! Str::of($skill->description)->markdown()->replace('<ul>', '<ul class="list-disc list-inside">') !!}
                                         </div>
+                                        @if ($skill->specialties)
+                                            <div class="mt-1">
+                                                <p>To choose specialties, first save the skill, then edit the saved skill to
+                                                    select applicable specialties.</p>
+                                            </div>
+                                        @endif
                                         @if ($skill->feats->count())
-                                            <h4 class="text-md font-medium text-gray-900 dark:text-gray-100">{{ __('Feats') }}</h4>
-                                            <ul>
+                                            <h4 class="text-md font-medium text-gray-900 dark:text-gray-100 mt-2">{{ __('Feats') }}</h4>
+                                            <ul class="grid grid-cols-2 gap-2">
                                                 @foreach($skill->feats as $feat)
                                                     <li>
                                                         {{ $feat->name }}
