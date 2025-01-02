@@ -39,7 +39,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2 text-sm">
                     <p>
-                        <a href="https://github.com/indefinitedevil/stargate-database" target="_blank" class="underline">Code</a> developed for Stargate Larp by Eligos and Bobbie with assistance from Ki.
+                        <a href="https://github.com/indefinitedevil/stargate-database" target="_blank" class="underline">Code</a> developed for <a class="underline" href="https://www.stargatelarp.co.uk/" target="_blank">Stargate LARP</a> by Eligos and Bobbie. Assistance with testing and copy-pasting from society members truly appreciated!
                     </p>
                     <p>
                         Stargate logo by Jamison Wieser from <a class="underline" href="https://thenounproject.com/icon/stargate-1638250/" target="_blank" title="Stargate Icons">Noun Project</a> (CC BY 3.0)
