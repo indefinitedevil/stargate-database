@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CharacterApproved;
+use App\Mail\CharacterDenied;
 use App\Models\Character;
 use App\Models\CharacterLog;
 use App\Models\CharacterSkill;
@@ -9,6 +11,7 @@ use App\Models\LogType;
 use App\Models\Skill;
 use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class CharacterController extends Controller
@@ -139,6 +142,9 @@ class CharacterController extends Controller
         $character->status_id = Status::APPROVED;
         $character->save();
 
+        $notes = $request->get('notes', '');
+        Mail::to($character->user->email)->send(new CharacterApproved($character, $notes));
+
         return redirect(route('characters.index'));
     }
 
@@ -153,6 +159,9 @@ class CharacterController extends Controller
         }
         $character->status_id = Status::NEW;
         $character->save();
+
+        $notes = $request->get('notes', '');
+        Mail::to($character->user->email)->send(new CharacterDenied($character, $notes));
 
         return redirect(route('characters.index'));
     }

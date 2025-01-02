@@ -26,8 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/characters/print/{characterId}', [CharacterController::class, 'print'])->name('characters.print');
     Route::get('/characters/edit/{characterId}', [CharacterController::class, 'edit'])->name('characters.edit');
     Route::get('/characters/delete/{characterId}', [CharacterController::class, 'delete'])->name('characters.delete');
-    Route::get('/characters/approve/{characterId}', [CharacterController::class, 'approve'])->name('characters.approve');
-    Route::get('/characters/deny/{characterId}', [CharacterController::class, 'deny'])->name('characters.deny');
+    Route::post('/characters/approve/{characterId}', [CharacterController::class, 'approve'])->name('characters.approve');
+    Route::post('/characters/deny/{characterId}', [CharacterController::class, 'deny'])->name('characters.deny');
     Route::get('/characters/ready/{characterId}', [CharacterController::class, 'ready'])->name('characters.ready');
     Route::get('/characters/kill/{characterId}', [CharacterController::class, 'kill'])->name('characters.kill');
     Route::get('/characters/retire/{characterId}', [CharacterController::class, 'retire'])->name('characters.retire');
