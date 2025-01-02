@@ -29,6 +29,7 @@ class AssignAdmin extends AssignRole
             return 1;
         }
         $user->assignRole('admin');
+        echo 'Assigned admin role to ' . $user->name . PHP_EOL;
         return 0;
     }
 }

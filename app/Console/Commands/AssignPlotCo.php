@@ -29,6 +29,7 @@ class AssignPlotCo extends AssignRole
             return 1;
         }
         $user->assignRole('plot coordinator');
+        echo 'Assigned plot coordinator role to ' . $user->name . PHP_EOL;
         return 0;
     }
 }

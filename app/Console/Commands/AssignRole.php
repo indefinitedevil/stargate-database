@@ -32,6 +32,7 @@ class AssignRole extends Command
             return 1;
         }
         $user->assignRole($this->argument('role'));
+        echo 'Assigned ' . $this->argument('role') . ' role to ' . $user->name . PHP_EOL;
         return 0;
     }
 

@@ -29,6 +29,7 @@ class AssignSysRef extends AssignRole
             return 1;
         }
         $user->assignRole('system referee');
+        echo 'Assigned system referee role to ' . $user->name . PHP_EOL;
         return 0;
     }
 }
