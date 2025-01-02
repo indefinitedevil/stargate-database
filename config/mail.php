@@ -116,8 +116,9 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'plotcoordinator_sglrp@hotmail.co.uk'),
-        'name' => env('MAIL_FROM_NAME', 'Plot Coordinator'),
+        'address' => env('MAIL_FROM_ADDRESS', 'database@f291.net'),
+        'name' => env('MAIL_FROM_NAME', 'Stargate Database'),
+        'reply_to' => ['address' => 'plotcoordinator_sglrp@hotmail.co.uk', 'name' => 'Plot Coordinator'],
     ],
 
 ];
