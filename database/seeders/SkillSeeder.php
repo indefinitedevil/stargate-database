@@ -1509,119 +1509,6 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'specialty_type_id' => 2,
             ],
         ]);
-        // Linguistics
-        DB::table('skill_specialties')->insertOrIgnore([
-            [
-                'id' => 21,
-                'name' => 'Arabic',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 28,
-                'name' => 'Chinese (Cantonese)',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 27,
-                'name' => 'Chinese (Mandarin)',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 16,
-                'name' => 'French',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 32,
-                'name' => 'Gaelic',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 17,
-                'name' => 'German',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 22,
-                'name' => 'Greek',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 20,
-                'name' => 'Hebrew',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 26,
-                'name' => 'Italian',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 30,
-                'name' => 'Japanese',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 29,
-                'name' => 'Korean',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 19,
-                'name' => 'Latin',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 24,
-                'name' => 'Norwegian',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 34,
-                'name' => 'Polish',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 33,
-                'name' => 'Portuguese',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 23,
-                'name' => 'Russian',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 18,
-                'name' => 'Spanish',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 31,
-                'name' => 'Swahili',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 25,
-                'name' => 'Swedish',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 49,
-                'name' => 'Ogham',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 50,
-                'name' => 'Hungarian',
-                'specialty_type_id' => 3,
-            ],
-            [
-                'id' => 51,
-                'name' => 'Cherokee',
-                'specialty_type_id' => 3,
-            ],
-        ]);
         // Mythology
         DB::table('skill_specialties')->insertOrIgnore([
             [
@@ -1695,6 +1582,278 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'specialty_type_id' => 4,
             ],
         ]);
+        $this->seedLinguistics();
+    }
+
+    protected function seedLinguistics()
+    {
+        // Linguistics
+        DB::table('skill_specialties')->upsert([
+            [
+                'name' => 'Afrikaans',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Albanian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'American Sign Language',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Arabic',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Armenian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Aymara',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Bengali',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Berber',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'British Sign Language',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Burmese',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Catalan',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Cherokee',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Chinese (Cantonese)',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Chinese (Mandarin)',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Chinese (Yue Chinese)',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Chinese (Wu Chinese)',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Danish',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Dutch',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Egyptian Hieroglyphs',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Filipino',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Finnish',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'French',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Gaelic',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'German',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Greek',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Greek (Ancient)',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Guarani',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Hebrew',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Hindi',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Hungarian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Irish',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Italian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Japanese',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Korean',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Kurdish',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Latin',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Latvian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Lithuanian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Macedonian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Malay',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Marathi',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Mongolian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Norwegian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Ogham',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Pashto',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Persian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Polish',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Portuguese',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Punjabi',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Quechua',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Romanian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Russian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Serb-Croatian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Slovak',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Somali',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Sotho',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Spanish',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Swahili',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Swedish',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Tamil',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Telugu',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Tswana',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Turkish',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Ukrainian',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Urdu',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'name' => 'Vietnamese',
+                'specialty_type_id' => 3,
+            ],
+        ], 'name');
     }
 
     public function seedSkillPrereqs()
