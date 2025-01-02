@@ -238,4 +238,11 @@ class Character extends Model
         }
         return $uniqueArray;
     }
+
+    public function events(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class)
+            ->withPivot('attended', 'role')
+            ->withTimestamps();
+    }
 }
