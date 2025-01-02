@@ -14,38 +14,33 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            @include('partials.errors')
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                 <div class="mt-1">
                     <form method="POST" action="{{ route('characters.store') }}">
                         @csrf
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
                         <input type="hidden" name="user_id" value="{{ $character->user_id }}">
                         <input type="hidden" name="id" value="{{$character->id }}">
                         <input type="hidden" name="status_id" value="{{ $character->status_id }}">
                         <div class="grid grid-cols-1 gap-6">
                             <div>
-                                <label for="name">Name</label>
-                                <input id="name" class="{{ $fieldClass }}" type="text" name="name" required
-                                       value="{{ $character->name }}"/>
+                                <x-input-label for="name" :value="__('Name')"/>
+                                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
+                                              :value="old('name', $character->name)" required autofocus/>
+                                <x-input-error class="mt-2" :messages="$errors->get('name')"/>
                             </div>
 
                             <div>
-                                <label for="former_rank">Former Rank (if applicable)</label>
-                                <input id="former_rank" class="{{ $fieldClass }}" type="text" name="former_rank"
-                                       @if (Status::NEW != $character->status_id) disabled @endif
-                                       value="{{ $character->former_rank }}"/>
+                                <x-input-label for="former_rank" :value="__('Former Rank (if applicable)')"/>
+                                <x-text-input id="former_rank" name="former_rank" type="text" class="mt-1 block w-full"
+                                              :value="old('former_rank', $character->former_rank)"
+                                              :disabled="Status::NEW != $character->status_id"/>
+                                <x-input-error class="mt-2" :messages="$errors->get('former_rank')"/>
                             </div>
 
                             <div>
-                                <label for="background">Background</label>
+                                <x-input-label for="background" :value="__('Background')"/>
+                                <x-input-error class="mt-2" :messages="$errors->get('name')"/>
                                 @if (Status::NEW === $character->status_id)
                                     <select id="background" name="background_id" class="{{ $fieldClass }}" required>
                                         @foreach(Background::all() as $background)
@@ -56,23 +51,20 @@
                                         @endforeach
                                     </select>
                                 @else
+                                    <x-text-input id="background" name="background" type="text" class="mt-1 block w-full"
+                                                  :value="$character->background->name" disabled/>
                                     <input type="hidden" name="background_id" value="{{ $character->background_id }}">
-                                    <input type="text" class="{{ $fieldClass }}"
-                                           value="{{ $character->background->name }}" disabled>
                                 @endif
                             </div>
 
                             <div>
-                                <label for="history">History</label>
+                                <label for="history">{{ __('History') }}</label>
                                 <textarea id="history" class="{{ $fieldClass }}" rows="12"
                                           name="history">{{ $character->history }}</textarea>
                             </div>
 
                             <div class="flex items-center gap-4">
-                                <button type="submit"
-                                        class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
-                                    Save
-                                </button>
+                                <x-primary-button>{{ __('Save') }}</x-primary-button>
                             </div>
                         </div>
                     </form>
