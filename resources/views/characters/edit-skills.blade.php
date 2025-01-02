@@ -152,7 +152,7 @@
                                                 @php
                                                     $skills[] = $skill;
                                                     if ($skill->repeatable) {
-                                                        $count = $character->characterSkills->where('skill_id', $skill->id)->count();
+                                                        $count = $character->skills->where('skill_id', $skill->id)->count();
                                                         if ($count >= $skill->repeatable) {
                                                             continue;
                                                         }
