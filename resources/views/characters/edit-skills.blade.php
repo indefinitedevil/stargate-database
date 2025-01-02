@@ -122,8 +122,8 @@
                         @php $skills = []; @endphp
                         <input type="hidden" name="character_id" value="{{$character->id }}">
                         <div class="grid grid-cols-2 gap-6">
-                            <div class="grid gap-6">
-                                <div>
+                            <div class="space-y-6">
+                                <div class="">
                                     <label for="skill">{{ __('Skill') }}</label>
                                     @if ($editSkill && $editSkill->completed)
                                         @php
@@ -161,8 +161,8 @@
 
                                 @if ($editSkill && $editSkill->skill->specialties > 0)
                                     <div>
-                                        <label for="specialty">{{ __('Specialty') }}</label>
-                                        <select id="specialty" name="specialty_id" class="{{ $fieldClass }}"
+                                        <label for="specialty">{{ __('Specialty') }} ({{ $editSkill->skill->specialties }})</label>
+                                        <select id="specialty" name="specialty_id[]" class="{{ $fieldClass }}"
                                                 @if ($editSkill->skill->specialties > 1) multiple @endif>
                                             >
                                             @foreach($editSkill->skill->specialtyType->skillSpecialties->sortBy('name') as $specialty)
@@ -196,7 +196,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                @else
+                                @elseif (!$editSkill)
                                     <div>
                                         <p>{{ __('To apply a discount, first save the skill, then edit the saved skill to select applicable discounts.') }}</p>
                                     </div>

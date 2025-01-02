@@ -240,7 +240,7 @@ class CharacterController extends Controller
             'id' => 'integer|exists:character_skills,id',
             'character_id' => 'integer|exists:characters,id',
             'skill_id' => 'required|exists:skills,id',
-            'specialty_id' => 'required|exists:skill_specialties,id',
+            'specialty_id' => 'array|exists:skill_specialties,id',
             'completed' => 'boolean',
             'discount_used' => 'boolean',
             'discount_used_by' => 'integer|exists:character_skills,id',
@@ -250,7 +250,6 @@ class CharacterController extends Controller
             return redirect(route('characters.view', ['characterId' => $validatedData['character_id']]));
         }
 
-        $newlyCompleted = false;
         if (!empty($validatedData['id'])) {
             $characterSkill = CharacterSkill::find($validatedData['id']);
             if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
@@ -269,11 +268,15 @@ class CharacterController extends Controller
             $characterSkill = new CharacterSkill();
         }
         $validatedData['completed'] = $validatedData['completed'] ?? false;
-        if (!$characterSkill->completed && $validatedData['completed']) {
-            $newlyCompleted = true;
-        }
         $characterSkill->fill($validatedData);
         $characterSkill->save();
+
+        if (!empty($validatedData['specialty_id'])) {
+            if ($characterSkill->skill->specialties != count($validatedData['specialty_id'])) {
+                throw ValidationException::withMessages(['Character must select correct specialty count for ' . $characterSkill->skill->name]);
+            }
+            $characterSkill->skillSpecialties()->sync($validatedData['specialty_id']);
+        }
 
         if ($request->get('discounted_by', [])) {
             foreach ($characterSkill->discountedBy as $discountedBy) {
@@ -286,30 +289,6 @@ class CharacterController extends Controller
                 $discountingSkill->discount_used = true;
                 $discountingSkill->discount_used_by = $characterSkill->id;
                 $discountingSkill->save();
-            }
-        }
-
-        if (Status::NEW == $characterSkill->character->status_id) {
-            if ($newlyCompleted) {
-                $log = new CharacterLog();
-                $logData = [
-                    'character_id' => $characterSkill->character_id,
-                    'character_skill_id' => $characterSkill->id,
-                    'locked' => false,
-                    'amount_trained' => $characterSkill->cost,
-                    'log_type_id' => LogType::CHARACTER_CREATION,
-                    'teacher_id' => null,
-                ];
-                $log->fill($logData);
-                $log->save();
-            } else {
-                $log = CharacterLog::where('character_id', $characterSkill->character_id)
-                    ->where('character_skill_id', $characterSkill->id)
-                    ->where('log_type_id', LogType::CHARACTER_CREATION)
-                    ->first();
-                if ($log) {
-                    $log->delete();
-                }
             }
         }
 
