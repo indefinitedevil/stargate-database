@@ -40,6 +40,8 @@
                                 </select>
                             </div>
 
+                            @include('characters.partials.event-attendance')
+
                             <div>
                                 <label for="history">History</label>
                                 <textarea id="history" class="{{ $fieldClass }}" name="history"></textarea>

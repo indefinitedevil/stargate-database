@@ -273,6 +273,9 @@ class CharacterController extends Controller
         ]);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -285,6 +288,7 @@ class CharacterController extends Controller
             'status_id' => 'required|exists:statuses,id',
             'history' => 'sometimes|string|nullable',
             'plot_notes' => 'sometimes|string|nullable',
+            'events' => 'array|exists:events,id',
         ]);
 
         if ($request->user()->cannot('create', Character::class)) {
@@ -308,6 +312,10 @@ class CharacterController extends Controller
         $validatedData['rank'] = $validatedData['rank'] ?? '';
         $character->fill($validatedData);
         $character->save();
+
+        if (!empty($validatedData['events'])) {
+            $character->events()->sync($validatedData['events']);
+        }
         return redirect(route('characters.view', ['characterId' => $character->id]));
     }
 

@@ -14,6 +14,11 @@ class Event extends Model
     const ROLE_CREW = 2;
     const ROLE_RUNNER = 3;
 
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
+
     public function characters(): BelongsToMany
     {
         return $this->belongsToMany(Character::class)

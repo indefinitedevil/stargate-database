@@ -6,7 +6,7 @@
 <x-app-layout>
     <x-slot name="title">{{ __('Edit character') }}</x-slot>
     <x-slot name="header">
-        @include('characters.partials.actions', ['character' => $character])
+        @include('characters.partials.actions')
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ sprintf(__('Edit character: %s'), $character->name) }}
         </h2>
@@ -15,7 +15,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             @include('partials.errors')
-            @include('plotco.partials.approval', ['character' => $character])
+            @include('plotco.partials.approval')
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                 <div class="mt-1">
                     <form method="POST" action="{{ route('characters.store') }}">
@@ -52,11 +52,14 @@
                                         @endforeach
                                     </select>
                                 @else
-                                    <x-text-input id="background" name="background" type="text" class="mt-1 block w-full"
+                                    <x-text-input id="background" name="background" type="text"
+                                                  class="mt-1 block w-full"
                                                   :value="$character->background->name" disabled/>
                                     <input type="hidden" name="background_id" value="{{ $character->background_id }}">
                                 @endif
                             </div>
+
+                            @include('characters.partials.event-attendance')
 
                             <div>
                                 <x-input-label for="history" :value="__('History')"/>
