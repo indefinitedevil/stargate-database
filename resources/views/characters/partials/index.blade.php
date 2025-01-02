@@ -4,6 +4,9 @@
     @else
         @foreach ($characters as $character)
             <li>
+                @if (!empty($checkbox))
+                    <input type="checkbox" name="characters[]" value="{{ $character->id }}">
+                @endif
                 <a class="underline" href="{{ route('characters.view', $character) }}">
                     {{ $character->name }}</a>
                 ({{ $character->background->name }})

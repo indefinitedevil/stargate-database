@@ -42,6 +42,8 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => 'can:edit all characters'], function () {
         Route::get('/plot-co/characters/', [PlotcoController::class, 'characters'])->name('plotco.characters');
+        Route::get('/plot-co/characters/print-all', [PlotcoController::class, 'printAll'])->name('plotco.print-all');
+        Route::get('/plot-co/characters/print-some', [PlotcoController::class, 'printSome'])->name('plotco.print-some');
         Route::get('/plot-co/skills/', [PlotcoController::class, 'skills'])->name('plotco.skills');
     });
 });

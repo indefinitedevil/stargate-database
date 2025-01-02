@@ -50,7 +50,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('view', $character)) {
             return redirect(route('characters.index'));
         }
-        return view('characters.print', ['character' => $character]);
+        return view('characters.print', ['characters' => [$character]]);
     }
 
     public function edit(Request $request, $characterId)

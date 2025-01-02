@@ -31,4 +31,24 @@ class PlotcoController extends Controller
             'categories' => SkillCategory::all(),
         ]);
     }
+
+    public function printAll(Request $request)
+    {
+        if ($request->user()->cannot('viewAll', Character::class)) {
+            return redirect(route('dashboard'));
+        }
+        return view('characters.print', [
+            'characters' => Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get(),
+        ]);
+    }
+
+    public function printSome(Request $request)
+    {
+        if ($request->user()->cannot('viewAll', Character::class)) {
+            return redirect(route('dashboard'));
+        }
+        return view('characters.print', [
+            'characters' => Character::whereIn('id', $request->get('characters'))->orderBy('name', 'asc')->get(),
+        ]);
+    }
 }
