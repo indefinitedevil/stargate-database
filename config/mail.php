@@ -118,7 +118,11 @@ return [
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'database@f291.net'),
         'name' => env('MAIL_FROM_NAME', 'Stargate Database'),
-        'reply_to' => ['address' => 'plotcoordinator_sglrp@hotmail.co.uk', 'name' => 'Plot Coordinator'],
+    ],
+
+    'reply_to' => [
+        'address' => 'plotcoordinator_sglrp@hotmail.co.uk',
+        'name' => 'Plot Coordinator'
     ],
 
 ];
