@@ -107,8 +107,8 @@
 
             <div class="px-8 py-2 bg-white text-gray-800 mt-2">
                 <div class="">
-                    <div class="grid grid-cols-2 gap-x-4">
-                        <table class="table-auto border border-collapse border-slate-600 w-full">
+                    <div class="grid grid-cols-3 gap-x-4">
+                        <table class="table-auto border border-collapse border-slate-600 w-full col-span-2">
                             <thead>
                             <tr>
                                 <th class="border border-slate-600">Surgery</th>
@@ -118,55 +118,56 @@
                             <tbody>
                             <tr>
                                 <td class="border border-slate-600"></td>
-                                <td class="border border-slate-600 px-2">Something happens</td>
+                                <td class="border border-slate-600 px-2">Add One Potential Complication¹</td>
                             </tr>
                             <tr>
                                 <td class="border border-slate-600"></td>
-                                <td class="border border-slate-600 px-2">Complication</td>
+                                <td class="border border-slate-600 px-2">Add One Potential Complication¹</td>
                             </tr>
                             <tr>
                                 <td class="border border-slate-600"></td>
-                                <td class="border border-slate-600 px-2">Extra Vigor</td>
+                                <td class="border border-slate-600 px-2"><em>You ain’t got time to bleed</em> – You Gain 2 Vitality</td>
                             </tr>
                             <tr>
                                 <td class="border border-slate-600"></td>
-                                <td class="border border-slate-600 px-2">Something happens</td>
+                                <td class="border border-slate-600 px-2">Raise the difficulty² of any Surgical Procedure by 1</td>
                             </tr>
                             <tr>
                                 <td class="border border-slate-600"></td>
-                                <td class="border border-slate-600 px-2">Complication</td>
+                                <td class="border border-slate-600 px-2">Add One Potential Complication¹</td>
                             </tr>
                             <tr>
                                 <td class="border border-slate-600"></td>
-                                <td class="border border-slate-600 px-2">Extra Vigor</td>
+                                <td class="border border-slate-600 px-2">All Med Cards take 2x the printed time on you</td>
                             </tr>
                             <tr>
                                 <td class="border border-slate-600"></td>
-                                <td class="border border-slate-600 px-2">Something happens</td>
+                                <td class="border border-slate-600 px-2"><em>It’s only a Flesh Wound</em> – Gain Feat Mastery Flesh Wounds until the end of the event</td>
                             </tr>
                             <tr>
                                 <td class="border border-slate-600"></td>
-                                <td class="border border-slate-600 px-2">Complication</td>
+                                <td class="border border-slate-600 px-2">Add One Potential Complication¹</td>
                             </tr>
                             <tr>
                                 <td class="border border-slate-600"></td>
-                                <td class="border border-slate-600 px-2">Extra Vigor</td>
+                                <td class="border border-slate-600 px-2">Raise the difficulty of any Surgical Procedure by 1</td>
                             </tr>
                             <tr>
                                 <td class="border border-slate-600"></td>
-                                <td class="border border-slate-600 px-2">Something happens</td>
+                                <td class="border border-slate-600 px-2">Add one Extra complication³</td>
                             </tr>
                             <tr>
                                 <td class="border border-slate-600"></td>
-                                <td class="border border-slate-600 px-2">Complication</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-slate-600"></td>
-                                <td class="border border-slate-600 px-2">Extra Vigor</td>
+                                <td class="border border-slate-600 px-2">Any Failed Surgery Attempt is now fatal</td>
                             </tr>
                             </tbody>
                         </table>
                         <div>
+                            {{-- footnotes left --}}
+                            <p class="text-xs">¹ <strong>Potential complication:</strong> A complication card is shuffled into the Problem cards, then the normal number of cards for that wound is played.</p>
+                            <p class="text-xs">² <strong>Raise the difficulty:</strong> The normal number of cards played for surgical procedure is increased by one. This new card will now definitely be one of the Complication Cards added by potential complication.</p>
+                            <p class="text-xs">³ <strong>Add one extra Complication:</strong> Directly add one complication card to the SP cards after all other modifiers.</p>
+                            <hr/>
                             <h2 class="text-xl font-medium text-gray-900">
                                 {{ __('Notes') }}
                             </h2>
