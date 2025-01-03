@@ -1,7 +1,6 @@
 @php
     use App\Models\Background;
     use App\Models\Status;
-    $fieldClass = 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block w-full';
 @endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Edit character') }}</x-slot>
@@ -43,14 +42,14 @@
                                 <x-input-label for="background" :value="__('Background')"/>
                                 <x-input-error class="mt-2" :messages="$errors->get('name')"/>
                                 @if (Status::NEW === $character->status_id)
-                                    <select id="background" name="background_id" class="{{ $fieldClass }}" required>
+                                    <x-select id="background" name="background_id" class="mt-1 block w-full" required>
                                         @foreach(Background::all() as $background)
                                             <option value="{{ $background->id }}"
                                                     @if($background->id === $character->background_id) selected @endif >
                                                 {{ $background->name }}
                                             </option>
                                         @endforeach
-                                    </select>
+                                    </x-select>
                                 @else
                                     <x-text-input id="background" name="background" type="text"
                                                   class="mt-1 block w-full"
@@ -63,9 +62,17 @@
 
                             <div>
                                 <x-input-label for="history" :value="__('History')"/>
-                                <textarea id="history" class="{{ $fieldClass }}" rows="12"
-                                          name="history">{{ $character->history }}</textarea>
+                                <x-textarea id="history" name="history" rows="12"
+                                            class="mt-1 block w-full">{{ $character->history }}</x-textarea>
                             </div>
+
+                            @can('edit all characters')
+                                <div>
+                                    <x-input-label for="plot_notes" :value="__('Plot Notes')"/>
+                                    <x-textarea id="plot_notes" name="plot_notes" rows="12"
+                                                class="mt-1 block w-full">{{ $character->plot_notes }}</x-textarea>
+                                </div>
+                            @endcan
 
                             <div class="flex items-center gap-4">
                                 <x-primary-button>{{ __('Save') }}</x-primary-button>

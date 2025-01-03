@@ -1,7 +1,6 @@
 @php
     use App\Models\Background;
     use App\Models\Status;
-    $fieldClass = 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block w-full';
 @endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Create character') }}</x-slot>
@@ -22,29 +21,33 @@
                         <input type="hidden" name="status_id" value="{{ Status::NEW }}">
                         <div class="grid grid-cols-1 gap-6">
                             <div>
-                                <label for="name">Name</label>
-                                <input id="name" class="{{ $fieldClass }}" type="text" name="name" required autofocus/>
+                                <x-input-label for="name" :value="__('Name')"/>
+                                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
+                                              required autofocus/>
+                                <x-input-error class="mt-2" :messages="$errors->get('name')"/>
                             </div>
 
                             <div>
-                                <label for="former_rank">Former Rank (if applicable)</label>
-                                <input id="former_rank" class="{{ $fieldClass }}" type="text" name="former_rank"/>
+                                <x-input-label for="former_rank" :value="__('Former Rank (if applicable)')"/>
+                                <x-text-input id="former_rank" name="former_rank" type="text" class="mt-1 block w-full"/>
+                                <x-input-error class="mt-2" :messages="$errors->get('former_rank')"/>
                             </div>
 
                             <div>
-                                <label for="background">Background</label>
-                                <select id="background" name="background_id" class="{{ $fieldClass }}" required>
+                                <x-input-label for="background">Background</x-input-label>
+                                <x-select id="background" name="background_id" class="mt-1 block w-full" required>
                                     @foreach(Background::all() as $background)
                                         <option value="{{ $background->id }}">{{ $background->name }}</option>
                                     @endforeach
-                                </select>
+                                </x-select>
                             </div>
 
                             @include('characters.partials.event-attendance')
 
                             <div>
-                                <label for="history">History</label>
-                                <textarea id="history" class="{{ $fieldClass }}" name="history"></textarea>
+                                <x-input-label for="history" :value="__('History')"/>
+                                <x-textarea id="history" name="history" rows="12"
+                                            class="mt-1 block w-full"></x-textarea>
                             </div>
 
                             <div class="flex items-center gap-4">

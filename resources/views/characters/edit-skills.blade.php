@@ -1,7 +1,6 @@
 @php
     use App\Models\Status;
     use Illuminate\Support\Str;
-    $fieldClass = 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block w-full';
 @endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Edit character skills') }}</x-slot>
@@ -46,9 +45,9 @@
                                            title="{{ sprintf('Required by %s', $characterSkill->requiredBy) }}"></i>
                                     @else
                                         <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                    class="fa-solid fa-pencil" title="Edit skill"></i></a>
+                                                class="fa-solid fa-pencil" title="Edit skill"></i></a>
                                         <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                    class="fa-solid fa-trash" title="Remove skill"></i></a>
+                                                class="fa-solid fa-trash" title="Remove skill"></i></a>
                                     @endif
                                     @if($characterSkill->skill->specialties > 1)
                                         <ul class="list-disc list-inside">
@@ -74,12 +73,12 @@
                                         {{ $characterSkill->name }}
                                         ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                         <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                    class="fa-solid fa-pencil" title="Edit skill"></i></a>
+                                                class="fa-solid fa-pencil" title="Edit skill"></i></a>
                                         @if ($characterSkill->locked)
                                             <i class="fa-solid fa-lock" title="Expenditure is locked"></i>
                                         @else
                                             <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                        class="fa-solid fa-trash" title="Remove skill"></i></a>
+                                                    class="fa-solid fa-trash" title="Remove skill"></i></a>
                                         @endif
                                         @if($characterSkill->skill->specialties > 1)
                                             <ul>
@@ -125,17 +124,17 @@
                         <div class="grid grid-cols-2 gap-6">
                             <div class="space-y-6">
                                 <div class="">
-                                    <label for="skill">{{ __('Skill') }}</label>
+                                    <x-input-label for="skill">{{ __('Skill') }}</x-input-label>
                                     @if ($editSkill && $editSkill->completed)
                                         @php
                                             $skills[] = $editSkill->skill;
                                         @endphp
                                         <input type="hidden" name="skill_id" value="{{$editSkill->skill_id }}">
-                                        <input type="text" class="{{ $fieldClass }}"
-                                               value="{{ $editSkill->name }}" disabled>
+                                        <x-text-input class="mt-1 block w-full" value="{{ $editSkill->name }}"
+                                                      disabled/>
                                     @else
-                                        <select id="skill" name="skill_id" class="{{ $fieldClass }}" required
-                                                onchange="showSkillDescription(this.value)">
+                                        <x-select id="skill" name="skill_id" class="mt-1 block w-full" required
+                                                  onchange="showSkillDescription(this.value)">
                                             >
                                             @if ($editSkill)
                                                 @php
@@ -162,17 +161,17 @@
                                                     {{ sprintf(__('%s (%s months)'), $skill->name, $skill->cost($character)) }}
                                                 </option>
                                             @endforeach
-                                        </select>
+                                        </x-select>
                                     @endif
                                 </div>
 
                                 @if ($editSkill && $editSkill->skill->specialties > 0)
                                     <div>
-                                        <label for="specialty">{{ __('Specialty') }}
-                                            ({{ $editSkill->skill->specialties }})</label>
-                                        <select id="specialty" name="specialty_id[]" class="{{ $fieldClass }}"
-                                                @if ($editSkill->skill->specialties > 1) multiple @endif>
-                                            >
+                                        <x-input-label for="specialty">{{ __('Specialty') }}
+                                            ({{ $editSkill->skill->specialties }})
+                                        </x-input-label>
+                                        <x-select id="specialty" name="specialty_id[]" class="mt-1 block w-full"
+                                                  :multiple="$editSkill->skill->specialties > 1">
                                             @foreach($editSkill->skill->specialtyType->skillSpecialties->sortBy('name') as $specialty)
                                                 <option value="{{ $specialty->id }}"
                                                         @if($editSkill->skillSpecialties->contains($specialty)) selected @endif
@@ -180,15 +179,15 @@
                                                     {{ $specialty->name }}
                                                 </option>
                                             @endforeach
-                                        </select>
+                                        </x-select>
                                     </div>
                                 @endif
 
                                 @if ($editSkill && ($editSkill->discountAvailable || $editSkill->discountedBy->count()))
                                     <div>
-                                        <label for="discounted_by">{{ __('Discount') }}</label>
-                                        <select id="discounted_by" name="discounted_by[]" class="{{ $fieldClass }}"
-                                                multiple>
+                                        <x-input-label for="discounted_by">{{ __('Discount') }}</x-input-label>
+                                        <x-select id="discounted_by" name="discounted_by[]" class="mt-1 block w-full"
+                                                  multiple>
                                             <option value="">{{ __('No discount') }}</option>
                                             @foreach($editSkill->discountedBy as $discountingSkill)
                                                 <option value="{{ $discountingSkill->id }}" selected>
@@ -202,7 +201,7 @@
                                                     {{ $discountingSkill->name }}
                                                 </option>
                                             @endforeach
-                                        </select>
+                                        </x-select>
                                     </div>
                                 @elseif (!$editSkill)
                                     <div>
@@ -211,9 +210,12 @@
                                 @endif
 
                                 <div>
-                                    <label for="completed">{{ __('Completed') }}</label>
-                                    <input type="checkbox" id="completed" name="completed" class="" value="1"
-                                           @if (!empty($editSkill) && $editSkill->completed || Status::NEW == $character->status_id) checked="checked" @endif>
+                                    <x-input-label for="completed">
+                                        {{ __('Completed') }}
+                                        <input type="checkbox" id="completed" name="completed" class="" value="1"
+                                               @if (!empty($editSkill) && $editSkill->completed || Status::NEW == $character->status_id) checked="checked" @endif
+                                        />
+                                    </x-input-label>
                                 </div>
 
                                 <div class="flex items-center gap-4">
