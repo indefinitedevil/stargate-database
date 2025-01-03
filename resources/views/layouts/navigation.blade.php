@@ -23,7 +23,7 @@
                             {{ __('My Characters') }}
                         </x-nav-link>
                         @can('viewAll', Character::class)
-                            <x-dropdown align="right">
+                            <x-dropdown align="left">
                                 <x-slot name="trigger" class="inline-flex">
                                     <x-nav-link class="ob" :active="request()->routeIs('plotco.*')">{{ __('Plot Co') }}</x-nav-link>
                                 </x-slot>
