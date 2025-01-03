@@ -32,7 +32,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('create', Character::class)) {
             return redirect(route('characters.index'));
         }
-        return view('characters.create');
+        return view('characters.edit');
     }
 
     public function view(Request $request, $characterId)
