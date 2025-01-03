@@ -17,11 +17,11 @@
             Start off by going to the <a class="underline" href="{{ route('characters.index') }}">characters section</a>.
         </li>
         <li>
-            Click on the "Create Character" button.
+            Click on the "<a class="underline" href="{{ route('characters.create') }}">Create Character</a>" button.
         </li>
         <li>
             Fill in the form with the character's details.
-            <ul class="list-inside list-disc">
+            <ul class="list-inside list-disc pl-4">
                 <li>
                     Name and Background are the only required fields on this form.
                 </li>
@@ -35,7 +35,7 @@
         </li>
         <li>
             Click on the "Edit Skills" button.
-            <ul class="list-disc list-inside">
+            <ul class="list-disc list-inside pl-4">
                 <li>
                     This will take you to the skills editor screen.
                 </li>
@@ -46,23 +46,23 @@
         </li>
         <li>
             Add skills to your character.
-            <ul class="list-inside list-disc">
+            <ul class="list-inside list-disc pl-4">
                 <li>
                     You can only add one skill at a time.
                 </li>
                 <li>
                     You can only see skills that are available to your character.
                 </li>
-                <li>
+                <li class="pl-4">
                     If a desired skill has a prerequisite, you must add the prerequisite first.
-                </li>
-                <li>
-                    Mark skills as completed if you are buying the full skill, or leave it unchecked if you are only
-                    partially investing into it.
                 </li>
                 <li>
                     You have 36 months to spend on skills and all of them must be used.
                     A running count of how many you have used will be shown under your trained skills.
+                </li>
+                <li>
+                    Mark skills as completed if you are buying the full skill, or leave it unchecked if you are only
+                    partially investing into it.
                 </li>
                 <li>
                     You can have one unfinished skill at the end of character creation - any remaining months will be
