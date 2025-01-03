@@ -58,8 +58,9 @@
                                 @endforeach
                             </ul>
                             @if (in_array($character->status_id, [Status::NEW, Status::READY]))
-                                <p class="mt-1">Total training: {{ $character->completedTrainingMonths }}
-                                    / {{ $character->background->months }}</p>
+                                <p class="mt-1">
+                                    {{ sprintf(__('Total training: %d / %s'), $character->completedTrainingMonths, $character->background->months) }}
+                                </p>
                             @endif
                         </div>
                         @if ($character->trainingSkills->count())

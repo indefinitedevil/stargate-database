@@ -60,8 +60,9 @@
                             @endforeach
                         </ul>
                         @if (in_array($character->status_id, [Status::NEW, Status::READY]))
-                            <p class="mt-1">Total training: {{ $character->completedTrainingMonths }}
-                                / {{ $character->background->months }}</p>
+                            <p class="mt-1">
+                                {{ sprintf(__('Total training: %d / %s'), $character->completedTrainingMonths, $character->background->months) }}
+                            </p>
                         @endif
                     </div>
                     @if ($character->trainingSkills->count())
@@ -73,12 +74,12 @@
                                         {{ $characterSkill->name }}
                                         ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                         <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                class="fa-solid fa-pencil" title="Edit skill"></i></a>
+                                                class="fa-solid fa-pencil" title="{{ __('Edit skill') }}"></i></a>
                                         @if ($characterSkill->locked)
-                                            <i class="fa-solid fa-lock" title="Expenditure is locked"></i>
+                                            <i class="fa-solid fa-lock" title="{{ __('Expenditure is locked') }}"></i>
                                         @else
                                             <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                    class="fa-solid fa-trash" title="Remove skill"></i></a>
+                                                    class="fa-solid fa-trash" title="{{ __('Remove skill') }}"></i></a>
                                         @endif
                                         @if($characterSkill->skill->specialties > 1)
                                             <ul>
@@ -102,8 +103,7 @@
                                         ({{ $feat->getPerEvent($character) }})
                                     @endif
                                     <i class="fa-regular fa-circle-question" title="{{ $feat->description }}"
-                                       data-tooltip-target="feat-{{ $feat->id }}"
-                                    ></i>
+                                       data-tooltip-target="feat-{{ $feat->id }}"></i>
                                 </li>
                             @endforeach
                         </ul>
@@ -185,7 +185,7 @@
 
                                 @if ($editSkill && ($editSkill->discountAvailable || $editSkill->discountedBy->count()))
                                     <div>
-                                        <x-input-label for="discounted_by">{{ __('Discount') }}</x-input-label>
+                                        <x-input-label for="discounted_by">{{ __('Available discounts') }}</x-input-label>
                                         <x-select id="discounted_by" name="discounted_by[]" class="mt-1 block w-full"
                                                   multiple>
                                             <option value="">{{ __('No discount') }}</option>
