@@ -49,9 +49,12 @@
 
                             <div>
                                 <x-input-label for="background" :value="__('Background')"/>
-                                <x-input-error class="mt-2" :messages="$errors->get('name')"/>
                                 @if (empty($character) || Status::NEW === $character->status_id)
-                                    <x-select id="background" name="background_id" class="mt-1 block w-full" required>
+                                    <x-select id="background" name="background_id" class="mt-1 block w-full" required
+                                              onchange="showBackgroundDescription(this.value)">
+                                        @if (empty($character))
+                                            <option value="">{{ __('Select a background') }}</option>
+                                        @endif
                                         @foreach(Background::all() as $background)
                                             <option value="{{ $background->id }}"
                                                     @if(!empty($character) && $background->id === $character->background_id) selected @endif >
@@ -59,6 +62,32 @@
                                             </option>
                                         @endforeach
                                     </x-select>
+                                    @foreach(Background::all() as $key => $background)
+                                        <div id="background-description-{{ $background->id }}"
+                                             class="background-description p-2 mt-2 space-y-2 border-2 border-slate-600 rounded-md @if(empty($character) || $background->id != $character->background_id) hidden @endif">
+                                            <p>{{ $background->description }}</p>
+                                            <p>{{ sprintf(__('Training Months: %s'), $background->months) }}</p>
+                                            <div>
+                                                <p class="text-lg font-medium">{{ __('Starting Skills') }}</p>
+                                                <ul class="grid grid-cols-6">
+                                                    @foreach ($background->skills as $skill)
+                                                        <li>{{ $skill->name }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <script>
+                                        function showBackgroundDescription(backgroundId) {
+                                            let backgrounds = document.querySelectorAll('.background-description');
+                                            backgrounds.forEach(function (background) {
+                                                background.classList.add('hidden');
+                                            });
+                                            let background = document.getElementById('background-description-' + backgroundId);
+                                            background.classList.remove('hidden');
+                                        }
+                                    </script>
+                                    <x-input-error class="mt-2" :messages="$errors->get('background')"/>
                                 @else
                                     <x-text-input id="background" name="background" type="text"
                                                   class="mt-1 block w-full"
