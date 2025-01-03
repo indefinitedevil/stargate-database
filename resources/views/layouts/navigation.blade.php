@@ -117,6 +117,17 @@
                                        :active="request()->routeIs('characters.index')">
                     {{ __('Characters') }}
                 </x-responsive-nav-link>
+                @can('viewAll', Character::class)
+                    <x-responsive-nav-link :href="route('plotco.characters')" :active="request()->routeIs('plotco.characters')">
+                        {{ __('All Characters') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('plotco.skills')" :active="request()->routeIs('plotco.skills')">
+                        {{ __('Skill Breakdown') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('plotco.attendance')" :active="request()->routeIs('plotco.attendance')">
+                        {{ __('Attendance') }}
+                    </x-responsive-nav-link>
+                @endcan
             @else
                 <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')">
                     {{ __('Log in') }}
