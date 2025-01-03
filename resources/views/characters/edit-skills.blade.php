@@ -93,23 +93,10 @@
                             </ul>
                         </div>
                     @endif
-                    <div class="mt-1">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Feats') }}</h3>
-                        <ul>
-                            @foreach ($character->feats as $feat)
-                                <li>
-                                    {{ $feat->name }}
-                                    @if ($feat->per_event)
-                                        ({{ $feat->getPerEvent($character) }})
-                                    @endif
-                                    <i class="fa-regular fa-circle-question" title="{{ $feat->description }}"
-                                       data-tooltip-target="feat-{{ $feat->id }}"></i>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
                 </div>
             </div>
+
+            @include('characters.partials.feats-cards')
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                 <div class="mt-1">
