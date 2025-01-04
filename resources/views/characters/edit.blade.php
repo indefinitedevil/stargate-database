@@ -104,6 +104,12 @@
                                             class="mt-1 block w-full">{{ $character->history ?? '' }}</x-textarea>
                             </div>
 
+                            <div>
+                                <x-input-label for="character_links" :value="__('Pre-Existing Character Links')"/>
+                                <x-textarea id="character_links" name="character_links" rows="6"
+                                            class="mt-1 block w-full">{{ $character->character_links ?? '' }}</x-textarea>
+                            </div>
+
                             @can('edit all characters')
                                 <div>
                                     <x-input-label for="plot_notes" :value="__('Plot Notes')"/>
