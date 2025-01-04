@@ -287,6 +287,7 @@ class CharacterController extends Controller
             'background_id' => 'required|exists:backgrounds,id',
             'status_id' => 'required|exists:statuses,id',
             'history' => 'sometimes|string|nullable',
+            'character_links'=> 'sometimes|string|nullable',
             'plot_notes' => 'sometimes|string|nullable',
             'events' => 'array|exists:events,id',
         ]);
@@ -307,6 +308,7 @@ class CharacterController extends Controller
             $character = new Character();
         }
         $validatedData['history'] = $validatedData['history'] ?? '';
+        $validatedData['character_links'] = $validatedData['character_links'] ?? '';
         $validatedData['plot_notes'] = $validatedData['plot_notes'] ?? '';
         $validatedData['former_rank'] = $validatedData['former_rank'] ?? '';
         $validatedData['rank'] = $validatedData['rank'] ?? '';

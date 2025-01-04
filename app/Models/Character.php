@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\DB;
  * @property string rank
  * @property string former_rank
  * @property string history
+ * @property string character_links
  * @property string plot_notes
  * @property Object[] cards
  * @property int completedTrainingMonths
@@ -52,6 +53,7 @@ class Character extends Model
         'plot_notes',
         'rank',
         'former_rank',
+        'character_links'
     ];
 
     public function player(): BelongsTo
