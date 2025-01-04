@@ -106,6 +106,7 @@
 
                             <div>
                                 <x-input-label for="character_links" :value="__('Pre-Existing Character Links')"/>
+                                <p class="text-xs">If you have established background links with other player characters, please note them here separately.</p>
                                 <x-textarea id="character_links" name="character_links" rows="6"
                                             class="mt-1 block w-full">{{ $character->character_links ?? '' }}</x-textarea>
                             </div>
