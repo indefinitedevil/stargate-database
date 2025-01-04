@@ -3,6 +3,7 @@
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\PlotcoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SysrefController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -49,6 +50,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/plot-co/characters/print-some', [PlotcoController::class, 'printSome'])->name('plotco.print-some');
         Route::get('/plot-co/skills/', [PlotcoController::class, 'skills'])->name('plotco.skills');
         Route::get('/plot-co/attendance/', [PlotcoController::class, 'attendance'])->name('plotco.attendance');
+    });
+
+    Route::group(['middleware' => 'can:edit skill'], function () {
+        Route::get('/sys-ref/skill-check/', [SysrefController::class, 'skillCheck'])->name('sysref.skill-check');
     });
 });
 

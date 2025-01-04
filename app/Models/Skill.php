@@ -111,4 +111,24 @@ class Skill extends Model
         }
         return $category->cost;
     }
+
+    public function prereqs(): HasMany
+    {
+        return $this->hasMany(SkillPrereq::class);
+    }
+
+    public function unlocks(): HasMany
+    {
+        return $this->hasMany(SkillPrereq::class, 'prereq_id', 'id');
+    }
+
+    public function locks(): HasMany
+    {
+        return $this->hasMany(SkillLockout::class, 'skill_id', 'id');
+    }
+
+    public function lockedBy(): HasMany
+    {
+        return $this->hasMany(SkillLockout::class, 'lockout_id', 'id');
+    }
 }

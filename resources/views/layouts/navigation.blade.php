@@ -1,5 +1,6 @@
 @php
     use App\Models\Character;
+    use App\Models\Skill;
 @endphp
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
@@ -25,20 +26,35 @@
                         @can('viewAll', Character::class)
                             <x-dropdown align="left">
                                 <x-slot name="trigger" class="inline-flex">
-                                    <x-nav-link class="ob" :active="request()->routeIs('plotco.*')">{{ __('Plot Co') }}</x-nav-link>
+                                    <x-nav-link class="ob"
+                                                :active="request()->routeIs('plotco.*')">{{ __('Plot Co') }}</x-nav-link>
                                 </x-slot>
                                 <x-slot name="content">
                                     <x-dropdown-link :href="route('plotco.characters')"
-                                                :active="request()->routeIs('plotco.characters')">
+                                                     :active="request()->routeIs('plotco.characters')">
                                         {{ __('All Characters') }}
                                     </x-dropdown-link>
                                     <x-dropdown-link :href="route('plotco.skills')"
-                                                :active="request()->routeIs('plotco.skills')">
+                                                     :active="request()->routeIs('plotco.skills')">
                                         {{ __('Skill Breakdown') }}
                                     </x-dropdown-link>
                                     <x-dropdown-link :href="route('plotco.attendance')"
-                                                :active="request()->routeIs('plotco.attendance')">
+                                                     :active="request()->routeIs('plotco.attendance')">
                                         {{ __('Attendance') }}
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        @endcan
+                        @can('edit', Skill::class)
+                            <x-dropdown align="left">
+                                <x-slot name="trigger" class="inline-flex">
+                                    <x-nav-link class="ob"
+                                                :active="request()->routeIs('sysref.*')">{{ __('Sys Ref') }}</x-nav-link>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('sysref.skill-check')"
+                                                     :active="request()->routeIs('sysref.skill-check')">
+                                        {{ __('Skill Check') }}
                                     </x-dropdown-link>
                                 </x-slot>
                             </x-dropdown>

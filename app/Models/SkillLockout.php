@@ -9,7 +9,7 @@ class SkillLockout extends Model
 {
     use HasFactory;
 
-    public function skill()
+    public function lockedBy()
     {
         return $this->belongsTo(Skill::class);
     }
