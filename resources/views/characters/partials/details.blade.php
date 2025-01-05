@@ -11,6 +11,9 @@
     <p class="mt-1">
         <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }}
     </p>
+    <p class="mt-1">
+        <strong>{{ __('Type') }}:</strong> {{ $character->type }}
+    </p>
     <p class="mt-1 col-span-2">
         <strong>{{ __('Rank') }}
             :</strong> {!! $character->rank ?: '<abbr title="To be determined">TBD</abbr>' !!} @if ($character->former_rank)

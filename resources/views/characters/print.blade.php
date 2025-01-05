@@ -14,8 +14,11 @@
             <div class="max-w-7xl mx-auto space-y-2">
                 <div class="bg-white text-gray-800 mb-2">
                     <div class="grid grid-cols-3 gap-x-4">
-                        <p class="mt-1 col-span-2">
+                        <p class="mt-1">
                             <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
+                        </p>
+                        <p class="mt-1">
+                            <strong>{{ __('Type') }}:</strong> {{ $character->type }}
                         </p>
                         <p class="mt-1">
                             <strong>{{ __('Body') }}:</strong> {{ $character->body }}

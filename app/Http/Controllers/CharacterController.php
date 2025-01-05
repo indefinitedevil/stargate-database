@@ -295,6 +295,7 @@ class CharacterController extends Controller
             'character_links'=> 'sometimes|string|nullable',
             'plot_notes' => 'sometimes|string|nullable',
             'events' => 'array|exists:events,id',
+            'hero_scoundrel' => 'sometimes|int',
         ]);
 
         if ($request->user()->cannot('create', Character::class)) {
