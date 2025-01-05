@@ -178,26 +178,26 @@ class CharacterController extends Controller
         }
         $errors = [];
         if (count($character->trainingSkills) > 1) {
-            $errors[] = 'Character may not have more than one skill in training at character creation.';
+            $errors[] = __('Character may not have more than one skill in training at character creation.');
         }
         $usedMonths = 0;
         foreach ($character->trainedSkills->sortBy('name') as $skill) {
             if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
-                $errors[] = sprintf('Character must select specialty for %s.', $skill->skill->name);
+                $errors[] = __('Character must select specialty for :name.', ['name' => $skill->skill->name]);
             }
             $usedMonths += $skill->cost;
         }
         $remainingMonths = $character->background->months - $usedMonths;
         if ($remainingMonths < 0) {
-            $errors[] = 'Character must not exceed their background training months.';
+            $errors[] = __('Character must not exceed their background training months.');
         } else {
             foreach ($character->trainingSkills as $skill) {
                 if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
-                    $errors[] = sprintf('Character must select specialty for %s.', $skill->skill->name);
+                    $errors[] = __('Character must select specialty for :name.', ['name' => $skill->skill->name]);
                 }
                 $remainingMonths = $character->background->months - $usedMonths;
                 if ($remainingMonths > $skill->cost) {
-                    $errors[] = 'Character must use all of their background training months.';
+                    $errors[] = __('Character must use all of their background training months.');
                 }
                 $usedMonths += $remainingMonths;
                 if ($character->background->months - $usedMonths == $skill->cost) {
@@ -208,10 +208,10 @@ class CharacterController extends Controller
         }
         $remainingMonths = $character->background->months - $usedMonths;
         if ($remainingMonths > 0) {
-            $errors[] = 'Character must use all of their background training months.';
+            $errors[] = __('Character must use all of their background training months.');
         }
         if ($remainingMonths < 0) {
-            $errors[] = 'Character must not exceed their background training months.';
+            $errors[] = __('Character must not exceed their background training months.');
         }
         if ($errors) {
             throw ValidationException::withMessages(array_unique($errors));
@@ -302,7 +302,7 @@ class CharacterController extends Controller
         if (!empty($validatedData['id'])) {
             $character = Character::find($validatedData['id']);
             if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
-                throw ValidationException::withMessages(['Character can no longer be modified.']);
+                throw ValidationException::withMessages([__('Character can no longer be modified.')]);
             }
         } else {
             $character = new Character();
@@ -343,7 +343,7 @@ class CharacterController extends Controller
         if (!empty($validatedData['id'])) {
             $characterSkill = CharacterSkill::find($validatedData['id']);
             if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
-                throw ValidationException::withMessages(['Character can no longer be modified.']);
+                throw ValidationException::withMessages([__('Character can no longer be modified.')]);
             }
         } else {
             $existing = CharacterSkill::where('character_id', $validatedData['character_id'])
@@ -352,7 +352,7 @@ class CharacterController extends Controller
             if ($existing) {
                 $skill = Skill::find($validatedData['skill_id']);
                 if (!$skill->repeatable || $skill->repeatable <= $existing) {
-                    throw ValidationException::withMessages(['Skill has already been taken the maximum number of times.']);
+                    throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
                 }
             }
             $characterSkill = new CharacterSkill();
@@ -363,7 +363,7 @@ class CharacterController extends Controller
 
         if (!empty($validatedData['specialty_id'])) {
             if ($characterSkill->skill->specialties != count($validatedData['specialty_id'])) {
-                throw ValidationException::withMessages(['Character must select correct specialty count for ' . $characterSkill->skill->name]);
+                throw ValidationException::withMessages([__('Character must select correct specialty count for :name.', [$characterSkill->skill->name])]);
             }
             $characterSkill->skillSpecialties()->sync($validatedData['specialty_id']);
         }
@@ -395,7 +395,7 @@ class CharacterController extends Controller
         }
         $characterSkill = CharacterSkill::find($skillId);
         if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
-            throw ValidationException::withMessages(['Character can no longer be modified.']);
+            throw ValidationException::withMessages([__('Character can no longer be modified.')]);
         }
         if ($characterSkill->discountedBy->count()) {
             foreach ($characterSkill->discountedBy as $discountedBy) {
