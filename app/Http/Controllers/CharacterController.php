@@ -398,6 +398,9 @@ class CharacterController extends Controller
             return redirect(route('characters.view', ['characterId' => $characterId]));
         }
         $characterSkill = CharacterSkill::find($skillId);
+        if (empty($characterSkill)) {
+            throw ValidationException::withMessages([__('Skill not found.')]);
+        }
         if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
             throw ValidationException::withMessages([__('Character can no longer be modified.')]);
         }
