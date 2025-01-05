@@ -236,6 +236,7 @@ class CharacterController extends Controller
         foreach ($characterSkills as $skill) {
             $skill->delete();
         }
+        $character->events()->sync([]);
         $character->delete();
         return redirect(route('characters.index'));
     }
