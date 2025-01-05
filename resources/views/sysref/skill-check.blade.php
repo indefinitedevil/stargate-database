@@ -15,17 +15,17 @@
             @include('partials.errors')
             @foreach (SkillCategory::all() as $category)
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-                    <h3 class="text-xl font-semibold">{!! sprintf('%s Skills (%d months)', $category->name, $category->cost) !!}</h3>
+                    <h3 class="text-xl font-semibold">{!! trans_choice('{-1} :name Skills|[1,*] :name Skills (:cost months)', $category->cost, ['name' => $category->name, 'cost' => $category->cost]) !!}</h3>
                     <div class="grid grid-cols-3 gap-2">
                         @foreach($category->skills->sortBy('name') as $skill)
                             <div class="mt-1">
                                 @php
-                                    @endphp
+                                        @endphp
                                 <h4 class="text-lg font-semibold">{{ $skill->name }}</h4>
                                 <ul>
                                     @if ($skill->cost)
                                         <li>
-                                            {!! sprintf(__('<strong>Cost:</strong> %d months'), $skill->cost) !!}
+                                            {!! __('<strong>Cost:</strong> :cost months', ['cost' => $skill->cost]) !!}
                                         </li>
                                     @endif
                                     @if ($skill->feats->count() > 0)
@@ -83,24 +83,24 @@
                                             <strong>{{ __('Discounts') }}</strong>
                                             <ul class="list-inside list-disc">
                                                 @foreach($skill->discounts as $discount)
-                                                    <li>{{ sprintf(__('%s (-%d months)'), $discount->discountedSkill->name, $discount->discount) }}</li>
+                                                    <li>{{ __(':name (-:cost months)', ['name' => $discount->discountedSkill->name, 'cost' => $discount->discount]) }}</li>
                                                 @endforeach
                                             </ul>
                                         </li>
                                     @endif
                                     @if ($skill->repeatable)
                                         <li>
-                                            {!! sprintf(__('<strong>Repeatable:</strong> %s times'), $skill->repeatable) !!}
+                                            {!! __('<strong>Repeatable:</strong> :repeatable times', ['repeatable' => $skill->repeatable]) !!}
                                         </li>
                                     @endif
                                     @if ($skill->body)
                                         <li>
-                                            {!! sprintf(__('<strong>Body:</strong> +%s'), $skill->body) !!}
+                                            {!! __('<strong>Body:</strong> +:body', ['body' => $skill->body]) !!}
                                         </li>
                                     @endif
                                     @if ($skill->vigor)
                                         <li>
-                                            {!! sprintf(__('<strong>Vigor:</strong> +%s'), $skill->vigor) !!}
+                                            {!! __('<strong>Vigor:</strong> +:vigor', ['vigor' => $skill->vigor]) !!}
                                         </li>
                                     @endif
                                 </ul>
