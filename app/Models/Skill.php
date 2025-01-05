@@ -93,10 +93,10 @@ class Skill extends Model
             return $this->attributes['cost'];
         }
         $category = $this->skillCategory;
+        static $completedCategorySkills = [];
         if ($character && $category->scaling) {
             if (in_array($character->status_id, [Status::NEW, Status::READY])) {
                 if (empty($characterSkill)) {
-                    static $completedCategorySkills = [];
                     if (empty($completedCategorySkills[$category->id])) {
                         $completedCategorySkills[$category->id] = $character->trainedSkills()
                             ->where('skills.skill_category_id', $this->skill_category_id);
@@ -113,7 +113,6 @@ class Skill extends Model
                     $countSkills = $scalingCosts[$category->id][$this->id];
                 }
             } else {
-                static $completedCategorySkills = [];
                 if (empty($completedCategorySkills[$category->id])) {
                     $completedCategorySkills[$category->id] = $character->trainedSkills()
                         ->where('skills.skill_category_id', $this->skill_category_id);
