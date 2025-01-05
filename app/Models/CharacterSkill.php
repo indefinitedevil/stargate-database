@@ -150,19 +150,19 @@ class CharacterSkill extends Model
     {
         if (1 == $this->skill->specialties) {
             if ($this->skillSpecialties->count()) {
-                return sprintf(__('%s (%s)'), $name, $this->skillSpecialties->first()->name);
+                return __(':name (:specialty)', ['name' => $name, 'specialty' => $this->skillSpecialties->first()->name]);
             }
-            return sprintf(__('%s (Not selected)'), $name);
+            return __(':name (Not selected)', ['name' => $name]);
         }
         if ($this->skill->repeatable) {
-            return sprintf(__('%s (%d)'), $name, $this->level);
+            return __(':name (x:level)', ['name' => $name, 'level' => $this->level]);
         }
         if (Skill::LEADERSHIP == $this->skill_id) {
-            $extraLeadership = $this->character->skills()
-                ->where('skill_id', Skill::LEADERSHIP_EXTRA_PERSON)
-                ->where('completed', true)
-                ->count();
-            return sprintf(__('%s (%d people)'), $name, (1 + $extraLeadership));
+            $leadershipCount = 1 + $this->character->skills()
+                    ->where('skill_id', Skill::LEADERSHIP_EXTRA_PERSON)
+                    ->where('completed', true)
+                    ->count();
+            return trans_choice(':name (:count person)|:name (:count people)', $leadershipCount, ['name' => $name, 'count' => $leadershipCount]);
         }
         return $name;
     }
