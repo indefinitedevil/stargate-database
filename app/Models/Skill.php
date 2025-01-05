@@ -8,16 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
  * @property int id
  * @property string name
+ * @property string print_name
+ * @property string description
  * @property Collection cards
  * @property Collection feats
  * @property Collection specialtyList
+ * @property int specialty_type_id
+ * @property Collection specialtyType
  * @property int skill_category_id
- * @property SkillCategory skillCategory
+ * @property Collection skillCategory
  * @property bool upkeep
  * @property int cost
  * @property int specialties
@@ -34,6 +37,9 @@ class Skill extends Model
 
     const ARCHEO_ANTHROPOLOGY = 9;
     const ADDITIONAL_AA_SPEC = 10;
+
+    const LEADERSHIP = 35;
+    const LEADERSHIP_EXTRA_PERSON = 45;
 
     public function cards(): BelongsToMany
     {
