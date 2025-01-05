@@ -138,16 +138,33 @@ class CharacterSkill extends Model
 
     public function getNameAttribute(): string
     {
+        return $this->formatName($this->skill->name);
+    }
+
+    public function getPrintNameAttribute(): string
+    {
+        return $this->formatName($this->skill->print_name ?? $this->skill->name);
+    }
+
+    protected function formatName($name): string
+    {
         if (1 == $this->skill->specialties) {
             if ($this->skillSpecialties->count()) {
-                return $this->skill->name . ' (' . $this->skillSpecialties->first()->name . ')';
+                return __(':name (:specialty)', ['name' => $name, 'specialty' => $this->skillSpecialties->first()->name]);
             }
-            return $this->skill->name . ' (Not selected)';
+            return __(':name (Not selected)', ['name' => $name]);
         }
         if ($this->skill->repeatable) {
-            return $this->skill->name . ' (' . $this->level . ')';
+            return __(':name (x:level)', ['name' => $name, 'level' => $this->level]);
         }
-        return $this->skill->name;
+        if (Skill::LEADERSHIP == $this->skill_id) {
+            $leadershipCount = 1 + $this->character->skills()
+                    ->where('skill_id', Skill::LEADERSHIP_EXTRA_PERSON)
+                    ->where('completed', true)
+                    ->count();
+            return trans_choice(':name (:count person)|:name (:count people)', $leadershipCount, ['name' => $name, 'count' => $leadershipCount]);
+        }
+        return $name;
     }
 
     public function getLockedAttribute(): bool
