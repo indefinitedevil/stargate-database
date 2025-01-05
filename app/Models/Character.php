@@ -89,7 +89,7 @@ class Character extends Model
                 $join->where('skill_prereqs.always_required', true);
             })
             ->whereNull('character_skills.id');
-        $skillsWithAnyPrerequisitesUnmet = SkillPrereq::select('skill_prereqs.skill_id')
+        $skillsWithAnyPrerequisitesMet = SkillPrereq::select('skill_prereqs.skill_id')
             ->leftJoin('character_skills', function (JoinClause $join) {
                 $join->on('skill_prereqs.prereq_id', '=', 'character_skills.skill_id');
                 $join->on('character_skills.character_id', '=', DB::raw($this->id));
@@ -120,7 +120,7 @@ class Character extends Model
                 $join->on('skills.id', '=', 'character_skills.skill_id');
                 $join->on('character_skills.character_id', '=', DB::raw($this->id));
             })
-            ->whereIn('skills.id', $skillsWithAnyPrerequisitesUnmet)
+            ->whereIn('skills.id', $skillsWithAnyPrerequisitesMet)
             ->whereNotIn('skills.id', $lockedOutSkills)
             ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
             ->where(function (Builder $query) {
@@ -128,7 +128,8 @@ class Character extends Model
                     ->orWhere('skills.repeatable', '>', 0);
             });
 
-        // Check pre-requisites and lockouts for background skills
+        // Check pre-requisites and
+        // lockouts for background skills
         $skillsWithAllPrerequisitesUnmet = SkillPrereq::select('skill_prereqs.skill_id')
             ->join('background_skill', function (JoinClause $join) {
                 $join->on('skill_prereqs.prereq_id', '=', 'background_skill.skill_id');
