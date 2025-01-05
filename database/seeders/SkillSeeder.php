@@ -1975,6 +1975,11 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'prereq_id' => 8,
                 'always_required' => 1,
             ],
+            [
+                'skill_id' => 10,
+                'prereq_id' => 9,
+                'always_required' => 1,
+            ],
         ]);
     }
 
