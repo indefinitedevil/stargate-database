@@ -12,6 +12,9 @@ Route::get('/', function () {
 Route::get('/privacy', function () {
     return view('privacy');
 })->name('privacy');
+Route::get('/changelog', function () {
+    return view('changelog');
+})->name('changelog');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
