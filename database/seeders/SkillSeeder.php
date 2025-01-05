@@ -1511,7 +1511,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
     public function seedSkillSpecialties()
     {
         // Archeo-anthropology
-        DB::table('skill_specialties')->insertOrIgnore([
+        DB::table('skill_specialties')->upsert([
             [
                 'id' => 3,
                 'name' => 'Celtic',
@@ -1552,9 +1552,9 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'name' => 'Middle Eastern',
                 'specialty_type_id' => 1,
             ],
-        ]);
+        ], 'id');
         // Medical
-        DB::table('skill_specialties')->insertOrIgnore([
+        DB::table('skill_specialties')->upsert([
             [
                 'id' => 10,
                 'name' => 'Cardiothoracic',
@@ -1585,9 +1585,9 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'name' => 'Plastic Surgery',
                 'specialty_type_id' => 2,
             ],
-        ]);
+        ], 'id');
         // Mythology
-        DB::table('skill_specialties')->insertOrIgnore([
+        DB::table('skill_specialties')->upsert([
             [
                 'id' => 38,
                 'name' => 'Aztec/Mayan',
@@ -1658,7 +1658,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'name' => 'Celtic',
                 'specialty_type_id' => 4,
             ],
-        ]);
+        ], 'id');
         $this->seedLinguistics();
     }
 
