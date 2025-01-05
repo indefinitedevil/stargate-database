@@ -1178,7 +1178,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'repeatable' => 5,
                 'body' => 0,
                 'vigor' => 1,
-                'display' => 1,
+                'display' => 0,
             ],
             [
                 'id' => 71,
