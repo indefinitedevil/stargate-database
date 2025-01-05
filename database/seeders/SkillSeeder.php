@@ -1755,6 +1755,10 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'specialty_type_id' => 3,
             ],
             [
+                'name' => 'Futhark',
+                'specialty_type_id' => 3,
+            ],
+            [
                 'name' => 'Gaelic',
                 'specialty_type_id' => 3,
             ],
