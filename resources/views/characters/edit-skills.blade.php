@@ -45,9 +45,9 @@
                                            title="{{ sprintf('Required by %s', $characterSkill->requiredBy) }}"></i>
                                     @else
                                         <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                    class="fa-solid fa-pencil" title="Edit skill"></i></a>
+                                                class="fa-solid fa-pencil" title="Edit skill"></i></a>
                                         <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                    class="fa-solid fa-trash" title="Remove skill"></i></a>
+                                                class="fa-solid fa-trash" title="Remove skill"></i></a>
                                     @endif
                                     @if($characterSkill->skill->specialties > 1)
                                         <ul class="list-disc list-inside">
@@ -74,12 +74,12 @@
                                         {{ $characterSkill->name }}
                                         ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                         <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                    class="fa-solid fa-pencil" title="{{ __('Edit skill') }}"></i></a>
+                                                class="fa-solid fa-pencil" title="{{ __('Edit skill') }}"></i></a>
                                         @if ($characterSkill->locked)
                                             <i class="fa-solid fa-lock" title="{{ __('Expenditure is locked') }}"></i>
                                         @else
                                             <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                        class="fa-solid fa-trash" title="{{ __('Remove skill') }}"></i></a>
+                                                    class="fa-solid fa-trash" title="{{ __('Remove skill') }}"></i></a>
                                         @endif
                                         @if($characterSkill->skill->specialties > 1)
                                             <ul>
@@ -167,13 +167,18 @@
                                                 </option>
                                             @endforeach
                                         </x-select>
+                                        @if ($editSkill->skill->specialties > 1)
+                                            <p class="text-xs">
+                                                {{ __('Press Ctrl to select/de-select additional specialties.') }}
+                                            </p>
+                                        @endif
                                     </div>
                                 @endif
 
                                 @if ($editSkill && ($editSkill->discountAvailable || $editSkill->discountedBy->count()))
                                     <div>
                                         <x-input-label
-                                                for="discounted_by">{{ __('Available discounts') }}</x-input-label>
+                                            for="discounted_by">{{ __('Available discounts') }}</x-input-label>
                                         <x-select id="discounted_by" name="discounted_by[]" class="mt-1 block w-full"
                                                   multiple>
                                             <option value="">{{ __('No discount') }}</option>
@@ -202,7 +207,7 @@
                                         <x-input-label for="completed">
                                             {{ __('Completed') }}
                                             <input type="checkbox" id="completed" name="completed" class="" value="1"
-                                                   @if (!empty($editSkill) && $editSkill->completed) checked="checked" @endif
+                                                   @if (!empty($editSkill) && $editSkill->completed || Status::NEW == $character->status_id) checked="checked" @endif
                                             />
                                         </x-input-label>
                                         <p class="text-xs">
