@@ -146,7 +146,7 @@ class CharacterController extends Controller
         $notes = $request->post('notes', '');
         Mail::to($character->user->email)->send(new CharacterApproved($character, $notes));
 
-        return redirect(route('characters.index'));
+        return redirect(route('plotco.characters'));
     }
 
     /**
