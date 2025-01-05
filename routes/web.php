@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\PlotcoController;
 use App\Http\Controllers\ProfileController;
@@ -54,6 +55,10 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => 'can:edit skill'], function () {
         Route::get('/sys-ref/skill-check/', [SysrefController::class, 'skillCheck'])->name('sysref.skill-check');
+    });
+
+    Route::group(['middleware' => 'can:manage roles'], function () {
+        Route::get('/admin/manage-roles/', [AdminController::class, 'manageRoles'])->name('admin.manage-roles');
     });
 });
 
