@@ -76,13 +76,13 @@ class CharacterController extends Controller
         }
         $errors = [];
         if (count($character->trainingSkills) > 1) {
-            $errors[] = 'Character may not have more than one skill in training at character creation.';
+            $errors[] = __('Character may not have more than one skill in training at character creation.');
         }
         $usedMonths = 0;
         $logs = [];
         foreach ($character->trainedSkills->sortBy('name') as $skill) {
             if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
-                $errors[] = sprintf('Character must select specialty for %s.', $skill->skill->name);
+                $errors[] = __('Character must select specialty for :name.', ['name' => $skill->skill->name]);
             }
             $log = new CharacterLog();
             $logData = [
@@ -99,15 +99,15 @@ class CharacterController extends Controller
         }
         $remainingMonths = $character->background->months - $usedMonths;
         if ($remainingMonths < 0) {
-            $errors[] = 'Character must not exceed their background training months.';
+            $errors[] = __('Character must not exceed their background training months.');
         } else {
             foreach ($character->trainingSkills as $skill) {
                 if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
-                    $errors[] = sprintf('Character must select specialty for %s.', $skill->skill->name);
+                    $errors[] = __('Character must select specialty for :name.', ['name' => $skill->skill->name]);
                 }
                 $remainingMonths = $character->background->months - $usedMonths;
                 if ($remainingMonths > $skill->cost) {
-                    $errors[] = 'Character must use all of their background training months.';
+                    $errors[] = __('Character must use all of their background training months.');
                 }
                 $log = new CharacterLog();
                 $logData = [
@@ -129,10 +129,10 @@ class CharacterController extends Controller
         }
         $remainingMonths = $character->background->months - $usedMonths;
         if ($remainingMonths > 0) {
-            $errors[] = 'Character must use all of their background training months.';
+            $errors[] = __('Character must use all of their background training months.');
         }
         if ($remainingMonths < 0) {
-            $errors[] = 'Character must not exceed their background training months.';
+            $errors[] = __('Character must not exceed their background training months.');
         }
         if ($errors) {
             throw ValidationException::withMessages($errors);
