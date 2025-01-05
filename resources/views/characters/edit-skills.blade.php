@@ -172,7 +172,8 @@
 
                                 @if ($editSkill && ($editSkill->discountAvailable || $editSkill->discountedBy->count()))
                                     <div>
-                                        <x-input-label for="discounted_by">{{ __('Available discounts') }}</x-input-label>
+                                        <x-input-label
+                                            for="discounted_by">{{ __('Available discounts') }}</x-input-label>
                                         <x-select id="discounted_by" name="discounted_by[]" class="mt-1 block w-full"
                                                   multiple>
                                             <option value="">{{ __('No discount') }}</option>
@@ -203,6 +204,14 @@
                                                @if (!empty($editSkill) && $editSkill->completed || Status::NEW == $character->status_id) checked="checked" @endif
                                         />
                                     </x-input-label>
+                                    <p class="text-xs">
+                                        {{ __('Mark as completed if you are buying the full skill, or leave it unchecked if you are only partially investing into it.') }}
+                                    </p>
+                                    @if (Status::NEW == $character->status_id)
+                                        <p class="text-xs">
+                                            {{ __('You can have one unfinished skill at the end of character creation - any remaining months will be assigned to it.') }}
+                                        </p>
+                                    @endif
                                 </div>
 
                                 <div class="flex items-center gap-4">
@@ -244,6 +253,22 @@
                                                         {{ $card->name }}
                                                         ({{ $card->pivot->number }})
                                                     </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                        @if ($skill->unlocks->count() > 0)
+                                            <h4 class="text-md font-medium text-gray-900 dark:text-gray-100 mt-2">{{ __('Unlocks') }}</h4>
+                                            <ul class="list-inside list-disc">
+                                                @foreach($skill->unlocks as $unlock)
+                                                    <li>{{ $unlock->skill->name }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                        @if ($skill->discounts->count() > 0)
+                                            <h4 class="text-md font-medium text-gray-900 dark:text-gray-100 mt-2">{{ __('Discounts') }}</h4>
+                                            <ul class="list-inside list-disc">
+                                                @foreach($skill->discounts as $discount)
+                                                    <li>{{ sprintf(__('%s (-%d months)'), $discount->discountedSkill->name, $discount->discount) }}</li>
                                                 @endforeach
                                             </ul>
                                         @endif

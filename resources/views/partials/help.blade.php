@@ -14,10 +14,10 @@
     <h3 class="text-lg font-bold mt-3">Guidance</h3>
     <ol class="list-decimal list-inside space-y-1">
         <li>
-            Start off by going to the <a class="underline" href="{{ route('characters.index') }}">characters section</a>.
+            Start off by going to the <a class="underline" href="{{ route('characters.index') }}">my characters section</a>.
         </li>
         <li>
-            Click on the "<a class="underline" href="{{ route('characters.create') }}">Create Character</a>" button.
+            Click on the "<a class="underline" href="{{ route('characters.create') }}" target="_blank">Create</a>" button.
         </li>
         <li>
             Fill in the form with the character's details.
