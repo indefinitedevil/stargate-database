@@ -147,7 +147,9 @@ class Character extends Model
 
         return $skills->union($backgroundSkills)
             ->union($skillsWithAnyPrerequisiteMet)
-            ->orderBy('name')->get();
+            ->orderBy('skill_category_id')
+            ->orderBy('name')
+            ->get();
     }
 
     public function trainedSkills(): HasMany

@@ -57,6 +57,11 @@ class Skill extends Model
         return $this->belongsTo(SkillCategory::class);
     }
 
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(SkillCategory::class);
+    }
+
     public function specialtyType(): BelongsTo
     {
         return $this->belongsTo(SpecialtyType::class);
