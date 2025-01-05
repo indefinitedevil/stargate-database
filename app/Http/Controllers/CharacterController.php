@@ -397,6 +397,13 @@ class CharacterController extends Controller
         if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
             throw ValidationException::withMessages(['Character can no longer be modified.']);
         }
+        if ($characterSkill->discountedBy->count()) {
+            foreach ($characterSkill->discountedBy as $discountedBy) {
+                $discountedBy->discount_used = false;
+                $discountedBy->discount_used_by = null;
+                $discountedBy->save();
+            }
+        }
         $characterSkill->delete();
 
         return redirect(route('characters.edit-skills', ['characterId' => $characterSkill->character->id]));
