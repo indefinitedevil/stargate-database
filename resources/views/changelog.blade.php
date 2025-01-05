@@ -15,6 +15,7 @@
                         <li>Initial release</li>
                         <li>Added mobile improvements</li>
                         <li>Added changelog</li>
+                        <li>Updated text field validation to match lengths</li>
                     </ul>
                 </div>
             </div>

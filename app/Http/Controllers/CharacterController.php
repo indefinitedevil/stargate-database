@@ -286,14 +286,14 @@ class CharacterController extends Controller
         $validatedData = $request->validate([
             'id' => 'integer|exists:characters,id',
             'user_id' => 'required|exists:users,id',
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:64',
             'rank' => 'sometimes|string|max:64|nullable',
             'former_rank' => 'sometimes|string|max:64|nullable',
             'background_id' => 'required|exists:backgrounds,id',
             'status_id' => 'required|exists:statuses,id',
-            'history' => 'sometimes|string|nullable',
-            'character_links'=> 'sometimes|string|nullable',
-            'plot_notes' => 'sometimes|string|nullable',
+            'history' => 'sometimes|string|nullable|max:65535',
+            'character_links'=> 'sometimes|string|nullable|max:65535',
+            'plot_notes' => 'sometimes|string|nullable|max:65535',
             'events' => 'array|exists:events,id',
         ]);
 
