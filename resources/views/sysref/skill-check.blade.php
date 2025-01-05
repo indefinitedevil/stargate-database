@@ -15,7 +15,7 @@
             @include('partials.errors')
             @foreach (SkillCategory::all() as $category)
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-                    <h3 class="text-xl font-semibold">{!! sprintf('%s Skills', $category->name) !!}</h3>
+                    <h3 class="text-xl font-semibold">{!! sprintf('%s Skills (%d months)', $category->name, $category->cost) !!}</h3>
                     <div class="grid grid-cols-3 gap-2">
                         @foreach($category->skills->sortBy('name') as $skill)
                             <div class="mt-1">
@@ -23,6 +23,11 @@
                                     @endphp
                                 <h4 class="text-lg font-semibold">{{ $skill->name }}</h4>
                                 <ul>
+                                    @if ($skill->cost)
+                                        <li>
+                                            {!! sprintf(__('<strong>Cost:</strong> %d months'), $skill->cost) !!}
+                                        </li>
+                                    @endif
                                     @if ($skill->feats->count() > 0)
                                         <li>
                                             <strong>{{ __('Feats') }}</strong>
@@ -69,6 +74,16 @@
                                             <ul class="list-inside list-disc">
                                                 @foreach($skill->locks as $lock)
                                                     <li>{{ $lock->locksOut->name }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if ($skill->discounts->count() > 0)
+                                        <li>
+                                            <strong>{{ __('Discounts') }}</strong>
+                                            <ul class="list-inside list-disc">
+                                                @foreach($skill->discounts as $discount)
+                                                    <li>{{ sprintf(__('%s (-%d months)'), $discount->discountedSkill->name, $discount->discount) }}</li>
                                                 @endforeach
                                             </ul>
                                         </li>
