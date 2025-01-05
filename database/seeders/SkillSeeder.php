@@ -29,7 +29,7 @@ class SkillSeeder extends Seeder
         DB::table('skill_categories')->insertOrIgnore([
             [
                 'id' => 1,
-                'name' => 'Technical',
+                'name' => 'Technology',
                 'cost' => 12,
                 'scaling' => 1,
             ],
@@ -1178,7 +1178,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'repeatable' => 5,
                 'body' => 0,
                 'vigor' => 1,
-                'display' => 0,
+                'display' => 1,
             ],
             [
                 'id' => 71,
@@ -1470,11 +1470,6 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'name' => 'Middle Eastern',
                 'specialty_type_id' => 1,
             ],
-            [
-                'id' => 5,
-                'name' => 'Native American',
-                'specialty_type_id' => 1,
-            ],
         ]);
         // Medical
         DB::table('skill_specialties')->insertOrIgnore([
@@ -1558,7 +1553,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             ],
             [
                 'id' => 44,
-                'name' => 'Aboriginal',
+                'name' => 'Māori',
                 'specialty_type_id' => 4,
             ],
             [
@@ -1978,11 +1973,6 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             [
                 'skill_id' => 68,
                 'prereq_id' => 8,
-                'always_required' => 1,
-            ],
-            [
-                'skill_id' => 10,
-                'prereq_id' => 9,
                 'always_required' => 1,
             ],
         ]);
