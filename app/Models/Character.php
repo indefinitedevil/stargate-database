@@ -85,6 +85,7 @@ class Character extends Model
             ->leftJoin('character_skills', function (JoinClause $join) {
                 $join->on('skill_prereqs.prereq_id', '=', 'character_skills.skill_id');
                 $join->on('character_skills.character_id', '=', DB::raw($this->id));
+                $join->where('character_skills.completed', true);
             })
             ->whereNull('character_skills.id');
         $lockoutSkills = SkillLockout::select('skill_lockouts.lockout_id')
