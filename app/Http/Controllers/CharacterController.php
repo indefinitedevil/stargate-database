@@ -232,6 +232,10 @@ class CharacterController extends Controller
         foreach ($characterLogs as $log) {
             $log->delete();
         }
+        $characterSkills = CharacterSkill::where('character_id', $characterId)->get();
+        foreach ($characterSkills as $skill) {
+            $skill->delete();
+        }
         $character->delete();
         return redirect(route('characters.index'));
     }
