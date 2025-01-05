@@ -26,7 +26,7 @@ class SkillSeeder extends Seeder
 
     public function seedSkillCategories()
     {
-        DB::table('skill_categories')->insertOrIgnore([
+        DB::table('skill_categories')->upsert([
             [
                 'id' => 1,
                 'name' => 'Technology',
@@ -63,7 +63,7 @@ class SkillSeeder extends Seeder
                 'cost' => -1,
                 'scaling' => 0,
             ],
-        ]);
+        ], 'id');
     }
 
     public function seedSkills()
