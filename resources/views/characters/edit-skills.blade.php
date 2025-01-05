@@ -128,8 +128,7 @@
                                                     $skills[] = $editSkill->skill;
                                                 @endphp
                                                 <option value="{{ $editSkill->skill_id }}" selected="selected">
-                                                    {{ $editSkill->name }}
-                                                    ({{ $editSkill->cost }} months)
+                                                    {{ __(':name (:cost months)', ['name' => $editSkill->name, 'cost' => $editSkill->cost]) }}
                                                 </option>
                                             @else
                                                 <option value="">{{ __('Select a skill') }}</option>
@@ -145,7 +144,7 @@
                                                     }
                                                 @endphp
                                                 <option value="{{ $skill->id }}">
-                                                    {{ sprintf(__('%s (%s months)'), $skill->name, $skill->cost($character)) }}
+                                                    {{ __(':name (:cost months)', ['name' => $skill->name, 'cost' => $skill->cost($character)]) }}
                                                 </option>
                                             @endforeach
                                         </x-select>

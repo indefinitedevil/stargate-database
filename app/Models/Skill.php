@@ -91,7 +91,12 @@ class Skill extends Model
         if ($character && $category->scaling) {
             if (in_array($character->status_id, [Status::NEW, Status::READY])) {
                 if (empty($characterSkill)) {
-                    $countSkills = 0;
+                    static $completedCategorySkills = [];
+                    if (empty($completedCategorySkills[$category->id])) {
+                        $completedCategorySkills[$category->id] = $character->trainedSkills()
+                            ->where('skills.skill_category_id', $this->skill_category_id);
+                    }
+                    $countSkills = $completedCategorySkills[$category->id]->count();
                 } else {
                     static $scalingCosts = [];
                     if (empty($scalingCosts[$category->id])) {
