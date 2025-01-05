@@ -140,17 +140,27 @@
                     {{ __('Characters') }}
                 </x-responsive-nav-link>
                 @can('viewAll', Character::class)
-                    <x-responsive-nav-link :href="route('plotco.characters')"
-                                           :active="request()->routeIs('plotco.characters')">
-                        {{ __('All Characters') }}
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('plotco.skills')" :active="request()->routeIs('plotco.skills')">
-                        {{ __('Skill Breakdown') }}
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('plotco.attendance')"
-                                           :active="request()->routeIs('plotco.attendance')">
-                        {{ __('Attendance') }}
-                    </x-responsive-nav-link>
+                    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                        <x-responsive-nav-link :href="route('plotco.characters')"
+                                               :active="request()->routeIs('plotco.characters')">
+                            {{ __('All Characters') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('plotco.skills')" :active="request()->routeIs('plotco.skills')">
+                            {{ __('Skill Breakdown') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('plotco.attendance')"
+                                               :active="request()->routeIs('plotco.attendance')">
+                            {{ __('Attendance') }}
+                        </x-responsive-nav-link>
+                    </div>
+                @endcan
+                @can('edit', Skill::class)
+                    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                        <x-responsive-nav-link :href="route('sysref.skill-check')"
+                                         :active="request()->routeIs('sysref.skill-check')">
+                            {{ __('Skill Check') }}
+                        </x-responsive-nav-link>
+                    </div>
                 @endcan
             @else
                 <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')">

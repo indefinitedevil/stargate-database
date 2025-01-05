@@ -20,7 +20,7 @@
             </div>
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-                <div class="grid grid-cols-4 clear-both">
+                <div class="grid grid-cols-1 sm:grid-cols-4 clear-both">
                     <div class="mt-1">
                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Background') }}</h3>
                         <ul>
@@ -108,7 +108,7 @@
                         @endif
                         @php $skills = []; @endphp
                         <input type="hidden" name="character_id" value="{{$character->id }}">
-                        <div class="grid grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div class="space-y-6">
                                 <div class="">
                                     <x-input-label for="skill">{{ __('Skill') }}</x-input-label>
@@ -244,21 +244,27 @@
                                         @endif
                                         @if ($skill->feats->count())
                                             <h4 class="text-md font-medium text-gray-900 dark:text-gray-100 mt-2">{{ __('Feats') }}</h4>
-                                            <ul class="grid grid-cols-2 gap-2">
+                                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                                 @foreach($skill->feats as $feat)
                                                     <li>
+                                                        <span class="underline decoration-dashed"
+                                                              onclick="toggleVisibility('feat-{{$skill->id}}-{{ $feat->id }}')">
                                                         {{ $feat->name }}
                                                         <i class="fa-regular fa-circle-question"
                                                            title="{{ $feat->description }}"
-                                                           data-tooltip-target="feat-{{ $feat->id }}"
                                                         ></i>
+                                                        </span>
+                                                        <div id="feat-{{$skill->id}}-{{ $feat->id }}"
+                                                             class="text-sm hidden pl-4">
+                                                            {!! Str::of($feat->description)->markdown() !!}
+                                                        </div>
                                                     </li>
                                                 @endforeach
                                             </ul>
                                         @endif
                                         @if ($skill->cards->count())
                                             <h4 class="text-md font-medium text-gray-900 dark:text-gray-100 mt-2">{{ __('Cards') }}</h4>
-                                            <ul class="grid grid-cols-4 gap-2">
+                                            <ul class="grid grid-cols-1 sm:grid-cols-4 gap-2">
                                                 @foreach($skill->cards as $card)
                                                     <li>
                                                         {{ $card->name }}

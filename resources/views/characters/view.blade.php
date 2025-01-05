@@ -29,7 +29,7 @@
                     <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
                         {{ __('Skills') }}
                     </h2>
-                    <div class="grid grid-cols-4 clear-both">
+                    <div class="grid grid-cols-1 sm:grid-cols-4 clear-both">
                         <div class="mt-1">
                             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Background') }}</h3>
                             <ul>
