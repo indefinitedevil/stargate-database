@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Collection feats
  * @property Collection specialtyList
  * @property int specialty_type_id
- * @property Collection specialtyType
+ * @property SpecialtyType specialtyType
  * @property int skill_category_id
- * @property Collection skillCategory
+ * @property SkillCategory skillCategory
  * @property bool upkeep
  * @property int cost
  * @property int specialties
