@@ -1442,7 +1442,7 @@ You gain access to the Stun call for any weapon in the Pistols table capable of 
 
 Allows the use of a Public Order Shield. (+1BP).',
                 'upkeep' => 0,
-                'cost' => 3,
+                'cost' => 6,
                 'specialties' => 0,
                 'specialty_type_id' => NULL,
                 'repeatable' => 0,
