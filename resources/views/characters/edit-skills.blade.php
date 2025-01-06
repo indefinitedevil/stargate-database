@@ -154,6 +154,9 @@
                                                     {{ __(':name (:cost months)', ['name' => $skill->name, 'cost' => $skill->cost($character)]) }}
                                                 </option>
                                             @endforeach
+                                            @if (!empty($currentCategory))
+                                                {!! '</optgroup>' !!}
+                                            @endif
                                         </x-select>
                                     @endif
                                 </div>
