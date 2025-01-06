@@ -10,7 +10,7 @@
             @if (!$user->isNameUnique())
                 <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 shadow">
                     <ul>
-                        {{ __('Your name is not unique which may make it difficult to distinguish you from other players.') }}
+                        {{ __('Your name is not unique which may make it difficult to distinguish you from other players. You may want to change it to avoid confusion.') }}
                     </ul>
                 </div>
             @endif
