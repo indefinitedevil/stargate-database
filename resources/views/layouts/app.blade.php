@@ -58,8 +58,9 @@
                 </div>
             </div>
             <div>
-                <div class="py-2 px-6 text-gray-900 dark:text-gray-100 text-center text-sm">
-                    <a href="{{ route('privacy') }}" class="underline">{{ __('Privacy Policy') }}</a>
+                <div class="py-2 px-6 text-gray-900 dark:text-gray-100 text-center text-sm gap-4 flex justify-center">
+                    <a href="{{ route('changelog') }}" class="inline-block underline">{{ __('Changelog') }}</a>
+                    <a href="{{ route('privacy') }}" class="inline-block underline">{{ __('Privacy Policy') }}</a>
                 </div>
             </div>
         </div>

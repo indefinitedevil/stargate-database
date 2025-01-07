@@ -29,7 +29,7 @@
                     <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
                         {{ __('Skills') }}
                     </h2>
-                    <div class="grid grid-cols-4 clear-both">
+                    <div class="grid grid-cols-1 sm:grid-cols-4 clear-both">
                         <div class="mt-1">
                             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Background') }}</h3>
                             <ul>
@@ -47,6 +47,9 @@
                                             *
                                             @php $flashOfInsight = true; @endphp
                                         @endif
+                                        <i class="fa-regular fa-circle-question cursor-pointer" title="{{ __('Show description') }}"
+                                           onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')"
+                                        ></i>
                                         @if($characterSkill->skill->specialties > 1)
                                             <ul class="list-disc list-inside">
                                                 @foreach ($characterSkill->allSpecialties as $specialty)
@@ -54,6 +57,9 @@
                                                 @endforeach
                                             </ul>
                                         @endif
+                                        <div id="skill-{{ $characterSkill->skill_id }}" class="text-sm hidden pl-4 space-y-2 mb-2">
+                                            {!! Str::of($characterSkill->skill->description)->markdown() !!}
+                                        </div>
                                     </li>
                                 @endforeach
                             </ul>
@@ -71,6 +77,9 @@
                                         <li>
                                             {{ $characterSkill->name }}
                                             ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
+                                            <i class="fa-regular fa-circle-question cursor-pointer" title="{{ __('Show description') }}"
+                                               onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')"
+                                            ></i>
                                             @if($characterSkill->skill->specialties > 1)
                                                 <ul>
                                                     @foreach ($characterSkill->skillSpecialties as $specialty)
@@ -78,6 +87,9 @@
                                                     @endforeach
                                                 </ul>
                                             @endif
+                                            <div id="skill-{{ $characterSkill->skill_id }}" class="text-sm hidden pl-4 space-y-2 mb-2">
+                                                {!! Str::of($characterSkill->skill->description)->markdown() !!}
+                                            </div>
                                         </li>
                                     @endforeach
                                 </ul>

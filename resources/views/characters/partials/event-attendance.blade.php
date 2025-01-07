@@ -4,9 +4,9 @@
 <div>
     <p>This is a temporary measure, but if you could indicate which events you intend to
         attend as this character, that would help the event runners and plot cos greatly.</p>
-    <div class="grid grid-cols-4 mt-1">
+    <div class="grid grid-cols-1 sm:grid-cols-4 mt-1">
         @foreach(Event::all() as $event)
-            <x-input-label>
+            <x-input-label class="p-2">
                 <input type="checkbox" id="event_{{ $event->id }}" name="events[]"
                        value="{{ $event->id }}"
                        @if(!empty($character) && $character->events->contains($event->id)) checked @endif />

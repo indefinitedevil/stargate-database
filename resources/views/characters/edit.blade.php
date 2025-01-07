@@ -69,7 +69,7 @@
                                             <p>{{ sprintf(__('Training Months: %s'), $background->months) }}</p>
                                             <div>
                                                 <p class="text-lg font-medium">{{ __('Starting Skills') }}</p>
-                                                <ul class="grid grid-cols-6">
+                                                <ul class="grid grid-cols-2 sm:grid-cols-6">
                                                     @foreach ($background->skills as $skill)
                                                         <li>{{ $skill->name }}</li>
                                                     @endforeach
