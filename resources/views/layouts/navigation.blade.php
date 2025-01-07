@@ -60,7 +60,7 @@
                                 </x-slot>
                             </x-dropdown>
                         @endcan
-                        @can('viewAll', User::class)
+                        @can('modify roles')
                             <x-dropdown align="left">
                                 <x-slot name="trigger" class="inline-flex">
                                     <x-nav-link class="ob"

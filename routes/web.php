@@ -57,8 +57,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/sys-ref/skill-check/', [SysrefController::class, 'skillCheck'])->name('sysref.skill-check');
     });
 
-    Route::group(['middleware' => 'can:manage roles'], function () {
+    Route::group(['middleware' => 'can:modify roles'], function () {
         Route::get('/admin/manage-roles/', [AdminController::class, 'manageRoles'])->name('admin.manage-roles');
+        Route::post('/admin/store-roles/', [AdminController::class, 'storeRoles'])->name('admin.store-roles');
     });
 });
 

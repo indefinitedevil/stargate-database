@@ -16,30 +16,39 @@
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                 @php
                     $roles = Role::all();
+                    $cellClass = 'border-b border-slate-100 dark:border-slate-700 p-2 text-center';
                 @endphp
-                <table class="table-auto">
+                <form method="POST" action="{{ route('admin.store-roles') }}">
+                    @csrf
+                <table class="table-fixed  w-full">
                     <thead>
                     <tr>
-                        <th>{{ __('User') }}</th>
+                        <th class="{{ $cellClass }}">{{ __('User') }}</th>
                         @foreach($roles as $role)
-                            <th>{{ $role->name }}</th>
+                            <th class="{{ $cellClass }}">{{ ucfirst($role->name) }}</th>
                         @endforeach
                     </tr>
                     </thead>
                     <tbody>
                     @foreach (User::all() as $user)
                         <tr>
-                            <td>{{ $user->name }}</td>
+                            <td class="{{ $cellClass }}">{{ $user->name }}</td>
                             @foreach($roles as $role)
-                                <td>
+                                <td class="{{ $cellClass }}">
                                     <input type="checkbox" name="role[{{ $user->id }}][]"
-                                           value="{{ $role->id }}" {{ $user->roles->contains($role) ? 'checked' : '' }}>
+                                           value="{{ $role->name }}" {{ $user->roles->contains($role) ? 'checked' : '' }}>
                                 </td>
                             @endforeach
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+                    <div class="flex justify-end">
+                    <x-primary-button class="mt-4">
+                        {{ __('Save') }}
+                    </x-primary-button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
