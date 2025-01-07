@@ -1,6 +1,7 @@
 @php
     use App\Models\Character;
     use App\Models\Skill;
+    use App\Models\User;
 @endphp
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
@@ -59,6 +60,20 @@
                                 </x-slot>
                             </x-dropdown>
                         @endcan
+                        @can('modify roles')
+                            <x-dropdown align="left">
+                                <x-slot name="trigger" class="inline-flex">
+                                    <x-nav-link class="ob"
+                                                :active="request()->routeIs('admin.*')">{{ __('Admin') }}</x-nav-link>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('admin.manage-roles')"
+                                                     :active="request()->routeIs('admin.manage-roles')">
+                                        {{ __('Manage roles') }}
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        @endcan
                     @else
                         <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                             {{ __('Log in') }}
@@ -78,7 +93,7 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
-                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                                 <div>{{ Auth::user()->name }}</div>
 
                                 <div class="ms-1">

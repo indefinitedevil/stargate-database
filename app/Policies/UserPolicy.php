@@ -10,7 +10,7 @@ class UserPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): Response
+    public function viewAll(User $user): Response
     {
         return $user->can('view all users')
             ? Response::allow()
