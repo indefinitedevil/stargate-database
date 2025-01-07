@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('characters', function (Blueprint $table) {
-            $table->boolean('primary_secondary')->default(0);
+            $table->boolean('primary_secondary')->default(0)->index();
         });
     }
 
