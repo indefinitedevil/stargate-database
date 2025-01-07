@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/characters/approve/{characterId}', [CharacterController::class, 'approve'])->name('characters.approve');
         Route::post('/characters/deny/{characterId}', [CharacterController::class, 'deny'])->name('characters.deny');
         Route::get('/characters/ready/{characterId}', [CharacterController::class, 'ready'])->name('characters.ready');
+        Route::get('/characters/primary/{characterId}', [CharacterController::class, 'primary'])->name('characters.primary');
         Route::get('/characters/kill/{characterId}', [CharacterController::class, 'kill'])->name('characters.kill');
         Route::get('/characters/retire/{characterId}', [CharacterController::class, 'retire'])->name('characters.retire');
         Route::get('/characters/edit/{characterId}/skills', [CharacterController::class, 'editSkills'])->name('characters.edit-skills');

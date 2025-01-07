@@ -39,6 +39,9 @@ use Illuminate\Support\Facades\DB;
  * @property string plot_notes
  * @property Object[] cards
  * @property int completedTrainingMonths
+ * @property bool isPrimary
+ * @property int primary_secondary
+ * @property Event[] events
  */
 class Character extends Model
 {
@@ -53,7 +56,8 @@ class Character extends Model
         'plot_notes',
         'rank',
         'former_rank',
-        'character_links'
+        'character_links',
+        'primary_secondary',
     ];
 
     public function player(): BelongsTo
@@ -275,5 +279,10 @@ class Character extends Model
         return $this->belongsToMany(Event::class)
             ->withPivot('attended', 'role')
             ->withTimestamps();
+    }
+
+    public function getIsPrimaryAttribute(): bool
+    {
+        return $this->primary_secondary;
     }
 }
