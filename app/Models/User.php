@@ -63,4 +63,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Character::class);
     }
+
+    public function isNameUnique(): bool
+    {
+        static $uniqueName;
+        if ($uniqueName === null) {
+            $uniqueName = $this->where('name', $this->name)->count() == 1;
+        }
+        return $uniqueName;
+    }
 }
