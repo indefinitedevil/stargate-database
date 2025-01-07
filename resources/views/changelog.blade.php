@@ -13,9 +13,19 @@
                     <h3 class="text-lg font-semibold">5th January 2025</h3>
                     <ul class="list-inside list-disc">
                         <li>Initial release</li>
-                        <li>Added mobile improvements</li>
+                        <li>Emergency bug fixes</li>
+                        <li>Correcting Point Man cost</li>
+                    </ul>
+                    <h3 class="text-lg font-semibold">7th January 2025</h3>
+                    <ul class="list-inside list-disc">
                         <li>Added changelog</li>
+                        <li>Added mobile improvements</li>
                         <li>Updated text field validation to match lengths</li>
+                        <li>Added primary/secondary typing to characters</li>
+                        <li>Added hero/scoundrel typing to characters</li>
+                        <li>Added notice if your name is not unique</li>
+                        <li>Admin: Added ability to manage roles</li>
+                        <li>Plot Co: Added per-event breakdown to skills breakdown view</li>
                     </ul>
                 </div>
             </div>
