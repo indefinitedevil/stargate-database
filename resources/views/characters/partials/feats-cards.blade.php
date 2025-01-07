@@ -15,7 +15,7 @@
                         @if ($feat->per_event)
                             ({{ $feat->getPerEvent($character) }})
                         @endif
-                        <i class="fa-regular fa-circle-question" title="{{ $feat->description }}"
+                        <i class="fa-regular fa-circle-question" title="{{ __('Show description') }}"
                            data-tooltip-target="feat-{{ $feat->id }}"
                            onclick="toggleVisibility('feat-{{ $feat->id }}')"
                         ></i>

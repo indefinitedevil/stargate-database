@@ -49,6 +49,9 @@
                                         <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
                                                 class="fa-solid fa-trash" title="Remove skill"></i></a>
                                     @endif
+                                    <i class="fa-regular fa-circle-question cursor-pointer" title="{{ __('Show description') }}"
+                                       onclick="toggleVisibility('skill-{{ $skill->id }}')"
+                                    ></i>
                                     @if($characterSkill->skill->specialties > 1)
                                         <ul class="list-disc list-inside">
                                             @foreach ($characterSkill->specialties as $specialty)
@@ -56,6 +59,9 @@
                                             @endforeach
                                         </ul>
                                     @endif
+                                    <div id="skill-{{ $characterSkill->skill_id }}" class="text-sm hidden pl-4 space-y-2 mb-2">
+                                        {!! Str::of($characterSkill->skill->description)->markdown() !!}
+                                    </div>
                                 </li>
                             @endforeach
                         </ul>
@@ -81,6 +87,9 @@
                                             <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
                                                     class="fa-solid fa-trash" title="{{ __('Remove skill') }}"></i></a>
                                         @endif
+                                        <i class="fa-regular fa-circle-question cursor-pointer" title="{{ __('Show description') }}"
+                                           onclick="toggleVisibility('skill-{{ $skill->id }}')"
+                                        ></i>
                                         @if($characterSkill->skill->specialties > 1)
                                             <ul>
                                                 @foreach ($characterSkill->skillSpecialties as $specialty)
@@ -88,6 +97,9 @@
                                                 @endforeach
                                             </ul>
                                         @endif
+                                        <div id="skill-{{ $characterSkill->skill_id }}" class="text-sm hidden pl-4 space-y-2 mb-2">
+                                            {!! Str::of($characterSkill->skill->description)->markdown() !!}
+                                        </div>
                                     </li>
                                 @endforeach
                             </ul>
