@@ -26,7 +26,14 @@ class PlotcoController extends Controller
         if ($request->user()->cannot('viewAll', Character::class)) {
             return redirect(route('dashboard'));
         }
-        return view('plotco.skills');
+        if ($request->has('event')) {
+            $characters = Event::where('id', $request->get('event'))->first()->characters()->whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get()->pluck('id');
+        } else {
+            $characters = Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get()->pluck('id');
+        }
+        return view('plotco.skills', [
+            'validCharacters' => $characters,
+        ]);
     }
 
     public function attendance(Request $request)
