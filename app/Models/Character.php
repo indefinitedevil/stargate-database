@@ -42,10 +42,15 @@ use Illuminate\Support\Facades\DB;
  * @property bool isPrimary
  * @property int primary_secondary
  * @property Event[] events
+ * @property int hero_scoundrel
+ * @property string type
  */
 class Character extends Model
 {
     use HasFactory;
+
+    const HERO = 1;
+    const SCOUNDREL = 2;
 
     protected $fillable = [
         'user_id',
@@ -58,6 +63,7 @@ class Character extends Model
         'former_rank',
         'character_links',
         'primary_secondary',
+        'hero_scoundrel',
     ];
 
     public function player(): BelongsTo
@@ -279,6 +285,17 @@ class Character extends Model
         return $this->belongsToMany(Event::class)
             ->withPivot('attended', 'role')
             ->withTimestamps();
+    }
+
+    public function getTypeAttribute(): string
+    {
+        if ($this->hero_scoundrel === self::HERO) {
+            return __('Hero');
+        } elseif ($this->hero_scoundrel === self::SCOUNDREL) {
+            return __('Scoundrel');
+        } else {
+            return __('Unknown');
+        }
     }
 
     public function getIsPrimaryAttribute(): bool
