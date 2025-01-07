@@ -41,7 +41,7 @@
                             <div class="mt-1">
                                 <ul>
                                     @foreach ($character->background->skills as $skill)
-                                        <li>{{ $skill->name }}</li>
+                                        <li>{{ $skill->print_name ?? $skill->name }}</li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -49,7 +49,7 @@
                                 <div class="mt-1">
                                     <ul>
                                         @foreach ($trainedSkills as $characterSkill)
-                                            <li>{{ $characterSkill->name }}
+                                            <li>{{ $characterSkill->print_name }}
                                                 @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
                                                     *
                                                     @php $flashOfInsight = true; @endphp

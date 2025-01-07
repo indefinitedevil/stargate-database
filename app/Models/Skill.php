@@ -8,14 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
  * @property int id
  * @property string name
+ * @property string print_name
+ * @property string description
  * @property Collection cards
  * @property Collection feats
  * @property Collection specialtyList
+ * @property int specialty_type_id
+ * @property SpecialtyType specialtyType
  * @property int skill_category_id
  * @property SkillCategory skillCategory
  * @property bool upkeep
@@ -35,6 +38,9 @@ class Skill extends Model
     const ARCHEO_ANTHROPOLOGY = 9;
     const ADDITIONAL_AA_SPEC = 10;
 
+    const LEADERSHIP = 35;
+    const LEADERSHIP_EXTRA_PERSON = 45;
+
     public function cards(): BelongsToMany
     {
         return $this->belongsToMany(CardType::class)
@@ -47,6 +53,11 @@ class Skill extends Model
     }
 
     public function skillCategory(): BelongsTo
+    {
+        return $this->belongsTo(SkillCategory::class);
+    }
+
+    public function category(): BelongsTo
     {
         return $this->belongsTo(SkillCategory::class);
     }
@@ -82,10 +93,15 @@ class Skill extends Model
             return $this->attributes['cost'];
         }
         $category = $this->skillCategory;
+        static $completedCategorySkills = [];
         if ($character && $category->scaling) {
             if (in_array($character->status_id, [Status::NEW, Status::READY])) {
                 if (empty($characterSkill)) {
-                    $countSkills = 0;
+                    if (empty($completedCategorySkills[$category->id])) {
+                        $completedCategorySkills[$category->id] = $character->trainedSkills()
+                            ->where('skills.skill_category_id', $this->skill_category_id);
+                    }
+                    $countSkills = $completedCategorySkills[$category->id]->count();
                 } else {
                     static $scalingCosts = [];
                     if (empty($scalingCosts[$category->id])) {
@@ -97,7 +113,6 @@ class Skill extends Model
                     $countSkills = $scalingCosts[$category->id][$this->id];
                 }
             } else {
-                static $completedCategorySkills = [];
                 if (empty($completedCategorySkills[$category->id])) {
                     $completedCategorySkills[$category->id] = $character->trainedSkills()
                         ->where('skills.skill_category_id', $this->skill_category_id);

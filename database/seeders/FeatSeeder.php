@@ -454,6 +454,10 @@ Once affected by this feat (from anyone), you cannot be affected by another "We 
                 'feat_id' => 9
             ],
             [
+                'skill_id' => 1,
+                'feat_id'=> 21
+            ],
+            [
                 'skill_id' => 2,
                 'feat_id' => 11
             ],
@@ -596,6 +600,10 @@ Once affected by this feat (from anyone), you cannot be affected by another "We 
             [
                 'skill_id' => 38,
                 'feat_id' => 31
+            ],
+            [
+                'skill_id' => 41,
+                'feat_id' => 3
             ],
             [
                 'skill_id' => 42,

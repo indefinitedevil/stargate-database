@@ -81,13 +81,23 @@ class Character extends Model
 
     public function getAvailableSkillsAttribute(): Collection
     {
-        $prereqSkills = SkillPrereq::select('skill_prereqs.skill_id')
+        $skillsWithAllPrerequisitesUnmet = SkillPrereq::select('skill_prereqs.skill_id')
             ->leftJoin('character_skills', function (JoinClause $join) {
                 $join->on('skill_prereqs.prereq_id', '=', 'character_skills.skill_id');
                 $join->on('character_skills.character_id', '=', DB::raw($this->id));
+                $join->where('character_skills.completed', true);
+                $join->where('skill_prereqs.always_required', true);
             })
             ->whereNull('character_skills.id');
-        $lockoutSkills = SkillLockout::select('skill_lockouts.lockout_id')
+        $skillsWithAnyPrerequisitesMet = SkillPrereq::select('skill_prereqs.skill_id')
+            ->leftJoin('character_skills', function (JoinClause $join) {
+                $join->on('skill_prereqs.prereq_id', '=', 'character_skills.skill_id');
+                $join->on('character_skills.character_id', '=', DB::raw($this->id));
+                $join->where('character_skills.completed', true);
+                $join->where('skill_prereqs.always_required', false);
+            })
+            ->whereNotNull('character_skills.id');
+        $lockedOutSkills = SkillLockout::select('skill_lockouts.lockout_id')
             ->join('character_skills', function (JoinClause $join) {
                 $join->on('skill_lockouts.skill_id', '=', 'character_skills.skill_id');
                 $join->on('character_skills.character_id', '=', DB::raw($this->id));
@@ -97,31 +107,49 @@ class Character extends Model
                 $join->on('skills.id', '=', 'character_skills.skill_id');
                 $join->on('character_skills.character_id', '=', DB::raw($this->id));
             })
-            ->whereNotIn('skills.id', $prereqSkills)
-            ->whereNotIn('skills.id', $lockoutSkills)
+            ->whereNotIn('skills.id', $skillsWithAllPrerequisitesUnmet)
+            ->whereNotIn('skills.id', $lockedOutSkills)
             ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
             ->where(function (Builder $query) {
                 $query->whereNull('character_skills.id')
                     ->orWhere('skills.repeatable', '>', 0);
             });
 
-        $prereqSkills = SkillPrereq::select('skill_prereqs.skill_id')
+        $skillsWithAnyPrerequisiteMet = Skill::select('skills.*')
+            ->leftJoin('character_skills', function (JoinClause $join) {
+                $join->on('skills.id', '=', 'character_skills.skill_id');
+                $join->on('character_skills.character_id', '=', DB::raw($this->id));
+            })
+            ->whereIn('skills.id', $skillsWithAnyPrerequisitesMet)
+            ->whereNotIn('skills.id', $lockedOutSkills)
+            ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
+            ->where(function (Builder $query) {
+                $query->whereNull('character_skills.id')
+                    ->orWhere('skills.repeatable', '>', 0);
+            });
+
+        // Check pre-requisites and
+        // lockouts for background skills
+        $skillsWithAllPrerequisitesUnmet = SkillPrereq::select('skill_prereqs.skill_id')
             ->join('background_skill', function (JoinClause $join) {
                 $join->on('skill_prereqs.prereq_id', '=', 'background_skill.skill_id');
                 $join->on('background_skill.background_id', '=', DB::raw($this->background_id));
             });
-        $lockoutSkills = SkillLockout::select('skill_lockouts.lockout_id')
+        $lockedOutSkills = SkillLockout::select('skill_lockouts.lockout_id')
             ->join('background_skill', function (JoinClause $join) {
                 $join->on('skill_lockouts.skill_id', '=', 'background_skill.skill_id');
                 $join->on('background_skill.background_id', '=', DB::raw($this->background_id));
             });
         $backgroundSkills = Skill::select('skills.*')
             ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
-            ->whereIn('skills.id', $prereqSkills)
-            ->whereNotIn('skills.id', $lockoutSkills);
+            ->whereIn('skills.id', $skillsWithAllPrerequisitesUnmet)
+            ->whereNotIn('skills.id', $lockedOutSkills);
 
         return $skills->union($backgroundSkills)
-            ->orderBy('name')->get();
+            ->union($skillsWithAnyPrerequisiteMet)
+            ->orderBy('skill_category_id')
+            ->orderBy('name')
+            ->get();
     }
 
     public function trainedSkills(): HasMany

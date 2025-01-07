@@ -14,10 +14,10 @@
     <h3 class="text-lg font-bold mt-3">Guidance</h3>
     <ol class="list-decimal list-inside space-y-1">
         <li>
-            Start off by going to the <a class="underline" href="{{ route('characters.index') }}">characters section</a>.
+            Start off by going to the <a class="underline" href="{{ route('characters.index') }}">my characters section</a>.
         </li>
         <li>
-            Click on the "<a class="underline" href="{{ route('characters.create') }}">Create Character</a>" button.
+            Click on the "<a class="underline" href="{{ route('characters.create') }}" target="_blank">Create</a>" button.
         </li>
         <li>
             Fill in the form with the character's details.
@@ -73,6 +73,14 @@
         <li>
             Once you're happy, click the "Ready for approval" button (<i class="fa-solid fa-check"></i>) and the plot co
             will look over your sheet.
+            <ul class="list-inside list-disc pl-4">
+                <li>
+                    You can still make changes to your character after this point up until your character is approved,
+                    but the limit of one unfinished skill still applies, and adding additional skills will prevent the
+                    plot co from approving your character.
+                    [This is a system limitation that the plot co cannot override.]
+                </li>
+            </ul>
         </li>
         <li>
             If there are any issues, they will be raised with you.

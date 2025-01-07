@@ -27,7 +27,7 @@
                         @can('viewAll', Character::class)
                             <x-dropdown align="left">
                                 <x-slot name="trigger" class="inline-flex">
-                                    <x-nav-link class="ob"
+                                    <x-nav-link class="cursor-pointer"
                                                 :active="request()->routeIs('plotco.*')">{{ __('Plot Co') }}</x-nav-link>
                                 </x-slot>
                                 <x-slot name="content">
@@ -49,7 +49,7 @@
                         @can('edit', Skill::class)
                             <x-dropdown align="left">
                                 <x-slot name="trigger" class="inline-flex">
-                                    <x-nav-link class="ob"
+                                    <x-nav-link class="cursor-pointer"
                                                 :active="request()->routeIs('sysref.*')">{{ __('Sys Ref') }}</x-nav-link>
                                 </x-slot>
                                 <x-slot name="content">

@@ -5,6 +5,7 @@
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
+            <p class="dark:text-gray-300 text-sm">{{ __('Please enter a name that distinguishes you from others with the same first name.') }}</p>
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
