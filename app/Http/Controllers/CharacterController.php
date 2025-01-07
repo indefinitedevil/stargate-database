@@ -22,7 +22,7 @@ class CharacterController extends Controller
             return redirect(route('dashboard'));
         }
         return view('characters.index', [
-            'activeCharacters' => auth()->user()->characters->whereIn('status_id', [Status::NEW, Status::READY, Status::APPROVED, Status::PLAYED])->sortBy('name'),
+            'activeCharacters' => auth()->user()->characters->whereIn('status_id', [Status::NEW, Status::READY, Status::APPROVED, Status::PLAYED])->sortBy([['primary_secondary', 'desc'], ['name']]),
             'inactiveCharacters' => auth()->user()->characters->whereIn('status_id', [Status::DEAD, Status::RETIRED])->sortBy('name'),
         ]);
     }
@@ -141,6 +141,9 @@ class CharacterController extends Controller
             $log->save();
         }
         $character->status_id = Status::APPROVED;
+        if ($character->user->characters->where('primary_secondary', true)->count() == 0) {
+            $character->primary_secondary = true;
+        }
         $character->save();
 
         $notes = $request->post('notes', '');
@@ -165,6 +168,29 @@ class CharacterController extends Controller
         Mail::to($character->user->email)->send(new CharacterDenied($character, $notes));
 
         return redirect(route('characters.index'));
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function primary(Request $request, $characterId)
+    {
+        $character = Character::find($characterId);
+        if ($request->user()->cannot('edit', $character)) {
+            return redirect(route('characters.view', ['characterId' => $characterId]));
+        }
+        $secondaryCharacters = Character::where('user_id', $character->user_id)
+            ->where('primary_secondary', true)
+            ->where('id', '!=', $characterId)
+            ->get();
+        foreach ($secondaryCharacters as $secondaryCharacter) {
+            $secondaryCharacter->primary_secondary = false;
+            $secondaryCharacter->save();
+        }
+        $character->primary_secondary = true;
+        $character->save();
+
+        return redirect(route('characters.view', ['characterId' => $characterId]));
     }
 
     /**

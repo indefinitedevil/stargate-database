@@ -8,6 +8,7 @@
         @include('characters.partials.actions')
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ sprintf(__('Edit character skills: %s'), $character->name) }}
+            @if($character->isPrimary) <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i> @endif
         </h2>
     </x-slot>
 
