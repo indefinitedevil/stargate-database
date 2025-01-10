@@ -32,6 +32,7 @@
                         <li>Added notification to plot co for characters being ready for approval</li>
                         <li>Added note to show plot co who a character belongs to</li>
                         <li>Add player name to print sheet</li>
+                        <li>Add print skills/feats view to characters</li>
                     </ul>
                 </div>
             </div>

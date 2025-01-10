@@ -54,6 +54,15 @@ class CharacterController extends Controller
         return view('characters.print', ['characters' => [$character]]);
     }
 
+    public function printSkills(Request $request, $characterId)
+    {
+        $character = Character::find($characterId);
+        if ($request->user()->cannot('view', $character)) {
+            return redirect(route('characters.index'));
+        }
+        return view('characters.print-skills', ['characters' => [$character]]);
+    }
+
     public function edit(Request $request, $characterId)
     {
         $character = Character::find($characterId);
