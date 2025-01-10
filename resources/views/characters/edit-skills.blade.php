@@ -1,4 +1,5 @@
 @php
+    use App\Models\Feat;
     use App\Models\Status;
     use Illuminate\Support\Str;
 @endphp
@@ -100,6 +101,9 @@
                             <p class="mt-1">
                                 {{ sprintf(__('Total training: %d / %s'), $character->completedTrainingMonths, $character->background->months) }}
                             </p>
+                        @endif
+                        @if(!empty($flashOfInsight))
+                            <p class="mt-1">{{ __('* Flash of Insight discount available') }}</p>
                         @endif
                     </div>
                     @if ($character->trainingSkills->count())
