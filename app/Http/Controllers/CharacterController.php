@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\CharacterApproved;
 use App\Mail\CharacterDenied;
+use App\Mail\CharacterReady;
 use App\Models\Character;
 use App\Models\CharacterLog;
 use App\Models\CharacterSkill;
