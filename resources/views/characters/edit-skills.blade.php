@@ -27,7 +27,13 @@
                         <ul class="space-y-6 sm:space-y-2">
                             @foreach ($character->background->skills as $skill)
                                 <li>
-                                    {{ $skill->name }}
+                                    <span class="cursor-pointer underline decoration-dashed underline-offset-4"
+                                          onclick="toggleVisibility('skill-{{ $skill->id }}')">
+                                        {{ $skill->name }}
+                                        <i class="fa-regular fa-circle-question cursor-pointer"
+                                           title="{{ __('Show description') }}"
+                                        ></i>
+                                     </span>
                                     <i class="fa-regular fa-circle-question cursor-pointer inline-block ml-4 sm:ml-0" title="{{ __('Show description') }}"
                                        onclick="toggleVisibility('skill-{{ $skill->id }}')"
                                     ></i>
@@ -42,7 +48,18 @@
                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Trained') }}</h3>
                         <ul class="space-y-6 sm:space-y-2">
                             @foreach ($character->trainedSkills->sortBy('name') as $characterSkill)
-                                <li>{{ $characterSkill->name }}
+                                <li>
+                                    <span class="cursor-pointer underline decoration-dashed underline-offset-4"
+                                          onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')">
+                                        {{ $characterSkill->name }}
+                                        @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
+                                            *
+                                            @php $flashOfInsight = true; @endphp
+                                        @endif
+                                        <i class="fa-regular fa-circle-question cursor-pointer"
+                                           title="{{ __('Show description') }}"
+                                        ></i>
+                                     </span>
                                     ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                     @if ($characterSkill->locked)
                                         <i class="fa-solid fa-lock inline-block ml-4 sm:ml-0" title="Expenditure is locked"></i>
@@ -91,7 +108,17 @@
                             <ul class="space-y-6 sm:space-y-2">
                                 @foreach ($character->trainingSkills->sortBy('name') as $characterSkill)
                                     <li>
-                                        {{ $characterSkill->name }}
+                                        <span class="cursor-pointer underline decoration-dashed underline-offset-4"
+                                              onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')">
+                                            {{ $characterSkill->name }}
+                                            @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
+                                                *
+                                                @php $flashOfInsight = true; @endphp
+                                            @endif
+                                            <i class="fa-regular fa-circle-question cursor-pointer"
+                                               title="{{ __('Show description') }}"
+                                            ></i>
+                                         </span>
                                         ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                         <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"
                                            class="inline-block ml-4 sm:ml-0"
@@ -103,9 +130,6 @@
                                                class="inline-block ml-4 sm:ml-0"
                                             ><i class="fa-solid fa-trash" title="{{ __('Remove skill') }}"></i><span class="sm:hidden"> {{ __('Remove') }}</span></a>
                                         @endif
-                                        <i class="fa-regular fa-circle-question cursor-pointer inline-block ml-4 sm:ml-0" title="{{ __('Show description') }}"
-                                           onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')"
-                                        ></i>
                                         @if($characterSkill->skill->specialties > 1)
                                             <ul>
                                                 @foreach ($characterSkill->skillSpecialties as $specialty)

@@ -8,7 +8,9 @@
         @include('characters.partials.actions')
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-300 leading-tight">
             {{ sprintf(__('Character: %s'), $character->name) }}
-            @if($character->isPrimary) <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i> @endif
+            @if($character->isPrimary)
+                <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i>
+            @endif
         </h2>
     </x-slot>
 
@@ -36,10 +38,13 @@
                             <ul class="space-y-6 sm:space-y-2">
                                 @foreach ($character->background->skills as $skill)
                                     <li>
-                                        {{ $skill->name }}
-                                        <i class="fa-regular fa-circle-question cursor-pointer inline-block ml-4 sm:ml-0" title="{{ __('Show description') }}"
-                                           onclick="toggleVisibility('skill-{{ $skill->id }}')"
-                                        ></i>
+                                        <span class="cursor-pointer underline decoration-dashed underline-offset-4"
+                                              onclick="toggleVisibility('skill-{{ $skill->id }}')">
+                                            {{ $skill->name }}
+                                            <i class="fa-regular fa-circle-question cursor-pointer"
+                                               title="{{ __('Show description') }}"
+                                            ></i>
+                                         </span>
                                         <div id="skill-{{ $skill->id }}" class="text-sm hidden pl-4 space-y-2 mb-2">
                                             {!! Str::of($skill->description)->markdown() !!}
                                         </div>
@@ -51,14 +56,18 @@
                             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Trained') }}</h3>
                             <ul class="space-y-6 sm:space-y-2">
                                 @foreach ($character->displayedTrainedSkills->sortBy('name') as $characterSkill)
-                                    <li>{{ $characterSkill->name }}
-                                        @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
-                                            *
-                                            @php $flashOfInsight = true; @endphp
-                                        @endif
-                                        <i class="fa-regular fa-circle-question cursor-pointer" title="{{ __('Show description') }}"
-                                           onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')"
-                                        ></i>
+                                    <li>
+                                        <span class="cursor-pointer underline decoration-dashed underline-offset-4"
+                                              onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')">
+                                            {{ $characterSkill->name }}
+                                            @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
+                                                *
+                                                @php $flashOfInsight = true; @endphp
+                                            @endif
+                                            <i class="fa-regular fa-circle-question cursor-pointer"
+                                               title="{{ __('Show description') }}"
+                                            ></i>
+                                         </span>
                                         @if($characterSkill->skill->specialties > 1)
                                             <ul class="list-disc list-inside">
                                                 @foreach ($characterSkill->allSpecialties as $specialty)
@@ -66,7 +75,8 @@
                                                 @endforeach
                                             </ul>
                                         @endif
-                                        <div id="skill-{{ $characterSkill->skill_id }}" class="text-sm hidden pl-4 space-y-2 mb-2">
+                                        <div id="skill-{{ $characterSkill->skill_id }}"
+                                             class="text-sm hidden pl-4 space-y-2 mb-2">
                                             {!! Str::of($characterSkill->skill->description)->markdown() !!}
                                         </div>
                                     </li>
@@ -84,11 +94,14 @@
                                 <ul class="space-y-6 sm:space-y-2">
                                     @foreach ($character->trainingSkills->sortBy('name') as $characterSkill)
                                         <li>
-                                            {{ $characterSkill->name }}
+                                            <span class="cursor-pointer underline decoration-dashed underline-offset-4"
+                                                  onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')">
+                                                {{ $characterSkill->name }}
+                                                <i class="fa-regular fa-circle-question cursor-pointer"
+                                                   title="{{ __('Show description') }}"
+                                                ></i>
+                                             </span>
                                             ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
-                                            <i class="fa-regular fa-circle-question cursor-pointer" title="{{ __('Show description') }}"
-                                               onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')"
-                                            ></i>
                                             @if($characterSkill->skill->specialties > 1)
                                                 <ul>
                                                     @foreach ($characterSkill->skillSpecialties as $specialty)
@@ -96,7 +109,8 @@
                                                     @endforeach
                                                 </ul>
                                             @endif
-                                            <div id="skill-{{ $characterSkill->skill_id }}" class="text-sm hidden pl-4 space-y-2 mb-2">
+                                            <div id="skill-{{ $characterSkill->skill_id }}"
+                                                 class="text-sm hidden pl-4 space-y-2 mb-2">
                                                 {!! Str::of($characterSkill->skill->description)->markdown() !!}
                                             </div>
                                         </li>

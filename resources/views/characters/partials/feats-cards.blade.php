@@ -9,7 +9,7 @@
         <ul class="grid grid-cols-1 sm:grid-cols-4 gap-2 mt-1">
             @foreach ($character->feats as $feat)
                 <li>
-                    <span class="underline decoration-dashed"
+                    <span class="cursor-pointer underline decoration-dashed underline-offset-4"
                           onclick="toggleVisibility('feat-{{ $feat->id }}')">
                         {{ $feat->name }}
                         @if ($feat->per_event)
