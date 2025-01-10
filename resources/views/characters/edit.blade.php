@@ -55,14 +55,14 @@
                                     <x-radio-input id="hero" name="hero_scoundrel" class=""
                                                    value="{{ Character::HERO }}"
                                                    :checked="old('hero_scoundrel', $character->hero_scoundrel ?? 0) === Character::HERO"
-                                                   :disabled="!empty($character) && Status::NEW != $character->status_id"/>
+                                                   :disabled="!empty($character) && Status::READY < $character->status_id"/>
                                     {{ __('Hero') }}
                                 </x-input-label>
                                 <x-input-label for="scoundrel" class="text-lg">
                                     <x-radio-input id="scoundrel" name="hero_scoundrel" class=""
                                                    value="{{ Character::SCOUNDREL }}"
                                                    :checked="old('hero_scoundrel', $character->hero_scoundrel ?? 0) === Character::SCOUNDREL"
-                                                   :disabled="!empty($character) && Status::NEW != $character->status_id"/>
+                                                   :disabled="!empty($character) && Status::READY < $character->status_id"/>
                                     {{ __('Scoundrel') }}
                                 </x-input-label>
                                 <x-input-error class="mt-2" :messages="$errors->get('former_rank')"/>
