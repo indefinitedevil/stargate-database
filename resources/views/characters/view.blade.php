@@ -33,15 +33,23 @@
                     <div class="grid grid-cols-1 sm:grid-cols-4 clear-both">
                         <div class="mt-1">
                             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Background') }}</h3>
-                            <ul>
+                            <ul class="space-y-6 sm:space-y-2">
                                 @foreach ($character->background->skills as $skill)
-                                    <li>{{ $skill->name }}</li>
+                                    <li>
+                                        {{ $skill->name }}
+                                        <i class="fa-regular fa-circle-question cursor-pointer inline-block ml-4 sm:ml-0" title="{{ __('Show description') }}"
+                                           onclick="toggleVisibility('skill-{{ $skill->id }}')"
+                                        ></i>
+                                        <div id="skill-{{ $skill->id }}" class="text-sm hidden pl-4 space-y-2 mb-2">
+                                            {!! Str::of($skill->description)->markdown() !!}
+                                        </div>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
                         <div class="mt-1">
                             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Trained') }}</h3>
-                            <ul>
+                            <ul class="space-y-6 sm:space-y-2">
                                 @foreach ($character->displayedTrainedSkills->sortBy('name') as $characterSkill)
                                     <li>{{ $characterSkill->name }}
                                         @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
@@ -73,7 +81,7 @@
                         @if ($character->trainingSkills->count())
                             <div class="mt-1">
                                 <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Training') }}</h3>
-                                <ul>
+                                <ul class="space-y-6 sm:space-y-2">
                                     @foreach ($character->trainingSkills->sortBy('name') as $characterSkill)
                                         <li>
                                             {{ $characterSkill->name }}

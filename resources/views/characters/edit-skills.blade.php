@@ -24,34 +24,47 @@
                 <div class="grid grid-cols-1 sm:grid-cols-4 clear-both">
                     <div class="mt-1">
                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Background') }}</h3>
-                        <ul>
+                        <ul class="space-y-6 sm:space-y-2">
                             @foreach ($character->background->skills as $skill)
-                                <li>{{ $skill->name }}</li>
+                                <li>
+                                    {{ $skill->name }}
+                                    <i class="fa-regular fa-circle-question cursor-pointer inline-block ml-4 sm:ml-0" title="{{ __('Show description') }}"
+                                       onclick="toggleVisibility('skill-{{ $skill->id }}')"
+                                    ></i>
+                                    <div id="skill-{{ $skill->id }}" class="text-sm hidden pl-4 space-y-2 mb-2">
+                                        {!! Str::of($skill->description)->markdown() !!}
+                                    </div>
+                                </li>
                             @endforeach
                         </ul>
                     </div>
                     <div class="mt-1">
                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Trained') }}</h3>
-                        <ul>
+                        <ul class="space-y-6 sm:space-y-2">
                             @foreach ($character->trainedSkills->sortBy('name') as $characterSkill)
                                 <li>{{ $characterSkill->name }}
                                     ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                     @if ($characterSkill->locked)
-                                        <i class="fa-solid fa-lock" title="Expenditure is locked"></i>
+                                        <i class="fa-solid fa-lock inline-block ml-4 sm:ml-0" title="Expenditure is locked"></i>
                                     @elseif ($characterSkill->discount_used)
-                                        <i class="fa-solid fa-user-lock"
-                                           title="{{ sprintf('Discounting %s', $characterSkill->discountUsedBy->skill->name) }}"></i>
+                                        <i class="fa-solid fa-user-lock inline-block ml-4 sm:ml-0"
+                                           title="{{ __('Discounting :skill', ['skill' => $characterSkill->discountUsedBy->skill->name]) }}"></i>
+                                        <span class="sm:hidden"> {{ __('Discounting :skill', ['skill' => $characterSkill->discountUsedBy->skill->name]) }}</span>
                                     @elseif ($characterSkill->required)
-                                        <i class="fa-solid fa-user-lock"
+                                        <i class="fa-solid fa-user-lock inline-block ml-4 sm:ml-0"
                                            title="{{ sprintf('Required by %s', $characterSkill->requiredBy) }}"></i>
+                                        <span class="sm:hidden"> {{ __('Required') }}</span>
                                     @else
-                                        <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                class="fa-solid fa-pencil" title="Edit skill"></i></a>
-                                        <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                class="fa-solid fa-trash" title="Remove skill"></i></a>
+                                        <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"
+                                           class="inline-block ml-4 sm:ml-0"
+                                        ><i class="fa-solid fa-pencil" title="Edit skill"></i><span class="sm:hidden"> {{ __('Edit') }}</span></a>
+                                        <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"
+                                           class="inline-block ml-4 sm:ml-0"
+                                        ><i class="fa-solid fa-trash" title="Remove skill"></i><span class="sm:hidden"> {{ __('Remove') }}</span></a>
                                     @endif
-                                    <i class="fa-regular fa-circle-question cursor-pointer" title="{{ __('Show description') }}"
-                                       onclick="toggleVisibility('skill-{{ $skill->id }}')"
+                                    <i class="fa-regular fa-circle-question cursor-pointer inline-block ml-4 sm:ml-0"
+                                       title="{{ __('Show description') }}"
+                                       onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')"
                                     ></i>
                                     @if($characterSkill->skill->specialties > 1)
                                         <ul class="list-disc list-inside">
@@ -75,21 +88,23 @@
                     @if ($character->trainingSkills->count())
                         <div class="mt-1">
                             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Training') }}</h3>
-                            <ul>
+                            <ul class="space-y-6 sm:space-y-2">
                                 @foreach ($character->trainingSkills->sortBy('name') as $characterSkill)
                                     <li>
                                         {{ $characterSkill->name }}
                                         ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
-                                        <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                class="fa-solid fa-pencil" title="{{ __('Edit skill') }}"></i></a>
+                                        <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"
+                                           class="inline-block ml-4 sm:ml-0"
+                                        ><i class="fa-solid fa-pencil" title="{{ __('Edit skill') }}"></i><span class="sm:hidden"> {{ __('Edit') }}</span></a>
                                         @if ($characterSkill->locked)
-                                            <i class="fa-solid fa-lock" title="{{ __('Expenditure is locked') }}"></i>
+                                            <i class="fa-solid fa-lockinline-block ml-4 sm:ml-0" title="{{ __('Expenditure is locked') }}"></i>
                                         @else
-                                            <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"><i
-                                                    class="fa-solid fa-trash" title="{{ __('Remove skill') }}"></i></a>
+                                            <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"
+                                               class="inline-block ml-4 sm:ml-0"
+                                            ><i class="fa-solid fa-trash" title="{{ __('Remove skill') }}"></i><span class="sm:hidden"> {{ __('Remove') }}</span></a>
                                         @endif
-                                        <i class="fa-regular fa-circle-question cursor-pointer" title="{{ __('Show description') }}"
-                                           onclick="toggleVisibility('skill-{{ $skill->id }}')"
+                                        <i class="fa-regular fa-circle-question cursor-pointer inline-block ml-4 sm:ml-0" title="{{ __('Show description') }}"
+                                           onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')"
                                         ></i>
                                         @if($characterSkill->skill->specialties > 1)
                                             <ul>
