@@ -125,4 +125,8 @@ return [
         'name' => 'Plot Coordinator'
     ],
 
+    'plot_coordinator' => [
+        'address' => 'plotcoordinator_sglrp@hotmail.co.uk',
+        'name' => 'Plot Coordinator'
+    ],
 ];

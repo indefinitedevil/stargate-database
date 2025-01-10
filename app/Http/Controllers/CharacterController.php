@@ -245,6 +245,8 @@ class CharacterController extends Controller
         $character->status_id = Status::READY;
         $character->save();
 
+        Mail::to(config('mail.plot_coordinator'))->send(new CharacterReady($character));
+
         return redirect(route('characters.view', ['characterId' => $characterId]));
     }
 
