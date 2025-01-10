@@ -67,8 +67,7 @@
                                     @elseif ($characterSkill->discount_used)
                                         <i class="fa-solid fa-user-lock inline-block ml-4 sm:ml-0"
                                            title="{{ __('Discounting :skill', ['skill' => $characterSkill->discountUsedBy->skill->name]) }}"></i>
-                                        <span
-                                            class="sm:hidden"> {{ __('Discounting :skill', ['skill' => $characterSkill->discountUsedBy->skill->name]) }}</span>
+                                        <span class="sm:hidden"> {{ __('Discount used') }}</span>
                                     @elseif ($characterSkill->required)
                                         <i class="fa-solid fa-user-lock inline-block ml-4 sm:ml-0"
                                            title="{{ sprintf('Required by %s', $characterSkill->requiredBy) }}"></i>
