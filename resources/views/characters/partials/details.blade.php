@@ -1,3 +1,8 @@
+@can('viewAll', $character)
+    <p class="mb-2">
+        <strong>{{ __('Player') }}:</strong> <a href="{{ route('profile.view', $character->user) }}" class="underline">{{ $character->user->name }}</a>
+    </p>
+@endcan
 <div class="grid grid-cols-1 sm:grid-cols-4">
     <p class="mt-1">
         <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
