@@ -35,6 +35,7 @@
                         <li>Add player name to print sheet</li>
                         <li>Add print skills/feats view to characters</li>
                         <li>Improve mobile navigation and styling</li>
+                        <li>Add favicon</li>
                         <li>Bug fixes</li>
                     </ul>
                 </div>
