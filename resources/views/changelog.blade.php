@@ -20,6 +20,7 @@
                     <ul class="list-inside list-disc">
                         <li>Added changelog</li>
                         <li>Added mobile improvements</li>
+                        <li>Added expandable descriptions for skills and feats to character view</li>
                         <li>Updated text field validation to match lengths</li>
                         <li>Added primary/secondary typing to characters</li>
                         <li>Added hero/scoundrel typing to characters</li>
@@ -29,8 +30,8 @@
                     </ul>
                     <h3 class="text-lg font-semibold">10th January 2025</h3>
                     <ul class="list-inside list-disc">
-                        <li>Added notification to plot co for characters being ready for approval</li>
-                        <li>Added note to show plot co who a character belongs to</li>
+                        <li>Plot Co: Added notification for characters becoming ready for approval</li>
+                        <li>Plot Co: Added note to show who a character belongs to</li>
                         <li>Add player name to print sheet</li>
                         <li>Add print skills/feats view to characters</li>
                         <li>Improve mobile navigation and styling</li>
