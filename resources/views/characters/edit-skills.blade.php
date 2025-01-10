@@ -48,7 +48,7 @@
                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Trained') }}</h3>
                         <ul class="space-y-6 sm:space-y-2">
                             @foreach ($character->trainedSkills->sortBy('name') as $characterSkill)
-                                <li>
+                                <li class="leading-loose sm:leading-normal">
                                     <span class="cursor-pointer underline decoration-dashed underline-offset-4"
                                           onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')">
                                         {{ $characterSkill->name }}
@@ -111,7 +111,7 @@
                             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Training') }}</h3>
                             <ul class="space-y-6 sm:space-y-2">
                                 @foreach ($character->trainingSkills->sortBy('name') as $characterSkill)
-                                    <li>
+                                    <li class="leading-loose sm:leading-normal">
                                         <span class="cursor-pointer underline decoration-dashed underline-offset-4"
                                               onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')">
                                             {{ $characterSkill->name }}
