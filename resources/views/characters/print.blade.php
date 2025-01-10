@@ -9,6 +9,9 @@
             <div class="max-w-7xl mx-auto">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     {{ $character->name }}
+                    <span class="text-sm ml-4">
+                        ({{ $character->user->name }})
+                    </span>
                 </h2>
             </div>
             <div class="max-w-7xl mx-auto space-y-2">
