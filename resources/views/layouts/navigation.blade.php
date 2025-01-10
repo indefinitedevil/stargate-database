@@ -164,6 +164,9 @@
                 </x-responsive-nav-link>
                 @can('viewAll', Character::class)
                     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                        <div class="px-4">
+                            <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('Plot Coordinator') }}</div>
+                        </div>
                         <x-responsive-nav-link :href="route('plotco.characters')"
                                                :active="request()->routeIs('plotco.characters')">
                             {{ __('All Characters') }}
@@ -179,9 +182,23 @@
                 @endcan
                 @can('edit', Skill::class)
                     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                        <div class="px-4">
+                            <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('System Referee') }}</div>
+                        </div>
                         <x-responsive-nav-link :href="route('sysref.skill-check')"
                                          :active="request()->routeIs('sysref.skill-check')">
                             {{ __('Skill Check') }}
+                        </x-responsive-nav-link>
+                    </div>
+                @endcan
+                @can('modify roles')
+                    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                        <div class="px-4">
+                            <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('Admin') }}</div>
+                        </div>
+                        <x-responsive-nav-link :href="route('admin.manage-roles')"
+                                               :active="request()->routeIs('admin.manage-roles')">
+                            {{ __('Manage roles') }}
                         </x-responsive-nav-link>
                     </div>
                 @endcan

@@ -33,6 +33,7 @@
                         <li>Added note to show plot co who a character belongs to</li>
                         <li>Add player name to print sheet</li>
                         <li>Add print skills/feats view to characters</li>
+                        <li>Improve mobile navigation and styling</li>
                         <li>Bug fixes</li>
                     </ul>
                 </div>

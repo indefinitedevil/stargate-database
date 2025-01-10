@@ -19,13 +19,13 @@
                     {{ __('Only characters that are "Approved" or "Played" will be included in the below counts.') }}
                     {{ __('There are :count characters that match.', ['count' => count($validCharacters)]) }}
                 </p>
-                <div class="flex mt-4">
+                <div class="flex flex-wrap">
                     <x-link-button href="{{ route('plotco.skills') }}"
-                                   :primary="!isset($_GET['event'])" class="mr-2"
+                                   :primary="!isset($_GET['event'])" class="mr-3 mt-4"
                     >{{ __('All') }}</x-link-button>
                     @foreach (Event::all() as $event)
                         <x-link-button href="{{ route('plotco.skills', ['event' => $event->id]) }}"
-                           :primary="isset($_GET['event']) && $event->id == $_GET['event']" class="mr-2"
+                           :primary="isset($_GET['event']) && $event->id == $_GET['event']" class="mr-3 mt-4"
                         >{{ $event->name }}</x-link-button>
                     @endforeach
                 </div>
