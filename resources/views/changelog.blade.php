@@ -27,6 +27,12 @@
                         <li>Admin: Added ability to manage roles</li>
                         <li>Plot Co: Added per-event breakdown to skills breakdown view</li>
                     </ul>
+                    <h3 class="text-lg font-semibold">10th January 2025</h3>
+                    <ul class="list-inside list-disc">
+                        <li>Added notification to plot co for characters being ready for approval</li>
+                        <li>Added note to show plot co who a character belongs to</li>
+                        <li>Add player name to print sheet</li>
+                    </ul>
                 </div>
             </div>
         </div>
