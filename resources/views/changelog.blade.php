@@ -10,13 +10,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-                    <h3 class="text-lg font-semibold">5th January 2025</h3>
+                    <h3 class="text-lg font-semibold">Release: 5th January 2025</h3>
                     <ul class="list-inside list-disc">
                         <li>Initial release</li>
                         <li>Emergency bug fixes</li>
                         <li>Correcting Point Man cost</li>
                     </ul>
-                    <h3 class="text-lg font-semibold">7th January 2025</h3>
+                    <h3 class="text-lg font-semibold">Update: 11th January 2025</h3>
                     <ul class="list-inside list-disc">
                         <li>Added changelog</li>
                         <li>Added mobile improvements</li>
@@ -27,9 +27,6 @@
                         <li>Added notice if your name is not unique</li>
                         <li>Admin: Added ability to manage roles</li>
                         <li>Plot Co: Added per-event breakdown to skills breakdown view</li>
-                    </ul>
-                    <h3 class="text-lg font-semibold">10th January 2025</h3>
-                    <ul class="list-inside list-disc">
                         <li>Plot Co: Added notification for characters becoming ready for approval</li>
                         <li>Plot Co: Added note to show who a character belongs to</li>
                         <li>Add player name to print sheet</li>
