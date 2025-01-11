@@ -1,6 +1,7 @@
 @php
     use App\Models\Character;
     use App\Models\Skill;
+    use App\Models\User;
 @endphp
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
@@ -59,6 +60,20 @@
                                 </x-slot>
                             </x-dropdown>
                         @endcan
+                        @can('modify roles')
+                            <x-dropdown align="left">
+                                <x-slot name="trigger" class="inline-flex">
+                                    <x-nav-link class="ob"
+                                                :active="request()->routeIs('admin.*')">{{ __('Admin') }}</x-nav-link>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('admin.manage-roles')"
+                                                     :active="request()->routeIs('admin.manage-roles')">
+                                        {{ __('Manage roles') }}
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        @endcan
                     @else
                         <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                             {{ __('Log in') }}
@@ -79,7 +94,12 @@
                         <x-slot name="trigger">
                             <button
                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                                <div>{{ Auth::user()->name }}</div>
+                                <div>
+                                    {{ Auth::user()->name }}
+                                    @if (!Auth::user()->isNameUnique())
+                                        <i class="fa-solid fa-circle-exclamation text-red-500"></i>
+                                    @endif
+                                </div>
 
                                 <div class="ms-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -95,6 +115,9 @@
                         <x-slot name="content">
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
+                                @if (!Auth::user()->isNameUnique())
+                                    <i class="fa-solid fa-circle-exclamation text-red-500"></i>
+                                @endif
                             </x-dropdown-link>
 
                             <!-- Authentication -->
@@ -140,17 +163,44 @@
                     {{ __('Characters') }}
                 </x-responsive-nav-link>
                 @can('viewAll', Character::class)
-                    <x-responsive-nav-link :href="route('plotco.characters')"
-                                           :active="request()->routeIs('plotco.characters')">
-                        {{ __('All Characters') }}
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('plotco.skills')" :active="request()->routeIs('plotco.skills')">
-                        {{ __('Skill Breakdown') }}
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('plotco.attendance')"
-                                           :active="request()->routeIs('plotco.attendance')">
-                        {{ __('Attendance') }}
-                    </x-responsive-nav-link>
+                    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                        <div class="px-4">
+                            <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('Plot Coordinator') }}</div>
+                        </div>
+                        <x-responsive-nav-link :href="route('plotco.characters')"
+                                               :active="request()->routeIs('plotco.characters')">
+                            {{ __('All Characters') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('plotco.skills')" :active="request()->routeIs('plotco.skills')">
+                            {{ __('Skill Breakdown') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('plotco.attendance')"
+                                               :active="request()->routeIs('plotco.attendance')">
+                            {{ __('Attendance') }}
+                        </x-responsive-nav-link>
+                    </div>
+                @endcan
+                @can('edit', Skill::class)
+                    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                        <div class="px-4">
+                            <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('System Referee') }}</div>
+                        </div>
+                        <x-responsive-nav-link :href="route('sysref.skill-check')"
+                                         :active="request()->routeIs('sysref.skill-check')">
+                            {{ __('Skill Check') }}
+                        </x-responsive-nav-link>
+                    </div>
+                @endcan
+                @can('modify roles')
+                    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                        <div class="px-4">
+                            <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('Admin') }}</div>
+                        </div>
+                        <x-responsive-nav-link :href="route('admin.manage-roles')"
+                                               :active="request()->routeIs('admin.manage-roles')">
+                            {{ __('Manage roles') }}
+                        </x-responsive-nav-link>
+                    </div>
                 @endcan
             @else
                 <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')">
@@ -175,6 +225,9 @@
                 <div class="mt-3 space-y-1">
                     <x-responsive-nav-link :href="route('profile.edit')">
                         {{ __('Profile') }}
+                        @if (!Auth::user()->isNameUnique())
+                            <i class="fa-solid fa-circle-exclamation text-red-500"></i>
+                        @endif
                     </x-responsive-nav-link>
 
                     <!-- Authentication -->

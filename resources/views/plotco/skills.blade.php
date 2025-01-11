@@ -1,7 +1,7 @@
 @php
+    use App\Models\Event;
     use App\Models\Skill;
     use App\Models\SkillCategory;
-    use App\Models\Status;
 @endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Skill breakdown') }}</x-slot>
@@ -14,24 +14,34 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             @include('partials.errors')
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+                <p>
+                    {{ __('Only characters that are "Approved" or "Played" will be included in the below counts.') }}
+                    {{ __('There are :count characters that match.', ['count' => count($validCharacters)]) }}
+                </p>
+                <div class="flex flex-wrap">
+                    <x-link-button href="{{ route('plotco.skills') }}"
+                                   :primary="!isset($_GET['event'])" class="mr-3 mt-4"
+                    >{{ __('All') }}</x-link-button>
+                    @foreach (Event::all() as $event)
+                        <x-link-button href="{{ route('plotco.skills', ['event' => $event->id]) }}"
+                           :primary="isset($_GET['event']) && $event->id == $_GET['event']" class="mr-3 mt-4"
+                        >{{ $event->name }}</x-link-button>
+                    @endforeach
+                </div>
+            </div>
             @foreach (SkillCategory::all() as $category)
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                     <h3 class="text-xl font-semibold">{!! sprintf('%s Skills', $category->name) !!}</h3>
-                    <div class="grid grid-cols-3 gap-2">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                         @foreach($category->skills->where('id', '!=', Skill::ADDITIONAL_AA_SPEC)->sortBy('name') as $skill)
                             <div class="mt-1">
                                 @php
-                                    $characterSkills = $skill->characterSkills->where('completed', true);
-                                    $validCharacterSkills = [];
-                                    foreach ($characterSkills as $characterSkill) {
-                                        if (in_array($characterSkill->character->status_id, [Status::APPROVED, Status::PLAYED])) {
-                                            $validCharacterSkills[$characterSkill->skill->id] = $characterSkill;
-                                        }
-                                    }
+                                    $characterSkills = $skill->characterSkills->where('completed', true)->whereIn('character_id', $validCharacters);
                                 @endphp
-                                <h4 class="text-lg font-semibold">{{ sprintf('%s (%d)', $skill->name, count($validCharacterSkills)) }}</h4>
+                                <h4 class="text-lg font-semibold">{{ sprintf('%s (%d)', $skill->name, count($characterSkills)) }}</h4>
                                 <ul>
-                                    @foreach($validCharacterSkills as $characterSkill)
+                                    @foreach($characterSkills as $characterSkill)
                                         <li>
                                             {{ $characterSkill->character->name }}
                                             @if ($characterSkill->skill->repeatable)

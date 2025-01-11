@@ -9,6 +9,7 @@
                 @endif
                 <a class="underline" href="{{ route('characters.view', $character) }}">
                     {{ $character->name }}</a>
+                @if($character->isPrimary) <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i> @endif
                 ({{ $character->background->name }})
                 @if(auth()->user()->can('view all characters') && empty($hideUser))
                     [<a class="underline" href="{{ route('profile.view', $character->user) }}">{{ $character->user->name }}</a>]

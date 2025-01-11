@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\CharacterApproved;
 use App\Mail\CharacterDenied;
+use App\Mail\CharacterReady;
 use App\Models\Character;
 use App\Models\CharacterLog;
 use App\Models\CharacterSkill;
@@ -22,7 +23,7 @@ class CharacterController extends Controller
             return redirect(route('dashboard'));
         }
         return view('characters.index', [
-            'activeCharacters' => auth()->user()->characters->whereIn('status_id', [Status::NEW, Status::READY, Status::APPROVED, Status::PLAYED])->sortBy('name'),
+            'activeCharacters' => auth()->user()->characters->whereIn('status_id', [Status::NEW, Status::READY, Status::APPROVED, Status::PLAYED])->sortBy([['primary_secondary', 'desc'], ['name']]),
             'inactiveCharacters' => auth()->user()->characters->whereIn('status_id', [Status::DEAD, Status::RETIRED])->sortBy('name'),
         ]);
     }
@@ -51,6 +52,15 @@ class CharacterController extends Controller
             return redirect(route('characters.index'));
         }
         return view('characters.print', ['characters' => [$character]]);
+    }
+
+    public function printSkills(Request $request, $characterId)
+    {
+        $character = Character::find($characterId);
+        if ($request->user()->cannot('view', $character)) {
+            return redirect(route('characters.index'));
+        }
+        return view('characters.print-skills', ['characters' => [$character]]);
     }
 
     public function edit(Request $request, $characterId)
@@ -141,6 +151,9 @@ class CharacterController extends Controller
             $log->save();
         }
         $character->status_id = Status::APPROVED;
+        if ($character->user->characters->where('primary_secondary', true)->count() == 0) {
+            $character->primary_secondary = true;
+        }
         $character->save();
 
         $notes = $request->post('notes', '');
@@ -165,6 +178,29 @@ class CharacterController extends Controller
         Mail::to($character->user->email)->send(new CharacterDenied($character, $notes));
 
         return redirect(route('characters.index'));
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function primary(Request $request, $characterId)
+    {
+        $character = Character::find($characterId);
+        if ($request->user()->cannot('edit', $character)) {
+            return redirect(route('characters.view', ['characterId' => $characterId]));
+        }
+        $secondaryCharacters = Character::where('user_id', $character->user_id)
+            ->where('primary_secondary', true)
+            ->where('id', '!=', $characterId)
+            ->get();
+        foreach ($secondaryCharacters as $secondaryCharacter) {
+            $secondaryCharacter->primary_secondary = false;
+            $secondaryCharacter->save();
+        }
+        $character->primary_secondary = true;
+        $character->save();
+
+        return redirect(route('characters.view', ['characterId' => $characterId]));
     }
 
     /**
@@ -218,6 +254,8 @@ class CharacterController extends Controller
         }
         $character->status_id = Status::READY;
         $character->save();
+
+        Mail::to(config('mail.plot_coordinator.address'))->send(new CharacterReady($character));
 
         return redirect(route('characters.view', ['characterId' => $characterId]));
     }
@@ -286,15 +324,16 @@ class CharacterController extends Controller
         $validatedData = $request->validate([
             'id' => 'integer|exists:characters,id',
             'user_id' => 'required|exists:users,id',
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:64',
             'rank' => 'sometimes|string|max:64|nullable',
             'former_rank' => 'sometimes|string|max:64|nullable',
             'background_id' => 'required|exists:backgrounds,id',
             'status_id' => 'required|exists:statuses,id',
-            'history' => 'sometimes|string|nullable',
-            'character_links'=> 'sometimes|string|nullable',
-            'plot_notes' => 'sometimes|string|nullable',
+            'history' => 'sometimes|string|nullable|max:65535',
+            'character_links'=> 'sometimes|string|nullable|max:65535',
+            'plot_notes' => 'sometimes|string|nullable|max:65535',
             'events' => 'array|exists:events,id',
+            'hero_scoundrel' => 'sometimes|int',
         ]);
 
         if ($request->user()->cannot('create', Character::class)) {

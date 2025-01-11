@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\PlotcoController;
 use App\Http\Controllers\ProfileController;
@@ -12,6 +13,9 @@ Route::get('/', function () {
 Route::get('/privacy', function () {
     return view('privacy');
 })->name('privacy');
+Route::get('/changelog', function () {
+    return view('changelog');
+})->name('changelog');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,11 +33,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/characters', [CharacterController::class, 'index'])->name('characters.index');
         Route::get('/characters/view/{characterId}', [CharacterController::class, 'view'])->name('characters.view');
         Route::get('/characters/print/{characterId}', [CharacterController::class, 'print'])->name('characters.print');
+        Route::get('/characters/print-skills/{characterId}', [CharacterController::class, 'printSkills'])->name('characters.print-skills');
         Route::get('/characters/edit/{characterId}', [CharacterController::class, 'edit'])->name('characters.edit');
         Route::get('/characters/delete/{characterId}', [CharacterController::class, 'delete'])->name('characters.delete');
         Route::post('/characters/approve/{characterId}', [CharacterController::class, 'approve'])->name('characters.approve');
         Route::post('/characters/deny/{characterId}', [CharacterController::class, 'deny'])->name('characters.deny');
         Route::get('/characters/ready/{characterId}', [CharacterController::class, 'ready'])->name('characters.ready');
+        Route::get('/characters/primary/{characterId}', [CharacterController::class, 'primary'])->name('characters.primary');
         Route::get('/characters/kill/{characterId}', [CharacterController::class, 'kill'])->name('characters.kill');
         Route::get('/characters/retire/{characterId}', [CharacterController::class, 'retire'])->name('characters.retire');
         Route::get('/characters/edit/{characterId}/skills', [CharacterController::class, 'editSkills'])->name('characters.edit-skills');
@@ -54,6 +60,11 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => 'can:edit skill'], function () {
         Route::get('/sys-ref/skill-check/', [SysrefController::class, 'skillCheck'])->name('sysref.skill-check');
+    });
+
+    Route::group(['middleware' => 'can:modify roles'], function () {
+        Route::get('/admin/manage-roles/', [AdminController::class, 'manageRoles'])->name('admin.manage-roles');
+        Route::post('/admin/store-roles/', [AdminController::class, 'storeRoles'])->name('admin.store-roles');
     });
 });
 

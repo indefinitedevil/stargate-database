@@ -9,13 +9,19 @@
             <div class="max-w-7xl mx-auto">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     {{ $character->name }}
+                    <span class="text-sm ml-4">
+                        ({{ $character->user->name }})
+                    </span>
                 </h2>
             </div>
             <div class="max-w-7xl mx-auto space-y-2">
                 <div class="bg-white text-gray-800 mb-2">
                     <div class="grid grid-cols-3 gap-x-4">
-                        <p class="mt-1 col-span-2">
+                        <p class="mt-1">
                             <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
+                        </p>
+                        <p class="mt-1">
+                            <strong>{{ __('Type') }}:</strong> {{ $character->type }}
                         </p>
                         <p class="mt-1">
                             <strong>{{ __('Body') }}:</strong> {{ $character->body }}

@@ -1,4 +1,9 @@
-<div class="grid grid-cols-4">
+@can('viewAll', $character)
+    <p class="mb-2">
+        <strong>{{ __('Player') }}:</strong> <a href="{{ route('profile.view', $character->user) }}" class="underline">{{ $character->user->name }}</a>
+    </p>
+@endcan
+<div class="grid grid-cols-1 sm:grid-cols-4">
     <p class="mt-1">
         <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
     </p>
@@ -11,9 +16,12 @@
     <p class="mt-1">
         <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }}
     </p>
+    <p class="mt-1">
+        <strong>{{ __('Type') }}:</strong> {{ $character->type }}
+    </p>
     <p class="mt-1 col-span-2">
         <strong>{{ __('Rank') }}
-            :</strong> {!! $character->rank ?: '<abbr title="To be determined">TBD</abbr>' !!} @if ($character->former_rank)
+            :</strong> {!! $character->rank ?: __('To be determined') !!} @if ($character->former_rank)
             ({{ $character->former_rank }})
         @endif
     </p>

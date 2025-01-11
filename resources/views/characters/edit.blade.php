@@ -1,5 +1,6 @@
 @php
     use App\Models\Background;
+    use App\Models\Character;
     use App\Models\Status;
     $title = empty($character) ? __('Create character') : sprintf(__('Edit character: %s'), $character->name);
 @endphp
@@ -11,6 +12,7 @@
         @endif
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ $title }}
+            @if (!empty($character) && $character->isPrimary) <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i> @endif
         </h2>
     </x-slot>
 
@@ -47,6 +49,25 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('former_rank')"/>
                             </div>
 
+                            <div class="flex gap-4">
+                                <p>{{ __('Are you a hero or a scoundrel?') }}</p>
+                                <x-input-label for="hero" class="text-lg">
+                                    <x-radio-input id="hero" name="hero_scoundrel" class=""
+                                                   value="{{ Character::HERO }}"
+                                                   :checked="old('hero_scoundrel', $character->hero_scoundrel ?? 0) === Character::HERO"
+                                                   :disabled="!empty($character) && Status::READY < $character->status_id"/>
+                                    {{ __('Hero') }}
+                                </x-input-label>
+                                <x-input-label for="scoundrel" class="text-lg">
+                                    <x-radio-input id="scoundrel" name="hero_scoundrel" class=""
+                                                   value="{{ Character::SCOUNDREL }}"
+                                                   :checked="old('hero_scoundrel', $character->hero_scoundrel ?? 0) === Character::SCOUNDREL"
+                                                   :disabled="!empty($character) && Status::READY < $character->status_id"/>
+                                    {{ __('Scoundrel') }}
+                                </x-input-label>
+                                <x-input-error class="mt-2" :messages="$errors->get('former_rank')"/>
+                            </div>
+
                             <div>
                                 <x-input-label for="background" :value="__('Background')"/>
                                 @if (empty($character) || Status::NEW === $character->status_id)
@@ -69,7 +90,7 @@
                                             <p>{{ sprintf(__('Training Months: %s'), $background->months) }}</p>
                                             <div>
                                                 <p class="text-lg font-medium">{{ __('Starting Skills') }}</p>
-                                                <ul class="grid grid-cols-6">
+                                                <ul class="grid grid-cols-2 sm:grid-cols-6">
                                                     @foreach ($background->skills as $skill)
                                                         <li>{{ $skill->name }}</li>
                                                     @endforeach
@@ -100,13 +121,21 @@
 
                             <div>
                                 <x-input-label for="history" :value="__('History')"/>
+                                <p class="text-xs">
+                                    {{ __('This remains editable after character creation.') }}
+                                </p>
                                 <x-textarea id="history" name="history" rows="12"
                                             class="mt-1 block w-full">{{ $character->history ?? '' }}</x-textarea>
                             </div>
 
                             <div>
                                 <x-input-label for="character_links" :value="__('Pre-Existing Character Links')"/>
-                                <p class="text-xs">If you have established background links with other player characters, please note them here separately.</p>
+                                <p class="text-xs">
+                                    {{ __('If you have established background links with other player characters, please note them here separately.') }}
+                                </p>
+                                <p class="text-xs">
+                                    {{ __('This remains editable after character creation.') }}
+                                </p>
                                 <x-textarea id="character_links" name="character_links" rows="6"
                                             class="mt-1 block w-full">{{ $character->character_links ?? '' }}</x-textarea>
                             </div>
