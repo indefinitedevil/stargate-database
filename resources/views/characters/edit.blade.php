@@ -121,14 +121,21 @@
 
                             <div>
                                 <x-input-label for="history" :value="__('History')"/>
+                                <p class="text-xs">
+                                    {{ __('This remains editable after character creation.') }}
+                                </p>
                                 <x-textarea id="history" name="history" rows="12"
                                             class="mt-1 block w-full">{{ $character->history ?? '' }}</x-textarea>
                             </div>
 
                             <div>
                                 <x-input-label for="character_links" :value="__('Pre-Existing Character Links')"/>
-                                <p class="text-xs">If you have established background links with other player
-                                    characters, please note them here separately.</p>
+                                <p class="text-xs">
+                                    {{ __('If you have established background links with other player characters, please note them here separately.') }}
+                                </p>
+                                <p class="text-xs">
+                                    {{ __('This remains editable after character creation.') }}
+                                </p>
                                 <x-textarea id="character_links" name="character_links" rows="6"
                                             class="mt-1 block w-full">{{ $character->character_links ?? '' }}</x-textarea>
                             </div>
