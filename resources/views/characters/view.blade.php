@@ -64,6 +64,10 @@
                                                 *
                                                 @php $flashOfInsight = true; @endphp
                                             @endif
+                                            @if($characterSkill->skill->feats->contains(Feat::BOTCH_JOB))
+                                                †
+                                                @php $botchJob = true; @endphp
+                                            @endif
                                             <i class="fa-regular fa-circle-question cursor-pointer"
                                                title="{{ __('Show description') }}"
                                             ></i>
@@ -121,6 +125,9 @@
                     </div>
                     @if(!empty($flashOfInsight))
                         <p class="mt-1">{{ __('* Flash of Insight discount available') }}</p>
+                    @endif
+                    @if(!empty($botchJob))
+                        <p class="mt-1">{{ __('† Botch Job available') }}</p>
                     @endif
                 </div>
             </div>

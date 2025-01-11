@@ -34,6 +34,10 @@
                                                     *
                                                     @php $flashOfInsight = true; @endphp
                                                 @endif
+                                                @if($characterSkill->skill->feats->contains(Feat::BOTCH_JOB))
+                                                    †
+                                                    @php $botchJob = true; @endphp
+                                                @endif
                                                 @if($characterSkill->skill->specialties > 1)
                                                     <ul class="list-disc list-inside">
                                                         @foreach ($characterSkill->allSpecialties as $specialty)
@@ -52,6 +56,9 @@
                         </div>
                         @if(!empty($flashOfInsight))
                             <p class="mt-1 text-sm">{{ __('* Flash of Insight discount available') }}</p>
+                        @endif
+                        @if(!empty($botchJob))
+                            <p class="mt-1">{{ __('† Botch Job available') }}</p>
                         @endif
                     </div>
                 </div>
