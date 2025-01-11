@@ -16,7 +16,7 @@
             </div>
             <div class="max-w-7xl mx-auto space-y-2">
                 <div class="bg-white text-gray-800 mb-2">
-                    <div class="grid grid-cols-3 gap-x-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4">
                         <p class="mt-1">
                             <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
                         </p>
@@ -26,7 +26,7 @@
                         <p class="mt-1">
                             <strong>{{ __('Body') }}:</strong> {{ $character->body }}
                         </p>
-                        <p class="mt-1 col-span-2">
+                        <p class="mt-1 sm:col-span-2">
                             <strong>{{ __('Rank') }}:</strong> {!! $character->rank ?: __('To Be Determined') !!}
                             @if ($character->former_rank)
                                 ({{ $character->former_rank }})
@@ -43,7 +43,7 @@
                         <h2 class="text-xl font-medium text-gray-900">
                             {{ __('Skills') }}
                         </h2>
-                        <div class="grid grid-cols-3 gap-x-4 clear-both">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 clear-both">
                             <div class="mt-1">
                                 <ul>
                                     @foreach ($character->background->skills as $skill)
@@ -91,7 +91,7 @@
                         <h2 class="text-xl font-medium text-gray-900">
                             {{ __('Feats') }}
                         </h2>
-                        <ul class="grid grid-cols-3 gap-x-4 mt-1">
+                        <ul class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 mt-1">
                             @foreach ($character->feats as $feat)
                                 <li>
                                     {{ $feat->name }}
@@ -110,7 +110,7 @@
                             <h2 class="text-xl font-medium text-gray-900">
                                 {{ __('Cards') }}
                             </h2>
-                            <ul class="grid grid-cols-4 gap-x-4 mt-1">
+                            <ul class="grid grid-cols-2 sm:grid-cols-4 gap-x-4 mt-1">
                                 @foreach ($character->cards as $card)
                                     <li>{{ $card->name }} ({{ $card->number }})</li>
                                 @endforeach
@@ -121,8 +121,8 @@
 
                 <div class="py-2 bg-white text-gray-800 mt-2 break-before-page">
                     <div class="">
-                        <div class="grid grid-cols-3 gap-x-4">
-                            <table class="table-auto border border-collapse border-slate-600 w-full col-span-2">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4">
+                            <table class="table-auto border border-collapse border-slate-600 w-full sm:col-span-2">
                                 <thead>
                                 <tr>
                                     <th class="border border-slate-600">Surgery</th>
