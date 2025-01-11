@@ -22,6 +22,7 @@
                     <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         @foreach($event->characters as $character)
                             <li>
+                                {{ $character->user->name }}:
                                 <a class="underline" href="{{ route('characters.view', ['characterId' => $character->id]) }}">
                                     {{ $character->name }}
                                 </a>
