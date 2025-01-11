@@ -1,7 +1,7 @@
 <x-mail::message>
 Hello Plot Coordinator,
 
-The character "{{ $character->name }}" has been marked as ready for approval.
+{{ $character->user->name }} has submitted the character "{{ $character->name }}" for approval.
 
 Link: [{{ route('characters.view', $character) }}]({{ route('characters.view', $character) }})
 
