@@ -34,6 +34,9 @@
                     <p>
                         Data may pass through servers outside the EU as a result of APIs being used to send emails.
                     </p>
+                    <p>
+                        If you have any questions about this policy, please contact the <a href="mailto:stargate.sglrp@gmail.com" class="underline">Society Secretary</a>.
+                    </p>
                 </div>
             </div>
         </div>
