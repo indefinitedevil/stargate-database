@@ -35,6 +35,11 @@
                         <li>Add favicon</li>
                         <li>Bug fixes</li>
                     </ul>
+                    <h3 class="text-lg font-semibold">Bugfix: 13th January 2025</h3>
+                    <ul class="list-inside list-disc">
+                        <li>Plot Co: Fixed skills breakdown to only have one row per character and include background skills.</li>
+                        <li>Updated privacy policy to include contact email address.</li>
+                    </ul>
                 </div>
             </div>
         </div>
