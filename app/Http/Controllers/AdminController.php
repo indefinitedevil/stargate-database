@@ -31,6 +31,6 @@ class AdminController extends Controller
                 $user->syncRoles($roles);
             }
         }
-        return view('admin.manage-roles');
+        return redirect(route('admin.manage-roles'));
     }
 }
