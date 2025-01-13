@@ -25,7 +25,8 @@
                     >{{ __('All') }}</x-link-button>
                     @foreach (Event::all() as $event)
                         <x-link-button href="{{ route('plotco.skills', ['event' => $event->id]) }}"
-                           :primary="isset($_GET['event']) && $event->id == $_GET['event']" class="mr-3 mt-4"
+                                       :primary="isset($_GET['event']) && $event->id == $_GET['event']"
+                                       class="mr-3 mt-4"
                         >{{ $event->name }}</x-link-button>
                     @endforeach
                 </div>
@@ -37,11 +38,23 @@
                         @foreach($category->skills->where('id', '!=', Skill::ADDITIONAL_AA_SPEC)->sortBy('name') as $skill)
                             <div class="mt-1">
                                 @php
-                                    $characterSkills = $skill->characterSkills->where('completed', true)->whereIn('character_id', $validCharacters);
+                                    $characterSkills = $skill->characterSkills
+                                        ->where('completed', true)
+                                        ->whereIn('character_id', $validCharacters)
+                                        ->groupBy('character_id');
                                 @endphp
-                                <h4 class="text-lg font-semibold">{{ sprintf('%s (%d)', $skill->name, count($characterSkills)) }}</h4>
+                                @php
+                                    $backgroundCharacters = collect();
+                                    if ($skill->backgrounds->count() > 0) {
+                                        foreach ($skill->backgrounds as $background) {
+                                            $backgroundCharacters = $backgroundCharacters->concat($background->characters->whereIn('id', $validCharacters));
+                                        }
+                                    }
+                                @endphp
+                                <h4 class="text-lg font-semibold">{{ sprintf('%s (%d)', $skill->name, count($characterSkills) + count($backgroundCharacters)) }}</h4>
                                 <ul>
-                                    @foreach($characterSkills as $characterSkill)
+                                    @foreach($characterSkills as $characterSkillCollection)
+                                        @php $characterSkill = $characterSkillCollection->first(); @endphp
                                         <li>
                                             {{ $characterSkill->character->name }}
                                             @if ($characterSkill->skill->repeatable)
@@ -54,6 +67,11 @@
                                                     @endforeach
                                                 </ul>
                                             @endif
+                                        </li>
+                                    @endforeach
+                                    @foreach($backgroundCharacters as $character)
+                                        <li>
+                                            {{ $character->name }}
                                         </li>
                                     @endforeach
                                 </ul>

@@ -77,6 +77,11 @@ class Skill extends Model
         return $this->hasMany(CharacterSkill::class);
     }
 
+    public function backgrounds(): BelongsToMany
+    {
+        return $this->belongsToMany(Background::class);
+    }
+
     public function discountedBy(): HasMany
     {
         return $this->hasMany(SkillDiscount::class, 'discounted_skill');

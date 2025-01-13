@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property Collection characters
@@ -19,9 +20,9 @@ class Background extends Model
 {
     use HasFactory;
 
-    public function characters(): BelongsToMany
+    public function characters(): HasMany
     {
-        return $this->belongsToMany(Character::class);
+        return $this->hasMany(Character::class);
     }
 
     public function skills(): BelongsToMany
