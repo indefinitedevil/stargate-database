@@ -8,6 +8,7 @@ use App\Mail\CharacterReady;
 use App\Models\Character;
 use App\Models\CharacterLog;
 use App\Models\CharacterSkill;
+use App\Models\Event;
 use App\Models\LogType;
 use App\Models\Skill;
 use App\Models\Status;
@@ -330,7 +331,7 @@ class CharacterController extends Controller
             'background_id' => 'required|exists:backgrounds,id',
             'status_id' => 'required|exists:statuses,id',
             'history' => 'sometimes|string|nullable|max:65535',
-            'character_links'=> 'sometimes|string|nullable|max:65535',
+            'character_links' => 'sometimes|string|nullable|max:65535',
             'plot_notes' => 'sometimes|string|nullable|max:65535',
             'events' => 'array|exists:events,id',
             'hero_scoundrel' => 'sometimes|int',
@@ -360,7 +361,11 @@ class CharacterController extends Controller
         $character->save();
 
         if (!empty($validatedData['events'])) {
-            $character->events()->sync($validatedData['events']);
+            $syncEvents = [];
+            foreach ($validatedData['events'] as $eventId) {
+                $syncEvents[$eventId] = ['character_id' => $character->id, 'attended' => false, 'role' => Event::ROLE_PLAYER];
+            }
+            $character->events()->sync($syncEvents);
         }
         return redirect(route('characters.view', ['characterId' => $character->id]));
     }

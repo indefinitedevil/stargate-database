@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Events\UserCreated;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -62,6 +63,12 @@ class User extends Authenticatable
     public function characters(): HasMany
     {
         return $this->hasMany(Character::class);
+    }
+
+    public function events(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class)
+            ->withPivot('character_id', 'attended', 'role');
     }
 
     public function isNameUnique(): bool

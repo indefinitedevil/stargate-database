@@ -19,10 +19,9 @@ class Event extends Model
         'end_date' => 'date',
     ];
 
-    public function characters(): BelongsToMany
+    public function users(): BelongsToMany
     {
-        return $this->belongsToMany(Character::class)
-            ->withPivot('attended', 'role')
-            ->withTimestamps();
+        return $this->belongsToMany(User::class)
+            ->withPivot('character_id', 'attended', 'role');
     }
 }

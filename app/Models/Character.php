@@ -282,9 +282,9 @@ class Character extends Model
 
     public function events(): BelongsToMany
     {
-        return $this->belongsToMany(Event::class)
-            ->withPivot('attended', 'role')
-            ->withTimestamps();
+        return $this->user->belongsToMany(Event::class)
+            ->wherePivot('character_id', $this->id)
+            ->withPivot('attended', 'role');
     }
 
     public function getTypeAttribute(): string
