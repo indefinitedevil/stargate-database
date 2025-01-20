@@ -322,17 +322,17 @@ class CharacterController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'id' => 'integer|exists:characters,id',
+            'id' => 'sometimes|integer|exists:characters,id',
             'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:64',
-            'rank' => 'sometimes|string|max:64|nullable',
-            'former_rank' => 'sometimes|string|max:64|nullable',
+            'rank' => 'sometimes|string|max:64',
+            'former_rank' => 'sometimes|string|max:64',
             'background_id' => 'required|exists:backgrounds,id',
             'status_id' => 'required|exists:statuses,id',
-            'history' => 'sometimes|string|nullable|max:65535',
-            'character_links'=> 'sometimes|string|nullable|max:65535',
-            'plot_notes' => 'sometimes|string|nullable|max:65535',
-            'events' => 'array|exists:events,id',
+            'history' => 'sometimes|string|max:65535',
+            'character_links'=> 'sometimes|string|max:65535',
+            'plot_notes' => 'sometimes|string|max:65535',
+            'events' => 'sometimes|array|exists:events,id',
             'hero_scoundrel' => 'sometimes|int',
         ]);
 
