@@ -42,7 +42,7 @@
                             </div>
 
                             <div>
-                                <x-input-label for="former_rank" :value="__('Former Rank (if applicable)')"/>
+                                <x-input-label for="former_rank" :value="__('Former Rank (optional)')"/>
                                 <x-text-input id="former_rank" name="former_rank" type="text" class="mt-1 block w-full"
                                               :value="old('former_rank', $character->former_rank ?? '')"
                                               :disabled="!empty($character) && Status::READY < $character->status_id"/>
