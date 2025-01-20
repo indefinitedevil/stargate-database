@@ -19,7 +19,7 @@
                                ({{ $character->background->name }})
                 @if(auth()->user()->can('view all characters') && empty($hideUser))
                     [<a class="underline"
-                        href="{{ route('profile.view', $character->user) }}">{{ $character->user->name }}</a>]
+                        href="{{ route('profile.view-pretty', ['userId' => $character->user, 'userName' => Str::slug($character->user->name)]) }}">{{ $character->user->name }}</a>]
                 @endif
                 @if (empty($hideStatus))
                     - {{ $character->status->name }}
