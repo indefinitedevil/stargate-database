@@ -151,4 +151,10 @@ class Skill extends Model
     {
         return $this->hasMany(SkillLockout::class, 'lockout_id', 'id');
     }
+
+    public function researchProjects(): BelongsToMany
+    {
+        return $this->belongsToMany(ResearchProject::class)
+            ->withPivot('months');
+    }
 }
