@@ -2428,4 +2428,113 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             ],
         ]);
     }
+
+    public function seedSkillTraining() {
+        DB::table('skill_training')->insertOrIgnore([
+            [
+                'taught_skill_id' => 1,
+                'trained_skill_id' => 49,
+            ],
+            [
+                'taught_skill_id' => 1,
+                'trained_skill_id' => 61,
+            ],
+            [
+                'taught_skill_id' => 2,
+                'trained_skill_id' => 55,
+            ],
+            [
+                'taught_skill_id' => 2,
+                'trained_skill_id' => 62,
+            ],
+            [
+                'taught_skill_id' => 3,
+                'trained_skill_id' => 50,
+            ],
+            [
+                'taught_skill_id' => 3,
+                'trained_skill_id' => 63,
+            ],
+            [
+                'taught_skill_id' => 4,
+                'trained_skill_id' => 51,
+            ],
+            [
+                'taught_skill_id' => 4,
+                'trained_skill_id' => 64,
+            ],
+            [
+                'taught_skill_id' => 5,
+                'trained_skill_id' => 54,
+            ],
+            [
+                'taught_skill_id' => 5,
+                'trained_skill_id' => 65,
+            ],
+            [
+                'taught_skill_id' => 6,
+                'trained_skill_id' => 50,
+            ],
+            [
+                'taught_skill_id' => 6,
+                'trained_skill_id' => 66,
+            ],
+            [
+                'taught_skill_id' => 7,
+                'trained_skill_id' => 67,
+            ],
+            [
+                'taught_skill_id' => 8,
+                'trained_skill_id' => 49,
+            ],
+            [
+                'taught_skill_id' => 8,
+                'trained_skill_id' => 68,
+            ],
+            [
+                'taught_skill_id' => 9,
+                'trained_skill_id' => 52,
+            ],
+            [
+                'taught_skill_id' => 12,
+                'trained_skill_id' => 47,
+            ],
+            [
+                'taught_skill_id' => 13,
+                'trained_skill_id' => 46,
+            ],
+            [
+                'taught_skill_id' => 14,
+                'trained_skill_id' => 53,
+            ],
+            [
+                'taught_skill_id' => 15,
+                'trained_skill_id' => 48,
+            ],
+            [
+                'taught_skill_id' => 15,
+                'trained_skill_id' => 56,
+            ],
+            [
+                'taught_skill_id' => 17,
+                'trained_skill_id' => 46,
+            ],
+            [
+                'taught_skill_id' => 18,
+                'trained_skill_id' => 46,
+            ],
+            [
+                'taught_skill_id' => 19,
+                'trained_skill_id' => 57,
+            ],
+            [
+                'taught_skill_id' => 21,
+                'trained_skill_id' => 55,
+            ],
+            [
+                'taught_skill_id' => 42,
+                'trained_skill_id' => 72,
+            ],
+        ]);
+    }
 }

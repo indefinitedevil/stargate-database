@@ -12,7 +12,7 @@ class ActionType extends Model
 
     const DEVELOPMENT = 1;
     const RESEARCH = 2;
-    const OTHER = 3;
+    const MISC = 3;
 
     const TRAINING = 1;
     const TEACHING = 2;
@@ -20,7 +20,7 @@ class ActionType extends Model
     const MISSION = 4;
     const RESEARCHING = 5;
     const UPKEEP_2 = 6;
-    const NONE = 7;
+    const OTHER = 7;
 
     protected $fillable = [
         'type',

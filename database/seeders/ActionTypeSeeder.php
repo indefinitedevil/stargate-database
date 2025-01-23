@@ -46,8 +46,8 @@ class ActionTypeSeeder extends Seeder
                 'name' => 'Upkeep'
             ],
             [
-                'id' => ActionType::NONE,
-                'type' => ActionType::OTHER,
+                'id' => ActionType::OTHER,
+                'type' => ActionType::MISC,
                 'name' => 'Other'
             ],
         ];
