@@ -20,6 +20,7 @@ class SkillSeeder extends Seeder
         $this->seedSkillPrereqs();
         $this->seedSkillLockouts();
         $this->seedSkillDiscounts();
+        $this->seedSkillTraining();
         $this->seedCardSkills();
         $this->seedBackgroundSkills();
     }
