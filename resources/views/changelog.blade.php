@@ -40,6 +40,13 @@
                         <li>Plot Co: Fixed skills breakdown to only have one row per character and include background skills.</li>
                         <li>Updated privacy policy to include contact email address.</li>
                     </ul>
+                    <h3 class="text-lg font-semibold">Update: 25th January 2025</h3>
+                    <ul class="list-inside list-disc">
+                        <li>Updated character links to be include character name (old links will still work).</li>
+                        <li>Fixed <a href="https://github.com/indefinitedevil/stargate-database/issues/34" class="underline">issue</a> with scaling costs display for approved characters.</li>
+                        <li>Added random name generator to character create/edit screen <a href="https://github.com/indefinitedevil/stargate-database/issues/32" class="underline">at request</a>.</li>
+                        <li>Fixed some validation and made minor wording changes.</li>
+                    </ul>
                 </div>
             </div>
         </div>
