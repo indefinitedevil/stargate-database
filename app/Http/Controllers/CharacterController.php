@@ -43,7 +43,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('view', $character)) {
             return redirect(route('characters.index'));
         }
-        return view('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]);
+        return view('characters.view', ['character' => $character]);
     }
 
     public function print(Request $request, $characterId)
