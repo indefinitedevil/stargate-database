@@ -39,10 +39,32 @@
                                 <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                               :value="old('name', $character->name ?? '')" required autofocus/>
                                 <x-input-error class="mt-2" :messages="$errors->get('name')"/>
+                                <div>
+                                    <p class="text-xs mt-1">
+                                        {!! __('Feeling stuck? <a class="underline cursor-pointer" onclick="generateRandomNames()">Generate some random names</a>') !!}
+                                    </p>
+                                    <div id="randomNames" class="grid grid-cols-1 sm:grid-cols-2"></div>
+                                    <script>
+                                        function generateRandomNames() {
+                                            let randomNames = document.getElementById('randomNames');
+                                            randomNames.innerHTML = '';
+                                            let nameHtml = '<ul class="list-inside list-disc">';
+                                            for (let i = 0; i < 5; i++) {
+                                                nameHtml += '<li>' + window.generateName(0) + '</li>';
+                                            }
+                                            nameHtml += '</ul><ul class="list-inside list-disc">';
+                                            for (let i = 0; i < 5; i++) {
+                                                nameHtml += '<li>' + window.generateName(1) + '</li>';
+                                            }
+                                            nameHtml += '</ul>';
+                                            randomNames.innerHTML = nameHtml;
+                                        }
+                                    </script>
+                                </div>
                             </div>
 
                             <div>
-                                <x-input-label for="former_rank" :value="__('Former Rank (if applicable)')"/>
+                                <x-input-label for="former_rank" :value="__('Former Rank (optional)')"/>
                                 <x-text-input id="former_rank" name="former_rank" type="text" class="mt-1 block w-full"
                                               :value="old('former_rank', $character->former_rank ?? '')"
                                               :disabled="!empty($character) && Status::READY < $character->status_id"/>

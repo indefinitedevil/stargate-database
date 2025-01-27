@@ -1,6 +1,11 @@
+@php
+    use Illuminate\Support\Str;
+@endphp
 @can('viewAll', $character)
     <p class="mb-2">
-        <strong>{{ __('Player') }}:</strong> <a href="{{ route('profile.view', $character->user) }}" class="underline">{{ $character->user->name }}</a>
+        <strong>{{ __('Player') }}:</strong> <a
+            href="{{ route('profile.view-pretty', ['userId' => $character->user, 'userName' => Str::slug($character->user->name)]) }}"
+            class="underline">{{ $character->user->name }}</a>
     </p>
 @endcan
 <div class="grid grid-cols-1 sm:grid-cols-4">
