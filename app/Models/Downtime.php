@@ -17,4 +17,25 @@ use Illuminate\Database\Eloquent\Model;
 class Downtime extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'start_time',
+        'end_time',
+    ];
+
+    protected $casts = [
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
+    ];
+
+    public function actions()
+    {
+        return $this->hasMany(DowntimeAction::class);
+    }
+
+    public function missions()
+    {
+        return $this->hasMany(DowntimeMission::class);
+    }
 }

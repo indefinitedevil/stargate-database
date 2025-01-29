@@ -302,4 +302,9 @@ class Character extends Model
     {
         return $this->primary_secondary;
     }
+
+    public function downtimeActions(): HasMany
+    {
+        return $this->hasMany(DowntimeAction::class);
+    }
 }

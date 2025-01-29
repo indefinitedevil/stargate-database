@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\DowntimeController;
 use App\Http\Controllers\PlotcoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SysrefController;
@@ -48,6 +49,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/characters/edit/{characterId}/remove-skill/{skillId}', [CharacterController::class, 'removeSkill'])->name('characters.remove-skill');
         Route::post('/characters/store', [CharacterController::class, 'store'])->name('characters.store');
         Route::post('/characters/store-skill', [CharacterController::class, 'storeSkill'])->name('characters.store-skill');
+
+        Route::get('/downtimes', [DowntimeController::class, 'index'])->name('downtimes.index');
+        Route::get('/downtimes/submit/{downtimeId}/character/{characterId}', [DowntimeController::class, 'submit'])->name('downtimes.submit');
+        Route::get('/downtimes/view/{downtimeId}/character/{characterId}', [DowntimeController::class, 'view'])->name('downtimes.view');
+        Route::post('/downtimes/store', [DowntimeController::class, 'store'])->name('downtimes.store');
     });
 
     Route::group(['middleware' => 'can:edit all characters'], function () {
