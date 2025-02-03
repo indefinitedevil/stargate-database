@@ -46,7 +46,8 @@
                         <li>Fixed <a href="https://github.com/indefinitedevil/stargate-database/issues/34" class="underline">issue</a> with scaling costs display for approved characters.</li>
                         <li>Added random name generator to character create/edit screen <a href="https://github.com/indefinitedevil/stargate-database/issues/32" class="underline">at request</a>.</li>
                         <li>Fixed some validation and made minor wording changes.</li>
-                        <li>Plot Co: enabled editing of ranks</li>
+                        <li>Plot Co: enabled editing of ranks.</li>
+                        <li>Hide former ranks from display if new rank assigned.</li>
                     </ul>
                 </div>
             </div>
