@@ -12,7 +12,9 @@
         @endif
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ $title }}
-            @if (!empty($character) && $character->isPrimary) <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i> @endif
+            @if (!empty($character) && $character->isPrimary)
+                <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i>
+            @endif
         </h2>
     </x-slot>
 
@@ -62,6 +64,15 @@
                                     </script>
                                 </div>
                             </div>
+
+                            @can('edit all characters')
+                                <div>
+                                    <x-input-label for="rank" :value="__('Rank')"/>
+                                    <x-text-input id="rank" name="rank" type="text" class="mt-1 block w-full"
+                                                  :value="old('rank', $character->rank ?? '')"/>
+                                    <x-input-error class="mt-2" :messages="$errors->get('rank')"/>
+                                </div>
+                            @endcan
 
                             <div>
                                 <x-input-label for="former_rank" :value="__('Former Rank (optional)')"/>
