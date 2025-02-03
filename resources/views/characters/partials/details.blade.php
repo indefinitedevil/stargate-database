@@ -25,8 +25,8 @@
         <strong>{{ __('Type') }}:</strong> {{ $character->type }}
     </p>
     <p class="mt-1 col-span-2">
-        <strong>{{ __('Rank') }}
-            :</strong> {!! $character->rank ?: __('To be determined') !!} @if ($character->former_rank)
+        <strong>{{ __('Rank') }}:</strong> {!! $character->rank ?: __('To be determined') !!}
+        @if (empty($character->rank) && $character->former_rank)
             ({{ $character->former_rank }})
         @endif
     </p>

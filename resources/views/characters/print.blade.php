@@ -28,7 +28,7 @@
                         </p>
                         <p class="mt-1 sm:col-span-2">
                             <strong>{{ __('Rank') }}:</strong> {!! $character->rank ?: __('To Be Determined') !!}
-                            @if ($character->former_rank)
+                            @if (empty($character->rank) && $character->former_rank)
                                 ({{ $character->former_rank }})
                             @endif
                         </p>
