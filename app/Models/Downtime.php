@@ -12,7 +12,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $end_time
  * @property string $created_at
  * @property string $updated_at
- *
+ * @property int $development_actions
+ * @property int $research_actions
+ * @property int $other_actions
+ * @property DowntimeAction[] $actions
+ * @property DowntimeMission[] $missions
  */
 class Downtime extends Model
 {

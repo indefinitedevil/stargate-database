@@ -167,6 +167,12 @@ class Character extends Model
         return $this->skills()->where('completed', true);
     }
 
+    public function upkeepSkills(): HasMany
+    {
+        return $this->skills()->where('completed', true)
+            ->where('upkeep', true);
+    }
+
     public function displayedTrainedSkills(): HasMany
     {
         return $this->trainedSkills()

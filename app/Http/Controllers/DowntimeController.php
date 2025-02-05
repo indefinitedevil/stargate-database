@@ -29,7 +29,7 @@ class DowntimeController extends Controller
         $character = Character::find($characterId);
         return view('downtimes.submit', [
             'downtime' => $downtime,
-            'characters' => $character,
+            'character' => $character,
         ]);
     }
 
