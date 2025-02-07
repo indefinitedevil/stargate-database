@@ -226,12 +226,11 @@
                                             three minutes
                                         </li>
                                         <li>If you are on 0 Body, treating your bleeding pauses your bleed count</li>
-                                        <li>Any significant movement on 0 Body restarts your bleed count</li>
-                                        <li>Use of "On Your Feet, Soldier" while on 0 Body pauses your bleed count and
-                                            allows you to
-                                            move with that character's assistance
+                                        <li>Any significant movement while on 0 Body restarts your bleed count</li>
+                                        <li>Use of "On Your Feet, Soldier" while on 0 Body allows you to move with that
+                                            character's assistance and pauses your bleed count for the duration
                                         </li>
-                                        <li>Use of "Prep For Movement" resets your bleed count to three minutes</li>
+                                        <li>Use of "Prep For Movement" while stabilised resets your bleed count to three minutes</li>
                                     </ul>
                                 </div>
                             </div>
