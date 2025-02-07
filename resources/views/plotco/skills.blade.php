@@ -56,7 +56,7 @@
                                     @foreach($characterSkills as $characterSkillCollection)
                                         @php $characterSkill = $characterSkillCollection->first(); @endphp
                                         <li>
-                                            {{ $characterSkill->character->name }}
+                                            {{ $characterSkill->character->short_name ?: $characterSkill->character->name }}
                                             @if ($characterSkill->skill->repeatable)
                                                 ({{ $characterSkill->level }})
                                             @endif
@@ -71,7 +71,7 @@
                                     @endforeach
                                     @foreach($backgroundCharacters as $character)
                                         <li>
-                                            {{ $character->name }}
+                                            {{ $character->short_name ?: $character->name }}
                                         </li>
                                     @endforeach
                                 </ul>
