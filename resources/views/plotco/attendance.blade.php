@@ -20,7 +20,7 @@
                     ><i class="fa-solid fa-print"></i></a>
                     <h3 class="text-xl font-semibold">{!! $event->name !!}</h3>
                     <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        @foreach($event->characters as $character)
+                        @foreach($event->characters() as $character)
                             <li>
                                 {{ $character->user->name }}:
                                 <a class="underline" href="{{ route('characters.view', ['characterId' => $character->id]) }}">
