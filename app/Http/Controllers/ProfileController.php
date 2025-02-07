@@ -21,6 +21,7 @@ class ProfileController extends Controller
             'user' => $request->user(),
         ]);
     }
+
     public function view(Request $request, $userId)
     {
         $user = User::find($userId);
