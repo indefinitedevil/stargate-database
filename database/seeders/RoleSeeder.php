@@ -46,12 +46,20 @@ class RoleSeeder extends Seeder
         $viewAllUsers = Permission::findOrCreate('view all users');
         $editAllUsers = Permission::findOrCreate('edit all users');
         $deleteAllUsers = Permission::findOrCreate('delete all users');
+        $editEvents = Permission::findOrCreate('edit events');
+        $viewAttendance = Permission::findOrCreate('view attendance');
+        $recordAttendance = Permission::findOrCreate('record attendance');
+        $addResearchProjects = Permission::findOrCreate('add research projects');
+        $editResearchProjects = Permission::findOrCreate('edit research projects');
+        $deleteResearchProjects = Permission::findOrCreate('delete research projects');
 
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         $admin = Role::findOrCreate('admin');
         $plotCoordinator = Role::findOrCreate('plot coordinator');
         $systemReferee = Role::findOrCreate('system referee');
+        $secretary = Role::findOrCreate('secretary');
+        $researcher = Role::findOrCreate('researcher');
         $player = Role::findOrCreate('player');
 
         $admin->syncPermissions([
@@ -75,6 +83,10 @@ class RoleSeeder extends Seeder
             $editSkillSpecialty,
             $deleteSkillSpecialty,
             $viewAllUsers,
+            $viewAttendance,
+            $addResearchProjects,
+            $editResearchProjects,
+            $deleteResearchProjects,
         ]);
 
         $systemReferee->syncPermissions([
@@ -90,6 +102,16 @@ class RoleSeeder extends Seeder
             $addSkillSpecialty,
             $editSkillSpecialty,
             $deleteSkillSpecialty,
+        ]);
+
+        $secretary->syncPermissions([
+            $editEvents,
+            $viewAttendance,
+            $recordAttendance,
+        ]);
+
+        $researcher->syncPermissions([
+            $addResearchProjects,
         ]);
 
         $player->syncPermissions([

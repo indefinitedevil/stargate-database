@@ -23,12 +23,23 @@ class Event extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
-            ->withPivot('character_id', 'attended', 'role');
+            ->withPivot('character_id', 'attended', 'role')
+            ->orderBy('role');
     }
 
     public function characters(): Collection
     {
         $users = $this->users()->where('role', self::ROLE_PLAYER)->get();
         return Character::whereIn('id', $users->pluck('pivot.character_id'))->get();
+    }
+
+    public static function roleName($role): string
+    {
+        return match ($role) {
+            self::ROLE_PLAYER => 'Player',
+            self::ROLE_CREW => 'Crew',
+            self::ROLE_RUNNER => 'Runner',
+            default => 'Unknown',
+        };
     }
 }

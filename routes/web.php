@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\DowntimeController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\PlotcoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SysrefController;
@@ -71,6 +72,10 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'can:modify roles'], function () {
         Route::get('/admin/manage-roles/', [AdminController::class, 'manageRoles'])->name('admin.manage-roles');
         Route::post('/admin/store-roles/', [AdminController::class, 'storeRoles'])->name('admin.store-roles');
+    });
+
+    Route::group(['middleware' => 'can:edit events'], function () {
+        Route::get('/events/attendance/{eventId}', [EventController::class, 'attendance'])->name('events.attendance');
     });
 });
 
