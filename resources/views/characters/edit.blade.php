@@ -66,7 +66,7 @@
                             </div>
 
                             <div>
-                                <x-input-label for="short_name" :value="__('Short Name')"/>
+                                <x-input-label for="short_name" :value="__('Short Name (optional)')"/>
                                 <p class="text-xs">
                                     {{ __('This will be used on indexes and your printed sheet.') }}
                                 </p>
