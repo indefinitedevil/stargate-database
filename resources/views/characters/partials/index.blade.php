@@ -12,7 +12,7 @@
                 @endif
                 <a class="underline"
                    href="{{ route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]) }}">
-                    {{ $character->name }}</a>
+                    {{ $character->short_name ?: $character->name }}</a>
                 @if($character->isPrimary)
                     <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i>
                 @endif

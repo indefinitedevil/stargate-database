@@ -37,7 +37,7 @@
                                value="{{ empty($character) ? Status::NEW : $character->status_id }}">
                         <div class="grid grid-cols-1 gap-6">
                             <div>
-                                <x-input-label for="name" :value="__('Name')"/>
+                                <x-input-label for="name" :value="__('Full Name')"/>
                                 <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                               :value="old('name', $character->name ?? '')" required autofocus/>
                                 <x-input-error class="mt-2" :messages="$errors->get('name')"/>
@@ -63,6 +63,16 @@
                                         }
                                     </script>
                                 </div>
+                            </div>
+
+                            <div>
+                                <x-input-label for="short_name" :value="__('Short Name')"/>
+                                <p class="text-xs">
+                                    {{ __('This will be used on indexes and your printed sheet.') }}
+                                </p>
+                                <x-text-input id="short_name" name="short_name" type="text" class="mt-1 block w-full"
+                                              :value="old('short_name', $character->short_name ?? '')"/>
+                                <x-input-error class="mt-2" :messages="$errors->get('short_name')"/>
                             </div>
 
                             @can('edit all characters')

@@ -362,6 +362,7 @@ class CharacterController extends Controller
             'id' => 'sometimes|integer|exists:characters,id',
             'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:64',
+            'short_name' => 'sometimes|string|max:64',
             'rank' => 'sometimes|string|max:64',
             'former_rank' => 'sometimes|string|max:64',
             'background_id' => 'required|exists:backgrounds,id',
@@ -388,6 +389,7 @@ class CharacterController extends Controller
         } else {
             $character = new Character();
         }
+        $validatedData['short_name'] = $validatedData['short_name'] ?? '';
         $validatedData['history'] = $validatedData['history'] ?? '';
         $validatedData['character_links'] = $validatedData['character_links'] ?? '';
         $validatedData['plot_notes'] = $validatedData['plot_notes'] ?? '';
