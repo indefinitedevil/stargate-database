@@ -49,6 +49,7 @@
                         <li>Plot Co: enabled editing of ranks.</li>
                         <li>Hide former ranks from display if new rank assigned.</li>
                         <li>Add short name editing and display.</li>
+                        <li>Add wounded and bleeding state notes to character sheet.</li>
                     </ul>
                 </div>
             </div>
