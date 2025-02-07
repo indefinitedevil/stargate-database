@@ -20,7 +20,7 @@
                 @endphp
                 <form method="POST" action="{{ route('admin.store-roles') }}">
                     @csrf
-                <table class="table-fixed  w-full">
+                <table class="table-fixed w-full">
                     <thead>
                     <tr>
                         <th class="{{ $cellClass }}">{{ __('User') }}</th>

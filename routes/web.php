@@ -75,7 +75,10 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['middleware' => 'can:edit events'], function () {
+        Route::get('/events/', [EventController::class, 'index'])->name('events.index');
+        Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
         Route::get('/events/attendance/{eventId}', [EventController::class, 'attendance'])->name('events.attendance');
+        Route::post('/events/store-attendance/', [EventController::class, 'storeAttendance'])->name('events.store-attendance');
     });
 });
 

@@ -24,6 +24,9 @@
                         <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.index')">
                             {{ __('My Characters') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')">
+                            {{ __('Events') }}
+                        </x-nav-link>
                         @can('viewAll', Character::class)
                             <x-dropdown align="left">
                                 <x-slot name="trigger" class="inline-flex">
