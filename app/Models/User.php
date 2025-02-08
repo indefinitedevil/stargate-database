@@ -60,6 +60,34 @@ class User extends Authenticatable
         ];
     }
 
+    public function delete()
+    {
+        if ($this->id . '-no-email@example.com' == $this->email) {
+            return false;
+        }
+
+        if ($this->fireModelEvent('deleting') === false) {
+            return false;
+        }
+
+        $this->touchOwners();
+
+        $this->email = $this->id . '-no-email@example.com';
+        $this->name = $this->id . '-deleted';
+        $this->save();
+
+        foreach ($this->characters as $character) {
+            if (in_array($character->status_id, [Status::APPROVED, Status::PLAYED])) {
+                $character->status_id = Status::RETIRED;
+                $character->save();
+            }
+        }
+
+        $this->fireModelEvent('deleted', false);
+
+        return true;
+    }
+
     public function characters(): HasMany
     {
         return $this->hasMany(Character::class);

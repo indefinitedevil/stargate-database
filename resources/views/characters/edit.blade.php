@@ -12,7 +12,9 @@
         @endif
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ $title }}
-            @if (!empty($character) && $character->isPrimary) <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i> @endif
+            @if (!empty($character) && $character->isPrimary)
+                <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i>
+            @endif
         </h2>
     </x-slot>
 
@@ -35,14 +37,55 @@
                                value="{{ empty($character) ? Status::NEW : $character->status_id }}">
                         <div class="grid grid-cols-1 gap-6">
                             <div>
-                                <x-input-label for="name" :value="__('Name')"/>
+                                <x-input-label for="name" :value="__('Full Name')"/>
                                 <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                               :value="old('name', $character->name ?? '')" required autofocus/>
                                 <x-input-error class="mt-2" :messages="$errors->get('name')"/>
+                                <div>
+                                    <p class="text-xs mt-1">
+                                        {!! __('Feeling stuck? <a class="underline cursor-pointer" onclick="generateRandomNames()">Generate some random names</a>') !!}
+                                    </p>
+                                    <div id="randomNames" class="grid grid-cols-1 sm:grid-cols-2"></div>
+                                    <script>
+                                        function generateRandomNames() {
+                                            let randomNames = document.getElementById('randomNames');
+                                            randomNames.innerHTML = '';
+                                            let nameHtml = '<ul class="list-inside list-disc">';
+                                            for (let i = 0; i < 5; i++) {
+                                                nameHtml += '<li>' + window.generateName(0) + '</li>';
+                                            }
+                                            nameHtml += '</ul><ul class="list-inside list-disc">';
+                                            for (let i = 0; i < 5; i++) {
+                                                nameHtml += '<li>' + window.generateName(1) + '</li>';
+                                            }
+                                            nameHtml += '</ul>';
+                                            randomNames.innerHTML = nameHtml;
+                                        }
+                                    </script>
+                                </div>
                             </div>
 
                             <div>
-                                <x-input-label for="former_rank" :value="__('Former Rank (if applicable)')"/>
+                                <x-input-label for="short_name" :value="__('Short Name (optional)')"/>
+                                <p class="text-xs">
+                                    {{ __('This will be used on indexes and your printed sheet. This is intended for condensing long character names into a simpler format.') }}
+                                </p>
+                                <x-text-input id="short_name" name="short_name" type="text" class="mt-1 block w-full"
+                                              :value="old('short_name', $character->short_name ?? '')"/>
+                                <x-input-error class="mt-2" :messages="$errors->get('short_name')"/>
+                            </div>
+
+                            @can('edit all characters')
+                                <div>
+                                    <x-input-label for="rank" :value="__('Rank')"/>
+                                    <x-text-input id="rank" name="rank" type="text" class="mt-1 block w-full"
+                                                  :value="old('rank', $character->rank ?? '')"/>
+                                    <x-input-error class="mt-2" :messages="$errors->get('rank')"/>
+                                </div>
+                            @endcan
+
+                            <div>
+                                <x-input-label for="former_rank" :value="__('Former Rank (optional)')"/>
                                 <x-text-input id="former_rank" name="former_rank" type="text" class="mt-1 block w-full"
                                               :value="old('former_rank', $character->former_rank ?? '')"
                                               :disabled="!empty($character) && Status::READY < $character->status_id"/>

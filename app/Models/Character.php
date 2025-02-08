@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * @property int id
  * @property string name
+ * @property string short_name
  * @property int user_id
  * @property int background_id
  * @property int status_id
@@ -55,6 +56,7 @@ class Character extends Model
     protected $fillable = [
         'user_id',
         'name',
+        'short_name',
         'background_id',
         'status_id',
         'history',

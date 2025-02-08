@@ -26,6 +26,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/profile/{userId}', [ProfileController::class, 'view'])->name('profile.view');
+    Route::get('/profile/{userId}/{userName}', [ProfileController::class, 'view'])->name('profile.view-pretty');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -34,12 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'can:create character'], function () {
         Route::get('/characters', [CharacterController::class, 'index'])->name('characters.index');
         Route::get('/characters/view/{characterId}', [CharacterController::class, 'view'])->name('characters.view');
+        Route::get('/characters/view/{characterId}/{characterName}', [CharacterController::class, 'view'])->name('characters.view-pretty');
         Route::get('/characters/print/{characterId}', [CharacterController::class, 'print'])->name('characters.print');
         Route::get('/characters/print-skills/{characterId}', [CharacterController::class, 'printSkills'])->name('characters.print-skills');
         Route::get('/characters/edit/{characterId}', [CharacterController::class, 'edit'])->name('characters.edit');
         Route::get('/characters/delete/{characterId}', [CharacterController::class, 'delete'])->name('characters.delete');
-        Route::post('/characters/approve/{characterId}', [CharacterController::class, 'approve'])->name('characters.approve');
-        Route::post('/characters/deny/{characterId}', [CharacterController::class, 'deny'])->name('characters.deny');
         Route::get('/characters/ready/{characterId}', [CharacterController::class, 'ready'])->name('characters.ready');
         Route::get('/characters/primary/{characterId}', [CharacterController::class, 'primary'])->name('characters.primary');
         Route::get('/characters/kill/{characterId}', [CharacterController::class, 'kill'])->name('characters.kill');
@@ -63,6 +63,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/plot-co/characters/print-some', [PlotcoController::class, 'printSome'])->name('plotco.print-some');
         Route::get('/plot-co/skills/', [PlotcoController::class, 'skills'])->name('plotco.skills');
         Route::get('/plot-co/attendance/', [PlotcoController::class, 'attendance'])->name('plotco.attendance');
+        Route::post('/characters/approve/{characterId}', [CharacterController::class, 'approve'])->name('characters.approve');
+        Route::post('/characters/deny/{characterId}', [CharacterController::class, 'deny'])->name('characters.deny');
     });
 
     Route::group(['middleware' => 'can:edit skill'], function () {

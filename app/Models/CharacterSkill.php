@@ -99,7 +99,10 @@ class CharacterSkill extends Model
 
     public function getCostAttribute(): int
     {
-        $cost = $this->skill->cost($this->character, $this);
+        if (!in_array($this->character->status_id, [Status::NEW, Status::READY]) && $this->completed) {
+            return $this->trained;
+        }
+        $cost = $this->skill->cost($this->character);
         if ($this->discountedBy) {
             foreach ($this->discountedBy as $discountedBy) {
                 $skillDiscount = SkillDiscount::where('discounted_skill', $this->skill_id)

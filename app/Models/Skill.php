@@ -100,33 +100,11 @@ class Skill extends Model
         $category = $this->skillCategory;
         static $completedCategorySkills = [];
         if ($character && $category->scaling) {
-            if (in_array($character->status_id, [Status::NEW, Status::READY])) {
-                if (empty($characterSkill)) {
-                    if (empty($completedCategorySkills[$category->id])) {
-                        $completedCategorySkills[$category->id] = $character->trainedSkills()
-                            ->where('skills.skill_category_id', $this->skill_category_id);
-                    }
-                    $countSkills = $completedCategorySkills[$category->id]->count();
-                } else {
-                    static $scalingCosts = [];
-                    if (empty($scalingCosts[$category->id])) {
-                        $scalingCosts[$category->id] = [];
-                    }
-                    if (!isset($scalingCosts[$category->id][$this->id])) {
-                        $scalingCosts[$category->id][$this->id] = count(array_unique(array_diff_key($scalingCosts[$category->id], [$this->id => 0])));
-                    }
-                    $countSkills = $scalingCosts[$category->id][$this->id];
-                }
-            } else {
-                if (empty($completedCategorySkills[$category->id])) {
-                    $completedCategorySkills[$category->id] = $character->trainedSkills()
-                        ->where('skills.skill_category_id', $this->skill_category_id);
-                }
-                $countSkills = $completedCategorySkills[$category->id]->count();
-                if ($characterSkill) {
-                    $countSkills = $completedCategorySkills[$category->id]->where('character_skills.id', '!=', $characterSkill->id)->count();
-                }
+            if (empty($completedCategorySkills[$category->id])) {
+                $completedCategorySkills[$category->id] = $character->trainedSkills()
+                    ->where('skills.skill_category_id', $this->skill_category_id);
             }
+            $countSkills = $completedCategorySkills[$category->id]->count();
             return $category->cost + $countSkills;
         }
         return $category->cost;

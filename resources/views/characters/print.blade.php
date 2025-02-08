@@ -8,7 +8,7 @@
         <div class="break-after-page">
             <div class="max-w-7xl mx-auto">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{ $character->name }}
+                    {{ $character->short_name ?: $character->name }}
                     <span class="text-sm ml-4">
                         ({{ $character->user->name }})
                     </span>
@@ -28,7 +28,7 @@
                         </p>
                         <p class="mt-1 sm:col-span-2">
                             <strong>{{ __('Rank') }}:</strong> {!! $character->rank ?: __('To Be Determined') !!}
-                            @if ($character->former_rank)
+                            @if (empty($character->rank) && $character->former_rank)
                                 ({{ $character->former_rank }})
                             @endif
                         </p>
@@ -132,27 +132,30 @@
                                 <tbody>
                                 <tr>
                                     <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2">Add One Potential Complication¹</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2">Add One Potential Complication¹</td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2"><em>You ain’t got time to bleed</em> – You
-                                        Gain 2 Vitality
+                                    <td class="border border-slate-600 px-2">Add One Potential Complication<sup>1</sup>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2">Raise the difficulty² of any Surgical
-                                        Procedure by 1
+                                    <td class="border border-slate-600 px-2">Add One Potential Complication<sup>1</sup>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2">Add One Potential Complication¹</td>
+                                    <td class="border border-slate-600 px-2"><em>You ain't got time to bleed</em> – You
+                                        Gain 1 Maximum Vigor
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-slate-600"></td>
+                                    <td class="border border-slate-600 px-2">Raise the difficulty<sup>2</sup> of any
+                                        Surgical Procedure by 1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-slate-600"></td>
+                                    <td class="border border-slate-600 px-2">Add One Potential Complication<sup>1</sup>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="border border-slate-600"></td>
@@ -162,13 +165,8 @@
                                 </tr>
                                 <tr>
                                     <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2"><em>It’s only a Flesh Wound</em> – Gain
-                                        Feat Mastery Flesh Wounds until the end of the event
+                                    <td class="border border-slate-600 px-2">Add One Potential Complication<sup>1</sup>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2">Add One Potential Complication¹</td>
                                 </tr>
                                 <tr>
                                     <td class="border border-slate-600"></td>
@@ -178,25 +176,63 @@
                                 </tr>
                                 <tr>
                                     <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2">Add one Extra complication³</td>
+                                    <td class="border border-slate-600 px-2">Add one Extra Complication<sup>3</sup></td>
                                 </tr>
                                 <tr>
                                     <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2">Any Failed Surgery Attempt is now fatal
+                                    <td class="border border-slate-600 px-2">Any Failed Surgery Attempt will result you
+                                        becoming Terminal
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
-                            <div>
-                                {{-- footnotes left --}}
-                                <p class="text-xs">¹ <strong>Potential complication:</strong> A complication card is
-                                    shuffled into the Problem cards, then the normal number of cards for that wound is
-                                    played.</p>
-                                <p class="text-xs">² <strong>Raise the difficulty:</strong> The normal number of cards
-                                    played for surgical procedure is increased by one. This new card will now definitely
-                                    be one of the Complication Cards added by potential complication.</p>
-                                <p class="text-xs">³ <strong>Add one extra Complication:</strong> Directly add one
+                            <div class="text-xs space-y-2">
+                                <p><sup>1</sup> <strong>Potential complication:</strong> A complication card is shuffled
+                                    into the Problem cards, then the normal number of cards for that wound is played.
+                                </p>
+                                <p><sup>2</sup> <strong>Raise the difficulty:</strong> The normal number of cards played
+                                    for surgical procedure is increased by one. This new card will now definitely be one
+                                    of the Complication Cards added by potential complication.</p>
+                                <p><sup>3</sup> <strong>Add one extra Complication:</strong> Directly add one
                                     complication card to the SP cards after all other modifiers.</p>
+                                <p>After any successful surgery, your Body is reset to 1 regardless of what it was
+                                    before surgery.</p>
+                                <p>If you are on 0 Body and a failed surgery would deal damage, you become Terminal.</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 space-y-2 text-sm">
+                            <p>
+                                Open a <strong>black wound card</strong> when you fall to 3 Body or below.
+                                Do not open another black wound card until after your hits have been restored above 3.
+                            </p>
+                            <p>Open a <strong>white wound card</strong> when you fall to 0 Body.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+                                <div>
+                                    <p>While on 0 Body, you are:</p>
+                                    <ul class="list-inside list-disc">
+                                        <li>Bleeding (you will be Terminal in three minutes) unless treated</li>
+                                        <li>Unable to stand or walk unassisted (crawling slowly is your limit)</li>
+                                        <li>Unable to use any skills or abilities</li>
+                                        <li>Counted as Unresisting</li>
+                                        <li>Conscious unless a wound card or other effect says otherwise</li>
+                                        <li>Able to shout or use a radio to call for help</li>
+                                        <li>Able to use feats (such as Cauterize to pause your bleed count)</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p>How bleeding works:</p>
+                                    <ul class="list-inside list-disc">
+                                        <li>If you are above 0 Body, treating a Bleed effect resets your bleed count to
+                                            three minutes
+                                        </li>
+                                        <li>If you are on 0 Body, treating your bleeding pauses your bleed count</li>
+                                        <li>Any significant movement while on 0 Body restarts your bleed count</li>
+                                        <li>Use of "On Your Feet, Soldier" while on 0 Body allows you to move with that
+                                            character's assistance and pauses your bleed count for the duration
+                                        </li>
+                                        <li>Use of "Prep For Movement" while stabilised resets your bleed count to three minutes</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="mt-4">

@@ -14,6 +14,7 @@ use App\Models\Skill;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class CharacterController extends Controller
@@ -68,10 +69,14 @@ class CharacterController extends Controller
     {
         $character = Character::find($characterId);
         if ($request->user()->cannot('edit', $character)) {
-            return redirect(route('characters.view', ['characterId' => $characterId]));
+            if ($character) {
+                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+            } else {
+                return redirect(route('characters.index'));
+            }
         }
         if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
-            return redirect(route('characters.view', ['characterId' => $character->id]));
+            return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
         }
         return view('characters.edit', ['character' => $character]);
     }
@@ -83,7 +88,11 @@ class CharacterController extends Controller
     {
         $character = Character::find($characterId);
         if ($request->user()->cannot('approve', $character)) {
-            return redirect(route('characters.view', ['characterId' => $characterId]));
+            if ($character) {
+                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+            } else {
+                return redirect(route('plotco.characters'));
+            }
         }
         $errors = [];
         if (count($character->trainingSkills) > 1) {
@@ -170,7 +179,11 @@ class CharacterController extends Controller
     {
         $character = Character::find($characterId);
         if ($request->user()->cannot('approve', $character)) {
-            return redirect(route('characters.view', ['characterId' => $characterId]));
+            if ($character) {
+                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+            } else {
+                return redirect(route('plotco.characters'));
+            }
         }
         $character->status_id = Status::NEW;
         $character->save();
@@ -188,7 +201,11 @@ class CharacterController extends Controller
     {
         $character = Character::find($characterId);
         if ($request->user()->cannot('edit', $character)) {
-            return redirect(route('characters.view', ['characterId' => $characterId]));
+            if ($character) {
+                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+            } else {
+                return redirect(route('characters.index'));
+            }
         }
         $secondaryCharacters = Character::where('user_id', $character->user_id)
             ->where('primary_secondary', true)
@@ -201,7 +218,7 @@ class CharacterController extends Controller
         $character->primary_secondary = true;
         $character->save();
 
-        return redirect(route('characters.view', ['characterId' => $characterId]));
+        return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
     }
 
     /**
@@ -211,7 +228,11 @@ class CharacterController extends Controller
     {
         $character = Character::find($characterId);
         if ($request->user()->cannot('edit', $character)) {
-            return redirect(route('characters.view', ['characterId' => $characterId]));
+            if ($character) {
+                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+            } else {
+                return redirect(route('characters.index'));
+            }
         }
         $errors = [];
         if (count($character->trainingSkills) > 1) {
@@ -258,14 +279,18 @@ class CharacterController extends Controller
 
         Mail::to(config('mail.plot_coordinator.address'))->send(new CharacterReady($character));
 
-        return redirect(route('characters.view', ['characterId' => $characterId]));
+        return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
     }
 
     public function delete(Request $request, $characterId)
     {
         $character = Character::find($characterId);
         if ($request->user()->cannot('delete', $character)) {
-            return redirect(route('characters.view', ['characterId' => $characterId]));
+            if ($character) {
+                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+            } else {
+                return redirect(route('characters.index'));
+            }
         }
         $characterLogs = CharacterLog::where('character_id', $characterId)->get();
         foreach ($characterLogs as $log) {
@@ -284,32 +309,44 @@ class CharacterController extends Controller
     {
         $character = Character::find($characterId);
         if ($request->user()->cannot('edit', $character)) {
-            return redirect(route('characters.view', ['characterId' => $characterId]));
+            if ($character) {
+                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+            } else {
+                return redirect(route('characters.index'));
+            }
         }
         $character->status_id = Status::RETIRED;
         $character->save();
-        return redirect(route('characters.view', ['characterId' => $characterId]));
+        return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
     }
 
     public function kill(Request $request, $characterId)
     {
         $character = Character::find($characterId);
         if ($request->user()->cannot('edit', $character)) {
-            return redirect(route('characters.view', ['characterId' => $characterId]));
+            if ($character) {
+                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+            } else {
+                return redirect(route('characters.index'));
+            }
         }
         $character->status_id = Status::DEAD;
         $character->save();
-        return redirect(route('characters.view', ['characterId' => $characterId]));
+        return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
     }
 
     public function editSkills(Request $request, $characterId, $skillId = null)
     {
         $character = Character::find($characterId);
         if ($request->user()->cannot('edit', $character)) {
-            return redirect(route('characters.view', ['characterId' => $characterId]));
+            if ($character) {
+                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+            } else {
+                return redirect(route('characters.index'));
+            }
         }
         if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
-            return redirect(route('characters.view', ['characterId' => $character->id]));
+            return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
         }
         return view('characters.edit-skills', [
             'character' => $character,
@@ -323,17 +360,18 @@ class CharacterController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'id' => 'integer|exists:characters,id',
+            'id' => 'sometimes|integer|exists:characters,id',
             'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:64',
+            'short_name' => 'sometimes|string|max:64|nullable',
             'rank' => 'sometimes|string|max:64|nullable',
             'former_rank' => 'sometimes|string|max:64|nullable',
             'background_id' => 'required|exists:backgrounds,id',
             'status_id' => 'required|exists:statuses,id',
-            'history' => 'sometimes|string|nullable|max:65535',
-            'character_links' => 'sometimes|string|nullable|max:65535',
-            'plot_notes' => 'sometimes|string|nullable|max:65535',
-            'events' => 'array|exists:events,id',
+            'history' => 'sometimes|string|max:65535|nullable',
+            'character_links'=> 'sometimes|string|max:65535|nullable',
+            'plot_notes' => 'sometimes|string|max:65535|nullable',
+            'events' => 'sometimes|array|exists:events,id',
             'hero_scoundrel' => 'sometimes|int',
         ]);
 
@@ -352,6 +390,7 @@ class CharacterController extends Controller
         } else {
             $character = new Character();
         }
+        $validatedData['short_name'] = $validatedData['short_name'] ?? '';
         $validatedData['history'] = $validatedData['history'] ?? '';
         $validatedData['character_links'] = $validatedData['character_links'] ?? '';
         $validatedData['plot_notes'] = $validatedData['plot_notes'] ?? '';
@@ -367,7 +406,7 @@ class CharacterController extends Controller
             }
             $character->events()->sync($syncEvents);
         }
-        return redirect(route('characters.view', ['characterId' => $character->id]));
+        return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
     }
 
     /**
@@ -440,7 +479,7 @@ class CharacterController extends Controller
     public function removeSkill(Request $request, $characterId, $skillId)
     {
         if ($request->user()->cannot('edit', Character::find($characterId))) {
-            return redirect(route('characters.view', ['characterId' => $characterId]));
+            return redirect(route('dashboard'));
         }
         $characterSkill = CharacterSkill::find($skillId);
         if (empty($characterSkill)) {

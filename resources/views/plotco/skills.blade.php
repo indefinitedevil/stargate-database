@@ -56,7 +56,9 @@
                                     @foreach($characterSkills as $characterSkillCollection)
                                         @php $characterSkill = $characterSkillCollection->first(); @endphp
                                         <li>
-                                            {{ $characterSkill->character->name }}
+                                            <a class="underline"
+                                               href="{{ route('characters.view-pretty', ['characterId' => $characterSkill->character, 'characterName' => Str::slug($characterSkill->character->name)]) }}">
+                                                {{ $characterSkill->character->short_name ?: $characterSkill->character->name }}</a>
                                             @if ($characterSkill->skill->repeatable)
                                                 ({{ $characterSkill->level }})
                                             @endif
@@ -71,7 +73,9 @@
                                     @endforeach
                                     @foreach($backgroundCharacters as $character)
                                         <li>
-                                            {{ $character->name }}
+                                            <a class="underline"
+                                               href="{{ route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]) }}">
+                                                {{ $character->short_name ?: $character->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>

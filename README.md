@@ -26,19 +26,7 @@ It is seeded with tables representing the rules.
 
 ### To-do
 
-- [x] Add GUI for character creation and editing
-- [ ] Improve character GUI
-- [ ] Add downtime system and GUI
-- [ ] Add character log system and GUI
-- [x] ~~Add GUI for character viewing~~
-- [x] ~~Add skill descriptions~~
-- [x] ~~Add feat descriptions~~ - Ki 2024-10-22
-- [x] ~~Add user registration system~~
-- [x] Add user permissions system
-- [x] Add plot co mode
-- [ ] Add ability to add new skills/specialties
-- [ ] Add bulk print option (PDF?)
-- [x] Add print layout character sheet
+New features and issues are tracked in the [Issues](https://github.com/indefinitedevil/stargate-database/issues) tab on GitHub.
 
 ## Installation
 
