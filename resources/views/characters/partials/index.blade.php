@@ -1,7 +1,7 @@
 @php
     use Illuminate\Support\Str;
 @endphp
-<ul class="list-disc list-inside">
+<ul class="list-disc list-inside space-y-1">
     @if (count($characters) == 0)
         <li>{{ __('No characters found') }}</li>
     @else
