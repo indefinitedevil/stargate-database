@@ -9,7 +9,7 @@
     </p>
 @endcan
 @if ($character->short_name)
-    <p class="mb-2">
+    <p class="mb-1">
         <strong>{{ __('Short Name') }}:</strong> {{ $character->short_name }}
     </p>
 @endif
