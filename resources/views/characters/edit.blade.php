@@ -68,7 +68,7 @@
                             <div>
                                 <x-input-label for="short_name" :value="__('Short Name (optional)')"/>
                                 <p class="text-xs">
-                                    {{ __('This will be used on indexes and your printed sheet.') }}
+                                    {{ __('This will be used on indexes and your printed sheet. This is intended for condensing long character names into a simpler format.') }}
                                 </p>
                                 <x-text-input id="short_name" name="short_name" type="text" class="mt-1 block w-full"
                                               :value="old('short_name', $character->short_name ?? '')"/>
