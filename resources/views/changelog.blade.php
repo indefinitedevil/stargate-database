@@ -78,7 +78,7 @@
                             <li>Emergency bug fixes</li>
                             <li>Correcting Point Man cost</li>
                         </ul>
-                        <p class="text-sm">Tested by Kat and Topper</p>
+                        <p class="text-sm">Tested by Kat and Topper; feat text entered by Ki</p>
                     </div>
                 </div>
             </div>
