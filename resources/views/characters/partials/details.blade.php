@@ -8,6 +8,11 @@
             class="underline">{{ $character->user->name }}</a>
     </p>
 @endcan
+@if ($character->short_name)
+    <p class="mb-2">
+        <strong>{{ __('Short Name') }}:</strong> {{ $character->short_name }}
+    </p>
+@endif
 <div class="grid grid-cols-1 sm:grid-cols-4">
     <p class="mt-1">
         <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
