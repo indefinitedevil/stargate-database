@@ -11,7 +11,9 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                     <div>
-                        <h3 class="text-lg font-semibold">Update: 8th February 2025</h3>
+                        <h3 class="text-lg font-semibold"><a
+                                href="https://github.com/indefinitedevil/stargate-database/pull/36" class="underline">Update:
+                                8th February 2025</a></h3>
                         <ul class="list-inside list-disc">
                             <li>Updated character links to be include character name (old links will still work).</li>
                             <li>Fixed <a href="https://github.com/indefinitedevil/stargate-database/issues/34"
@@ -45,7 +47,9 @@
                         </ul>
                     </div>
                     <div>
-                        <h3 class="text-lg font-semibold">Update: 11th January 2025</h3>
+                        <h3 class="text-lg font-semibold"><a
+                                href="https://github.com/indefinitedevil/stargate-database/pull/28" class="underline">Update:
+                                11th January 2025</a></h3>
                         <ul class="list-inside list-disc">
                             <li>Added changelog</li>
                             <li>Added mobile improvements</li>
