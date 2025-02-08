@@ -47,6 +47,7 @@
                         <li>Added random name generator to character create/edit screen <a href="https://github.com/indefinitedevil/stargate-database/issues/32" class="underline">at request</a>.</li>
                         <li>Fixed some validation and made minor wording changes.</li>
                         <li>Plot Co: enabled editing of ranks.</li>
+                        <li>Plot Co: add character links to skills breakdown.</li>
                         <li>Hide former ranks from display if new rank assigned.</li>
                         <li>Add short name editing and display.</li>
                         <li>Implemented soft-deletion of users.</li>

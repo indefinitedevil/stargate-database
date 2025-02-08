@@ -71,7 +71,9 @@
                                     @endforeach
                                     @foreach($backgroundCharacters as $character)
                                         <li>
-                                            {{ $character->short_name ?: $character->name }}
+                                            <a class="underline"
+                                               href="{{ route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]) }}">
+                                                {{ $character->short_name ?: $character->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
