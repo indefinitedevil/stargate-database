@@ -14,10 +14,12 @@
     <h3 class="text-lg font-bold mt-3">Guidance</h3>
     <ol class="list-decimal list-inside space-y-1">
         <li>
-            Start off by going to the <a class="underline" href="{{ route('characters.index') }}">my characters section</a>.
+            Start off by going to the <a class="underline" href="{{ route('characters.index') }}">my characters
+                section</a>.
         </li>
         <li>
-            Click on the "<a class="underline" href="{{ route('characters.create') }}" target="_blank">Create</a>" button.
+            Click on the "<a class="underline" href="{{ route('characters.create') }}" target="_blank">Create</a>"
+            button.
         </li>
         <li>
             Fill in the form with the character's details.
@@ -34,7 +36,9 @@
             Now you've created your character, click their name to enter the character view screen.
         </li>
         <li>
-            Click on the "Edit Skills" button.
+            Click on the "<i class="fa-solid fa-pen-to-square"></i> <span
+                class="sm:hidden">{{ __('Edit Skills') }}</span><span class="hidden sm:inline">{{ __('Skills') }}</span>"
+            button.
             <ul class="list-disc list-inside pl-4">
                 <li>
                     This will take you to the skills editor screen.
@@ -71,8 +75,9 @@
             </ul>
         </li>
         <li>
-            Once you're happy, click the "Ready for approval" button (<i class="fa-solid fa-check"></i>) and the plot co
-            will look over your sheet.
+            Once you're happy, click the "<i class="fa-solid fa-check"></i> <span
+                class="sm:hidden"> {{ __('Ready for approval') }}</span><span
+                class="hidden sm:inline">{{ __('Ready') }}</span>" button and the plot co will look over your sheet.
             <ul class="list-inside list-disc pl-4">
                 <li>
                     You can still make changes to your character after this point up until your character is approved,
