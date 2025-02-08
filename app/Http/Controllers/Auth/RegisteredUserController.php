@@ -35,11 +35,11 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'knowledge_check' => ['required', 'string', function (string $attribute, mixed $value, Closure $fail) {
-                if ('stargate' != $value) {
+                if ('stargate' != strtolower($value)) {
                     $fail('You must answer the knowledge check correctly.');
                 }
             }],
-            'galaxy' => ['missing'],
+            'galaxy' => ['prohibited'],
         ]);
 
         $user = User::create([
