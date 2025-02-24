@@ -51,11 +51,11 @@
                     </div>
                     <div class="space-y-2 text-sm">
                         <p>
-                            {!! sprintf(__('<a href="%s" class="underline" target="_blank">Code</a> developed for <a href="%s" class="underline" target="_blank">Stargate LARP</a> by Eligos and Bobbie.'), 'https://github.com/indefinitedevil/stargate-database', 'https://www.stargatelarp.co.uk/') !!}
-                            {{ __('The assistance with testing and copy-pasting from society members was truly appreciated!') }}
+                            {!! sprintf(__('<a href="%s" class="underline" target="_blank">Code</a> developed for <a href="%s" class="underline" target="_blank">Stargate LARP</a> by <a href="%s" class="underline" target="_blank">Eligos</a> and Bobbie.'), 'https://github.com/indefinitedevil/stargate-database', 'https://www.stargatelarp.co.uk/', 'https://ko-fi.com/moonemprah') !!}
+                            {!! sprintf(__('SEF logo by <a href="%s" class="underline" target="_blank">Charlie</a>.'), 'https://www.etsy.com/uk/shop/CharlieTeesTrove') !!}
+                            {{ __('The assistance with testing and copy-pasting from society members is truly appreciated!') }}
                         </p>
                         <p>
-                            {!! sprintf(__('Stargate logo by Jamieson Wieser from <a href="%s" class="underline" target="_blank">Noun Project</a> (CC BY 3.0)'), 'https://thenounproject.com/icon/stargate-1638250/') !!}
                         </p>
                     </div>
                 </div>

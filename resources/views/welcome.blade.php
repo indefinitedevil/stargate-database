@@ -13,7 +13,9 @@
                         This is a character database system for the
                         <a class=underline" target="_blank" href="https://www.stargatelarp.co.uk/">Stargate LARP</a>.
                         Within you will be able to create and manage your characters.
-                        Eventually a downtime system will be added.
+                    </p>
+                    <p class="text-2xl">
+                        Downtime system coming soon!
                     </p>
                     @guest
                         <p>
