@@ -13,7 +13,6 @@ use App\Models\Skill;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class CharacterController extends Controller
@@ -69,13 +68,13 @@ class CharacterController extends Controller
         $character = Character::find($characterId);
         if ($request->user()->cannot('edit', $character)) {
             if ($character) {
-                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+                return redirect($character->getViewRoute());
             } else {
                 return redirect(route('characters.index'));
             }
         }
         if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
-            return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+            return redirect($character->getViewRoute());
         }
         return view('characters.edit', ['character' => $character]);
     }
@@ -88,7 +87,7 @@ class CharacterController extends Controller
         $character = Character::find($characterId);
         if ($request->user()->cannot('approve', $character)) {
             if ($character) {
-                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+                return redirect($character->getViewRoute());
             } else {
                 return redirect(route('plotco.characters'));
             }
@@ -179,7 +178,7 @@ class CharacterController extends Controller
         $character = Character::find($characterId);
         if ($request->user()->cannot('approve', $character)) {
             if ($character) {
-                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+                return redirect($character->getViewRoute());
             } else {
                 return redirect(route('plotco.characters'));
             }
@@ -201,7 +200,7 @@ class CharacterController extends Controller
         $character = Character::find($characterId);
         if ($request->user()->cannot('edit', $character)) {
             if ($character) {
-                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+                return redirect($character->getViewRoute());
             } else {
                 return redirect(route('characters.index'));
             }
@@ -217,7 +216,7 @@ class CharacterController extends Controller
         $character->primary_secondary = true;
         $character->save();
 
-        return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+        return redirect($character->getViewRoute());
     }
 
     /**
@@ -228,7 +227,7 @@ class CharacterController extends Controller
         $character = Character::find($characterId);
         if ($request->user()->cannot('edit', $character)) {
             if ($character) {
-                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+                return redirect($character->getViewRoute());
             } else {
                 return redirect(route('characters.index'));
             }
@@ -278,7 +277,30 @@ class CharacterController extends Controller
 
         Mail::to(config('mail.plot_coordinator.address'))->send(new CharacterReady($character));
 
-        return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+        return redirect($character->getViewRoute());
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function reset(Request $request, $characterId)
+    {
+        $character = Character::find($characterId);
+        if ($request->user()->cannot('edit', $character)) {
+            if ($character) {
+                return redirect($character->getViewRoute());
+            } else {
+                return redirect(route('characters.index'));
+            }
+        }
+
+        if (!$character->canBeReset()) {
+            throw ValidationException::withMessages([__('Character cannot be reset.')]);
+        }
+
+        $character->reset();
+
+        return redirect($character->getViewRoute());
     }
 
     public function delete(Request $request, $characterId)
@@ -286,7 +308,7 @@ class CharacterController extends Controller
         $character = Character::find($characterId);
         if ($request->user()->cannot('delete', $character)) {
             if ($character) {
-                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+                return redirect($character->getViewRoute());
             } else {
                 return redirect(route('characters.index'));
             }
@@ -309,14 +331,14 @@ class CharacterController extends Controller
         $character = Character::find($characterId);
         if ($request->user()->cannot('edit', $character)) {
             if ($character) {
-                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+                return redirect($character->getViewRoute());
             } else {
                 return redirect(route('characters.index'));
             }
         }
         $character->status_id = Status::RETIRED;
         $character->save();
-        return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+        return redirect($character->getViewRoute());
     }
 
     public function kill(Request $request, $characterId)
@@ -324,14 +346,14 @@ class CharacterController extends Controller
         $character = Character::find($characterId);
         if ($request->user()->cannot('edit', $character)) {
             if ($character) {
-                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+                return redirect($character->getViewRoute());
             } else {
                 return redirect(route('characters.index'));
             }
         }
         $character->status_id = Status::DEAD;
         $character->save();
-        return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+        return redirect($character->getViewRoute());
     }
 
     public function editSkills(Request $request, $characterId, $skillId = null)
@@ -339,13 +361,13 @@ class CharacterController extends Controller
         $character = Character::find($characterId);
         if ($request->user()->cannot('edit', $character)) {
             if ($character) {
-                return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+                return redirect($character->getViewRoute());
             } else {
                 return redirect(route('characters.index'));
             }
         }
         if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
-            return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+            return redirect($character->getViewRoute());
         }
         return view('characters.edit-skills', [
             'character' => $character,
@@ -368,7 +390,7 @@ class CharacterController extends Controller
             'background_id' => 'required|exists:backgrounds,id',
             'status_id' => 'required|exists:statuses,id',
             'history' => 'sometimes|string|max:65535|nullable',
-            'character_links'=> 'sometimes|string|max:65535|nullable',
+            'character_links' => 'sometimes|string|max:65535|nullable',
             'plot_notes' => 'sometimes|string|max:65535|nullable',
             'events' => 'sometimes|array|exists:events,id',
             'hero_scoundrel' => 'sometimes|int',
@@ -401,7 +423,7 @@ class CharacterController extends Controller
         if (!empty($validatedData['events'])) {
             $character->events()->sync($validatedData['events']);
         }
-        return redirect(route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]));
+        return redirect($character->getViewRoute());
     }
 
     /**

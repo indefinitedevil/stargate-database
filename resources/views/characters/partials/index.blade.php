@@ -1,6 +1,3 @@
-@php
-    use Illuminate\Support\Str;
-@endphp
 <ul class="list-disc list-inside space-y-1">
     @if (count($characters) == 0)
         <li>{{ __('No characters found') }}</li>
@@ -10,16 +7,14 @@
                 @if (!empty($checkbox))
                     <input type="checkbox" name="characters[]" value="{{ $character->id }}">
                 @endif
-                <a class="underline"
-                   href="{{ route('characters.view-pretty', ['characterId' => $character, 'characterName' => Str::slug($character->name)]) }}">
+                <a class="underline" href="{{ $character->getViewRoute() }}">
                     {{ $character->short_name ?: $character->name }}</a>
                 @if($character->isPrimary)
                     <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i>
                 @endif
                                ({{ $character->background->name }})
                 @if(auth()->user()->can('view all characters') && empty($hideUser))
-                    [<a class="underline"
-                        href="{{ route('profile.view-pretty', ['userId' => $character->user, 'userName' => Str::slug($character->user->name)]) }}">{{ $character->user->name }}</a>]
+                    [<a class="underline" href="{{ $character->user->getViewRoute() }}">{{ $character->user->name }}</a>]
                 @endif
                 @if (empty($hideStatus))
                     - {{ $character->status->name }}
