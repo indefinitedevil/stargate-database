@@ -19,7 +19,7 @@
                     <div>
                         <h3 class="text-lg font-semibold">Update: 24th February 2025</h3>
                         <ul class="list-inside list-disc">
-                            <li>Applied new SEF logo by Charlie.</li>
+                            <li>Applied new SEF logo made by <a href="https://www.etsy.com/uk/shop/CharlieTeesTrove" class="underline">Charlie</a> based on the initial design by Mark.</li>
                         </ul>
                     </div>
                     <div>
