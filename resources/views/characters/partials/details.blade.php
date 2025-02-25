@@ -1,10 +1,6 @@
-@php
-    use Illuminate\Support\Str;
-@endphp
 @can('viewAll', $character)
     <p class="mb-2">
-        <strong>{{ __('Player') }}:</strong> <a
-            href="{{ route('profile.view-pretty', ['userId' => $character->user, 'userName' => Str::slug($character->user->name)]) }}"
+        <strong>{{ __('Player') }}:</strong> <a href="{{ $character->user->getViewRoute() }}"
             class="underline">{{ $character->user->name }}</a>
     </p>
 @endcan
