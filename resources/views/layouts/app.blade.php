@@ -49,10 +49,12 @@
                            class="px-2 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xl text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-2"
                            title="{{ __('Stargate Facebook Group') }}"><i class="fa-brands fa-facebook"></i></a>
                     </div>
-                    <div class="space-y-2 text-sm">
+                    <div class="text-sm">
                         <p>
                             {!! sprintf(__('<a href="%s" class="underline" target="_blank">Code</a> developed for <a href="%s" class="underline" target="_blank">Stargate LARP</a> by <a href="%s" class="underline" target="_blank">Eligos</a> and Bobbie.'), 'https://github.com/indefinitedevil/stargate-database', 'https://www.stargatelarp.co.uk/', 'https://ko-fi.com/moonemprah') !!}
-                            {!! sprintf(__('SEF logo by <a href="%s" class="underline" target="_blank">Charlie</a>.'), 'https://www.etsy.com/uk/shop/CharlieTeesTrove') !!}
+                            {!! sprintf(__('SEF logo by <a href="%s" class="underline" target="_blank">Charlie</a> based on a design by Mark.'), 'https://www.etsy.com/uk/shop/CharlieTeesTrove') !!}
+                        </p>
+                        <p>
                             {{ __('The assistance with testing and copy-pasting from society members is truly appreciated!') }}
                         </p>
                         <p>
