@@ -102,7 +102,7 @@ class CharacterSkill extends Model
         if (!in_array($this->character->status_id, [Status::NEW, Status::READY]) && $this->completed) {
             return $this->trained;
         }
-        $cost = $this->skill->cost($this->character);
+        $cost = $this->skill->cost($this->character, $this);
         if ($this->discountedBy) {
             foreach ($this->discountedBy as $discountedBy) {
                 $skillDiscount = SkillDiscount::where('discounted_skill', $this->skill_id)
