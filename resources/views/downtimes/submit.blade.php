@@ -63,9 +63,9 @@
                                             @include('downtimes.partials.upkeep-skills')
                                         @endif
                                     </x-select>
-                                    <x-select>@include('downtimes.partials.training-skills', ['action' => $action])</x-select>
-                                    <x-select>@include('downtimes.partials.teaching-skills')</x-select>
-                                    <x-select>@include('downtimes.partials.upkeep-skills')</x-select>
+                                    <x-select id="ds_{{ $action->id }}_{{ ActionType::TRAINING }}" class="hidden">@include('downtimes.partials.training-skills', ['action' => $action])</x-select>
+                                    <x-select id="ds_{{ $action->id }}_{{ ActionType::TEACHING }}" class="hidden">@include('downtimes.partials.teaching-skills', ['action' => $action])</x-select>
+                                    <x-select id="ds_{{ $action->id }}_{{ ActionType::UPKEEP }}" class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => $action])</x-select>
                                 </div>
                             @endforeach
                             @while($actionCount < $downtime->development_actions)
@@ -82,11 +82,24 @@
                                             >{{ $type->name }}</option>
                                         @endforeach
                                     </x-select>
-                                    <x-select>@include('downtimes.partials.training-skills', ['action' => null])</x-select>
-                                    <x-select>@include('downtimes.partials.teaching-skills')</x-select>
-                                    <x-select>@include('downtimes.partials.upkeep-skills')</x-select>
+                                    <x-select id="development_skill_{{ $actionCount }}"
+                                              name="development_action[{{ $actionCount }}][skill_id]"
+                                              class="mt-1 block">
+                                        @include('downtimes.partials.training-skills', ['action' => null])
+                                    </x-select>
+                                    <x-select id="ds_{{ $actionCount }}_{{ ActionType::TRAINING }}" class="hidden">@include('downtimes.partials.training-skills', ['action' => null])</x-select>
+                                    <x-select id="ds_{{ $actionCount }}_{{ ActionType::TEACHING }}" class="hidden">@include('downtimes.partials.teaching-skills', ['action' => null])</x-select>
+                                    <x-select id="ds_{{ $actionCount }}_{{ ActionType::UPKEEP }}" class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => null])</x-select>
                                 </div>
                             @endwhile
+                            <script>
+                                window.onload = function() {
+                                    jQuery('[id^="development_action_"]').on('change', function () {
+                                        let id = jQuery(this).attr('id').split('_').pop();
+                                        jQuery('[id^="development_skill_' + id).html(jQuery('#ds_' + id + '_' + jQuery(this).val()).html());
+                                    });
+                                }
+                            </script>
                         @endif
                     </div>
                 </div>
