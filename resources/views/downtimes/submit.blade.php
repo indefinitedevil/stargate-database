@@ -10,100 +10,225 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <form action="{{ route('downtimes.store') }}" method="POST">
+        <form action="{{ route('downtimes.store') }}" method="POST">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 @csrf
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <div class="float-right">
+                            <x-primary-button>{{ __('Save') }}</x-primary-button>
+                        </div>
                         <input type="hidden" name="character_id" value="{{ $character->id }}">
                         <input type="hidden" name="downtime_id" value="{{ $downtime->id }}">
-                        <div>
-                            <x-input-label for="name" :value="__('Name')"/>
-                            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
-                                          :value="$character->name" disabled/>
+                        <div class="space-y-2">
+                            <p>
+                                <strong>{{ __('Name') }}:</strong> {{ $character->name }}
+                            </p>
+                            <p>
+                                <strong>{{ __('Downtime') }}:</strong> {{ $downtime->name }}
+                                ({{ $downtime->start_time->format('d/m/Y') }}
+                                - {{ $downtime->end_time->format('d/m/Y') }})
+                                - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-                        @if ($downtime->development_actions > 0)
-                            @php
-                                $actionTypes = ActionType::where('type', ActionType::DEVELOPMENT)->get();
-                                $disableMissions = $downtime->missions->count() == 0;
-                                $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)->get();
-                                $actionCount = 0;
+                <div class="grid sm:grid-cols-2 sm:gap-6">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+                            @if ($downtime->development_actions > 0)
+                                @php
+                                    $actionTypes = ActionType::where('type', ActionType::DEVELOPMENT)->get();
+                                    $disableMissions = $downtime->missions->count() == 0;
+                                    $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
+                                        ->whereIn('action_type_id', [ActionType::TRAINING, ActionType::TEACHING, ActionType::UPKEEP, ActionType::MISSION])
+                                        ->get();
+                                    $actionCount = 0;
 
-                                $skillsOptions = view('characters.partials.available-skills', ['character' => $character])->render();
-                            @endphp
-                            @foreach ($savedActions as $action)
-                                <div>
-                                    <p class="text-lg">{{ __('Development Action :number', ['number' => ++$actionCount]) }}</p>
-                                    <x-input-label for="development_action_{{ $action->id }}"
-                                                   :value="__('Action Type')"/>
-                                    <x-select id="development_action_{{ $action->id }}"
-                                              name="development_action[{{ $action->id }}][type]"
-                                              class="mt-1 block" required>
-                                        @foreach($actionTypes as $type)
-                                            <option value="{{ $type->id }}"
-                                                    @if ($action->type == $type->id) selected @endif
-                                                    @if (ActionType::MISSION == $type->id && $disableMissions) disabled @endif
-                                            >{{ $type->name }}</option>
-                                        @endforeach
-                                    </x-select>
-                                    <x-input-label for="development_skill_{{ $action->id }}" :value="__('Skill')"/>
-                                    <x-select id="development_skill_{{ $action->id }}"
-                                              name="development_action[{{ $action->id }}][skill_id]"
-                                              class="mt-1 block">
-                                        @if (ActionType::TRAINING == $action->action_type_id)
-                                            @include('downtimes.partials.training-skills', ['action' => $action])
-                                        @elseif (ActionType::TEACHING == $action->action_type_id)
-                                            @include('downtimes.partials.teaching-skills')
-                                        @elseif (ActionType::UPKEEP == $action->action_type_id)
-                                            @include('downtimes.partials.upkeep-skills')
-                                        @endif
-                                    </x-select>
-                                    <x-select id="ds_{{ $action->id }}_{{ ActionType::TRAINING }}" class="hidden">@include('downtimes.partials.training-skills', ['action' => $action])</x-select>
-                                    <x-select id="ds_{{ $action->id }}_{{ ActionType::TEACHING }}" class="hidden">@include('downtimes.partials.teaching-skills', ['action' => $action])</x-select>
-                                    <x-select id="ds_{{ $action->id }}_{{ ActionType::UPKEEP }}" class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => $action])</x-select>
-                                </div>
-                            @endforeach
-                            @while($actionCount < $downtime->development_actions)
-                                <div>
-                                    <p class="text-lg">{{ __('Development Action :number', ['number' => ++$actionCount]) }}</p>
-                                    <x-input-label for="development_action_{{ $actionCount }}"
-                                                   :value="__('Action Type')"/>
-                                    <x-select id="development_action_{{ $actionCount }}"
-                                              name="development_action[][type]"
-                                              class="mt-1 block" required>
-                                        @foreach($actionTypes as $type)
-                                            <option value="{{ $type->id }}"
-                                                    @if (ActionType::MISSION == $type->id && $disableMissions) disabled @endif
-                                            >{{ $type->name }}</option>
-                                        @endforeach
-                                    </x-select>
-                                    <x-select id="development_skill_{{ $actionCount }}"
-                                              name="development_action[{{ $actionCount }}][skill_id]"
-                                              class="mt-1 block">
-                                        @include('downtimes.partials.training-skills', ['action' => null])
-                                    </x-select>
-                                    <x-select id="ds_{{ $actionCount }}_{{ ActionType::TRAINING }}" class="hidden">@include('downtimes.partials.training-skills', ['action' => null])</x-select>
-                                    <x-select id="ds_{{ $actionCount }}_{{ ActionType::TEACHING }}" class="hidden">@include('downtimes.partials.teaching-skills', ['action' => null])</x-select>
-                                    <x-select id="ds_{{ $actionCount }}_{{ ActionType::UPKEEP }}" class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => null])</x-select>
-                                </div>
-                            @endwhile
-                            <script>
-                                window.onload = function() {
-                                    jQuery('[id^="development_action_"]').on('change', function () {
-                                        let id = jQuery(this).attr('id').split('_').pop();
-                                        jQuery('[id^="development_skill_' + id).html(jQuery('#ds_' + id + '_' + jQuery(this).val()).html());
-                                    });
-                                }
-                            </script>
-                        @endif
+                                    $skillsOptions = view('characters.partials.available-skills', ['character' => $character])->render();
+                                @endphp
+                                @foreach ($savedActions as $action)
+                                    <div>
+                                        <p class="text-lg">{{ __('Development Action :number', ['number' => ++$actionCount]) }}</p>
+                                        <x-select id="development_action_{{ $actionCount }}"
+                                                  name="development_action[{{ $action->id }}][type]"
+                                                  :disabled="!$downtime->isOpen()"
+                                                  class="mt-1 block" required>
+                                            @foreach($actionTypes as $type)
+                                                <option value="{{ $type->id }}"
+                                                        @if ($action->type == $type->id) selected @endif
+                                                        @if (ActionType::MISSION == $type->id && $disableMissions) disabled @endif
+                                                >{{ $type->name }}</option>
+                                            @endforeach
+                                        </x-select>
+                                        <x-select id="development_skill_{{ $actionCount }}"
+                                                  name="development_action[{{ $action->id }}][skill_id]"
+                                                  :disabled="!$downtime->isOpen()"
+                                                  class="mt-1 block">
+                                            @if (ActionType::TRAINING == $action->action_type_id)
+                                                @include('downtimes.partials.training-skills', ['action' => $action])
+                                            @elseif (ActionType::TEACHING == $action->action_type_id)
+                                                @include('downtimes.partials.teaching-skills')
+                                            @elseif (ActionType::UPKEEP == $action->action_type_id)
+                                                @include('downtimes.partials.upkeep-skills')
+                                            @endif
+                                        </x-select>
+                                        <x-select id="ds_{{ $action->id }}_{{ ActionType::TRAINING }}"
+                                                  class="hidden">@include('downtimes.partials.training-skills', ['action' => $action])</x-select>
+                                        <x-select id="ds_{{ $action->id }}_{{ ActionType::TEACHING }}"
+                                                  class="hidden">@include('downtimes.partials.teaching-skills', ['action' => $action])</x-select>
+                                        <x-select id="ds_{{ $action->id }}_{{ ActionType::UPKEEP }}"
+                                                  class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => $action])</x-select>
+
+                                        <x-input-label for="development_action_{{ $action->id }}_notes"
+                                                       :value="__('Notes')"/>
+                                        <x-textarea id="development_action_{{ $action->id }}_notes"
+                                                    name="development_action[{{ $action->id }}][notes]"
+                                                    :value="$action->notes"
+                                                    :disabled="!$downtime->isOpen()"
+                                                    class="mt-1 block w-full"
+                                                    :placeholder="__('Notes')"/>
+                                    </div>
+                                @endforeach
+                                @while($actionCount < $downtime->development_actions)
+                                    <div>
+                                        <p class="text-lg">{{ __('Development Action :number', ['number' => ++$actionCount]) }}</p>
+                                        <x-select id="development_action_{{ $actionCount }}"
+                                                  name="development_action[][type]"
+                                                  :disabled="!$downtime->isOpen()"
+                                                  class="mt-1 block" required>
+                                            @foreach($actionTypes as $type)
+                                                <option value="{{ $type->id }}"
+                                                        @if (ActionType::MISSION == $type->id && $disableMissions) disabled @endif
+                                                >{{ $type->name }}</option>
+                                            @endforeach
+                                        </x-select>
+                                        <x-select id="development_skill_{{ $actionCount }}"
+                                                  name="development_action[][skill_id]"
+                                                  :disabled="!$downtime->isOpen()"
+                                                  class="mt-1 block">
+                                            @include('downtimes.partials.training-skills', ['action' => null])
+                                        </x-select>
+                                        <x-select id="ds_{{ $actionCount }}_{{ ActionType::TRAINING }}"
+                                                  class="hidden">@include('downtimes.partials.training-skills', ['action' => null])</x-select>
+                                        <x-select id="ds_{{ $actionCount }}_{{ ActionType::TEACHING }}"
+                                                  class="hidden">@include('downtimes.partials.teaching-skills', ['action' => null])</x-select>
+                                        <x-select id="ds_{{ $actionCount }}_{{ ActionType::UPKEEP }}"
+                                                  class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => null])</x-select>
+
+                                        <x-input-label for="development_action_{{ $actionCount }}_notes"
+                                                       :value="__('Notes')"/>
+                                        <x-textarea id="development_action_{{ $actionCount }}_notes"
+                                                    name="development_action[][notes]"
+                                                    :disabled="!$downtime->isOpen()"
+                                                    class="mt-1 block w-full"
+                                                    :placeholder="__('Notes')"/>
+                                    </div>
+                                @endwhile
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+                            @if ($downtime->research_actions > 0)
+                                @php
+                                    $actionTypes = ActionType::where('type', ActionType::RESEARCH)->get();
+                                    $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
+                                        ->whereIn('action_type_id', [ActionType::RESEARCHING, ActionType::UPKEEP_2])
+                                        ->get();
+                                    $actionCount = 0;
+                                @endphp
+                                @foreach ($savedActions as $action)
+                                    <div>
+                                        <p class="text-lg">{{ __('Research Action :number', ['number' => ++$actionCount]) }}</p>
+                                        <x-select id="research_action_{{ $actionCount }}"
+                                                  name="research_action[{{ $action->id }}][type]"
+                                                  :disabled="!$downtime->isOpen()"
+                                                  class="mt-1 block" required>
+                                            @foreach($actionTypes as $type)
+                                                <option value="{{ $type->id }}"
+                                                        @if ($action->type == $type->id) selected @endif
+                                                >{{ $type->name }}</option>
+                                            @endforeach
+                                        </x-select>
+                                        <x-select id="upkeep_skill_{{ $actionCount }}"
+                                                  name="research_action[{{ $action->id }}][skill_id]"
+                                                  :disabled="!$downtime->isOpen()"
+                                                  class="mt-1 block hidden">
+                                            @include('downtimes.partials.upkeep-skills', ['action' => $action])
+                                        </x-select>
+                                        <x-select id="research_project_{{ $actionCount }}"
+                                                  name="research_action[{{ $action->id }}][research_project_id]"
+                                                  :disabled="!$downtime->isOpen()"
+                                                  class="mt-1 block hidden">@include('downtimes.partials.research', ['action' => $action])</x-select>
+
+                                        <x-input-label for="research_action_{{ $action->id }}_notes"
+                                                       :value="__('Notes')"/>
+                                        <x-textarea id="research_action_{{ $action->id }}_notes"
+                                                    name="research_action[{{ $action->id }}][notes]"
+                                                    :value="$action->notes"
+                                                    :disabled="!$downtime->isOpen()"
+                                                    class="mt-1 block w-full"
+                                                    :placeholder="__('Notes')"/>
+                                    </div>
+                                @endforeach
+                                @while($actionCount < $downtime->research_actions)
+                                    <div>
+                                        <p class="text-lg">{{ __('Research Action :number', ['number' => ++$actionCount]) }}</p>
+                                        <x-select id="research_action_{{ $actionCount }}"
+                                                  name="research_action[][type]"
+                                                  :disabled="!$downtime->isOpen()"
+                                                  class="mt-1 block" required>
+                                            @foreach($actionTypes as $type)
+                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @endforeach
+                                        </x-select>
+                                        <x-select id="upkeep_skill_{{ $actionCount }}"
+                                                  name="research_action[][skill_id]"
+                                                  :disabled="!$downtime->isOpen()"
+                                                  class="mt-1 block hidden">
+                                            @include('downtimes.partials.upkeep-skills', ['action' => null])
+                                        </x-select>
+                                        <x-select id="research_project_{{ $actionCount }}"
+                                                  name="research_action[][research_project_id]"
+                                                  :disabled="!$downtime->isOpen()"
+                                                  class="mt-1 block hidden">@include('downtimes.partials.research', ['action' => null])</x-select>
+
+                                        <x-input-label for="research_action_{{ $actionCount }}_notes"
+                                                       :value="__('Notes')"/>
+                                        <x-textarea id="research_action_{{ $actionCount }}_notes"
+                                                    name="research_action[][notes]"
+                                                    :disabled="!$downtime->isOpen()"
+                                                    class="mt-1 block w-full"
+                                                    :placeholder="__('Notes')"/>
+                                    </div>
+                                @endwhile
+                            @endif
+                        </div>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
+        <script>
+            window.onload = function () {
+                jQuery('[id^="development_action_"]').on('change', function () {
+                    let id = jQuery(this).attr('id').split('_').pop();
+                    jQuery('[id^="development_skill_' + id).html(jQuery('#ds_' + id + '_' + jQuery(this).val()).html());
+                });
+                jQuery('[id^="research_action_"]').on('change', function () {
+                    let id = jQuery(this).attr('id').split('_').pop();
+                    if (jQuery(this).val() == {{ ActionType::UPKEEP_2 }}) {
+                        jQuery('#upkeep_skill_' + id).removeClass('hidden');
+                        jQuery('#research_project_' + id).addClass('hidden');
+                    }
+                    if (jQuery(this).val() == {{ ActionType::RESEARCHING }}) {
+                        jQuery('#upkeep_skill_' + id).addClass('hidden');
+                        jQuery('#research_project_' + id).removeClass('hidden');
+                    }
+                });
+            }
+        </script>
     </div>
 </x-app-layout>

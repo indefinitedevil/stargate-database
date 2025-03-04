@@ -42,4 +42,17 @@ class Downtime extends Model
     {
         return $this->hasMany(DowntimeMission::class);
     }
+
+    public function isOpen(): bool
+    {
+        static $open = null;
+        if ($open === null) {
+            $open = $this->start_time < now() && $this->end_time > now();
+        }
+        return $open;
+    }
+
+    public function getResearchProjects() {
+        return ResearchProject::all();
+    }
 }
