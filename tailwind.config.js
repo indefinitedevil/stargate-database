@@ -18,4 +18,11 @@ export default {
     },
 
     plugins: [forms],
+
+    safelist: [
+        'row-span-1',
+        'row-span-2',
+        'row-span-3',
+        'row-span-4',
+    ],
 };

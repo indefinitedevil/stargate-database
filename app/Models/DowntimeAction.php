@@ -20,6 +20,16 @@ class DowntimeAction extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'downtime_id',
+        'action_type_id',
+        'character_id',
+        'character_skill_id',
+        'downtime_mission_id',
+        'research_project_id',
+        'notes',
+    ];
+
     public function downtime(): BelongsTo
     {
         return $this->belongsTo(Downtime::class);
