@@ -323,7 +323,7 @@ class Character extends Model
 
     public function getViewRoute(): string
     {
-        $name = $this->short_name ?? $this->name;
+        $name = $this->short_name ?: $this->name;
         return route('characters.view-pretty', ['characterId' => $this, 'characterName' => Str::slug($name)]);
     }
 }

@@ -411,7 +411,7 @@ class CharacterController extends Controller
         } else {
             $character = new Character();
         }
-        $validatedData['short_name'] = $validatedData['short_name'] ?? '';
+        $validatedData['short_name'] = $validatedData['short_name'] ?? null;
         $validatedData['history'] = $validatedData['history'] ?? '';
         $validatedData['character_links'] = $validatedData['character_links'] ?? '';
         $validatedData['plot_notes'] = $validatedData['plot_notes'] ?? '';
