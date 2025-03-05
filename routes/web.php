@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/characters/edit/{characterId}', [CharacterController::class, 'edit'])->name('characters.edit');
         Route::get('/characters/delete/{characterId}', [CharacterController::class, 'delete'])->name('characters.delete');
         Route::get('/characters/ready/{characterId}', [CharacterController::class, 'ready'])->name('characters.ready');
+        Route::get('/characters/reset/{characterId}', [CharacterController::class, 'reset'])->name('characters.reset');
         Route::get('/characters/primary/{characterId}', [CharacterController::class, 'primary'])->name('characters.primary');
         Route::get('/characters/kill/{characterId}', [CharacterController::class, 'kill'])->name('characters.kill');
         Route::get('/characters/retire/{characterId}', [CharacterController::class, 'retire'])->name('characters.retire');

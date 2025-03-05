@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * @property int id
@@ -314,5 +315,27 @@ class Character extends Model
     public function downtimeActions(): HasMany
     {
         return $this->hasMany(DowntimeAction::class);
+    }
+
+    public function canBeReset(): bool
+    {
+        return $this->status_id === Status::APPROVED;
+    }
+
+    public function reset()
+    {
+        $this->status_id = Status::NEW;
+        $this->save();
+
+        $logs = CharacterLog::where('character_id', $this->id)->get();
+        foreach ($logs as $log) {
+            $log->delete();
+        }
+    }
+
+    public function getViewRoute(): string
+    {
+        $name = $this->short_name ?: $this->name;
+        return route('characters.view-pretty', ['characterId' => $this, 'characterName' => Str::slug($name)]);
     }
 }
