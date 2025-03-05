@@ -46,6 +46,7 @@ use Illuminate\Support\Str;
  * @property Event[] events
  * @property int hero_scoundrel
  * @property string type
+ * @property Collection downtimeActions
  */
 class Character extends Model
 {
@@ -319,7 +320,7 @@ class Character extends Model
 
     public function canBeReset(): bool
     {
-        return $this->status_id === Status::APPROVED;
+        return in_array($this->status_id, [Status::APPROVED, Status::PLAYED]) && $this->downtimeActions->isEmpty();
     }
 
     public function reset()
