@@ -58,11 +58,11 @@
                     </div>
                 </div>
 
-                @if ($character->upkeepSkills->count())
+                @if ($downtime->isOpen() && $character->upkeepSkills->count())
                     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 shadow">
                         <p class="font-bold">{{ __('Upkeep Skills') }}</p>
-                        <p>{{ __('The following skills require actions to be spent on upkeep.') }}</p>
-                        <ul>
+                        <p>{{ __('The following skills require actions to be spent on upkeep:') }}</p>
+                        <ul class="list-disc list-inside">
                             @foreach($character->upkeepSkills as $skill)
                                 <li>{{ $skill->name }}</li>
                             @endforeach
