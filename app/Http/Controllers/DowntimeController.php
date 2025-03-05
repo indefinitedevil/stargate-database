@@ -32,6 +32,9 @@ class DowntimeController extends Controller
             return redirect(route('dashboard'));
         }
         $downtime = Downtime::find($downtimeId);
+        if (empty($downtime)) {
+            return redirect(route('downtimes.index'));
+        }
         $character = Character::find($characterId);
         return view('downtimes.submit', [
             'downtime' => $downtime,

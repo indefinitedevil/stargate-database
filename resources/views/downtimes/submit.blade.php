@@ -36,6 +36,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <a href="{{ route('characters.edit-skills', ['characterId' => $character->id]) }}"
@@ -54,6 +55,18 @@
                         </div>
                     </div>
                 </div>
+
+                @if ($character->upkeepSkills->count())
+                    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 shadow">
+                        <p class="font-bold">{{ __('Upkeep Skills') }}</p>
+                        <p>{{ __('The following skills require actions to be spent on upkeep.') }}</p>
+                        <ul>
+                            @foreach($character->upkeepSkills as $skill)
+                                <li>{{ $skill->name }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <div class="sm:grid sm:grid-cols-2 sm:gap-6">
                     @if ($downtime->development_actions > 0)
