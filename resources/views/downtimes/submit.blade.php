@@ -50,8 +50,8 @@
                             <span class="hidden sm:inline">{{ __('Skills') }}</span>
                         </a>
                         <div class="space-y-2">
-                            <p>At this stage of the downtime system, in order to train a skill you first need to add the
-                                skill via the skills page for your character.</p>
+                            <p>In this version of the downtime system, in order to train a skill you first need to add
+                                the skill via the skills page for your character.</p>
                             <p>You can come back and edit your downtime submission at any point until downtime
                                 closes.</p>
                         </div>
