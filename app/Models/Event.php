@@ -6,7 +6,17 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $start_date
+ * @property string $end_date
+ * @property Collection $users
+ * @property Collection $characters
+ * @property Downtime $downtime
+ */
 class Event extends Model
 {
     use HasFactory;
@@ -41,5 +51,10 @@ class Event extends Model
             self::ROLE_RUNNER => 'Runner',
             default => 'Unknown',
         };
+    }
+
+    public function downtime(): HasOne
+    {
+        return $this->hasOne(Downtime::class);
     }
 }

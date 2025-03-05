@@ -113,4 +113,13 @@ class User extends Authenticatable
         return $this->throughCharacters()->hasDowntimeActions()->get()
             ->groupBy('downtime_id');
     }
+
+    public function getCharacter($characterId): ?Character
+    {
+        static $characters = [];
+        if (!isset($characters[$characterId])) {
+            $characters[$characterId] = $this->characters()->find($characterId);
+        }
+        return $characters[$characterId] ?? null;
+    }
 }

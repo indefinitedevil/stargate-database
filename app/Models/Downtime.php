@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * @property int $id
@@ -17,6 +20,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $other_actions
  * @property DowntimeAction[] $actions
  * @property DowntimeMission[] $missions
+ * @property Event $event
+ * @property int $event_id
  */
 class Downtime extends Model
 {
@@ -33,14 +38,19 @@ class Downtime extends Model
         'end_time' => 'datetime',
     ];
 
-    public function actions()
+    public function actions(): HasMany
     {
         return $this->hasMany(DowntimeAction::class);
     }
 
-    public function missions()
+    public function missions(): HasMany
     {
         return $this->hasMany(DowntimeMission::class);
+    }
+
+    public function event(): BelongsTo
+    {
+        return $this->belongsTo(Event::class);
     }
 
     public function isOpen(): bool
@@ -52,7 +62,8 @@ class Downtime extends Model
         return $open;
     }
 
-    public function getResearchProjects() {
+    public function getResearchProjects(): Collection
+    {
         return ResearchProject::all();
     }
 }
