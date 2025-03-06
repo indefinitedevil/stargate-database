@@ -23,6 +23,7 @@
             @include('partials.errors')
             @if (!empty($character))
                 @include('plotco.partials.approval')
+                @include('characters.partials.reset')
             @endif
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                 <div class="mt-1">
@@ -71,7 +72,7 @@
                                     {{ __('This will be used on indexes and your printed sheet. This is intended for condensing long character names into a simpler format.') }}
                                 </p>
                                 <x-text-input id="short_name" name="short_name" type="text" class="mt-1 block w-full"
-                                              :value="old('short_name', $character->short_name ?? '')"/>
+                                              :value="old('short_name', $character->short_name ?: '')"/>
                                 <x-input-error class="mt-2" :messages="$errors->get('short_name')"/>
                             </div>
 

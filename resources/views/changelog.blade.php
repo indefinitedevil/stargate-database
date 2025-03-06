@@ -11,6 +11,13 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                     <div>
+                        <h3 class="text-lg font-semibold">Update: 5th March 2025</h3>
+                        <ul class="list-inside list-disc">
+                            <li>Added facility to let players edit their characters after approval.</li>
+                            <li>Bug fixes related to short names.</li>
+                        </ul>
+                    </div>
+                    <div>
                         <h3 class="text-lg font-semibold">Update: 24th February 2025</h3>
                         <ul class="list-inside list-disc">
                             <li>Applied new SEF logo made by <a href="https://www.etsy.com/uk/shop/CharlieTeesTrove" class="underline">Charlie</a> based on the initial design by Mark.</li>

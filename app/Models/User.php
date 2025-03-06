@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -99,5 +100,10 @@ class User extends Authenticatable
             $uniqueName = $this->where('name', $this->name)->count() == 1;
         }
         return $uniqueName;
+    }
+
+    public function getViewRoute(): string
+    {
+        return route('profile.view-pretty', ['userId' => $this, 'userName' => Str::slug($this->name)]);
     }
 }
