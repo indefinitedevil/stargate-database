@@ -62,11 +62,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/plot-co/skills/', [PlotcoController::class, 'skills'])->name('plotco.skills');
     });
 
+    Route::group(['middleware' => 'can:view attendance'], function () {
+        Route::get('/plot-co/attendance/', [PlotcoController::class, 'attendance'])->name('plotco.attendance');
+    });
+
+    Route::group(['middleware' => 'can:record attendance'], function () {
+        Route::get('/events/attendance/{eventId}', [EventController::class, 'attendance'])->name('events.attendance');
+        Route::post('/events/store-attendance/', [EventController::class, 'storeAttendance'])->name('events.store-attendance');
+    });
+
     Route::group(['middleware' => 'can:edit all characters'], function () {
         Route::get('/plot-co/characters/', [PlotcoController::class, 'characters'])->name('plotco.characters');
         Route::get('/plot-co/characters/print-all', [PlotcoController::class, 'printAll'])->name('plotco.print-all');
         Route::get('/plot-co/characters/print-some', [PlotcoController::class, 'printSome'])->name('plotco.print-some');
-        Route::get('/plot-co/attendance/', [PlotcoController::class, 'attendance'])->name('plotco.attendance');
         Route::post('/characters/approve/{characterId}', [CharacterController::class, 'approve'])->name('characters.approve');
         Route::post('/characters/deny/{characterId}', [CharacterController::class, 'deny'])->name('characters.deny');
     });
@@ -83,8 +91,6 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'can:edit events'], function () {
         Route::get('/events/', [EventController::class, 'index'])->name('events.index');
         Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
-        Route::get('/events/attendance/{eventId}', [EventController::class, 'attendance'])->name('events.attendance');
-        Route::post('/events/store-attendance/', [EventController::class, 'storeAttendance'])->name('events.store-attendance');
     });
 });
 

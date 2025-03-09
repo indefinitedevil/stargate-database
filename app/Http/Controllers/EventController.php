@@ -16,7 +16,7 @@ class EventController extends Controller
 
     public function attendance(Request $request, $eventId)
     {
-        if ($request->user()->cannot('viewAll', Character::class)) {
+        if ($request->user()->cannot('view attendance')) {
             return redirect(route('dashboard'));
         }
         return view('events.attendance', [
