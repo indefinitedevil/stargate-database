@@ -22,6 +22,8 @@ class DowntimeController extends Controller
         }
         return view('downtimes.index', [
             'downtimes' => Downtime::orderBy('start_time', 'desc')->get(),
+            'characterIds' => $request->user()->characters->pluck('id'),
+            'activeCharacterIds' => $request->user()->characters->whereIn('status_id', [Status::APPROVED, Status::PLAYED])->pluck('id'),
         ]);
     }
 

@@ -1,5 +1,4 @@
 @php
-    use App\Models\Downtime;
     use Illuminate\Support\Facades\Auth;
 @endphp
 <x-app-layout>
@@ -15,17 +14,13 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                     <ul class="list-disc list-inside">
-                        @php
-                            $characterIds = Auth::user()->characters->pluck('id')->toArray();
-                        @endphp
                         @if ($downtimes->isEmpty())
                             <li>{{ __('No downtimes available') }}</li>
                         @else
                             @foreach($downtimes as $downtime)
                                 @if ($downtime->event_id)
                                     @php
-                                        $event = $downtime->event;
-                                        $eventCharacters = $event->characters()->whereIn('id', $characterIds)->all();
+                                        $eventCharacters = $downtime->event->characters()->whereIn('id', $characterIds)->all();
                                     @endphp
                                     @if (!empty($eventCharacters))
                                         <li>
@@ -61,7 +56,7 @@
                                             - {{ $downtime->end_time->format('d/m/Y') }})
                                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
                                             <ul class="list-inside list-disc ml-4">
-                                                @foreach ($characterIds as $characterId)
+                                                @foreach ($activeCharacterIds as $characterId)
                                                     <li>
                                                         <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
                                                            class="text-blue-500 hover:underline">
