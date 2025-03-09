@@ -10,7 +10,7 @@
     </x-slot>
 
     <div class="py-12">
-        <form action="{{ route('downtimes.store') }}" method="POST">
+        <form action="{{ route('downtimes.store-submission') }}" method="POST">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 @include('partials.errors')
                 @csrf

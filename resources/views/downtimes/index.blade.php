@@ -17,7 +17,6 @@
                     <ul class="list-disc list-inside">
                         @php
                             $characterIds = Auth::user()->characters->pluck('id')->toArray();
-                            $downtimes = Downtime::orderBy('start_time', 'desc')->get();
                         @endphp
                         @if ($downtimes->isEmpty())
                             <li>{{ __('No downtimes available') }}</li>
@@ -31,9 +30,8 @@
                                     @if (!empty($eventCharacters))
                                         <li>
                                             <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $eventCharacters[0]->id]) }}"
-                                               class="text-blue-500 hover:underline">
-                                                {{ $downtime->name }} - {{ $eventCharacters[0]->name }}
-                                            </a>
+                                               class="text-blue-500 hover:underline">{{ $downtime->name }}
+                                                - {{ $eventCharacters[0]->name }}</a>
                                             ({{ $downtime->start_time->format('d/m/Y') }}
                                             - {{ $downtime->end_time->format('d/m/Y') }})
                                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}

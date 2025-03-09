@@ -53,6 +53,12 @@
                                             {{ __('Attendance') }}
                                         </x-dropdown-link>
                                     @endcan
+                                    @can('edit downtimes')
+                                        <x-dropdown-link :href="route('plotco.downtimes')"
+                                                         :active="request()->routeIs('plotco.downtimes*')">
+                                            {{ __('Downtimes') }}
+                                        </x-dropdown-link>
+                                    @endcan
                                 </x-slot>
                             </x-dropdown>
                         @endcan
@@ -103,7 +109,7 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
-                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                                 <span>
                                     {{ Auth::user()->name }}
                                     @if (!Auth::user()->isNameUnique())
@@ -184,7 +190,7 @@
                     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                         <div class="px-4">
                             <div
-                                class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('Plot Coordinator') }}</div>
+                                    class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('Plot Coordinator') }}</div>
                         </div>
                         @can('viewAll', Character::class)
                             <x-responsive-nav-link :href="route('plotco.characters')"
@@ -202,13 +208,19 @@
                                 {{ __('Attendance') }}
                             </x-responsive-nav-link>
                         @endcan
+                        @can('edit downtimes')
+                            <x-responsive-nav-link :href="route('plotco.downtimes')"
+                                                   :active="request()->routeIs('plotco.downtimes')">
+                                {{ __('Downtimes') }}
+                            </x-responsive-nav-link>
+                        @endcan
                     </div>
                 @endcan
                 @can('edit', Skill::class)
                     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                         <div class="px-4">
                             <div
-                                class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('System Referee') }}</div>
+                                    class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('System Referee') }}</div>
                         </div>
                         <x-responsive-nav-link :href="route('sysref.skill-check')"
                                                :active="request()->routeIs('sysref.skill-check')">

@@ -21,8 +21,17 @@ class DowntimeController extends Controller
             return redirect(route('dashboard'));
         }
         return view('downtimes.index', [
-            'downtimes' => $request->user()->downtimes(),
-            'activeCharacters' => Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get(),
+            'downtimes' => Downtime::orderBy('start_time', 'desc')->get(),
+        ]);
+    }
+
+    public function plotco(Request $request)
+    {
+        if ($request->user()->cannot('edit downtimes')) {
+            return redirect(route('dashboard'));
+        }
+        return view('plotco.downtimes.index', [
+            'downtimes' => Downtime::orderBy('start_time', 'desc')->get(),
         ]);
     }
 
@@ -42,7 +51,28 @@ class DowntimeController extends Controller
         ]);
     }
 
-    public function view(Request $request, $downtimeId, $characterId)
+    public function create(Request $request)
+    {
+        if ($request->user()->cannot('edit downtimes')) {
+            return redirect(route('dashboard'));
+        }
+        return view('plotco.downtimes.edit', [
+            'downtime' => new Downtime(),
+        ]);
+    }
+
+    public function edit(Request $request, $downtimeId)
+    {
+        if ($request->user()->cannot('edit downtimes')) {
+            return redirect(route('dashboard'));
+        }
+        $downtime = Downtime::find($downtimeId);
+        return view('plotco.downtimes.edit', [
+            'downtime' => $downtime,
+        ]);
+    }
+
+    public function viewSubmission(Request $request, $downtimeId, $characterId)
     {
         if ($request->user()->cannot('view own character')) {
             return redirect(route('dashboard'));
@@ -59,6 +89,30 @@ class DowntimeController extends Controller
      * @throws ValidationException
      */
     public function store(Request $request)
+    {
+        if ($request->user()->cannot('edit downtimes')) {
+            return redirect(route('dashboard'));
+        }
+        $validatedData = $request->validate([
+            'id' => 'sometimes|exists:downtimes,id|nullable|int',
+            'name' => 'required|string|max:255',
+            'start_time' => 'required|date',
+            'end_time' => 'required|date',
+            'development_actions' => 'required|int',
+            'research_actions' => 'required|int',
+            'other_actions' => 'required|int',
+            'event_id' => 'sometimes|exists:events,id|nullable|int',
+        ]);
+        $downtime = Downtime::find($validatedData['id']) ?? new Downtime();
+        $downtime->fill($validatedData);
+        $downtime->save();
+        return redirect(route('plotco.downtimes'));
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function storeSubmission(Request $request)
     {
         $errors = [];
         $character = Character::find($request->input('character_id'));

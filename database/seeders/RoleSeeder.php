@@ -53,6 +53,7 @@ class RoleSeeder extends Seeder
         $editResearchProjects = Permission::findOrCreate('edit research projects');
         $deleteResearchProjects = Permission::findOrCreate('delete research projects');
         $viewSkillBreakdown = Permission::findOrCreate('view skill breakdown');
+        $editDowntimes = Permission::findOrCreate('edit downtimes');
 
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
@@ -90,6 +91,7 @@ class RoleSeeder extends Seeder
             $editResearchProjects,
             $deleteResearchProjects,
             $viewSkillBreakdown,
+            $editDowntimes,
         ]);
 
         $systemReferee->syncPermissions([

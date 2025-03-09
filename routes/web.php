@@ -54,8 +54,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/downtimes', [DowntimeController::class, 'index'])->name('downtimes.index');
         Route::get('/downtimes/submit/{downtimeId}/character/{characterId}', [DowntimeController::class, 'submit'])->name('downtimes.submit');
-        Route::get('/downtimes/view/{downtimeId}/character/{characterId}', [DowntimeController::class, 'view'])->name('downtimes.view');
-        Route::post('/downtimes/store', [DowntimeController::class, 'store'])->name('downtimes.store');
+        Route::get('/downtimes/view/{downtimeId}/character/{characterId}', [DowntimeController::class, 'viewSubmission'])->name('downtimes.view');
+        Route::post('/downtimes/store-submission', [DowntimeController::class, 'storeSubmission'])->name('downtimes.store-submission');
     });
 
     Route::group(['middleware' => 'can:view skill breakdown'], function () {
@@ -77,6 +77,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/plot-co/characters/print-some', [PlotcoController::class, 'printSome'])->name('plotco.print-some');
         Route::post('/characters/approve/{characterId}', [CharacterController::class, 'approve'])->name('characters.approve');
         Route::post('/characters/deny/{characterId}', [CharacterController::class, 'deny'])->name('characters.deny');
+    });
+
+    Route::group(['middleware' => 'can:edit downtimes'], function () {
+        Route::get('/plot-co/downtimes', [DowntimeController::class, 'plotco'])->name('plotco.downtimes');
+        Route::get('/plot-co/downtimes/create', [DowntimeController::class, 'create'])->name('plotco.downtimes.create');
+        Route::get('/plot-co/downtimes/edit/{downtimeId}', [DowntimeController::class, 'edit'])->name('plotco.downtimes.edit');
+        Route::post('/plot-co/downtimes/store', [DowntimeController::class, 'store'])->name('plotco.downtimes.store');
     });
 
     Route::group(['middleware' => 'can:edit skill'], function () {

@@ -31,12 +31,18 @@ class Downtime extends Model
         'name',
         'start_time',
         'end_time',
+        'development_actions',
+        'research_actions',
+        'other_actions',
+        'event_id',
     ];
 
     protected $casts = [
         'start_time' => 'datetime',
         'end_time' => 'datetime',
     ];
+
+    private $open = null;
 
     public function actions(): HasMany
     {
@@ -55,11 +61,10 @@ class Downtime extends Model
 
     public function isOpen(): bool
     {
-        static $open = null;
-        if ($open === null) {
-            $open = $this->start_time < now() && $this->end_time > now();
+        if ($this->open === null) {
+            $this->open = $this->start_time < now() && $this->end_time > now();
         }
-        return $open;
+        return $this->open;
     }
 
     public function getResearchProjects(): Collection
