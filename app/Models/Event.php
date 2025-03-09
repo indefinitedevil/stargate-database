@@ -30,6 +30,14 @@ class Event extends Model
         'end_date' => 'date',
     ];
 
+    protected $fillable = [
+        'name',
+        'start_date',
+        'end_date',
+        'location',
+        'description',
+    ];
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)

@@ -24,6 +24,9 @@
                         <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.index')">
                             {{ __('My Characters') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('downtimes.index')" :active="request()->routeIs('downtimes.index')">
+                            {{ __('Downtimes') }}
+                        </x-nav-link>
                         <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')">
                             {{ __('Events') }}
                         </x-nav-link>
@@ -167,7 +170,15 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('characters.index')"
                                        :active="request()->routeIs('characters.index')">
-                    {{ __('Characters') }}
+                    {{ __('My Characters') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('downtimes.index')"
+                                       :active="request()->routeIs('downtimes.index')">
+                    {{ __('Downtimes') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('events.index')"
+                                       :active="request()->routeIs('events.index')">
+                    {{ __('Events') }}
                 </x-responsive-nav-link>
                 @can('view skill breakdown')
                     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">

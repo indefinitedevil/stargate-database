@@ -24,8 +24,20 @@ class EventController extends Controller
         ]);
     }
 
-    public function create() {
-        return redirect('events.index');
+    public function create(Request $request) {
+        if ($request->user()->cannot('edit events')) {
+            return redirect(route('dashboard'));
+        }
+        return view('events.edit');
+    }
+
+    public function edit(Request $request, $eventId) {
+        if ($request->user()->cannot('edit events')) {
+            return redirect(route('dashboard'));
+        }
+        return view('events.edit', [
+            'event' => Event::findOrFail($eventId),
+        ]);
     }
 
     public function storeAttendance(Request $request) {
@@ -47,5 +59,30 @@ class EventController extends Controller
         $event->users()->sync($eventsData);
 
         return redirect(route('events.attendance', $event->id));
+    }
+
+    public function store(Request $request) {
+        if ($request->user()->cannot('edit events')) {
+            return redirect(route('dashboard'));
+        }
+        $validatedData = $request->validate([
+            'id' => 'sometimes|exists:events,id',
+            'name' => 'required|string',
+            'location' => 'required|string',
+            'description' => 'required|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+        ]);
+        if (!empty($validatedData['id'])) {
+            $event = Event::findOrFail($validatedData['id']);
+        } else {
+            $event = new Event();
+        }
+        if ($validatedData['start_date'] > $validatedData['end_date']) {
+            return redirect()->back()->withErrors(['start_date' => 'Start date must be before end date.']);
+        }
+        $event->fill($validatedData);
+        $event->save();
+        return redirect(route('events.edit', $event->id));
     }
 }
