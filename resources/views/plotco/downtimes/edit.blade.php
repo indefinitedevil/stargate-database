@@ -1,5 +1,5 @@
 @php
-    $title = empty($downtime->name) ? __('Create downtime') : sprintf(__('Edit downtime: %s'), $downtime->name);
+    $title = empty($downtime->id) ? __('Create downtime') : sprintf(__('Edit downtime: %s'), $downtime->name);
 @endphp
 <x-app-layout>
     <x-slot name="title">{{ $title }}</x-slot>
@@ -16,7 +16,7 @@
                 <div class="mt-1">
                     <form method="POST" action="{{ route('plotco.downtimes.store') }}">
                         @csrf
-                        @if (!empty($downtime))
+                        @if (!empty($downtime->id))
                             <input type="hidden" name="id" value="{{ $downtime->id }}">
                         @endif
                         <div class="sm:grid sm:grid-cols-6 gap-6 space-y-2 sm:space-y-0">

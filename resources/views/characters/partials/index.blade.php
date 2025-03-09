@@ -8,7 +8,7 @@
                     <input type="checkbox" name="characters[]" value="{{ $character->id }}">
                 @endif
                 <a class="underline" href="{{ $character->getViewRoute() }}">
-                    {{ $character->short_name ?: $character->name }}</a>
+                    {{ $character->listName }}</a>
                 @if($character->isPrimary)
                     <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i>
                 @endif

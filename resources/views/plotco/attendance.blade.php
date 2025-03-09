@@ -28,7 +28,7 @@
                                 {{ $character->user->name }}:
                                 <a class="underline"
                                    href="{{ route('characters.view', ['characterId' => $character->id]) }}">
-                                    {{ $character->short_name ?: $character->name }}
+                                    {{ $character->listName }}
                                 </a>
                             </li>
                         @endforeach

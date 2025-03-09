@@ -8,7 +8,7 @@
         <div class="break-after-page">
             <div class="max-w-7xl mx-auto">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{ $character->short_name ?: $character->name }}
+                    {{ $character->listName }}
                     <span class="text-sm ml-4">
                         ({{ $character->user->name }})
                     </span>

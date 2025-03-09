@@ -24,10 +24,10 @@
                         <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.index')">
                             {{ __('My Characters') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('downtimes.index')" :active="request()->routeIs('downtimes.index')">
+                        <x-nav-link :href="route('downtimes.index')" :active="request()->routeIs('downtimes.*')">
                             {{ __('Downtimes') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')">
+                        <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.*')">
                             {{ __('Events') }}
                         </x-nav-link>
                         @can('view skill breakdown')

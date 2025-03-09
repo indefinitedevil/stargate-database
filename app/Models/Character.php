@@ -339,4 +339,9 @@ class Character extends Model
         $name = $this->short_name ?: $this->name;
         return route('characters.view-pretty', ['characterId' => $this, 'characterName' => Str::slug($name)]);
     }
+
+    public function getListNameAttribute(): string
+    {
+        return $this->short_name ?: $this->name;
+    }
 }

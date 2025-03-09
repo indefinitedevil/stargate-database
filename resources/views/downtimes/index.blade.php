@@ -31,7 +31,7 @@
                                         <li>
                                             <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $eventCharacters[0]->id]) }}"
                                                class="text-blue-500 hover:underline">{{ $downtime->name }}
-                                                - {{ $eventCharacters[0]->name }}</a>
+                                                - {{ $eventCharacters[0]->listName }}</a>
                                             ({{ $downtime->start_time->format('d/m/Y') }}
                                             - {{ $downtime->end_time->format('d/m/Y') }})
                                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
@@ -48,25 +48,29 @@
                                         <li>
                                             <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $character->id]) }}"
                                                class="text-blue-500 hover:underline">
-                                                {{ $downtime->name }} - {{ $character->name }}
+                                                {{ $downtime->name }} - {{ $character->listName }}
                                             </a>
                                             ({{ $downtime->start_time->format('d/m/Y') }}
                                             - {{ $downtime->end_time->format('d/m/Y') }})
                                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
                                         </li>
                                     @else
-                                        @foreach ($characterIds as $characterId)
-                                            <li>
-                                                <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
-                                                   class="text-blue-500 hover:underline">
-                                                    {{ $downtime->name }}
-                                                    - {{ Auth::user()->getCharacter($characterId)->name }}
-                                                </a>
-                                                ({{ $downtime->start_time->format('d/m/Y') }}
-                                                - {{ $downtime->end_time->format('d/m/Y') }})
-                                                - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
-                                            </li>
-                                        @endforeach
+                                        <li>
+                                            {{ $downtime->name }}
+                                            ({{ $downtime->start_time->format('d/m/Y') }}
+                                            - {{ $downtime->end_time->format('d/m/Y') }})
+                                            - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
+                                            <ul class="list-inside list-disc ml-4">
+                                                @foreach ($characterIds as $characterId)
+                                                    <li>
+                                                        <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
+                                                           class="text-blue-500 hover:underline">
+                                                            {{ __('Submit for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
                                     @endif
                                 @endif
                             @endforeach

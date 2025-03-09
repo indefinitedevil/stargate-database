@@ -28,7 +28,9 @@ class EventController extends Controller
         if ($request->user()->cannot('edit events')) {
             return redirect(route('dashboard'));
         }
-        return view('events.edit');
+        return view('events.edit', [
+            'event' => new Event(),
+        ]);
     }
 
     public function edit(Request $request, $eventId) {

@@ -1,5 +1,5 @@
 @php
-    $title = empty($event) ? __('Create event') : sprintf(__('Edit event: %s'), $event->name);
+    $title = empty($event->id) ? __('Create event') : sprintf(__('Edit event: %s'), $event->name);
 @endphp
 <x-app-layout>
     <x-slot name="title">{{ $title }}</x-slot>
@@ -16,11 +16,11 @@
                 <div class="mt-1">
                     <form method="POST" action="{{ route('events.store') }}">
                         @csrf
-                        @if (!empty($event))
+                        @if (!empty($event->id))
                             <input type="hidden" name="id" value="{{ $event->id }}">
                         @endif
-                        <div class="grid grid-cols-1 gap-6">
-                            <div>
+                        <div class="sm:grid sm:grid-cols-6 gap-6 space-y-2 sm:space-y-0">
+                            <div class="col-span-6">
                                 <x-input-label for="name" :value="__('Event Name')"/>
                                 <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                               :value="old('name', $event->name ?? '')" required autofocus/>
@@ -30,25 +30,25 @@
                             <div>
                                 <x-input-label for="start_date" :value="__('Start Date')"/>
                                 <x-text-input id="start_date" name="start_date" type="date" class="mt-1 block w-full"
-                                              :value="old('start_date', $event->start_date->format('Y-m-d') ?? '')" required/>
+                                              :value="old('start_date', $event->start_date ? $event->start_date->format('Y-m-d') : '')" required/>
                                 <x-input-error class="mt-2" :messages="$errors->get('start_date')"/>
                             </div>
 
                             <div>
                                 <x-input-label for="end_date" :value="__('End Date')"/>
                                 <x-text-input id="end_date" name="end_date" type="date" class="mt-1 block w-full"
-                                              :value="old('end_date', $event->end_date->format('Y-m-d') ?? '')" required/>
+                                              :value="old('end_date', $event->end_date ? $event->end_date->format('Y-m-d') : '')" required/>
                                 <x-input-error class="mt-2" :messages="$errors->get('end_date')"/>
                             </div>
 
-                            <div>
+                            <div class="col-span-4">
                                 <x-input-label for="location" :value="__('Location')"/>
                                 <x-text-input id="location" name="location" type="text" class="mt-1 block w-full"
                                               :value="old('location', $event->location ?? 'TBC')" required/>
                                 <x-input-error class="mt-2" :messages="$errors->get('location')"/>
                             </div>
 
-                            <div>
+                            <div class="col-span-6">
                                 <x-input-label for="description" :value="__('Description')"/>
                                 <x-textarea id="description" name="description" rows="12"
                                             class="mt-1 block w-full">{{ $event->description ?? 'TBC' }}</x-textarea>

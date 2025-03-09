@@ -58,7 +58,7 @@
                                         <li>
                                             <a class="underline"
                                                href="{{ route('characters.view-pretty', ['characterId' => $characterSkill->character, 'characterName' => Str::slug($characterSkill->character->name)]) }}">
-                                                {{ $characterSkill->character->short_name ?: $characterSkill->character->name }}</a>
+                                                {{ $characterSkill->listName }}</a>
                                             @if ($characterSkill->skill->repeatable)
                                                 ({{ $characterSkill->level }})
                                             @endif
@@ -75,7 +75,7 @@
                                         <li>
                                             <a class="underline"
                                                href="{{ $character->getViewRoute() }}">
-                                                {{ $character->short_name ?: $character->name }}</a>
+                                                {{ $character->listName }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
