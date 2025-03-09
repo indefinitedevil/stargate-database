@@ -8,6 +8,7 @@ use App\Models\CharacterSkill;
 use App\Models\Downtime;
 use App\Models\DowntimeAction;
 use App\Models\DowntimeMission;
+use App\Models\Event;
 use App\Models\ResearchProject;
 use App\Models\Status;
 use Illuminate\Http\Request;
@@ -105,7 +106,17 @@ class DowntimeController extends Controller
             'other_actions' => 'required|int',
             'event_id' => 'sometimes|exists:events,id|nullable|int',
         ]);
-        $downtime = Downtime::find($validatedData['id']) ?? new Downtime();
+        if (!empty($validatedData['event_id'])) {
+            $event = Event::find($validatedData['event_id']);
+            if (empty($event)) {
+                throw ValidationException::withMessages(['event_id' => __('Event not found.')]);
+            }
+            $downtimes = Downtime::where('event_id', $event->id)->get();
+            if ($downtimes->count() > 0) {
+                throw ValidationException::withMessages(['event_id' => __('Event already has a downtime.')]);
+            }
+        }
+        $downtime = empty($validatedData['id']) ? new Downtime() : Downtime::find($validatedData['id']);
         $downtime->fill($validatedData);
         $downtime->save();
         return redirect(route('plotco.downtimes'));

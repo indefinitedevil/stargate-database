@@ -31,6 +31,23 @@
                                             - {{ $downtime->end_time->format('d/m/Y') }})
                                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
                                         </li>
+                                    @else
+                                        <li>
+                                            {{ $downtime->name }}
+                                            ({{ $downtime->start_time->format('d/m/Y') }}
+                                            - {{ $downtime->end_time->format('d/m/Y') }})
+                                            - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
+                                            <ul class="list-inside list-disc ml-4">
+                                                @foreach ($activeCharacterIds as $characterId)
+                                                    <li>
+                                                        <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
+                                                           class="text-blue-500 hover:underline">
+                                                            {{ __('Submit for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
                                     @endif
                                 @else
                                     @php

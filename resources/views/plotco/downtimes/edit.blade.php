@@ -1,4 +1,5 @@
 @php
+    use App\Models\Event;
     $title = empty($downtime->id) ? __('Create downtime') : sprintf(__('Edit downtime: %s'), $downtime->name);
 @endphp
 <x-app-layout>
@@ -29,37 +30,56 @@
 
                             <div class="col-span-2">
                                 <x-input-label for="start_time" :value="__('Start Time')"/>
-                                <x-text-input id="start_time" name="start_time" type="datetime-local" class="mt-1 block w-full"
-                                              :value="old('start_time', $downtime->start_time ? $downtime->start_time->format('Y-m-d H:i:s') : '')" required/>
+                                <x-text-input id="start_time" name="start_time" type="datetime-local"
+                                              class="mt-1 block w-full"
+                                              :value="old('start_time', $downtime->start_time ? $downtime->start_time->format('Y-m-d H:i:s') : '')"
+                                              required/>
                                 <x-input-error class="mt-2" :messages="$errors->get('start_time')"/>
                             </div>
 
                             <div class="col-span-2">
                                 <x-input-label for="end_time" :value="__('End Time')"/>
-                                <x-text-input id="end_time" name="end_time" type="datetime-local" class="mt-1 block w-full"
-                                              :value="old('end_time', $downtime->end_time ? $downtime->end_time->format('Y-m-d H:i:s') : '')" required/>
+                                <x-text-input id="end_time" name="end_time" type="datetime-local"
+                                              class="mt-1 block w-full"
+                                              :value="old('end_time', $downtime->end_time ? $downtime->end_time->format('Y-m-d H:i:s') : '')"
+                                              required/>
                                 <x-input-error class="mt-2" :messages="$errors->get('end_time')"/>
                             </div>
 
-                            <div class="col-span-2"></div>
+                            <div class="col-span-2">
+                                <x-input-label for="event_id" :value="__('End Time')"/>
+                                <x-select id="event_id" name="event_id" class="mt-1 block w-full" required>
+                                    <option value="">{{ __('Select an event') }}</option>
+                                    @foreach(Event::all() as $event)
+                                        <option value="{{ $event->id }}"
+                                                @if(old('event_id', $downtime->event_id ?? '') == $event->id) selected @endif>{{ $event->name }}</option>
+                                    @endforeach
+                                </x-select>
+                                <x-input-error class="mt-2" :messages="$errors->get('event_id')"/>
+                            </div>
 
                             <div>
                                 <x-input-label for="development_actions" :value="__('Development Actions')"/>
-                                <x-text-input id="development_actions" name="development_actions" type="number" class="mt-1 block w-full"
-                                              :value="old('development_actions', $downtime->development_actions ?? 3)" required/>
+                                <x-text-input id="development_actions" name="development_actions" type="number"
+                                              class="mt-1 block w-full"
+                                              :value="old('development_actions', $downtime->development_actions ?? 3)"
+                                              required/>
                                 <x-input-error class="mt-2" :messages="$errors->get('development_actions')"/>
                             </div>
 
                             <div>
                                 <x-input-label for="research_actions" :value="__('Research Actions')"/>
-                                <x-text-input id="research_actions" name="research_actions" type="number" class="mt-1 block w-full"
-                                              :value="old('research_actions', $downtime->research_actions ?? 3)" required/>
+                                <x-text-input id="research_actions" name="research_actions" type="number"
+                                              class="mt-1 block w-full"
+                                              :value="old('research_actions', $downtime->research_actions ?? 3)"
+                                              required/>
                                 <x-input-error class="mt-2" :messages="$errors->get('research_actions')"/>
                             </div>
 
                             <div>
                                 <x-input-label for="other_actions" :value="__('Other Actions')"/>
-                                <x-text-input id="other_actions" name="other_actions" type="number" class="mt-1 block w-full"
+                                <x-text-input id="other_actions" name="other_actions" type="number"
+                                              class="mt-1 block w-full"
                                               :value="old('other_actions', $downtime->other_actions ?? 1)" required/>
                                 <x-input-error class="mt-2" :messages="$errors->get('other_actions')"/>
                             </div>
