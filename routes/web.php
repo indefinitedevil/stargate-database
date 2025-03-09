@@ -58,11 +58,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/downtimes/store', [DowntimeController::class, 'store'])->name('downtimes.store');
     });
 
+    Route::group(['middleware' => 'can:view skill breakdown'], function () {
+        Route::get('/plot-co/skills/', [PlotcoController::class, 'skills'])->name('plotco.skills');
+    });
+
     Route::group(['middleware' => 'can:edit all characters'], function () {
         Route::get('/plot-co/characters/', [PlotcoController::class, 'characters'])->name('plotco.characters');
         Route::get('/plot-co/characters/print-all', [PlotcoController::class, 'printAll'])->name('plotco.print-all');
         Route::get('/plot-co/characters/print-some', [PlotcoController::class, 'printSome'])->name('plotco.print-some');
-        Route::get('/plot-co/skills/', [PlotcoController::class, 'skills'])->name('plotco.skills');
         Route::get('/plot-co/attendance/', [PlotcoController::class, 'attendance'])->name('plotco.attendance');
         Route::post('/characters/approve/{characterId}', [CharacterController::class, 'approve'])->name('characters.approve');
         Route::post('/characters/deny/{characterId}', [CharacterController::class, 'deny'])->name('characters.deny');

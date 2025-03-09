@@ -23,7 +23,7 @@ class PlotcoController extends Controller
 
     public function skills(Request $request)
     {
-        if ($request->user()->cannot('viewAll', Character::class)) {
+        if ($request->user()->cannot('view skill breakdown')) {
             return redirect(route('dashboard'));
         }
         if ($request->has('event')) {
