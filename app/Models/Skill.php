@@ -146,4 +146,20 @@ class Skill extends Model
         return $this->belongsToMany(ResearchProject::class)
             ->withPivot('months');
     }
+
+    /**
+     * Skills which when taught can be improved by this one
+     */
+    public function subSkills()
+    {
+        return $this->hasManyThrough(Skill::class, SkillTraining::class, 'taught_skill_id', 'id', 'id', 'trained_skill_id');
+    }
+
+    /**
+     * Skills which when taught can improve this one
+     */
+    public function superSkills()
+    {
+        return $this->hasManyThrough(Skill::class, SkillTraining::class, 'trained_skill_id', 'id', 'id', 'taught_skill_id');
+    }
 }

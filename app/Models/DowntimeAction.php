@@ -11,10 +11,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $downtime_id
  * @property int $action_type_id
  * @property int $character_id
- * @property int $skill_id
+ * @property int $character_skill_id
  * @property int $downtime_mission_id
  * @property int $research_project_id
  * @property string $notes
+ * @property CharacterSkill $characterSkill
+ * @property Character $character
+ * @property Downtime $downtime
+ * @property ActionType $actionType
  */
 class DowntimeAction extends Model
 {
@@ -45,7 +49,7 @@ class DowntimeAction extends Model
         return $this->belongsTo(Character::class);
     }
 
-    public function skill(): BelongsTo
+    public function characterSkill(): BelongsTo
     {
         return $this->belongsTo(CharacterSkill::class);
     }

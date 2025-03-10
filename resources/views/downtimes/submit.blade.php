@@ -58,10 +58,12 @@
                     </div>
                 </div>
 
+                @include('downtimes.partials.training-courses')
+
                 @if ($downtime->isOpen() && $character->upkeepSkills->count())
                     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-5 shadow">
                         <p class="font-bold">{{ __('Upkeep Skills') }}</p>
-                        <p>{{ __('The following skills require actions to be spent on upkeep:') }}</p>
+                        <p>{{ __('The following skills require development or research actions to be spent on upkeep:') }}</p>
                         <ul class="list-disc list-inside">
                             @foreach($character->upkeepSkills as $skill)
                                 <li>{{ $skill->name }}</li>
@@ -265,6 +267,8 @@
                                         <p class="text-lg">{{ trans_choice('Miscellaneous Actions|Miscellaneous Action :number', $downtime->other_actions, ['number' => ++$actionCount]) }}</p>
                                         <input type="hidden" name="other_action[{{ $actionCount }}][id]"
                                                value="{{ $action->id }}">
+                                        <input type="hidden" name="other_action[{{ $actionCount }}][type]"
+                                               value="{{ ActionType::OTHER }}">
                                         <x-textarea id="other_action_{{ $actionCount }}_notes"
                                                     name="other_action[{{ $actionCount }}][notes]"
                                                     :value="$action->notes"

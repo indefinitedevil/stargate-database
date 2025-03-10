@@ -18,8 +18,9 @@ use Illuminate\Support\Collection;
  * @property int $development_actions
  * @property int $research_actions
  * @property int $other_actions
- * @property DowntimeAction[] $actions
- * @property DowntimeMission[] $missions
+ * @property Collection $actions
+ * @property Collection $missions
+ * @property Collection $trainingCourses
  * @property Event $event
  * @property int $event_id
  */
@@ -70,5 +71,10 @@ class Downtime extends Model
     public function getResearchProjects(): Collection
     {
         return ResearchProject::all();
+    }
+
+    public function getTrainingCoursesAttribute(): HasMany
+    {
+        return $this->actions()->where('action_type_id', ActionType::TEACHING)->where('downtime_id', $this->id);
     }
 }

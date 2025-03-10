@@ -148,7 +148,6 @@ class DowntimeController extends Controller
             $researchActions = $request->get('research_action');
             $this->validateActions($researchActions ?? [], $errors, $character, $downtime, 'Research');
             $otherActions = $request->get('other_action');
-            $this->validateActions($otherActions ?? [], $errors, $character, $downtime, 'Other');
         }
         if (!empty($errors)) {
             throw ValidationException::withMessages($errors);
@@ -167,27 +166,31 @@ class DowntimeController extends Controller
                 case ActionType::TEACHING:
                 case ActionType::UPKEEP:
                 case ActionType::UPKEEP_2:
-                    $characterSkill = CharacterSkill::find($actionData['skill_id']);
-                    if (empty($characterSkill)) {
-                        $errors[] = __(':type Action :index: Skill not found.', ['type' => $type, 'index' => $key]);
+                    if (empty($actionData['skill_id'])) {
+                        $errors[] = __(':type Action :index: Skill is required.', ['type' => $type, 'index' => $key]);
                     } else {
-                        $actionId = $actionData['id'] ?? null;
-                        if (!empty($actionId)) {
-                            $action = DowntimeAction::find($actionId);
-                            if (empty($action)) {
-                                $errors[] = __(':type Action :index: Action not found.', ['type' => $type, 'index' => $key]);
-                            }
+                        $characterSkill = CharacterSkill::find($actionData['skill_id']);
+                        if (empty($characterSkill)) {
+                            $errors[] = __(':type Action :index: Skill not found.', ['type' => $type, 'index' => $key]);
                         } else {
-                            $action = new DowntimeAction();
+                            $actionId = $actionData['id'] ?? null;
+                            if (!empty($actionId)) {
+                                $action = DowntimeAction::find($actionId);
+                                if (empty($action)) {
+                                    $errors[] = __(':type Action :index: Action not found.', ['type' => $type, 'index' => $key]);
+                                }
+                            } else {
+                                $action = new DowntimeAction();
+                            }
+                            $action->fill([
+                                'character_id' => $character->id,
+                                'downtime_id' => $downtime->id,
+                                'action_type_id' => $actionData['type'],
+                                'character_skill_id' => $characterSkill->id,
+                                'notes' => $actionData['notes'] ?? '',
+                            ]);
+                            $action->save();
                         }
-                        $action->fill([
-                            'character_id' => $character->id,
-                            'downtime_id' => $downtime->id,
-                            'action_type_id' => $actionData['type'],
-                            'character_skill_id' => $characterSkill->id,
-                            'notes' => $actionData['notes'] ?? '',
-                        ]);
-                        $action->save();
                     }
                     break;
                 case ActionType::OTHER:
