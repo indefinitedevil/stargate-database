@@ -29,8 +29,8 @@
                             </p>
                             <p>
                                 <strong>{{ __('Downtime') }}:</strong> {{ $downtime->name }}
-                                ({{ $downtime->start_time->format('d/m/Y') }}
-                                - {{ $downtime->end_time->format('d/m/Y') }})
+                                ({{ $downtime->start_time->format('d/m/Y H:i') }}
+                                - {{ $downtime->end_time->format('d/m/Y H:i') }})
                                 - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
                             </p>
                         </div>

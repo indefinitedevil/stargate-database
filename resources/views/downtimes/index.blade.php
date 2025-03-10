@@ -27,15 +27,15 @@
                                             <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $eventCharacters[0]->id]) }}"
                                                class="text-blue-500 hover:underline">{{ $downtime->name }}
                                                 - {{ $eventCharacters[0]->listName }}</a>
-                                            ({{ $downtime->start_time->format('d/m/Y') }}
-                                            - {{ $downtime->end_time->format('d/m/Y') }})
+                                            ({{ $downtime->start_time->format('d/m/Y H:i') }}
+                                            - {{ $downtime->end_time->format('d/m/Y H:i') }})
                                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
                                         </li>
                                     @else
                                         <li>
                                             {{ $downtime->name }}
-                                            ({{ $downtime->start_time->format('d/m/Y') }}
-                                            - {{ $downtime->end_time->format('d/m/Y') }})
+                                            ({{ $downtime->start_time->format('d/m/Y H:i') }}
+                                            - {{ $downtime->end_time->format('d/m/Y H:i') }})
                                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
                                             <ul class="list-inside list-disc ml-4">
                                                 @foreach ($activeCharacterIds as $characterId)
@@ -62,15 +62,15 @@
                                                class="text-blue-500 hover:underline">
                                                 {{ $downtime->name }} - {{ $character->listName }}
                                             </a>
-                                            ({{ $downtime->start_time->format('d/m/Y') }}
-                                            - {{ $downtime->end_time->format('d/m/Y') }})
+                                            ({{ $downtime->start_time->format('d/m/Y H:i') }}
+                                            - {{ $downtime->end_time->format('d/m/Y H:i') }})
                                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
                                         </li>
                                     @else
                                         <li>
                                             {{ $downtime->name }}
-                                            ({{ $downtime->start_time->format('d/m/Y') }}
-                                            - {{ $downtime->end_time->format('d/m/Y') }})
+                                            ({{ $downtime->start_time->format('d/m/Y H:i') }}
+                                            - {{ $downtime->end_time->format('d/m/Y H:i') }})
                                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
                                             <ul class="list-inside list-disc ml-4">
                                                 @foreach ($activeCharacterIds as $characterId)
