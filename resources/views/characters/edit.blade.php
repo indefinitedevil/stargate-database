@@ -71,6 +71,9 @@
                                 <p class="text-xs">
                                     {{ __('This will be used on indexes and your printed sheet. This is intended for condensing long character names into a simpler format.') }}
                                 </p>
+                                <p class="text-xs">
+                                    {{ __('This is not for nicknames, but so you can have "Robert John Smith" as your full name and "Bob Smith" as the short name people actually know you by.') }}
+                                </p>
                                 <x-text-input id="short_name" name="short_name" type="text" class="mt-1 block w-full"
                                               :value="old('short_name', $character->short_name ?: '')"/>
                                 <x-input-error class="mt-2" :messages="$errors->get('short_name')"/>
