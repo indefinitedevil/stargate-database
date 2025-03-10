@@ -54,6 +54,8 @@
                                 the skill via the skills page for your character.</p>
                             <p>You can come back and edit your downtime submission at any point until downtime
                                 closes.</p>
+                            <p>Information on training courses being run will be made available as the relevant downtime
+                                actions are added.</p>
                         </div>
                     </div>
                 </div>
