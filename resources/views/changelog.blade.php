@@ -16,6 +16,7 @@
                             <li>Added facility to let players edit their characters after approval.</li>
                             <li>Bug fixes related to short names.</li>
                             <li>Added extra text around purpose of short names.</li>
+                            <li>Fix confirm dialogs.</li>
                         </ul>
                     </div>
                     <div>

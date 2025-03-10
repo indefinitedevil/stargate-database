@@ -14,7 +14,7 @@
         @elseif($character->canBeReset())
             <a href="{{ route('characters.reset', ['characterId' => $character->id]) }}"
                class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
-               onclick="return confirm({{ __('Are you sure you want to reset this character?') }}"
+               onclick="return confirm('{{ __('Are you sure you want to reset this character?') }}')"
                title="{{ __('Reset to new') }}"
             ><i class="fa-solid fa-rotate-left"></i>
                 {{ __('Reset') }}
@@ -24,7 +24,7 @@
             <a href="{{ route('characters.primary', ['characterId' => $character->id]) }}"
                class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
                title="{{ __('Mark as primary character') }}"
-               onclick="return confirm({{ __('Are you sure you want to mark this character as your primary character?') }}"
+               onclick="return confirm('{{ __('Are you sure you want to mark this character as your primary character?') }}');"
             ><i class="fa-solid fa-star"></i>
                 <span class="sm:hidden">{{ __('Make Primary') }}</span>
                 <span class="hidden sm:inline">{{ __('Primary') }}</span>
@@ -61,12 +61,12 @@
         @if($character->status_id === Status::PLAYED)
             <a href="{{ route('characters.retire', ['characterId' => $character->id]) }}"
                class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
-               onclick="return confirm({{ __('Are you sure you want to retire this character?') }}"
+               onclick="return confirm('{{ __('Are you sure you want to retire this character?') }}');"
                title="{{ __('Retire') }}"
             ><i class="fa-solid fa-bed"></i> {{ __('Retire') }}</a>
             <a href="{{ route('characters.kill', ['characterId' => $character->id]) }}"
                class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
-               onclick="return confirm({{ __('Are you sure you want to kill this character?') }})"
+               onclick="return confirm('{{ __('Are you sure you want to kill this character?') }}')"
                title="{{ __('Kill') }}"
             ><i class="fa-solid fa-skull"></i> {{ __('Kill') }}</a>
         @endif
@@ -74,7 +74,7 @@
     @can('delete', $character)
         <a href="{{ route('characters.delete', ['characterId' => $character->id]) }}"
            class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
-           onclick="return confirm({{ __('Are you sure you want to delete this character?') }})"
+           onclick="return confirm('{{ __('Are you sure you want to delete this character?') }}');"
            title="{{ __('Delete') }}"
         ><i class="fa-solid fa-trash"></i> {{ __('Delete') }}</a>
     @endcan
