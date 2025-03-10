@@ -24,9 +24,9 @@
                                     @endphp
                                     @if (!empty($eventCharacters))
                                         <li>
-                                            <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $eventCharacters[0]->id]) }}"
+                                            <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, current($eventCharacters)->id]) }}"
                                                class="text-blue-500 hover:underline">{{ $downtime->name }}
-                                                - {{ $eventCharacters[0]->listName }}</a>
+                                                - {{ current($eventCharacters)->listName }}</a>
                                             ({{ $downtime->start_time->format('d/m/Y H:i') }}
                                             - {{ $downtime->end_time->format('d/m/Y H:i') }})
                                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
