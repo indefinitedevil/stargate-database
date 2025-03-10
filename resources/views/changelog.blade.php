@@ -23,32 +23,40 @@
                         </ul>
                     </div>
                     <div>
-                        <h3 class="text-lg font-semibold">Update: 10th March 2025</h3>
+                        <h3 class="text-lg font-semibold"><a
+                                href="https://github.com/indefinitedevil/stargate-database/pull/40" class="underline"
+                                target="_blank">Update: 10th March 2025</a></h3>
                         <ul class="list-inside list-disc">
                             <li>Added facility to let players edit their characters after approval.</li>
                             <li>Bug fixes related to short names.</li>
                             <li>Added extra text around purpose of short names.</li>
-                            <li>Fix confirm dialogs.</li>
+                            <li>Fixed confirm dialogs.</li>
                         </ul>
+                        <p class="text-sm">Tested by Orev</p>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold">Update: 24th February 2025</h3>
                         <ul class="list-inside list-disc">
-                            <li>Applied new SEF logo made by <a href="https://www.etsy.com/uk/shop/CharlieTeesTrove" class="underline">Charlie</a> based on the initial design by Mark.</li>
+                            <li>Applied new SEF logo made by <a href="https://www.etsy.com/uk/shop/CharlieTeesTrove"
+                                                                target="_blank"
+                                                                class="underline">Charlie</a> based on the initial
+                                design by Mark.
+                            </li>
                         </ul>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold"><a
-                                href="https://github.com/indefinitedevil/stargate-database/pull/36" class="underline">Update:
-                                8th February 2025</a></h3>
+                                href="https://github.com/indefinitedevil/stargate-database/pull/36" class="underline"
+                                target="_blank">Update: 8th February 2025</a></h3>
                         <ul class="list-inside list-disc">
                             <li>Updated character links to be include character name (old links will still work).</li>
                             <li>Fixed <a href="https://github.com/indefinitedevil/stargate-database/issues/34"
+                                         target="_blank"
                                          class="underline">issue</a> with scaling costs display for approved characters.
                             </li>
                             <li>Added random name generator to character create/edit screen <a
                                     href="https://github.com/indefinitedevil/stargate-database/issues/32"
-                                    class="underline">at request</a>.
+                                    target="_blank" class="underline">at request</a>.
                             </li>
                             <li>Fixed some validation and made minor wording changes.</li>
                             <li>Plot Co: enabled editing of ranks.</li>
@@ -75,8 +83,8 @@
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold"><a
-                                href="https://github.com/indefinitedevil/stargate-database/pull/28" class="underline">Update:
-                                11th January 2025</a></h3>
+                                href="https://github.com/indefinitedevil/stargate-database/pull/28" class="underline"
+                                target="_blank">Update: 11th January 2025</a></h3>
                         <ul class="list-inside list-disc">
                             <li>Added changelog</li>
                             <li>Added mobile improvements</li>
