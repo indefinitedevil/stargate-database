@@ -21,6 +21,7 @@
                             <li>Added system to track which basic skills can be trained by full skill teaching.</li>
                             <li>Added downtime submission system.</li>
                         </ul>
+                        <p class="text-sm">Tested by Fraser, Kat, and Orev</p>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold"><a
