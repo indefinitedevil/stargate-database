@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Character;
+use App\Models\Downtime;
 use App\Models\Event;
 use App\Models\Status;
 use Illuminate\Http\Request;
@@ -68,6 +69,16 @@ class PlotcoController extends Controller
         }
         return view('characters.print', [
             'characters' => $characters,
+        ]);
+    }
+
+    public function downtimes(Request $request)
+    {
+        if ($request->user()->cannot('edit downtimes')) {
+            return redirect(route('dashboard'));
+        }
+        return view('plotco.downtimes.index', [
+            'downtimes' => Downtime::orderBy('start_time', 'desc')->get(),
         ]);
     }
 }

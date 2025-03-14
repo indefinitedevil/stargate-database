@@ -53,4 +53,14 @@ class DowntimeAction extends Model
     {
         return $this->belongsTo(CharacterSkill::class);
     }
+
+    public function mission(): BelongsTo
+    {
+        return $this->belongsTo(DowntimeMission::class, 'downtime_mission_id');
+    }
+
+    public function researchProject(): BelongsTo
+    {
+        return $this->belongsTo(ResearchProject::class, 'research_project_id');
+    }
 }

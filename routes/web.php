@@ -80,7 +80,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['middleware' => 'can:edit downtimes'], function () {
-        Route::get('/plot-co/downtimes', [DowntimeController::class, 'plotco'])->name('plotco.downtimes');
+        Route::get('/plot-co/downtimes', [PlotcoController::class, 'downtimes'])->name('plotco.downtimes');
         Route::get('/plot-co/downtimes/create', [DowntimeController::class, 'create'])->name('plotco.downtimes.create');
         Route::get('/plot-co/downtimes/edit/{downtimeId}', [DowntimeController::class, 'edit'])->name('plotco.downtimes.edit');
         Route::post('/plot-co/downtimes/store', [DowntimeController::class, 'store'])->name('plotco.downtimes.store');

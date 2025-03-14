@@ -25,7 +25,7 @@
                                     @if (!empty($eventCharacters))
                                         <li>
                                             <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, current($eventCharacters)->id]) }}"
-                                               class="text-blue-500 hover:underline">{{ $downtime->name }}
+                                               class="underline">{{ $downtime->name }}
                                                 - {{ current($eventCharacters)->listName }}</a>
                                             ({{ $downtime->start_time->format('d/m/Y H:i') }}
                                             - {{ $downtime->end_time->format('d/m/Y H:i') }})
@@ -41,7 +41,7 @@
                                                 @foreach ($activeCharacterIds as $characterId)
                                                     <li>
                                                         <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
-                                                           class="text-blue-500 hover:underline">
+                                                           class="underline">
                                                             {{ __('Submit for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
                                                         </a>
                                                     </li>

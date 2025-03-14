@@ -28,26 +28,16 @@ class DowntimeController extends Controller
         ]);
     }
 
-    public function plotco(Request $request)
-    {
-        if ($request->user()->cannot('edit downtimes')) {
-            return redirect(route('dashboard'));
-        }
-        return view('plotco.downtimes.index', [
-            'downtimes' => Downtime::orderBy('start_time', 'desc')->get(),
-        ]);
-    }
-
     public function submit(Request $request, $downtimeId, $characterId)
     {
-        if ($request->user()->cannot('view own character')) {
+        $character = Character::find($characterId);
+        if ($request->user()->cannot('view', $character)) {
             return redirect(route('dashboard'));
         }
         $downtime = Downtime::find($downtimeId);
         if (empty($downtime)) {
             return redirect(route('downtimes.index'));
         }
-        $character = Character::find($characterId);
         return view('downtimes.submit', [
             'downtime' => $downtime,
             'character' => $character,
@@ -77,14 +67,14 @@ class DowntimeController extends Controller
 
     public function viewSubmission(Request $request, $downtimeId, $characterId)
     {
-        if ($request->user()->cannot('view own character')) {
+        $character = Character::find($characterId);
+        if ($request->user()->cannot('view', $character)) {
             return redirect(route('dashboard'));
         }
         $downtime = Downtime::find($downtimeId);
-        $character = Character::find($characterId);
         return view('downtimes.view', [
             'downtime' => $downtime,
-            'characters' => $character,
+            'character' => $character,
         ]);
     }
 

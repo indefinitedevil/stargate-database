@@ -77,4 +77,13 @@ class Downtime extends Model
     {
         return $this->actions()->where('action_type_id', ActionType::TEACHING)->where('downtime_id', $this->id);
     }
+
+    public function getCharacters(): Collection
+    {
+        $characters = [];
+        foreach ($this->actions as $action) {
+            $characters[$action->character_id] = $action->character;
+        }
+        return collect($characters);
+    }
 }
