@@ -26,16 +26,16 @@
             </div>
 
             <div class="sm:grid sm:grid-cols-2 sm:gap-6">
-                @if ($downtime->development_actions > 0)
+                @php
+                    $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
+                        ->whereIn('action_type_id', [ActionType::TRAINING, ActionType::TEACHING, ActionType::UPKEEP, ActionType::MISSION])
+                        ->get();
+                    $actionCount = 0;
+                @endphp
+                @if (count($savedActions) > 0)
                     <div
                         class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->development_actions }}">
                         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
-                            @php
-                                $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
-                                    ->whereIn('action_type_id', [ActionType::TRAINING, ActionType::TEACHING, ActionType::UPKEEP, ActionType::MISSION])
-                                    ->get();
-                                $actionCount = 0;
-                            @endphp
                             @foreach ($savedActions as $action)
                                 <div>
                                     <p class="text-lg">{{ __('Development Action :number', ['number' => ++$actionCount]) }}</p>
@@ -44,62 +44,62 @@
                                         @case(ActionType::TRAINING)
                                         @case(ActionType::TEACHING)
                                         @case(ActionType::UPKEEP)
-                                        <p><strong>Skill:</strong> {{ $action->characterSkill->name }}</p>
-                                        @break
+                                            <p>{!! __('<strong>Skill:</strong> :skill', ['skill' => $action->characterSkill->name]) !!}</p>
+                                            @break
                                         @case(ActionType::MISSION)
-                                        <p><strong>Mission:</strong> {{ $action->mission->name }}</p>
-                                        @break
+                                            <p>{!! __('<strong>Mission:</strong> :mission', ['mission' => $action->mission->name]) !!}</p>
+                                            @break
                                     @endswitch
-                                    <p><strong>Notes:</strong> {{ $action->notes }}</p>
+                                    <p>{!! __('<strong>Notes:</strong> :notes', ['notes' => $action->notes]) !!}</p>
                                 </div>
                             @endforeach
                         </div>
                     </div>
                 @endif
 
-                @if ($downtime->research_actions > 0)
+                @php
+                    $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
+                        ->whereIn('action_type_id', [ActionType::RESEARCHING, ActionType::UPKEEP_2])
+                        ->get();
+                    $actionCount = 0;
+                @endphp
+                @if (count($savedActions) > 0)
                     <div
                         class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->research_actions }}">
                         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
-                            @php
-                                $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
-                                    ->whereIn('action_type_id', [ActionType::RESEARCHING, ActionType::UPKEEP_2])
-                                    ->get();
-                                $actionCount = 0;
-                            @endphp
                             @foreach ($savedActions as $action)
                                 <div>
                                     <p class="text-lg">{{ __('Research Action :number', ['number' => ++$actionCount]) }}</p>
                                     <p><strong>Type:</strong> {{ $action->actionType->name }}</p>
                                     @switch($action->action_type_id)
                                         @case(ActionType::UPKEEP_2)
-                                            <p><strong>Skill:</strong> {{ $action->characterSkill->name }}</p>
+                                            <p>{!! __('<strong>Skill:</strong> :skill', ['skill' => $action->characterSkill->name]) !!}</p>
                                             @break
                                         @case(ActionType::RESEARCHING)
-                                            <p><strong>Project:</strong> {{ $action->researchProject->name }}</p>
+                                            <p>{!! __('<strong>Project:</strong> :project', ['project' => $action->researchProject->name]) !!}</p>
                                             @break
                                     @endswitch
-                                    <p><strong>Notes:</strong> {{ $action->notes }}</p>
+                                    <p>{!! __('<strong>Notes:</strong> :notes', ['notes' => $action->notes]) !!}</p>
                                 </div>
                             @endforeach
                         </div>
                     </div>
                 @endif
 
-                @if ($downtime->other_actions > 0)
+                @php
+                    $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
+                        ->whereIn('action_type_id', [ActionType::MISC])
+                        ->get();
+                    $actionCount = 0;
+                @endphp
+                @if (count($savedActions) > 0)
                     <div
                         class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->other_actions }}">
                         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
-                            @php
-                                $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
-                                    ->whereIn('action_type_id', [ActionType::MISC])
-                                    ->get();
-                                $actionCount = 0;
-                            @endphp
                             @foreach ($savedActions as $action)
                                 <div>
                                     <p class="text-lg">{{ __('Miscellaneous Action :number', ['number' => ++$actionCount]) }}</p>
-                                    <p><strong>Notes:</strong> {{ $action->notes }}</p>
+                                    <p>{!! __('<strong>Notes:</strong> :notes', ['notes' => $action->notes]) !!}</p>
                                 </div>
                             @endforeach
                         </div>
