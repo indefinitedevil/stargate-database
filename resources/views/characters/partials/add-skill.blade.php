@@ -111,7 +111,7 @@
                 @endif
 
                 <div class="flex items-center gap-4">
-                    <x-primary-button>{{ __('Save') }}</x-primary-button>
+                    <x-primary-button>{{ __(!empty($editSkill) ? 'Save Skill' : 'Add Skill') }}</x-primary-button>
                 </div>
             </div>
             <div>
