@@ -332,6 +332,15 @@ class Character extends Model
         foreach ($logs as $log) {
             $log->delete();
         }
+
+        foreach ($this->background->skills as $skill) {
+            $characterSkill = CharacterSkill::where('character_id', $this->id)
+                ->where('skill_id', $skill->id)
+                ->first();
+            if ($characterSkill) {
+                $characterSkill->delete();
+            }
+        }
     }
 
     public function getViewRoute(): string

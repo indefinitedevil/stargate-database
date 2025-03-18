@@ -1,5 +1,6 @@
 @php
     use App\Models\Feat;
+    use App\Models\Status;
 @endphp
 <x-print-layout>
     <x-slot name="title">{{ __('Character printing') }}</x-slot>
@@ -44,15 +45,17 @@
                             {{ __('Skills') }}
                         </h2>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 clear-both">
-                            <div class="mt-1">
-                                <ul>
-                                    @foreach ($character->background->skills as $skill)
-                                        <li>{{ $skill->print_name ?? $skill->name }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                            @if ($character->status_id < Status::APPROVED)
+                                <div>
+                                    <ul>
+                                        @foreach ($character->background->skills as $skill)
+                                            <li>{{ $skill->print_name ?? $skill->name }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             @foreach($character->displayedTrainedSkills->chunk(5) as $trainedSkills)
-                                <div class="mt-1">
+                                <div>
                                     <ul>
                                         @foreach ($trainedSkills as $characterSkill)
                                             <li>{{ $characterSkill->print_name }}
@@ -230,7 +233,9 @@
                                         <li>Use of "On Your Feet, Soldier" while on 0 Body allows you to move with that
                                             character's assistance and pauses your bleed count for the duration
                                         </li>
-                                        <li>Use of "Prep For Movement" while stabilised resets your bleed count to three minutes</li>
+                                        <li>Use of "Prep For Movement" while stabilised resets your bleed count to three
+                                            minutes
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

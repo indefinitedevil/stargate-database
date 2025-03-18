@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 /**
  * @property int id
  * @property Character character
+ * @property int character_id
  * @property Skill skill
  * @property int skill_id
  * @property bool discount_used

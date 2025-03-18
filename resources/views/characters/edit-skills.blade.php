@@ -25,12 +25,13 @@
             </div>
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-                <div class="grid grid-cols-1 sm:grid-cols-4 clear-both">
-                    <div class="mt-1">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Background') }}</h3>
-                        <ul class="space-y-6 sm:space-y-2">
-                            @foreach ($character->background->skills as $skill)
-                                <li>
+                <div class="grid grid-cols-1 sm:grid-cols-4 clear-both gap-6">
+                    @if ($character->status_id < Status::APPROVED)
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Background') }}</h3>
+                            <ul class="space-y-6 sm:space-y-2">
+                                @foreach ($character->background->skills as $skill)
+                                    <li>
                                     <span class="cursor-pointer underline decoration-dashed underline-offset-4"
                                           onclick="toggleVisibility('skill-{{ $skill->id }}')">
                                         {{ $skill->name }}
@@ -38,14 +39,15 @@
                                            title="{{ __('Show description') }}"
                                         ></i>
                                     </span>
-                                    <div id="skill-{{ $skill->id }}" class="text-sm hidden pl-4 space-y-2 mb-2">
-                                        {!! Str::of($skill->description)->markdown() !!}
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <div class="mt-6 sm:mt-1">
+                                        <div id="skill-{{ $skill->id }}" class="text-sm hidden pl-4 space-y-2 mb-2">
+                                            {!! Str::of($skill->description)->markdown() !!}
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div>
                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Trained') }}</h3>
                         <ul class="space-y-6 sm:space-y-2">
                             @foreach ($character->trainedSkills->sortBy('name') as $characterSkill)
@@ -114,7 +116,7 @@
                         @endif
                     </div>
                     @if ($character->trainingSkills->count())
-                        <div class="mt-6 sm:mt-1">
+                        <div>
                             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Training') }}</h3>
                             <ul class="space-y-6 sm:space-y-2">
                                 @foreach ($character->trainingSkills->sortBy('name') as $characterSkill)
@@ -166,7 +168,7 @@
             @include('characters.partials.feats-cards')
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-                <div class="mt-1">
+                <div>
                     <form method="POST" action="{{ route('characters.store-skill') }}">
                         @csrf
                         @include('partials.errors')

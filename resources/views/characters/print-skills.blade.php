@@ -1,5 +1,6 @@
 @php
     use App\Models\Feat;
+    use App\Models\Status;
 @endphp
 <x-print-layout>
     <x-slot name="title">{{ __('Character skill printing') }}</x-slot>
@@ -13,20 +14,22 @@
                             {{ __('Skills') }}
                         </h2>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 clear-both">
-                            <div class="mt-1">
-                                <ul>
-                                    @foreach ($character->background->skills as $skill)
-                                        <li>
-                                            {{ $skill->print_name ?? $skill->name }}
-                                            <div class="text-sm pl-4 space-y-2">
-                                                {!! Str::of($skill->description)->markdown()->replace('<ul>', '<ul class="list-disc list-inside">') !!}
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                            @if ($character->status_id < Status::APPROVED)
+                                <div>
+                                    <ul>
+                                        @foreach ($character->background->skills as $skill)
+                                            <li>
+                                                {{ $skill->print_name ?? $skill->name }}
+                                                <div class="text-sm pl-4 space-y-2">
+                                                    {!! Str::of($skill->description)->markdown()->replace('<ul>', '<ul class="list-disc list-inside">') !!}
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             @foreach($character->displayedTrainedSkills->chunk(4) as $trainedSkills)
-                                <div class="mt-1">
+                                <div>
                                     <ul>
                                         @foreach ($trainedSkills as $characterSkill)
                                             <li>{{ $characterSkill->print_name }}
