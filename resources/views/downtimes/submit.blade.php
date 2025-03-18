@@ -48,7 +48,7 @@
                 </a>
                 <div class="space-y-2">
                     <p>In this version of the downtime system, in order to train a skill you first need to add
-                        the skill via the skills page for your character.</p>
+                        the skill via the skills page for your character. This may change in future versions.</p>
                     <p>You can come back and edit your downtime submission at any point until downtime
                         closes.</p>
                     <p>Information on training courses being run will be made available as the relevant downtime
@@ -76,6 +76,8 @@
                 <div
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->development_actions }}">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
+                        <p>In this version of the downtime system, in order to train a skill you first need to add
+                            the skill via the skills page for your character. This may change in future versions.</p>
                         @php
                             $actionTypes = ActionType::where('type', ActionType::DEVELOPMENT)->get();
                             $disableMissions = $downtime->missions->count() == 0;
