@@ -37,23 +37,9 @@
         @include('characters.partials.reset')
 
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 text-gray-900 dark:text-gray-100">
-                <a href="{{ route('characters.edit-skills', ['characterId' => $character->id]) }}"
-                   class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1 float-right"
-                   title="{{ __('Edit Skills') }}"
-                >
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    <span class="sm:hidden">{{ __('Edit Skills') }}</span>
-                    <span class="hidden sm:inline">{{ __('Skills') }}</span>
-                </a>
-                <div class="space-y-2">
-                    <p>In this version of the downtime system, in order to train a skill you first need to add
-                        the skill via the skills page for your character. This may change in future versions.</p>
-                    <p>You can come back and edit your downtime submission at any point until downtime
-                        closes.</p>
-                    <p>Information on training courses being run will be made available as the relevant downtime
-                        actions are added.</p>
-                </div>
+            <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+                    <p>{{ __('You can come back and edit your downtime submission at any point until downtime closes.') }}</p>
+                    <p>{{ __('Information on training courses being run will be made available as teachers submit their actions.') }}</p>
             </div>
         </div>
 
@@ -76,8 +62,7 @@
                 <div
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->development_actions }}">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
-                        <p>In this version of the downtime system, in order to train a skill you first need to add
-                            the skill via the skills page for your character. This may change in future versions.</p>
+                        <p>{{ __('In order to train a skill you first need to add the skill via the skills form below or the skills page for your character.') }}</p>
                         @php
                             $actionTypes = ActionType::where('type', ActionType::DEVELOPMENT)->get();
                             $disableMissions = $downtime->missions->count() == 0;
@@ -316,4 +301,6 @@
             });
         }
     </script>
+
+    @include('characters.partials.add-skill')
 </x-app-layout>

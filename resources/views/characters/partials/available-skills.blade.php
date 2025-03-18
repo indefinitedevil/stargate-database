@@ -1,3 +1,6 @@
+@php
+    global $skills;
+@endphp
 @foreach($character->availableSkills as $skill)
     @if (empty($currentCategory) || $currentCategory != $skill->skill_category_id)
         @if (!empty($currentCategory))

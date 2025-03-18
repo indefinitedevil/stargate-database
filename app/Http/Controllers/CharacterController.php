@@ -513,7 +513,7 @@ class CharacterController extends Controller
             }
         }
 
-        return redirect(route('characters.edit-skills', ['characterId' => $characterSkill->character->id]));
+        return redirect()->back();
     }
 
     /**
