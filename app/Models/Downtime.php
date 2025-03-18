@@ -11,8 +11,8 @@ use Illuminate\Support\Collection;
 /**
  * @property int $id
  * @property string $name
- * @property string $start_time
- * @property string $end_time
+ * @property \DateTime $start_time
+ * @property \DateTime $end_time
  * @property string $created_at
  * @property string $updated_at
  * @property int $development_actions
@@ -85,5 +85,12 @@ class Downtime extends Model
             $characters[$action->character_id] = $action->character;
         }
         return collect($characters);
+    }
+
+    public static function getOpenDowntime(): ?Downtime
+    {
+        return Downtime::where('start_time', '<', now())
+            ->where('end_time', '>', now())
+            ->first();
     }
 }

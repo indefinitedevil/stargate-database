@@ -9,87 +9,83 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-                    <ul class="list-disc list-inside">
-                        @if ($downtimes->isEmpty())
-                            <li>{{ __('No downtimes available') }}</li>
+    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+            <ul class="list-disc list-inside">
+                @if ($downtimes->isEmpty())
+                    <li>{{ __('No downtimes available') }}</li>
+                @else
+                    @foreach($downtimes as $downtime)
+                        @if ($downtime->event_id)
+                            @php
+                                $eventCharacters = $downtime->event->characters()->whereIn('id', $characterIds)->all();
+                            @endphp
+                            @if (!empty($eventCharacters))
+                                <li>
+                                    <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, current($eventCharacters)->id]) }}"
+                                       class="underline">{{ $downtime->name }}
+                                        - {{ current($eventCharacters)->listName }}</a>
+                                    ({{ $downtime->start_time->format('d/m/Y H:i') }}
+                                    - {{ $downtime->end_time->format('d/m/Y H:i') }})
+                                    - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
+                                </li>
+                            @else
+                                <li>
+                                    {{ $downtime->name }}
+                                    ({{ $downtime->start_time->format('d/m/Y H:i') }}
+                                    - {{ $downtime->end_time->format('d/m/Y H:i') }})
+                                    - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
+                                    <ul class="list-inside list-disc ml-4">
+                                        @foreach ($activeCharacterIds as $characterId)
+                                            <li>
+                                                <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
+                                                   class="underline">
+                                                    {{ __('Submit for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endif
                         @else
-                            @foreach($downtimes as $downtime)
-                                @if ($downtime->event_id)
-                                    @php
-                                        $eventCharacters = $downtime->event->characters()->whereIn('id', $characterIds)->all();
-                                    @endphp
-                                    @if (!empty($eventCharacters))
-                                        <li>
-                                            <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, current($eventCharacters)->id]) }}"
-                                               class="underline">{{ $downtime->name }}
-                                                - {{ current($eventCharacters)->listName }}</a>
-                                            ({{ $downtime->start_time->format('d/m/Y H:i') }}
-                                            - {{ $downtime->end_time->format('d/m/Y H:i') }})
-                                            - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
-                                        </li>
-                                    @else
-                                        <li>
-                                            {{ $downtime->name }}
-                                            ({{ $downtime->start_time->format('d/m/Y H:i') }}
-                                            - {{ $downtime->end_time->format('d/m/Y H:i') }})
-                                            - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
-                                            <ul class="list-inside list-disc ml-4">
-                                                @foreach ($activeCharacterIds as $characterId)
-                                                    <li>
-                                                        <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
-                                                           class="underline">
-                                                            {{ __('Submit for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </li>
-                                    @endif
-                                @else
-                                    @php
-                                        $actions = $downtime->actions()->whereIn('character_id', $characterIds)->get();
-                                    @endphp
-                                    @if ($actions->count())
-                                        @php
-                                            $character = $actions->first()->character;
-                                        @endphp
-                                        <li>
-                                            <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $character->id]) }}"
-                                               class="text-blue-500 hover:underline">
-                                                {{ $downtime->name }} - {{ $character->listName }}
-                                            </a>
-                                            ({{ $downtime->start_time->format('d/m/Y H:i') }}
-                                            - {{ $downtime->end_time->format('d/m/Y H:i') }})
-                                            - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
-                                        </li>
-                                    @else
-                                        <li>
-                                            {{ $downtime->name }}
-                                            ({{ $downtime->start_time->format('d/m/Y H:i') }}
-                                            - {{ $downtime->end_time->format('d/m/Y H:i') }})
-                                            - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
-                                            <ul class="list-inside list-disc ml-4">
-                                                @foreach ($activeCharacterIds as $characterId)
-                                                    <li>
-                                                        <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
-                                                           class="text-blue-500 hover:underline">
-                                                            {{ __('Submit for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </li>
-                                    @endif
-                                @endif
-                            @endforeach
+                            @php
+                                $actions = $downtime->actions()->whereIn('character_id', $characterIds)->get();
+                            @endphp
+                            @if ($actions->count())
+                                @php
+                                    $character = $actions->first()->character;
+                                @endphp
+                                <li>
+                                    <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $character->id]) }}"
+                                       class="text-blue-500 hover:underline">
+                                        {{ $downtime->name }} - {{ $character->listName }}
+                                    </a>
+                                    ({{ $downtime->start_time->format('d/m/Y H:i') }}
+                                    - {{ $downtime->end_time->format('d/m/Y H:i') }})
+                                    - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
+                                </li>
+                            @else
+                                <li>
+                                    {{ $downtime->name }}
+                                    ({{ $downtime->start_time->format('d/m/Y H:i') }}
+                                    - {{ $downtime->end_time->format('d/m/Y H:i') }})
+                                    - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
+                                    <ul class="list-inside list-disc ml-4">
+                                        @foreach ($activeCharacterIds as $characterId)
+                                            <li>
+                                                <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
+                                                   class="text-blue-500 hover:underline">
+                                                    {{ __('Submit for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endif
                         @endif
-                    </ul>
-                </div>
-            </div>
+                    @endforeach
+                @endif
+            </ul>
         </div>
     </div>
 </x-app-layout>
