@@ -34,9 +34,12 @@ class DowntimeController extends Controller
         if ($request->user()->cannot('view', $character)) {
             return redirect(route('dashboard'));
         }
+        if ($character->status_id < Status::APPROVED) {
+            return redirect()->back()->withErrors([__('Character is not approved.')]);
+        }
         $downtime = Downtime::find($downtimeId);
         if (empty($downtime)) {
-            return redirect(route('downtimes.index'));
+            return redirect()->back()->withErrors([__('Downtime is not available.')]);
         }
         return view('downtimes.submit', [
             'downtime' => $downtime,

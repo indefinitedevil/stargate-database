@@ -20,8 +20,10 @@
                     <li>Added downtime submission system.</li>
                     <li>Played characters can no longer be deleted.</li>
                     <li>Background skills are now added to trained skills list.</li>
+                    <li>Unified layouts to allow for global notices.</li>
+                    <li>Added global notice when downtime is open.</li>
                 </ul>
-                <p class="text-sm">Tested by Fraser, Kat, and Orev</p>
+                <p class="text-sm">Tested by Ben, Fraser, Kat, and Orev</p>
             </div>
             <div>
                 <h3 class="text-lg font-semibold"><a
