@@ -20,6 +20,7 @@
                             <li>Changed attendance tracking to be attached to users, not characters.</li>
                             <li>Added system to track which basic skills can be trained by full skill teaching.</li>
                             <li>Added downtime submission system.</li>
+                            <lI>Played characters can no longer be deleted.</lI>
                         </ul>
                         <p class="text-sm">Tested by Fraser, Kat, and Orev</p>
                     </div>

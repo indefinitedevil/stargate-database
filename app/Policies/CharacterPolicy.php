@@ -87,6 +87,9 @@ class CharacterPolicy
         if ($character->status_id > Status::APPROVED) {
             return Response::deny('Characters which have been played cannot be deleted.');
         }
+        if (!$character->canBeReset()) {
+            return Response::deny('Characters which have been played cannot be deleted.');
+        }
         $delete = false;
         if ($user->can('delete all characters')) {
             $delete = true;
