@@ -38,8 +38,8 @@
 
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-                    <p>{{ __('You can come back and edit your downtime submission at any point until downtime closes.') }}</p>
-                    <p>{{ __('Information on training courses being run will be made available as teachers submit their actions.') }}</p>
+                <p>{{ __('You can come back and edit your downtime submission at any point until downtime closes.') }}</p>
+                <p>{{ __('Information on training courses being run will be made available as teachers submit their actions.') }}</p>
             </div>
         </div>
 
@@ -278,6 +278,13 @@
                             </div>
                         @endwhile
                     </div>
+                </div>
+            @endif
+
+
+            @if ($downtime->isOpen())
+                <div class="row-span-1 sm:col-span-6">
+                    <x-primary-button>{{ __('Save') }}</x-primary-button>
                 </div>
             @endif
         </div>
