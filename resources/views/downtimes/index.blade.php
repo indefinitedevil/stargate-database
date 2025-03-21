@@ -88,6 +88,10 @@
                     @endforeach
                 @endif
             </ul>
+            <p>Welcome to the Stargate downtime system. Downtimes open between events - usually for players and crew who were present at those events, but there are exceptions to that rule that aren't relevant to this explainer.</p>
+            <p>When a downtime period is open, if you are eligible for it, you should be able to submit downtime actions for your character.</p>
+            <p>Actions are split into Development actions where you train skills, teach others, and go on missions; Research actions which are up to the plot co to determine how they're used; and Miscellaneous actions were you can leave information for the plot co.</p>
+            <p>The number of actions available is down to the plot co's decision for any given downtime.</p>
         </div>
     </div>
 </x-app-layout>
