@@ -3,6 +3,7 @@
 @endphp
 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
     <form method="POST" action="{{ route('characters.store-skill') }}" id="add-skill">
+        <p class="text-xl">{{ empty($editSkill) ? __('Add new skill') : __('Edit skill: :skill', ['skill' => $editSkill->name]) }}</p>
         @csrf
         @include('partials.errors')
         @if (!empty($editSkill))

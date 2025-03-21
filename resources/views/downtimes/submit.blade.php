@@ -284,7 +284,7 @@
 
             @if ($downtime->isOpen())
                 <div
-                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-1 sm:col-span-2">
+                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-1">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                         <p>{{ __('You can come back and edit your downtime submission at any point until downtime closes.') }}</p>
                         <p>{{ __('Save your progress before adding new skills.') }}</p>
