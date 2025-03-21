@@ -62,7 +62,7 @@
                 <div
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->development_actions }}">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
-                        <p>{{ __('In order to train a skill you first need to add the skill via the skills form below or the skills page for your character.') }}</p>
+                        <p>{!! __('In order to train a skill you first need to add the skill via <a href="#add-skill" class="underline">the skills form below</a> or the skills page for your character.') !!}</p>
                         @php
                             $actionTypes = ActionType::where('type', ActionType::DEVELOPMENT)->get();
                             $disableMissions = $downtime->missions->count() == 0;
@@ -285,8 +285,9 @@
             @if ($downtime->isOpen())
                 <div
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-1 sm:col-span-2">
-                    <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
+                    <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                         <p>{{ __('You can come back and edit your downtime submission at any point until downtime closes.') }}</p>
+                        <p>{{ __('Save your progress before adding new skills.') }}</p>
                         <x-primary-button>{{ __('Save your progress') }}</x-primary-button>
                     </div>
                 </div>
