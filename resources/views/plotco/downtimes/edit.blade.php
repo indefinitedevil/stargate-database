@@ -45,7 +45,7 @@
 
                     <div class="col-span-2">
                         <x-input-label for="event_id" :value="__('End Time')"/>
-                        <x-select id="event_id" name="event_id" class="mt-1 block w-full" required>
+                        <x-select id="event_id" name="event_id" class="mt-1 block w-full">
                             <option value="">{{ __('Select an event') }}</option>
                             @foreach(Event::all() as $event)
                                 <option value="{{ $event->id }}"

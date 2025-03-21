@@ -104,7 +104,11 @@ class DowntimeController extends Controller
             if (empty($event)) {
                 throw ValidationException::withMessages(['event_id' => __('Event not found.')]);
             }
-            $downtimes = Downtime::where('event_id', $event->id)->get();
+            $downtimes = Downtime::where('event_id', $event->id);
+            if (!empty($validatedData['id'])) {
+                $downtimes = $downtimes->where('id', '!=', $validatedData['id']);
+            }
+            $downtimes = $downtimes->get();
             if ($downtimes->count() > 0) {
                 throw ValidationException::withMessages(['event_id' => __('Event already has a downtime.')]);
             }
