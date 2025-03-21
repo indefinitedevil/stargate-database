@@ -13,11 +13,6 @@
         @csrf
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
-                @if ($downtime->isOpen())
-                    <div class="float-right">
-                        <x-primary-button>{{ __('Save') }}</x-primary-button>
-                    </div>
-                @endif
                 <input type="hidden" name="character_id" value="{{ $character->id }}">
                 <input type="hidden" name="downtime_id" value="{{ $downtime->id }}">
                 <div class="space-y-2">
@@ -26,6 +21,9 @@
                     </p>
                     <p>
                         <strong>{{ __('Downtime') }}:</strong> {{ $downtime->name }}
+                        @if ($downtime->event_id)
+                            ({{ $downtime->event->name }})
+                        @endif
                         ({{ $downtime->start_time->format('d/m/Y H:i') }}
                         - {{ $downtime->end_time->format('d/m/Y H:i') }})
                         - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
@@ -38,7 +36,10 @@
 
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-                <p>{{ __('You can come back and edit your downtime submission at any point until downtime closes.') }}</p>
+                <p>
+                    {{ __('You do not need to fill in all details immediately.') }}
+                    {{ __('You can come back and edit your downtime submission at any point until downtime closes.') }}
+                </p>
                 <p>{{ __('Information on training courses being run will be made available as teachers submit their actions.') }}</p>
             </div>
         </div>

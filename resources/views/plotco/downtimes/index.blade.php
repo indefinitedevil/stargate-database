@@ -21,13 +21,13 @@
                         <li>
                             <a href="{{ route('plotco.downtimes.edit', ['downtimeId' => $downtime->id]) }}"
                                class="underline">{{ $downtime->name }}</a>
-                            ({{ $downtime->start_time->format('d/m/Y') }}
-                            - {{ $downtime->end_time->format('d/m/Y') }})
+                            @if ($downtime->event_id)
+                                ({{ $downtime->event->name }})
+                            @endif
+                                ({{ $downtime->start_time->format('d/m/Y') }}
+                                - {{ $downtime->end_time->format('d/m/Y') }})
                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
 
-                            @if ($downtime->event_id)
-                                - Attached to {{ $downtime->event->name }}
-                            @endif
                             <ul class="list-disc list-inside pl-4 sm:grid sm:grid-cols-6">
                                 @foreach ($downtime->getCharacters() as $character)
                                     <li>

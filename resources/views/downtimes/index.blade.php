@@ -24,6 +24,7 @@
                                 <li>
                                     <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, current($eventCharacters)->id]) }}"
                                        class="underline">{{ $downtime->name }}
+                                        ({{ $downtime->event->name }})
                                         - {{ current($eventCharacters)->listName }}</a>
                                     ({{ $downtime->start_time->format('d/m/Y H:i') }}
                                     - {{ $downtime->end_time->format('d/m/Y H:i') }})
@@ -32,6 +33,7 @@
                             @else
                                 <li>
                                     {{ $downtime->name }}
+                                    ({{ $downtime->event->name }})
                                     ({{ $downtime->start_time->format('d/m/Y H:i') }}
                                     - {{ $downtime->end_time->format('d/m/Y H:i') }})
                                     - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
