@@ -1,0 +1,148 @@
+@php
+    use App\Models\Character;
+    use App\Models\Skill;
+@endphp
+<x-app-layout>
+    <x-slot name="title">{{ __('Check Downtime Processing') }}</x-slot>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __($downtime->event_id ? 'Check Downtime Processing: :name (:event)' : 'Check Downtime Processing: :name', ['name' => $downtime->name, 'event' => $downtime->event->name]) }}
+        </h2>
+    </x-slot>
+
+    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+            @php
+                extract($downtime->preprocess());
+                $skills = $characters = [];
+            @endphp
+            <h3 class="text-xl font-semibold">{{ __('Teaching and training') }}</h3>
+            <div class="sm:grid sm:grid-cols-3 gap-6">
+                @foreach($taughtSkills as $skillId => $teachers)
+                    @php
+                        if (empty($skills[$skillId])) {
+                            $skills[$skillId] = Skill::find($skillId);
+                        }
+                    @endphp
+                    <div>
+                        <p class="text-lg font-semibold">{{ $skills[$skillId]->name }}</p>
+                        <ul class="list-disc list-inside">
+                            @foreach($teachers as $teacher)
+                                @php
+                                    if (empty($characters[$teacher])) {
+                                        $characters[$teacher] = Character::find($teacher);
+                                    }
+                                @endphp
+                                <li>
+                                    {{ __('Taught by :name', ['name' => $characters[$teacher]->listName]) }}
+                                    ({{ __('+1 Vigor at next event') }})
+                                </li>
+                            @endforeach
+                            @if (!empty($trainedSkills[$skillId]))
+                                @foreach($trainedSkills[$skillId] as $characterId => $months)
+                                    @php
+                                        if (empty($characters[$characterId])) {
+                                            $characters[$characterId] = Character::find($characterId);
+                                        }
+                                    @endphp
+                                    <li>
+                                        {{ __('Trained by :name (:months months)', ['name' => $characters[$characterId]->listName, 'months' => $months]) }}
+                                        @if (!in_array($characterId, $teachers))
+                                            ({{ __('+1 month training') }})
+                                        @endif
+                                    </li>
+                                @endforeach
+                                @php unset($trainedSkills[$skillId]); @endphp
+                            @endif
+                            @foreach ($skills[$skillId]->subskills as $subSkill)
+                                @if (!empty($trainedSkills[$subSkill->id]))
+                                    @foreach($trainedSkills[$subSkill->id] as $characterId => $months)
+                                        @php
+                                            if (empty($characters[$characterId])) {
+                                                $characters[$characterId] = Character::find($characterId);
+                                            }
+                                        @endphp
+                                        <li>
+                                            {{ __(':skill trained by :name (:months months)', ['skill' => $subSkill->name, 'name' => $characters[$characterId]->listName, 'months' => $months]) }}
+                                            @if (!in_array($characterId, $teachers))
+                                                ({{ __('+1 month training') }})
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                    @php unset($trainedSkills[$subSkill->id]); @endphp
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                @endforeach
+
+                @foreach($trainedSkills as $skillId => $learners)
+                    @php
+                        if (empty($skills[$skillId])) {
+                            $skills[$skillId] = Skill::find($skillId);
+                        }
+                    @endphp
+                    <div>
+                        <p class="text-lg font-semibold">{{ $skills[$skillId]->name }}</p>
+                        <ul class="list-disc list-inside">
+                            @foreach($learners as $characterId => $months)
+                                @php
+                                    if (empty($characters[$characterId])) {
+                                        $characters[$characterId] = Character::find($characterId);
+                                    }
+                                @endphp
+                                <li>
+                                    {{ __('Trained by :name (:months months)', ['name' => $characters[$characterId]->listName, 'months' => $months]) }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endforeach
+            </div>
+
+            @if (!empty($requiredUpkeepSkills))
+                <h3 class="text-xl font-semibold">{{ __('Upkeep') }}</h3>
+                <div class="sm:grid sm:grid-cols-3 gap-6">
+                    @foreach($requiredUpkeepSkills as $skillId => $requiredUpkeepCharacters)
+                        @php
+                            if (empty($skills[$skillId])) {
+                                $skills[$skillId] = Skill::find($skillId);
+                            }
+                        @endphp
+                        <div>
+                            <p class="text-lg font-semibold">{{ $skills[$skillId]->name }}</p>
+                            <ul class="list-disc list-inside">
+                                @foreach($requiredUpkeepCharacters as $characterId)
+                                    @php
+                                        if (empty($characters[$characterId])) {
+                                            $characters[$characterId] = Character::find($characterId);
+                                        }
+                                    @endphp
+                                    <li>
+                                        @if (!empty($upkeepMaintenance) && in_array($characterId, $upkeepMaintenance))
+                                            {{ __('Maintained by :name', ['name' => $characters[$characterId]->listName]) }}
+                                        @else
+                                            {{ __('Required by :name - WILL BE LOST', ['name' => $characters[$characterId]->listName]) }}
+                                        @endif
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
+            @if ($downtime->missions->count())
+                <h3 class="text-xl font-semibold">{{ __('Missions') }}</h3>
+                <div class="sm:grid sm:grid-cols-3 gap-6">
+                </div>
+            @endif
+
+            @if (false)
+                <h3 class="text-xl font-semibold">{{ __('Research Projects') }}</h3>
+                <div class="sm:grid sm:grid-cols-3 gap-6">
+                </div>
+            @endif
+        </div>
+    </div>
+</x-app-layout>

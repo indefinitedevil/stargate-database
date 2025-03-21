@@ -93,4 +93,52 @@ class Downtime extends Model
             ->where('end_time', '>', now())
             ->first();
     }
+
+    public function preprocess(): array
+    {
+        $taughtSkills = $trainedSkills = $downtimeMissions = $researchProjects = $upkeepMaintenance = [];
+        $characters = [];
+        foreach ($this->actions as $action) {
+            $characters[$action->character_id] = $action->character_id;
+            switch ($action->action_type_id) {
+                case ActionType::TEACHING:
+                    $taughtSkills[$action->characterSkill->skill_id][] = $action->character_id;
+                    break;
+                case ActionType::TRAINING:
+                    if (empty($trainedSkills[$action->characterSkill->skill_id])) {
+                        $trainedSkills[$action->characterSkill->skill_id][$action->character_id] = 0;
+                    }
+                    $trainedSkills[$action->characterSkill->skill_id][$action->character_id]++;
+                    break;
+                case ActionType::MISSION:
+                    $downtimeMissions[$action->downtime_mission_id][] = $action->character_id;
+                    break;
+                case ActionType::RESEARCH:
+                    $researchProjects[$action->research_project_id][] = $action->character_id;
+                    break;
+                case ActionType::UPKEEP:
+                case ActionType::UPKEEP_2:
+                    $upkeepMaintenance[$action->characterSkill->skill_id][] = $action->character_id;
+                    break;
+            }
+        }
+        $upkeepSkills = Skill::where('upkeep', true);
+        $requiredUpkeepSkills = [];
+        foreach ($upkeepSkills as $skill) {
+            $relevantCharacters = [];
+            $relevantCharacterSkills = $skill->characterSkills()->whereIn('character_id', $characters)->get();
+            foreach ($relevantCharacterSkills as $characterSkill) {
+                $relevantCharacters[$characterSkill->character_id] = $characterSkill->character_id;
+            }
+            $requiredUpkeepSkills[$skill->id] = $relevantCharacters;
+        }
+        return [
+            'taughtSkills' => $taughtSkills,
+            'trainedSkills' => $trainedSkills,
+            'downtimeMissions' => $downtimeMissions,
+            'researchProjects' => $researchProjects,
+            'upkeepMaintenance' => $upkeepMaintenance,
+            'requiredUpkeepSkills' => $requiredUpkeepSkills,
+        ];
+    }
 }

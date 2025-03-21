@@ -81,4 +81,14 @@ class PlotcoController extends Controller
             'downtimes' => Downtime::orderBy('start_time', 'desc')->get(),
         ]);
     }
+
+    public function preprocessDowntime(Request $request, $downtimeId)
+    {
+        if ($request->user()->cannot('edit downtimes')) {
+            return redirect(route('dashboard'));
+        }
+        return view('plotco.downtimes.preprocess', [
+            'downtime' => Downtime::findOrFail($downtimeId),
+        ]);
+    }
 }
