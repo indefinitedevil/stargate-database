@@ -24,6 +24,7 @@ class Event extends Model
     const ROLE_PLAYER = 1;
     const ROLE_CREW = 2;
     const ROLE_RUNNER = 3;
+    const ROLE_PAID_DOWNTIME = 4;
 
     protected $casts = [
         'start_date' => 'date',
@@ -57,6 +58,7 @@ class Event extends Model
             self::ROLE_PLAYER => 'Player',
             self::ROLE_CREW => 'Crew',
             self::ROLE_RUNNER => 'Runner',
+            self::ROLE_PAID_DOWNTIME => 'Paid Downtime',
             default => 'Unknown',
         };
     }
