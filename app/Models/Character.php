@@ -28,6 +28,7 @@ use Illuminate\Support\Str;
  * @property Collection displayedTrainedSkills
  * @property Collection hiddenTrainedSkills
  * @property Collection trainingSkill
+ * @property Collection logs
  * @property Status status
  * @property Feat[] feats
  * @property User player
@@ -83,6 +84,11 @@ class Character extends Model
     public function background(): HasOne
     {
         return $this->hasOne(Background::class, 'id', 'background_id');
+    }
+
+    public function logs(): HasMany
+    {
+        return $this->hasMany(CharacterLog::class);
     }
 
     public function skills(): HasMany
@@ -168,7 +174,8 @@ class Character extends Model
 
     public function trainedSkills(): HasMany
     {
-        return $this->skills()->where('completed', true);
+        return $this->skills()->where('completed', true)
+            ->where('removed', false);
     }
 
     public function upkeepSkills(): HasMany
@@ -221,6 +228,9 @@ class Character extends Model
         foreach ($this->trainedSkills as $characterSkill) {
             $body += $characterSkill->skill->body;
         }
+        foreach ($this->logs->where('body_change', '!=', 0) as $log) {
+            $body += $log->body_change;
+        }
         return $body;
     }
 
@@ -229,6 +239,9 @@ class Character extends Model
         $vigor = $this->background->vigor;
         foreach ($this->trainedSkills as $characterSkill) {
             $vigor += $characterSkill->skill->vigor;
+        }
+        foreach ($this->logs->where('vigor_change', '!=', 0) as $log) {
+            $vigor += $log->vigor_change;
         }
         return $vigor;
     }

@@ -39,14 +39,14 @@
                                 </li>
                             @endforeach
                             @if (!empty($trainedSkills[$skillId]))
-                                @foreach($trainedSkills[$skillId] as $characterId => $months)
+                                @foreach($trainedSkills[$skillId] as $characterId => $actions)
                                     @php
                                         if (empty($characters[$characterId])) {
                                             $characters[$characterId] = Character::find($characterId);
                                         }
                                     @endphp
                                     <li>
-                                        {{ __('Trained by :name (:months months)', ['name' => $characters[$characterId]->listName, 'months' => $months]) }}
+                                        {{ __('Trained by :name (:months months)', ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
                                         @if (!in_array($characterId, $teachers))
                                             ({{ __('+1 month training') }})
                                         @endif
@@ -56,14 +56,14 @@
                             @endif
                             @foreach ($skills[$skillId]->subskills as $subSkill)
                                 @if (!empty($trainedSkills[$subSkill->id]))
-                                    @foreach($trainedSkills[$subSkill->id] as $characterId => $months)
+                                    @foreach($trainedSkills[$subSkill->id] as $characterId => $actions)
                                         @php
                                             if (empty($characters[$characterId])) {
                                                 $characters[$characterId] = Character::find($characterId);
                                             }
                                         @endphp
                                         <li>
-                                            {{ __(':skill trained by :name (:months months)', ['skill' => $subSkill->name, 'name' => $characters[$characterId]->listName, 'months' => $months]) }}
+                                            {{ __(':skill trained by :name (:months months)', ['skill' => $subSkill->name, 'name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
                                             @if (!in_array($characterId, $teachers))
                                                 ({{ __('+1 month training') }})
                                             @endif
@@ -85,14 +85,14 @@
                     <div>
                         <p class="text-lg font-semibold">{{ $skills[$skillId]->name }}</p>
                         <ul class="list-disc list-inside">
-                            @foreach($learners as $characterId => $months)
+                            @foreach($learners as $characterId => $actions)
                                 @php
                                     if (empty($characters[$characterId])) {
                                         $characters[$characterId] = Character::find($characterId);
                                     }
                                 @endphp
                                 <li>
-                                    {{ __('Trained by :name (:months months)', ['name' => $characters[$characterId]->listName, 'months' => $months]) }}
+                                    {{ __('Trained by :name (:months months)', ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
                                 </li>
                             @endforeach
                         </ul>

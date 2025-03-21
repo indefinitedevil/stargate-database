@@ -102,13 +102,10 @@ class Downtime extends Model
             $characters[$action->character_id] = $action->character_id;
             switch ($action->action_type_id) {
                 case ActionType::TEACHING:
-                    $taughtSkills[$action->characterSkill->skill_id][] = $action->character_id;
+                    $taughtSkills[$action->characterSkill->skill_id][$action->id] = $action->character_id;
                     break;
                 case ActionType::TRAINING:
-                    if (empty($trainedSkills[$action->characterSkill->skill_id])) {
-                        $trainedSkills[$action->characterSkill->skill_id][$action->character_id] = 0;
-                    }
-                    $trainedSkills[$action->characterSkill->skill_id][$action->character_id]++;
+                    $trainedSkills[$action->characterSkill->skill_id][$action->character_id][] = $action->id;
                     break;
                 case ActionType::MISSION:
                     $downtimeMissions[$action->downtime_mission_id][] = $action->character_id;
@@ -118,7 +115,7 @@ class Downtime extends Model
                     break;
                 case ActionType::UPKEEP:
                 case ActionType::UPKEEP_2:
-                    $upkeepMaintenance[$action->characterSkill->skill_id][] = $action->character_id;
+                    $upkeepMaintenance[$action->characterSkill->skill_id][$action->id] = $action->character_id;
                     break;
             }
         }
@@ -140,5 +137,82 @@ class Downtime extends Model
             'upkeepMaintenance' => $upkeepMaintenance,
             'requiredUpkeepSkills' => $requiredUpkeepSkills,
         ];
+    }
+
+    public function process()
+    {
+        extract($this->preprocess());
+        $skillChanges = [];
+        foreach ($trainedSkills as $skillId => $characters) {
+            foreach ($characters as $characterId => $actions) {
+                $action = DowntimeAction::find(current($actions));
+                $skillChanges[$skillId][] = [
+                    'character_id' => $characterId,
+                    'character_skill_id' => $action->character_skill_id,
+                    'log_type_id' => LogType::DOWNTIME,
+                    'amount_trained' => count($actions),
+                    'locked' => true,
+                    'downtime_id' => $this->id,
+                ];
+            }
+        }
+        foreach ($taughtSkills as $skillId => $characters) {
+            foreach ($characters as $actionId => $characterId) {
+                $action = DowntimeAction::find($actionId);
+                $skillChanges[$skillId][] = [
+                    'character_id' => $characterId,
+                    'character_skill_id' => $action->character_skill_id,
+                    'log_type_id' => LogType::DOWNTIME,
+                    'amount_trained' => 0,
+                    'teacher_id' => $characterId,
+                    'locked' => true,
+                    'downtime_id' => $this->id,
+                    'vigor_change' => 1,
+                ];
+            }
+            if (!empty($skillChanges[$skillId])) {
+                foreach ($skillChanges[$skillId] as &$skillChange) {
+                    $skillChange['teacher_id'] = $characterId;
+                }
+            }
+        }
+        foreach ($requiredUpkeepSkills as $skillId => $characters) {
+            foreach ($characters as $characterId) {
+                if (!isset($upkeepMaintenance[$skillId][$characterId])) {
+                    $skillChanges[$skillId][] = [
+                        'character_id' => $characterId,
+                        'log_type_id' => LogType::DOWNTIME,
+                        'amount_trained' => 0,
+                        'locked' => true,
+                        'downtime_id' => $this->id,
+                        'notes' => 'removed skill due to lack of upkeep',
+                    ];
+                    $characterSkill = CharacterSkill::where('character_id', $characterId)
+                        ->where('skill_id', $skillId)
+                        ->first();
+                    $characterSkill->removed = true;
+                    $characterSkill->save();
+                } else {
+                    $actionId = current($upkeepMaintenance[$skillId]);
+                    $action = DowntimeAction::find($actionId);
+                    $skillChanges[$skillId][] = [
+                        'character_id' => $characterId,
+                        'character_skill_id' => $action->character_skill_id,
+                        'log_type_id' => LogType::DOWNTIME,
+                        'amount_trained' => 0,
+                        'locked' => true,
+                        'downtime_id' => $this->id,
+                        'notes' => 'skill upkeep',
+                    ];
+                }
+            }
+        }
+        foreach ($skillChanges as $changes) {
+            foreach ($changes as $change) {
+                $log = new CharacterLog();
+                $log->fill($change);
+                $log->save();
+            }
+        }
     }
 }

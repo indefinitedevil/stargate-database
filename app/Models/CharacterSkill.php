@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int trained
  * @property int level
  * @property string name
+ * @property string printName
+ * @property bool removed
  */
 class CharacterSkill extends Model
 {
