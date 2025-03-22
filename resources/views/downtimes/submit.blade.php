@@ -49,7 +49,7 @@
         @if ($downtime->isOpen() && $character->upkeepSkills->count())
             <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-5 shadow">
                 <p class="font-bold">{{ __('Upkeep Skills') }}</p>
-                <p>{{ __('The following skills require development or research actions to be spent on upkeep:') }}</p>
+                <p>{{ __('The following skills require actions to be spent on upkeep or the skill will be lost:') }}</p>
                 <ul class="list-disc list-inside">
                     @foreach($character->upkeepSkills as $skill)
                         <li>{{ $skill->name }}</li>
@@ -109,14 +109,17 @@
                                 <x-select id="ds_{{ $actionCount }}_{{ ActionType::UPKEEP }}"
                                           class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => $action])</x-select>
 
-                                <x-input-label for="development_action_{{ $actionCount }}_notes" class="mt-1"
-                                               :value="__('Notes')"/>
-                                <x-textarea id="development_action_{{ $actionCount }}_notes"
-                                            name="development_action[{{ $actionCount }}][notes]"
-                                            :value="$action->notes"
-                                            :disabled="!$downtime->isOpen()"
-                                            class="mt-1 block w-full"
-                                            :placeholder="__('Notes')"/>
+                                <div id="da_{{ $actionCount }}_notes"
+                                     class="{{ ActionType::MISSION == $action->action_type_id ? '' : 'hidden' }}">
+                                    <x-input-label for="development_action_{{ $actionCount }}_notes" class="mt-1"
+                                                   :value="__('Notes')"/>
+                                    <x-textarea id="development_action_{{ $actionCount }}_notes"
+                                                name="development_action[{{ $actionCount }}][notes]"
+                                                :value="$action->notes"
+                                                :disabled="!$downtime->isOpen()"
+                                                class="mt-1 block w-full"
+                                                :placeholder="__('Notes')"/>
+                                </div>
                             </div>
                         @endforeach
                         @while($actionCount < $downtime->development_actions)
@@ -145,13 +148,15 @@
                                 <x-select id="ds_{{ $actionCount }}_{{ ActionType::UPKEEP }}"
                                           class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => null])</x-select>
 
-                                <x-input-label for="development_action_{{ $actionCount }}_notes" class="mt-1"
-                                               :value="__('Notes')"/>
-                                <x-textarea id="development_action_{{ $actionCount }}_notes"
-                                            name="development_action[{{ $actionCount }}][notes]"
-                                            :disabled="!$downtime->isOpen()"
-                                            class="mt-1 block w-full"
-                                            :placeholder="__('Notes')"/>
+                                <div id="da_{{ $actionCount }}_notes" class="hidden">
+                                    <x-input-label for="development_action_{{ $actionCount }}_notes" class="mt-1"
+                                                   :value="__('Notes')"/>
+                                    <x-textarea id="development_action_{{ $actionCount }}_notes"
+                                                name="development_action[{{ $actionCount }}][notes]"
+                                                :disabled="!$downtime->isOpen()"
+                                                class="mt-1 block w-full"
+                                                :placeholder="__('Notes')"/>
+                                </div>
                             </div>
                         @endwhile
                     </div>
@@ -300,6 +305,11 @@
             jQuery('[id^="development_action_"]').on('change', function () {
                 let id = jQuery(this).attr('id').split('_').pop();
                 jQuery('[id^="development_skill_' + id).html(jQuery('#ds_' + id + '_' + jQuery(this).val()).html());
+                if (jQuery(this).val() == {{ ActionType::MISSION }}) {
+                    jQuery('#da_' + id + '_notes').removeClass('hidden');
+                } else {
+                    jQuery('#da_' + id + '_notes').addClass('hidden');
+                }
             });
             jQuery('[id^="research_action_"]').on('change', function () {
                 let id = jQuery(this).attr('id').split('_').pop();
