@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DowntimeCreated;
 use App\Models\ActionType;
 use App\Models\Character;
 use App\Models\CharacterSkill;
@@ -11,7 +12,9 @@ use App\Models\DowntimeMission;
 use App\Models\Event;
 use App\Models\ResearchProject;
 use App\Models\Status;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class DowntimeController extends Controller
@@ -116,6 +119,11 @@ class DowntimeController extends Controller
         $downtime = empty($validatedData['id']) ? new Downtime() : Downtime::find($validatedData['id']);
         $downtime->fill($validatedData);
         $downtime->save();
+        if (empty($validatedData['id'])) {
+            foreach (User::all() as $user) {
+                Mail::to($user->email, $user->name)->send(new DowntimeCreated($downtime, $user));
+            }
+        }
         return redirect(route('plotco.downtimes'));
     }
 
