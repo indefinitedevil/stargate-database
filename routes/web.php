@@ -84,6 +84,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/plot-co/downtimes/create', [DowntimeController::class, 'create'])->name('plotco.downtimes.create');
         Route::get('/plot-co/downtimes/edit/{downtimeId}', [DowntimeController::class, 'edit'])->name('plotco.downtimes.edit');
         Route::get('/plot-co/downtimes/preprocess/{downtimeId}', [PlotcoController::class, 'preprocessDowntime'])->name('plotco.downtimes.preprocess');
+        Route::get('/plot-co/downtimes/process/{downtimeId}', [PlotcoController::class, 'processDowntime'])->name('plotco.downtimes.process');
         Route::post('/plot-co/downtimes/store', [DowntimeController::class, 'store'])->name('plotco.downtimes.store');
     });
 

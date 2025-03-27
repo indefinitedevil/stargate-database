@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Mail\DowntimeProcessed;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * @property int $id
@@ -23,6 +25,8 @@ use Illuminate\Support\Collection;
  * @property Collection $trainingCourses
  * @property Event $event
  * @property int $event_id
+ * @property bool $open
+ * @property bool $processed
  */
 class Downtime extends Model
 {
@@ -58,6 +62,11 @@ class Downtime extends Model
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
+    }
+
+    public function getOpenAttribute(): bool
+    {
+        return $this->isOpen();
     }
 
     public function isOpen(): bool
@@ -143,7 +152,10 @@ class Downtime extends Model
     {
         extract($this->preprocess());
         $skillChanges = [];
+        $skills = [];
         foreach ($trainedSkills as $skillId => $characters) {
+            $skill = Skill::find($skillId);
+            $skills[$skillId] = $skill;
             foreach ($characters as $characterId => $actions) {
                 $action = DowntimeAction::find(current($actions));
                 $skillChanges[$skillId][] = [
@@ -153,10 +165,15 @@ class Downtime extends Model
                     'amount_trained' => count($actions),
                     'locked' => true,
                     'downtime_id' => $this->id,
+                    'notes' => __( 'Trained :skill', ['skill' => $skill->name]),
                 ];
             }
         }
         foreach ($taughtSkills as $skillId => $characters) {
+            if (empty($skills[$skillId])) {
+                $skill = Skill::find($skillId);
+                $skills[$skillId] = $skill;
+            }
             foreach ($characters as $actionId => $characterId) {
                 $action = DowntimeAction::find($actionId);
                 $skillChanges[$skillId][] = [
@@ -167,16 +184,34 @@ class Downtime extends Model
                     'teacher_id' => $characterId,
                     'locked' => true,
                     'downtime_id' => $this->id,
+                    'notes' => __( 'Taught :skill', ['skill' => $skills[$skillId]->name]),
                     'vigor_change' => 1,
                 ];
             }
             if (!empty($skillChanges[$skillId])) {
                 foreach ($skillChanges[$skillId] as &$skillChange) {
-                    $skillChange['teacher_id'] = $characterId;
+                    if ($skillChange['amount_trained'] > 0) {
+                        $skillChange['teacher_id'] = $characterId;
+                        $skillChange['amount_trained']++;
+                    }
+                }
+                foreach ($skills[$skillId]->subSkills as $subSkill) {
+                    if (!empty($skillChanges[$subSkill->id])) {
+                        foreach ($skillChanges[$subSkill->id] as &$skillChange) {
+                            if ($skillChange['amount_trained'] > 0) {
+                                $skillChange['teacher_id'] = $characterId;
+                                $skillChange['amount_trained']++;
+                            }
+                        }
+                    }
                 }
             }
         }
         foreach ($requiredUpkeepSkills as $skillId => $characters) {
+            if (empty($skills[$skillId])) {
+                $skill = Skill::find($skillId);
+                $skills[$skillId] = $skill;
+            }
             foreach ($characters as $characterId) {
                 if (!isset($upkeepMaintenance[$skillId][$characterId])) {
                     $skillChanges[$skillId][] = [
@@ -185,7 +220,7 @@ class Downtime extends Model
                         'amount_trained' => 0,
                         'locked' => true,
                         'downtime_id' => $this->id,
-                        'notes' => 'removed skill due to lack of upkeep',
+                        'notes' => __('Removed :skill due to lack of upkeep', ['skill' => $skills[$skillId]->name]),
                     ];
                     $characterSkill = CharacterSkill::where('character_id', $characterId)
                         ->where('skill_id', $skillId)
@@ -202,17 +237,36 @@ class Downtime extends Model
                         'amount_trained' => 0,
                         'locked' => true,
                         'downtime_id' => $this->id,
-                        'notes' => 'skill upkeep',
+                        'notes' => __('Maintenance of :skill', ['skill' => $skills[$skillId]->name]),
                     ];
                 }
             }
         }
-        foreach ($skillChanges as $changes) {
+        $allResults = [];
+        foreach ($skillChanges as $skillId => $changes) {
             foreach ($changes as $change) {
                 $log = new CharacterLog();
                 $log->fill($change);
                 $log->save();
+                $result = [
+                    'skill' => $skills[$skillId]->name,
+                    'notes' => $log->notes,
+                ];
+                if (!empty($change['amount_trained'])) {
+                    $result['amount_trained'] = $change['amount_trained'];
+                }
+                if (!empty($change['vigor_change'])) {
+                    $result['vigor_change'] = $change['vigor_change'];
+                }
+                $allResults[$log['character_id']][] = $result;
             }
         }
+
+        foreach ($allResults as $characterId => $results) {
+            $character = Character::find($characterId);
+            Mail::to($character->user->email, $character->user->name)->send(new DowntimeProcessed($this, $character, $results));
+        }
+        $this->processed = true;
+        $this->save();
     }
 }

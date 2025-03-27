@@ -2,8 +2,8 @@
 
 namespace App\Mail;
 
+use App\Models\Character;
 use App\Models\Downtime;
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -21,7 +21,8 @@ class DowntimeProcessed extends Mailable
      */
     public function __construct(
         public Downtime $downtime,
-        public User $user,
+        public Character $character,
+        public array $results,
     )
     {
         //

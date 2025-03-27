@@ -30,6 +30,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property bool display
  * @property bool scaling
  * @property Collection characterSkills
+ * @property Collection subSkills
+ * @property Collection superSkills
+ * @property Collection backgrounds
  */
 class Skill extends Model
 {

@@ -91,4 +91,16 @@ class PlotcoController extends Controller
             'downtime' => Downtime::findOrFail($downtimeId),
         ]);
     }
+
+    public function processDowntime(Request $request, $downtimeId)
+    {
+        if ($request->user()->cannot('edit downtimes')) {
+            return redirect(route('dashboard'));
+        }
+        $downtime = Downtime::findOrFail($downtimeId);
+        $downtime->process();
+        return redirect(route('plotco.downtimes.preprocess', [
+            'downtimeId' => $downtimeId,
+        ]))->with('success', 'Downtime processed successfully');
+    }
 }
