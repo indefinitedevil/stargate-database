@@ -7,13 +7,15 @@ use App\Models\Downtime;
 use App\Models\Event;
 use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
 
 class PlotcoController extends Controller
 {
     public function characters(Request $request)
     {
         if ($request->user()->cannot('viewAll', Character::class)) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         return view('plotco.characters', [
             'newCharacters' => Character::where('status_id', Status::READY)->orderBY('name', 'asc')->get(),
@@ -25,7 +27,8 @@ class PlotcoController extends Controller
     public function skills(Request $request)
     {
         if ($request->user()->cannot('view skill breakdown')) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         if ($request->has('event')) {
             $characters = Event::where('id', $request->get('event'))->first()->characters()->whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get()->pluck('id');
@@ -40,7 +43,8 @@ class PlotcoController extends Controller
     public function attendance(Request $request)
     {
         if ($request->user()->cannot('viewAll', Character::class)) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         return view('plotco.attendance');
     }
@@ -48,7 +52,8 @@ class PlotcoController extends Controller
     public function printAll(Request $request)
     {
         if ($request->user()->cannot('viewAll', Character::class)) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         return view('characters.print', [
             'characters' => Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get(),
@@ -58,7 +63,8 @@ class PlotcoController extends Controller
     public function printSome(Request $request)
     {
         if ($request->user()->cannot('viewAll', Character::class)) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         if ($request->has('characters')) {
             $characters = Character::whereIn('id', $request->get('characters'))->orderBy('name', 'asc')->get();
@@ -75,7 +81,8 @@ class PlotcoController extends Controller
     public function downtimes(Request $request)
     {
         if ($request->user()->cannot('edit downtimes')) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         return view('plotco.downtimes.index', [
             'downtimes' => Downtime::orderBy('start_time', 'desc')->get(),
@@ -85,7 +92,8 @@ class PlotcoController extends Controller
     public function preprocessDowntime(Request $request, $downtimeId)
     {
         if ($request->user()->cannot('edit downtimes')) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         return view('plotco.downtimes.preprocess', [
             'downtime' => Downtime::findOrFail($downtimeId),
@@ -95,12 +103,23 @@ class PlotcoController extends Controller
     public function processDowntime(Request $request, $downtimeId)
     {
         if ($request->user()->cannot('edit downtimes')) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         $downtime = Downtime::findOrFail($downtimeId);
+        if ($downtime->open) {
+            return redirect(route('plotco.downtimes.preprocess', [
+                'downtimeId' => $downtimeId,
+            ]))->with('errors', new MessageBag(__(['Downtime still open.'])));
+        }
+        if ($downtime->processed) {
+            return redirect(route('plotco.downtimes.preprocess', [
+                'downtimeId' => $downtimeId,
+            ]))->with('errors', new MessageBag(__(['Downtime already processed.'])));
+        }
         $downtime->process();
         return redirect(route('plotco.downtimes.preprocess', [
             'downtimeId' => $downtimeId,
-        ]))->with('success', 'Downtime processed successfully');
+        ]))->with('success', new MessageBag(__(['Downtime processed successfully.'])));
     }
 }

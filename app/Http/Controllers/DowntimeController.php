@@ -15,6 +15,7 @@ use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\MessageBag;
 use Illuminate\Validation\ValidationException;
 
 class DowntimeController extends Controller
@@ -22,7 +23,8 @@ class DowntimeController extends Controller
     public function index(Request $request)
     {
         if ($request->user()->cannot('view own character')) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         return view('downtimes.index', [
             'downtimes' => Downtime::orderBy('start_time', 'desc')->get(),
@@ -35,7 +37,8 @@ class DowntimeController extends Controller
     {
         $character = Character::find($characterId);
         if ($request->user()->cannot('view', $character)) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         if ($character->status_id < Status::APPROVED) {
             return redirect()->back()->withErrors([__('Character is not approved.')]);
@@ -53,7 +56,8 @@ class DowntimeController extends Controller
     public function create(Request $request)
     {
         if ($request->user()->cannot('edit downtimes')) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         return view('plotco.downtimes.edit', [
             'downtime' => new Downtime(),
@@ -63,7 +67,8 @@ class DowntimeController extends Controller
     public function edit(Request $request, $downtimeId)
     {
         if ($request->user()->cannot('edit downtimes')) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         $downtime = Downtime::find($downtimeId);
         return view('plotco.downtimes.edit', [
@@ -75,7 +80,8 @@ class DowntimeController extends Controller
     {
         $character = Character::find($characterId);
         if ($request->user()->cannot('view', $character)) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         $downtime = Downtime::find($downtimeId);
         return view('downtimes.view', [
@@ -90,7 +96,8 @@ class DowntimeController extends Controller
     public function store(Request $request)
     {
         if ($request->user()->cannot('edit downtimes')) {
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         $validatedData = $request->validate([
             'id' => 'sometimes|exists:downtimes,id|nullable|int',
@@ -124,7 +131,8 @@ class DowntimeController extends Controller
                 Mail::to($user->email, $user->name)->send(new DowntimeCreated($downtime, $user));
             }
         }
-        return redirect(route('plotco.downtimes'));
+        return redirect(route('plotco.downtimes'))
+            ->with('success', new MessageBag([__('Downtime saved successfully.')]));
     }
 
     /**
@@ -160,7 +168,8 @@ class DowntimeController extends Controller
         return redirect(route('downtimes.submit', [
             'downtimeId' => $downtime->id,
             'characterId' => $character->id,
-        ]));
+        ]))
+            ->with('success', new MessageBag([__('Downtime actions saved successfully')]));
     }
 
     protected function validateActions(array $actions, array &$errors, Character $character, Downtime $downtime, string $type)
