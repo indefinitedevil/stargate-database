@@ -14,6 +14,7 @@
                     <li>Plot Co: added downtime system.</li>
                     <li>Secretary: added event editing system.</li>
                     <li>Secretary: added event attendance system.</li>
+                    <li>Secretary: added paid downtimes.</li>
                     <li>Event Runner: added access to skills breakdown view.</li>
                     <li>Changed attendance tracking to be attached to users, not characters.</li>
                     <li>Added system to track which basic skills can be trained by full skill teaching.</li>
@@ -22,6 +23,8 @@
                     <li>Background skills are now added to trained skills list.</li>
                     <li>Unified layouts to allow for global notices.</li>
                     <li>Added global notice when downtime is open.</li>
+                    <li>Added success messaging.</li>
+                    <li>Customised emails with Stargate branding.</li>
                 </ul>
                 <p class="text-sm">Tested by Ben, Fraser, Kat, and Orev</p>
             </div>
