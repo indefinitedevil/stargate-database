@@ -5,7 +5,7 @@
 <x-app-layout>
     <x-slot name="title">{{ __('Check Downtime Processing') }}</x-slot>
     <x-slot name="header">
-        @if(!$downtime->processed)
+        @if(!$downtime->open && now()->gt($downtime->end_time) && !$downtime->processed)
             <a href="{{ route('plotco.downtimes.process', ['downtimeId' => $downtime]) }}"
                class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
                onclick="return confirm('{{ __('Are you sure you want to process this downtime?') }}')"

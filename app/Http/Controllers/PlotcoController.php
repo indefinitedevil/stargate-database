@@ -107,10 +107,10 @@ class PlotcoController extends Controller
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         $downtime = Downtime::findOrFail($downtimeId);
-        if ($downtime->open) {
+        if ($downtime->open || now()->lt($downtime->end_time)) {
             return redirect(route('plotco.downtimes.preprocess', [
                 'downtimeId' => $downtimeId,
-            ]))->with('errors', new MessageBag(__(['Downtime still open.'])));
+            ]))->with('errors', new MessageBag(__(['Downtime has not closed.'])));
         }
         if ($downtime->processed) {
             return redirect(route('plotco.downtimes.preprocess', [
