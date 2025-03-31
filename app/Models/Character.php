@@ -238,12 +238,9 @@ class Character extends Model
 
     public function getTempBodyAttribute(): int
     {
-        $body = $this->background->body;
-        foreach ($this->trainedSkills as $characterSkill) {
-            $body += $characterSkill->skill->body;
-        }
+        $body = 0;
         foreach ($this->logs->where('temp_body_change', '!=', 0) as $log) {
-            $body += $log->body_change;
+            $body += $log->temp_body_change;
         }
         return $body;
     }
@@ -264,7 +261,7 @@ class Character extends Model
     {
         $vigor = 0;
         foreach ($this->logs->where('temp_vigor_change', '!=', 0) as $log) {
-            $vigor += $log->vigor_change;
+            $vigor += $log->temp_vigor_change;
         }
         return $vigor;
     }
