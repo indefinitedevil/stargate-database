@@ -190,7 +190,7 @@ class Downtime extends Model
             }
             if (!empty($skillChanges[$skillId])) {
                 foreach ($skillChanges[$skillId] as &$skillChange) {
-                    if ($skillChange['amount_trained'] > 0) {
+                    if ($skillChange['amount_trained'] > 0 && $skillChange['character_id'] != $characterId) {
                         $skillChange['teacher_id'] = $characterId;
                         $skillChange['amount_trained']++;
                     }
@@ -198,7 +198,7 @@ class Downtime extends Model
                 foreach ($skills[$skillId]->subSkills as $subSkill) {
                     if (!empty($skillChanges[$subSkill->id])) {
                         foreach ($skillChanges[$subSkill->id] as &$skillChange) {
-                            if ($skillChange['amount_trained'] > 0) {
+                            if ($skillChange['amount_trained'] > 0 && $skillChange['character_id'] != $characterId) {
                                 $skillChange['teacher_id'] = $characterId;
                                 $skillChange['amount_trained']++;
                             }
