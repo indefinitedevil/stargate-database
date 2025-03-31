@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property int downtime_id
  * @property int body_change
  * @property int vigor_change
+ * @property int temp_body_change
+ * @property int temp_vigor_change
  * @property Character character
  * @property int id
  * @property int character_skill_id
@@ -41,6 +43,8 @@ class CharacterLog extends Model
         'downtime_id',
         'body_change',
         'vigor_change',
+        'temp_body_change',
+        'temp_vigor_change',
     ];
 
     public function logType(): BelongsTo
