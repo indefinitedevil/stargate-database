@@ -110,16 +110,16 @@ class PlotcoController extends Controller
         if ($downtime->open || now()->lt($downtime->end_time)) {
             return redirect(route('plotco.downtimes.preprocess', [
                 'downtimeId' => $downtimeId,
-            ]))->with('errors', new MessageBag(__(['Downtime has not closed.'])));
+            ]))->with('errors', new MessageBag([__('Downtime has not closed.')]));
         }
         if ($downtime->processed) {
             return redirect(route('plotco.downtimes.preprocess', [
                 'downtimeId' => $downtimeId,
-            ]))->with('errors', new MessageBag(__(['Downtime already processed.'])));
+            ]))->with('errors', new MessageBag([__('Downtime already processed.')]));
         }
         $downtime->process();
         return redirect(route('plotco.downtimes.preprocess', [
             'downtimeId' => $downtimeId,
-        ]))->with('success', new MessageBag(__(['Downtime processed successfully.'])));
+        ]))->with('success', new MessageBag([__('Downtime processed successfully.')]));
     }
 }
