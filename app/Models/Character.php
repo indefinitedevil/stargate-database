@@ -35,6 +35,8 @@ use Illuminate\Support\Str;
  * @property User user
  * @property int body
  * @property int vigor
+ * @property int temp_body
+ * @property int temp_vigor
  * @property string rank
  * @property string former_rank
  * @property string history
@@ -234,6 +236,18 @@ class Character extends Model
         return $body;
     }
 
+    public function getTempBodyAttribute(): int
+    {
+        $body = $this->background->body;
+        foreach ($this->trainedSkills as $characterSkill) {
+            $body += $characterSkill->skill->body;
+        }
+        foreach ($this->logs->where('temp_body_change', '!=', 0) as $log) {
+            $body += $log->body_change;
+        }
+        return $body;
+    }
+
     public function getVigorAttribute(): int
     {
         $vigor = $this->background->vigor;
@@ -241,6 +255,15 @@ class Character extends Model
             $vigor += $characterSkill->skill->vigor;
         }
         foreach ($this->logs->where('vigor_change', '!=', 0) as $log) {
+            $vigor += $log->vigor_change;
+        }
+        return $vigor;
+    }
+
+    public function getTempVigorAttribute(): int
+    {
+        $vigor = 0;
+        foreach ($this->logs->where('temp_vigor_change', '!=', 0) as $log) {
             $vigor += $log->vigor_change;
         }
         return $vigor;

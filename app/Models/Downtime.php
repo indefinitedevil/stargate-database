@@ -185,7 +185,7 @@ class Downtime extends Model
                     'locked' => true,
                     'downtime_id' => $this->id,
                     'notes' => __( 'Taught :skill', ['skill' => $skills[$skillId]->name]),
-                    'vigor_change' => 1,
+                    'temp_vigor_change' => 1,
                 ];
             }
             if (!empty($skillChanges[$skillId])) {
