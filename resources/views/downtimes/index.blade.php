@@ -22,7 +22,7 @@
                             @endphp
                             @if (!empty($eventCharacters))
                                 <li>
-                                    <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, current($eventCharacters)->id]) }}"
+                                    <a href="{{ route($downtime->isOpen() ? 'downtimes.submit' : 'downtimes.view', ['downtimeId' => $downtime->id, current($eventCharacters)->id]) }}"
                                        class="underline">{{ $downtime->name }}
                                         ({{ $downtime->event->name }})
                                         - {{ current($eventCharacters)->listName }}</a>
@@ -58,7 +58,7 @@
                                     $character = $actions->first()->character;
                                 @endphp
                                 <li>
-                                    <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $character->id]) }}"
+                                    <a href="{{ route($downtime->isOpen() ? 'downtimes.submit' : 'downtimes.view', ['downtimeId' => $downtime->id, $character->id]) }}"
                                        class="text-blue-500 hover:underline">
                                         {{ $downtime->name }} - {{ $character->listName }}
                                     </a>
