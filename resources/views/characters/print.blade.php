@@ -146,7 +146,7 @@
                                 <tr>
                                     <td class="border border-slate-600"></td>
                                     <td class="border border-slate-600 px-2"><em>You ain't got time to bleed</em> – You
-                                        Gain 1 Maximum Vigor
+                                        Gain 1 Maximum Vigor for this event
                                     </td>
                                 </tr>
                                 <tr>
@@ -244,7 +244,7 @@
                             <h2 class="text-xl font-medium text-gray-900">
                                 {{ __('Notes') }}
                             </h2>
-                            <p class="text-sm">{{ __('Leave notes on drug usage or anything else the plot co might need to know about.') }}</p>
+                            <p class="text-sm">{{ __('Leave notes on drug usage, resuscitation, or anything else the plot co might need to know about.') }}</p>
                         </div>
                     </div>
                 </div>
