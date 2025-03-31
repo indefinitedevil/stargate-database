@@ -47,7 +47,7 @@ class CharacterController extends Controller
             return redirect(route('characters.index'))
                 ->with('errors', new MessageBag([__('Character not found.')]));
         }
-        return view('characters.view.', ['character' => $character]);
+        return view('characters.view', ['character' => $character]);
     }
 
     public function print(Request $request, $characterId)
@@ -57,7 +57,7 @@ class CharacterController extends Controller
             return redirect(route('characters.index'))
                 ->with('errors', new MessageBag([__('Character not found.')]));
         }
-        return view('characters.print.', ['characters' => [$character]]);
+        return view('characters.print', ['characters' => [$character]]);
     }
 
     public function printSkills(Request $request, $characterId)
@@ -67,7 +67,7 @@ class CharacterController extends Controller
             return redirect(route('characters.index'))
                 ->with('errors', new MessageBag([__('Character not found.')]));
         }
-        return view('characters.print-skills.', ['characters' => [$character]]);
+        return view('characters.print-skills', ['characters' => [$character]]);
     }
 
     public function edit(Request $request, $characterId)
@@ -85,7 +85,7 @@ class CharacterController extends Controller
         if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
             return redirect($character->getViewRoute());
         }
-        return view('characters.edit.', ['character' => $character]);
+        return view('characters.edit', ['character' => $character]);
     }
 
     /**
@@ -454,7 +454,7 @@ class CharacterController extends Controller
             return redirect(route('characters.index'));
         }
         if (!empty($validatedData['id']) && $request->user()->cannot('edit', Character::find($validatedData['id']))) {
-            return redirect(route('characters.view.', ['characterId' => $validatedData['id']]));
+            return redirect(route('characters.view', ['characterId' => $validatedData['id']]));
         }
 
         if (!empty($validatedData['id'])) {
@@ -501,7 +501,7 @@ class CharacterController extends Controller
         ]);
 
         if (!empty($validatedData['character_id']) && $request->user()->cannot('edit', Character::find($validatedData['character_id']))) {
-            return redirect(route('characters.view.', ['characterId' => $validatedData['character_id']]));
+            return redirect(route('characters.view', ['characterId' => $validatedData['character_id']]));
         }
 
         if (!empty($validatedData['id'])) {
@@ -574,6 +574,6 @@ class CharacterController extends Controller
         }
         $characterSkill->delete();
 
-        return redirect(route('characters.edit-skills.', ['characterId' => $characterSkill->character->id]));
+        return redirect(route('characters.edit-skills', ['characterId' => $characterSkill->character->id]));
     }
 }
