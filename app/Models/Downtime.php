@@ -254,10 +254,27 @@ class Downtime extends Model
                 ];
                 if (!empty($change['amount_trained'])) {
                     $result['amount_trained'] = $change['amount_trained'];
+
+                    $characterSkill = CharacterSkill::find($log->character_skill_id);
+                    if ($characterSkill->trained == $characterSkill->cost) {
+                        $characterSkill->completed = true;
+                        $characterSkill->save();
+                        $result['skill_completed'] = true;
+                    }
+                }
+                if (!empty($change['body_change'])) {
+                    $result['body_change'] = $change['body_change'];
+                }
+                if (!empty($change['temp_body_change'])) {
+                    $result['temp_body_change'] = $change['temp_body_change'];
                 }
                 if (!empty($change['vigor_change'])) {
                     $result['vigor_change'] = $change['vigor_change'];
                 }
+                if (!empty($change['temp_vigor_change'])) {
+                    $result['temp_vigor_change'] = $change['temp_vigor_change'];
+                }
+
                 $allResults[$log['character_id']][] = $result;
             }
         }
