@@ -17,10 +17,10 @@
         <strong>{{ __('Status') }}:</strong> {{ $character->status->name }}
     </p>
     <p class="mt-1">
-        <strong>{{ __('Body') }}:</strong> {{ $character->body }} @if ($character->temp_body) {{ __('(+:temp temporary)', ['temp' => $character->temp_body]) }} @endif
+        <strong>{{ __('Body') }}:</strong> {{ $character->body }} @if ($character->temp_body) {{ __('(+:temp for next event)', ['temp' => $character->temp_body]) }} @endif
     </p>
     <p class="mt-1">
-        <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor) {{ __('(+:temp temporary)', ['temp' => $character->temp_vigor]) }} @endif
+        <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor) {{ __('(+:temp for next event)', ['temp' => $character->temp_vigor]) }} @endif
     </p>
     <p class="mt-1">
         <strong>{{ __('Type') }}:</strong> {{ $character->type }}

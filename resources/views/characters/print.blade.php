@@ -25,7 +25,7 @@
                             <strong>{{ __('Type') }}:</strong> {{ $character->type }}
                         </p>
                         <p class="mt-1">
-                            <strong>{{ __('Body') }}:</strong> {{ $character->body }} @if ($character->temp_body) {{ __('(+:temp temporary)', ['temp' => $character->temp_body]) }} @endif
+                            <strong>{{ __('Body') }}:</strong> {{ $character->body }} @if ($character->temp_body) {{ __('(+:temp for this event)', ['temp' => $character->temp_body]) }} @endif
                         </p>
                         <p class="mt-1 sm:col-span-2">
                             <strong>{{ __('Rank') }}:</strong> {!! $character->rank ?: __('To Be Determined') !!}
@@ -34,7 +34,7 @@
                             @endif
                         </p>
                         <p class="mt-1">
-                            <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor) {{ __('(+:temp temporary)', ['temp' => $character->temp_vigor]) }} @endif
+                            <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor) {{ __('(+:temp for this event)', ['temp' => $character->temp_vigor]) }} @endif
                         </p>
                     </div>
                 </div>
