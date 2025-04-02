@@ -31,8 +31,8 @@
             </a>
         @endif
     @endcan
-    @if(!request()->routeIs('characters.view'))
-        <a href="{{ route('characters.view', ['characterId' => $character->id]) }}"
+    @if(!request()->routeIs('characters.view') && !request()->routeIs('characters.view-pretty'))
+        <a href="{{ $character->getViewRoute() }}"
            class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
            title="{{ __('View') }}"
         ><i class="fa-solid fa-eye"></i> {{ __('View') }}</a>
@@ -78,6 +78,12 @@
            title="{{ __('Delete') }}"
         ><i class="fa-solid fa-trash"></i> {{ __('Delete') }}</a>
     @endcan
+    @if(!request()->routeIs('characters.logs') && !request()->routeIs('characters.logs-pretty'))
+        <a href="{{ $character->getLogsRoute() }}"
+           class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
+           title="{{ __('Logs') }}"
+        ><i class="fa-solid fa-clipboard"></i> {{ __('Logs') }}</a>
+    @endif
     <a href="{{ route('characters.print', ['characterId' => $character->id]) }}"
        class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
        title="{{ __('Print') }}"

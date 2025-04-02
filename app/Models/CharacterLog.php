@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property int amount_trained
  * @property bool locked
  * @property Character teacher
- * @property int teacher_id
+ * @property int|null teacher_id
  * @property string notes
  * @property int downtime_id
  * @property int body_change
@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property Character character
  * @property int id
  * @property int character_skill_id
+ * @property \DateTime created_at
  */
 class CharacterLog extends Model
 {
@@ -47,6 +48,10 @@ class CharacterLog extends Model
         'temp_vigor_change',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
     public function logType(): BelongsTo
     {
         return $this->belongsTo(LogType::class);
@@ -54,7 +59,7 @@ class CharacterLog extends Model
 
     public function skill(): HasOneThrough
     {
-        return $this->hasOneThrough(Skill::class, CharacterSkill::class, 'id', 'id', 'skill_id', 'skill_id');
+        return $this->hasOneThrough(Skill::class, CharacterSkill::class, 'id', 'id', 'character_skill_id', 'skill_id');
     }
 
     public function characterSkill(): BelongsTo
@@ -70,5 +75,14 @@ class CharacterLog extends Model
     public function character(): BelongsTo
     {
         return $this->belongsTo(Character::class);
+    }
+
+    public function addModifier($int): string
+    {
+        if ($int > 0) {
+            return '+' . $int;
+        }
+
+        return (string) $int;
     }
 }

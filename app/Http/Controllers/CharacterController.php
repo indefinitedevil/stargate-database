@@ -50,6 +50,20 @@ class CharacterController extends Controller
         return view('characters.view', ['character' => $character]);
     }
 
+    public function logs(Request $request, $characterId)
+    {
+        $character = Character::find($characterId);
+        if ($request->user()->cannot('view', $character)) {
+            return redirect(route('characters.index'))
+                ->with('errors', new MessageBag([__('Character not found.')]));
+        }
+        if ($character->status_id < Status::APPROVED) {
+            return redirect($character->getViewRoute())
+                ->with('errors', new MessageBag([__('Character must be approved to view logs.')]));
+        }
+        return view('characters.logs', ['character' => $character]);
+    }
+
     public function print(Request $request, $characterId)
     {
         $character = Character::find($characterId);

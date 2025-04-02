@@ -1,0 +1,53 @@
+@php
+    use App\Models\Feat;
+    use App\Models\Status;
+@endphp
+<x-app-layout>
+    <x-slot name="title">{{ $character->name }}</x-slot>
+    <x-slot name="header">
+        @include('characters.partials.actions')
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-300 leading-tight">
+            {{ sprintf(__('Character: %s'), $character->name) }}
+            @if($character->isPrimary)
+                <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i>
+            @endif
+        </h2>
+    </x-slot>
+
+    @include('plotco.partials.approval')
+    @include('characters.partials.reset')
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+        @include('characters.partials.details')
+    </div>
+
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+        <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
+            {{ __('Character Logs') }}
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-4 clear-both gap-6">
+            @foreach ($character->logs as $log)
+                <div>
+                    <p>{{ __('Date: :date', ['date' => $log->created_at->format('j M Y')]) }}</p>
+                    <p>{{ __('Type: :type', ['type' => $log->logType->name]) }}</p>
+                    <p>{{ __('Skill: :skill', ['skill' => $log->skill->name]) }}</p>
+                    @if (0 != $log->amount_trained)
+                        <p>{{ __('Trained: :amount months', ['amount' => add_positive_modifier($log->amount_trained)]) }}</p>
+                    @endif
+                    @if (0 != $log->body_change)
+                        <p>{{ __('Body: :amount', ['amount' => add_positive_modifier($log->body_change)]) }}</p>
+                    @endif
+                    @if (0 != $log->vigor_change)
+                        <p>{{ __('Vigor: :amount', ['amount' => add_positive_modifier($log->vigor_change)]) }}</p>
+                    @endif
+                    @if (0 != $log->temp_body_change)
+                        <p>{{ __('Temp Body: :amount', ['amount' => add_positive_modifier($log->temp_body_change)]) }}</p>
+                    @endif
+                    @if (0 != $log->temp_vigor_change)
+                        <p>{{ __('Temp Vigor: :amount', ['amount' => add_positive_modifier($log->temp_vigor_change)]) }}</p>
+                    @endif
+                    <p>{{ __('Notes: :notes', ['notes' => $log->notes]) }}</p>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</x-app-layout>
