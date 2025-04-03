@@ -17,7 +17,9 @@
                     <li>Secretary: added paid downtimes.</li>
                     <li>Event Runner: added access to skills breakdown view.</li>
                     <li>Sys Ref: added skill description to skill check view.</li>
+                    <li>Added Secretary and Event Runner roles.</li>
                     <li>Changed attendance tracking to be attached to users, not characters.</li>
+                    <li>Added support for paid downtimes.</li>
                     <li>Added system to track which basic skills can be trained by full skill teaching.</li>
                     <li>Added downtime submission system.</li>
                     <li>Played characters can no longer be deleted.</li>
@@ -25,8 +27,17 @@
                     <li>Unified layouts to allow for global notices.</li>
                     <li>Added global notice when downtime is open.</li>
                     <li>Added success messaging.</li>
+                    <li>Added success and info states for global notices.</li>
                     <li>Customised emails with Stargate branding.</li>
+                    <li>Added inactive state for characters.</li>
                     <li>Improved skill description display universally.</li>
+                    <li>Updated rules in line with the 1.2 release.
+                        <ul class="list-inside list-disc">
+                            <li>Updated skill and feat descriptions.</li>
+                            <li>Added Self-Defense skill.</li>
+                            <li>Added Primitive Weapons as alternate prerequisite for Accuracy Training.</li>
+                        </ul>
+                    </li>
                 </ul>
                 <p class="text-sm">Tested by Ben, Fraser, Kat, and Orev</p>
             </div>
