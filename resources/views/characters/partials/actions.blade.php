@@ -78,6 +78,20 @@
            title="{{ __('Delete') }}"
         ><i class="fa-solid fa-trash"></i> {{ __('Delete') }}</a>
     @endcan
+    @can('played', $character)
+        <a href="{{ route('characters.played', ['characterId' => $character->id]) }}"
+           class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
+           onclick="return confirm('{{ __('Are you sure you want to mark this character as played?') }}');"
+           title="{{ __('Played') }}"
+        ><i class="fa-solid fa-play"></i> {{ __('Played') }}</a>
+    @endcan
+    @can('inactive', $character)
+        <a href="{{ route('characters.inactive', ['characterId' => $character->id]) }}"
+           class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"
+           onclick="return confirm('{{ __('Are you sure you want to mark this character as inactive?') }}');"
+           title="{{ __('Inactive') }}"
+        ><i class="fa-solid fa-power-off"></i> {{ __('Inactive') }}</a>
+    @endcan
     @if(!request()->routeIs('characters.logs') && !request()->routeIs('characters.logs-pretty'))
         <a href="{{ $character->getLogsRoute() }}"
            class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1"

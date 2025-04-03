@@ -79,6 +79,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/plot-co/characters/print-some', [PlotcoController::class, 'printSome'])->name('plotco.print-some');
         Route::post('/characters/approve/{characterId}', [CharacterController::class, 'approve'])->name('characters.approve');
         Route::post('/characters/deny/{characterId}', [CharacterController::class, 'deny'])->name('characters.deny');
+        Route::get('/characters/played/{characterId}', [CharacterController::class, 'played'])->name('characters.played');
+        Route::get('/characters/inactive/{characterId}', [CharacterController::class, 'inactive'])->name('characters.inactive');
     });
 
     Route::group(['middleware' => 'can:edit downtimes'], function () {

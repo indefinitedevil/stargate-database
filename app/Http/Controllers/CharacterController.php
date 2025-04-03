@@ -424,6 +424,42 @@ class CharacterController extends Controller
             ->with('success', new MessageBag([__('Character :character marked as deceased.', ['character' => $character->name])]));
     }
 
+    public function inactive(Request $request, $characterId)
+    {
+        $character = Character::find($characterId);
+        if ($request->user()->cannot('inactive', $character)) {
+            if ($character) {
+                return redirect($character->getViewRoute())
+                    ->with('success', new MessageBag([__('Character :character cannot be marked as inactive.', ['character' => $character->name])]));
+            } else {
+                return redirect(route('characters.index'))
+                    ->with('success', new MessageBag([__('Character not found.')]));
+            }
+        }
+        $character->status_id = Status::INACTIVE;
+        $character->save();
+        return redirect($character->getViewRoute())
+            ->with('success', new MessageBag([__('Character :character marked as inactive.', ['character' => $character->name])]));
+    }
+
+    public function played(Request $request, $characterId)
+    {
+        $character = Character::find($characterId);
+        if ($request->user()->cannot('played', $character)) {
+            if ($character) {
+                return redirect($character->getViewRoute())
+                    ->with('success', new MessageBag([__('Character :character cannot be marked as played.', ['character' => $character->name])]));
+            } else {
+                return redirect(route('characters.index'))
+                    ->with('success', new MessageBag([__('Character not found.')]));
+            }
+        }
+        $character->status_id = Status::PLAYED;
+        $character->save();
+        return redirect($character->getViewRoute())
+            ->with('success', new MessageBag([__('Character :character marked as played.', ['character' => $character->name])]));
+    }
+
     public function editSkills(Request $request, $characterId, $skillId = null)
     {
         $character = Character::find($characterId);

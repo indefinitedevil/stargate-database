@@ -101,4 +101,38 @@ class CharacterPolicy
             ? Response::allow()
             : Response::deny('You are not authorized to delete this character.');
     }
+
+    /**
+     * Determine whether the user can change the model status to inactive.
+     */
+    public function inactive(User $user, Character $character): Response
+    {
+        if ($character->status_id < Status::APPROVED) {
+            return Response::deny('Characters which have not been played cannot be made inactive.');
+        }
+        $inactive = false;
+        if ($user->can('delete all characters')) {
+            $inactive = true;
+        }
+        return $inactive
+            ? Response::allow()
+            : Response::deny('You are not authorized to make this character inactive.');
+    }
+
+    /**
+     * Determine whether the user can change the model status to played.
+     */
+    public function played(User $user, Character $character): Response
+    {
+        if (!in_array($character->status_id, [Status::APPROVED, Status::INACTIVE])) {
+            return Response::deny('Character cannot be marked as played.');
+        }
+        $played = false;
+        if ($user->can('delete all characters')) {
+            $played = true;
+        }
+        return $played
+            ? Response::allow()
+            : Response::deny('You are not authorized to change this character status.');
+    }
 }

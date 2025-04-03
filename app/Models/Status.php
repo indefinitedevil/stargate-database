@@ -16,4 +16,5 @@ class Status extends Model
     const PLAYED = 4;
     const DEAD = 5;
     const RETIRED = 6;
+    const INACTIVE = 7;
 }

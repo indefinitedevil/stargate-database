@@ -33,17 +33,17 @@ class TypeSeeder extends Seeder
             ['id' => 8, 'name' => 'SIGINT'],
         ], 'id');
         // seed log types
-        DB::table('log_types')->insertOrIgnore([
+        DB::table('log_types')->upsert([
             ['id' => LogType::CHARACTER_CREATION, 'name' => 'Character Creation'],
             ['id' => LogType::DOWNTIME, 'name' => 'Downtime'],
             ['id' => LogType::PLOT, 'name' => 'Plot'],
-        ]);
+        ], 'id');
         // seed discount types
-        DB::table('discount_types')->insertOrIgnore([
+        DB::table('discount_types')->upsert([
             ['id' => 1, 'name' => 'Skill'],
             ['id' => 2, 'name' => 'Teacher'],
             ['id' => 3, 'name' => 'Plot'],
-        ]);
+        ], 'id');
         // seed status
         DB::table('statuses')->upsert([
             ['id' => Status::NEW, 'name' => 'New'],
@@ -52,6 +52,7 @@ class TypeSeeder extends Seeder
             ['id' => Status::PLAYED, 'name' => 'Played'],
             ['id' => Status::DEAD, 'name' => 'Dead'],
             ['id' => Status::RETIRED, 'name' => 'Retired'],
+            ['id' => Status::INACTIVE, 'name' => 'Inactive'],
         ], 'id');
     }
 }

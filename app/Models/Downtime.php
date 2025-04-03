@@ -281,6 +281,10 @@ class Downtime extends Model
 
         foreach ($allResults as $characterId => $results) {
             $character = Character::find($characterId);
+            if (in_array($character->status_id, [Status::APPROVED, Status::INACTIVE])) {
+                $character->status_id = Status::PLAYED;
+                $character->save();
+            }
             Mail::to($character->user->email, $character->user->name)->send(new DowntimeProcessed($this, $character, $results));
         }
         $this->processed = true;
