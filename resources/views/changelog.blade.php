@@ -34,8 +34,10 @@
                     <li>Updated rules in line with the 1.2 release.
                         <ul class="list-inside list-disc pl-4">
                             <li>Updated skill and feat descriptions.</li>
+                            <li>Character creation months are now adjusted in line with lowest trained months.</li>
                             <li>Added Self-Defense skill.</li>
                             <li>Added Primitive Weapons as alternate prerequisite for Accuracy Training.</li>
+                            <li>Updated printed character sheet with new information on Critical/bleeding.</li>
                         </ul>
                     </li>
                 </ul>
