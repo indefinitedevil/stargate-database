@@ -211,11 +211,12 @@
                             <p>Open a <strong>white wound card</strong> when you fall to 0 Body.</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
                                 <div>
-                                    <p>While on 0 Body, you are:</p>
+                                    <p>While on 0 Body (Critical), you are:</p>
                                     <ul class="list-inside list-disc">
                                         <li>Bleeding (you will be Terminal in three minutes) unless treated</li>
                                         <li>Unable to stand or walk unassisted (crawling slowly is your limit)</li>
-                                        <li>Unable to use any skills or abilities</li>
+                                        <li>Unable to use any skills or abilities (including Medic)</li>
+                                        <li>Unable to partake in combat</li>
                                         <li>Counted as Unresisting</li>
                                         <li>Conscious unless a wound card or other effect says otherwise</li>
                                         <li>Able to shout or use a radio to call for help</li>

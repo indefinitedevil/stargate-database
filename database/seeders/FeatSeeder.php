@@ -120,7 +120,7 @@ The device will only work for 1 scene before it breaks down again. Future attemp
             ],
             [
                 'id' => 12,
-                'name' => 'Cauterise',
+                'name' => 'Cauterize',
                 'description' => 'AKA "Don’t Have Time To Bleed."
 
 This Feat negates a Bleed effect on yourself or another character, provided they are above zero Body.
