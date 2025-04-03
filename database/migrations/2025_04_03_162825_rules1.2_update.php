@@ -1,5 +1,6 @@
 <?php
 
+use Database\Seeders\FeatSeeder;
 use Database\Seeders\SkillSeeder;
 use Database\Seeders\TypeSeeder;
 use Illuminate\Database\Migrations\Migration;
@@ -19,6 +20,10 @@ return new class extends Migration
 
         // Add skill adjustments
         $seeder = new SkillSeeder();
+        $seeder->run();
+
+        // Add feat adjustments
+        $seeder = new FeatSeeder();
         $seeder->run();
     }
 

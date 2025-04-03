@@ -23,17 +23,19 @@ class FeatSeeder extends Seeder
      */
     public function seedFeats()
     {
-        $insightDescription = 'You can use this feat to automatically solve one problem card from a skill game that you are attempting of the appropriate type (with a time of 0). You must state that you are using this feat before the problem solving has begun and indicate which card it is to be used on before any are revealed - and only one feat of this type can be used per problem (no matter how many people are helping with the problem).
+        $toolkitDescription = 'You can use this feat to automatically solve one problem card from a skill game that you are attempting of the appropriate type (with a time of 0). You must state that you are using this feat before the problem solving has begun and indicate which card it is to be used on before any are revealed - and only only one card can be negated per problem, regardless of the number of participants.
 
-This feat can **also** be used to select an additional card from your deck to attempt to solve a problem. You can use one extra card, (selected at random), from those in your deck that are not in your hand. You can declare this at any time during the problem card game, and it does not have to be declared before the game begins. This may be used by a Technical Mentor joining the game. There is no limit to this use of the feat, however you **_must_** be able to physrep the additional card you have drawn.';
+This feat can, **in addition to the above**, be used to select an additional card from your deck to attempt to solve a problem. You can use one extra card, (selected at random), from those in your deck that are not in your hand. You can declare this at any time during the problem card game, and it does not have to be declared before the game begins. This may be used by a Technical Mentor joining the game. There is no limit to this use of the feat, however you **_must_** be able to physrep the additional card you have drawn.
+
+Either use is separate and requires a Vigor cost be paid.';
 
         DB::table('feats')->upsert([
             [
                 'id' => 1,
                 'name' => 'Dodge!',
-                'description' => 'This enables the character to dodge out of harm\'s way and take less damage from a blow. This feat negates one full damage call, and you and anything you are carrying take no damage or effects.
+                'description' => 'This enables the character to dodge out of harm\'s way and take less damage from a blow. This feat negates one full combat call, and you and anything you are carrying take no damage or effects.
 
-The exception to this is the Lethal call – used in response to a call of Lethal, this feat immediately restores you to 1 Body.',
+**The exception to this is the Lethal call – used in response to a call of Lethal, this feat immediately restores you to 1 Body.**',
                 'per_event' => 0
             ],
             [
@@ -83,7 +85,11 @@ Only weapons with the All Guns Blazing trait can be used with this feat.',
             [
                 'id' => 7,
                 'name' => 'A Very Distinctive...',
-                'description' => 'You may use this feat to gain an insight into the motivations and allegiance of a group or an individual you are observing. For this feat you should use the call "Very Distinctive X" where X can be stance/boots/sound/watch/tattoo etc. E.g. "That guy works for the Yakuza, you can tell by their Very Distinctive tattoos".',
+                'description' => 'You may use this feat to gain an insight into the motivations and allegiance of a group or an individual you are observing. For this feat you should use the call "Very Distinctive X" where X can be stance/boots/sound/watch/tattoo etc.
+
+E.g. "That guy works for the Yakuza, you can tell by their Very Distinctive tattoos".
+
+You may also use this feat to determine the Maximum Vigor of someone you have observed for at least five minutes, however some Legendary NPCs may simply get the equivalent of a skull icon.',
                 'per_event' => 0
             ],
             [
@@ -103,7 +109,7 @@ The device will only work for 1 scene before it breaks down again. Future attemp
             [
                 'id' => 10,
                 'name' => 'Cat-like Reflexes',
-                'description' => 'You can ignore calls of Knockback, Mass Knockback, and Global Knockback for five minutes. Call "Resist" to any subsequent calls during this time.',
+                'description' => 'You can ignore calls of Knockback, Mass Knockback, and Global Knockback for sixty seconds. Call "Resist" to any subsequent calls during this time.',
                 'per_event' => 0
             ],
             [
@@ -117,7 +123,11 @@ The device will only work for 1 scene before it breaks down again. Future attemp
                 'name' => 'Cauterise',
                 'description' => 'AKA "Don’t Have Time To Bleed."
 
-This feat negates a bleed effect on yourself or another character.',
+This Feat negates a Bleed effect on yourself or another character, provided they are above zero Body.
+
+Using this ability on a **Critical** character does NOT negate the effect. Instead it pauses their bleed count.
+
+If you leave a **Critical** character, or the **Critical** Character moves they will begin bleeding again.',
                 'per_event' => 0
             ],
             [
@@ -170,44 +180,44 @@ If you are carrying an appropriately modern shield physrep, you may stand still 
             ],
             [
                 'id' => 19,
-                'name' => 'Explosives Insight',
-                'description' => $insightDescription,
+                'name' => 'Explosives Toolkit',
+                'description' => $toolkitDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 20,
-                'name' => 'Electrical Insight',
-                'description' => $insightDescription,
+                'name' => 'Electrical Toolkit',
+                'description' => $toolkitDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 21,
-                'name' => 'Computing Insight',
-                'description' => $insightDescription,
+                'name' => 'Computing Toolkit',
+                'description' => $toolkitDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 22,
-                'name' => 'Communications Insight',
-                'description' => $insightDescription,
+                'name' => 'Communications Toolkit',
+                'description' => $toolkitDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 23,
-                'name' => 'Mechanical Insight',
-                'description' => $insightDescription,
+                'name' => 'Mechanical Toolkit',
+                'description' => $toolkitDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 24,
-                'name' => 'Larceny Insight',
-                'description' => $insightDescription,
+                'name' => 'Larceny Toolkit',
+                'description' => $toolkitDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 25,
-                'name' => 'Medical Insight',
-                'description' => $insightDescription,
+                'name' => 'Medical Toolkit',
+                'description' => $toolkitDescription,
                 'per_event' => 0
             ],
             [
@@ -273,7 +283,9 @@ The target does not need to be swayed by the character.
 
 The effect will end after 5 minutes OR if a referee believes the negotiations have broken down or failed OR if the target is attacked.
 
-You may spend multiple points of Vigor to affect multiple targets in a group, but if the effect ends on any target it ends for all affected.',
+You may spend multiple points of Vigor to affect multiple targets in a group, but if the effect ends on any target it ends for all affected.
+
+This feat may be used by proxy through another character translating at a cost of +1 total Vigor.',
                 'per_event' => 0
             ],
             [
@@ -332,9 +344,9 @@ Only one additional card may be played on a problem, and once a Mentor card has 
                 'id' => 39,
                 'name' => 'Torture Resistance',
                 'description' => 'This feat allows you to:
-- Ignore the effects of torture or the feats \'Interrogator\' and \'Negotiator\' for one scene.
+- Counter the feats \'Interrogator\' and \'Negotiator\'.
 - If you have been affected by alien mind control, you may resist and break out of the mind control for 5 minutes.
-- Reduce Stun and Paralyse time from 30 and 10 seconds to 0 seconds and grants immunity to further Stun or Paralyse calls for another 60 seconds.
+- Reduce Stun and Paralyse time from 30 and 10 seconds to 0 seconds.
 
 Note: This does not work on Psychology Challenges.',
                 'per_event' => 0
@@ -359,16 +371,16 @@ Once affected by this feat (from anyone), you cannot be affected by another "We 
             ],
             [
                 'id' => 42,
-                'name' => 'Cryptographic Insight',
-                'description' => $insightDescription,
+                'name' => 'Cryptographic Toolkit',
+                'description' => $toolkitDescription,
                 'per_event' => 0
             ],
             [
                 'id' => 43,
-                'name' => 'Basic Skill Insight',
+                'name' => 'Basic Skill Toolkit',
                 'description' => 'This feat applies to Basic skills that provide cards.
 
-' . $insightDescription,
+' . $toolkitDescription,
                 'per_event' => 0
             ],
         ], 'id', [
