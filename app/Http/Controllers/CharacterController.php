@@ -140,7 +140,7 @@ class CharacterController extends Controller
             $logs[] = $log;
             $usedMonths += $skill->cost;
         }
-        $remainingMonths = $character->background->months - $usedMonths;
+        $remainingMonths = $character->background->adjustedMonths - $usedMonths;
         if ($remainingMonths < 0) {
             $errors[] = __('Character must not exceed their background training months.');
         } else {
@@ -148,7 +148,7 @@ class CharacterController extends Controller
                 if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
                     $errors[] = __('Character must select specialty for :name.', ['name' => $skill->skill->name]);
                 }
-                $remainingMonths = $character->background->months - $usedMonths;
+                $remainingMonths = $character->background->adjustedMonths - $usedMonths;
                 if ($remainingMonths > $skill->cost) {
                     $errors[] = __('Character must use all of their background training months.');
                 }
@@ -164,13 +164,13 @@ class CharacterController extends Controller
                 $log->fill($logData);
                 $logs[] = $log;
                 $usedMonths += $remainingMonths;
-                if ($character->background->months - $usedMonths == $skill->cost) {
+                if ($character->background->adjustedMonths - $usedMonths == $skill->cost) {
                     $skill->completed = true;
                     $skill->save();
                 }
             }
         }
-        $remainingMonths = $character->background->months - $usedMonths;
+        $remainingMonths = $character->background->adjustedMonths - $usedMonths;
         if ($remainingMonths > 0) {
             $errors[] = __('Character must use all of their background training months.');
         }
@@ -298,7 +298,7 @@ class CharacterController extends Controller
             }
             $usedMonths += $skill->cost;
         }
-        $remainingMonths = $character->background->months - $usedMonths;
+        $remainingMonths = $character->background->adjustedMonths - $usedMonths;
         if ($remainingMonths < 0) {
             $errors[] = __('Character must not exceed their background training months.');
         } else {
@@ -306,18 +306,18 @@ class CharacterController extends Controller
                 if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
                     $errors[] = __('Character must select specialty for :name.', ['name' => $skill->skill->name]);
                 }
-                $remainingMonths = $character->background->months - $usedMonths;
+                $remainingMonths = $character->background->adjustedMonths - $usedMonths;
                 if ($remainingMonths > $skill->cost) {
                     $errors[] = __('Character must use all of their background training months.');
                 }
                 $usedMonths += $remainingMonths;
-                if ($character->background->months - $usedMonths == $skill->cost) {
+                if ($character->background->adjustedMonths - $usedMonths == $skill->cost) {
                     $skill->completed = true;
                     $skill->save();
                 }
             }
         }
-        $remainingMonths = $character->background->months - $usedMonths;
+        $remainingMonths = $character->background->adjustedMonths - $usedMonths;
         if ($remainingMonths > 0) {
             $errors[] = __('Character must use all of their background training months.');
         }

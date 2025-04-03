@@ -131,7 +131,7 @@
                                 <div id="background-description-{{ $background->id }}"
                                      class="background-description p-2 mt-2 space-y-2 border-2 border-slate-600 rounded-md @if(empty($character) || $background->id != $character->background_id) hidden @endif">
                                     <p>{{ $background->description }}</p>
-                                    <p>{{ sprintf(__('Training Months: %s'), $background->months) }}</p>
+                                    <p>{{ sprintf(__('Training Months: %s'), $background->adjustedMonths) }}</p>
                                     <div>
                                         <p class="text-lg font-medium">{{ __('Starting Skills') }}</p>
                                         <ul class="grid grid-cols-2 sm:grid-cols-6">

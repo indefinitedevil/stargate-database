@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\CharacterHelper;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int body
  * @property int vigor
  * @property int months
+ * @property int id
+ * @property string name
+ * @property string description
+ * @property int adjustedMonths
  */
 class Background extends Model
 {
@@ -33,5 +38,10 @@ class Background extends Model
     public function feats(): BelongsToMany
     {
         return $this->belongsToMany(Feat::class)->orderBy('name');
+    }
+
+    public function getAdjustedMonthsAttribute(): int
+    {
+        return $this->months + CharacterHelper::getLowestTrainedMonths();
     }
 }
