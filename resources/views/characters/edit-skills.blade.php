@@ -37,7 +37,7 @@
                                         ></i>
                                     </span>
                                 <div id="skill-{{ $skill->id }}" class="text-sm hidden pl-4 space-y-2 mb-2">
-                                    {!! Str::of($skill->description)->markdown() !!}
+                                    {!! process_markdown($skill->description) !!}
                                 </div>
                             </li>
                         @endforeach
@@ -95,7 +95,7 @@
                             @endif
                             <div id="skill-{{ $characterSkill->skill_id }}"
                                  class="text-sm hidden pl-4 space-y-2 mt-1 mb-2">
-                                {!! Str::of($characterSkill->skill->description)->markdown() !!}
+                                {!! process_markdown($characterSkill->skill->description) !!}
                             </div>
                         </li>
                     @endforeach
@@ -152,7 +152,7 @@
                                 @endif
                                 <div id="skill-{{ $characterSkill->skill_id }}"
                                      class="text-sm hidden pl-4 space-y-2 mt-1 mb-2">
-                                    {!! Str::of($characterSkill->skill->description)->markdown() !!}
+                                    {!! process_markdown($characterSkill->skill->description) !!}
                                 </div>
                             </li>
                         @endforeach

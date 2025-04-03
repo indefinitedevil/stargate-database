@@ -16,6 +16,7 @@
                     <li>Secretary: added event attendance system.</li>
                     <li>Secretary: added paid downtimes.</li>
                     <li>Event Runner: added access to skills breakdown view.</li>
+                    <li>Sys Ref: added skill description to skill check view.</li>
                     <li>Changed attendance tracking to be attached to users, not characters.</li>
                     <li>Added system to track which basic skills can be trained by full skill teaching.</li>
                     <li>Added downtime submission system.</li>
@@ -25,6 +26,7 @@
                     <li>Added global notice when downtime is open.</li>
                     <li>Added success messaging.</li>
                     <li>Customised emails with Stargate branding.</li>
+                    <li>Improved skill description display universally.</li>
                 </ul>
                 <p class="text-sm">Tested by Ben, Fraser, Kat, and Orev</p>
             </div>

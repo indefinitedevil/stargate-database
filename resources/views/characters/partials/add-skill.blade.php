@@ -121,7 +121,7 @@
                          class="skill-description mt-1 @if (empty($editSkill) || $editSkill->skill->id != $skill->id) hidden @endif">
                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ $skill->name }}</h3>
                         <div class="space-y-1">
-                            {!! Str::of($skill->description)->markdown()->replace('<ul>', '<ul class="list-disc list-inside">') !!}
+                            {!! process_markdown($skill->description) !!}
                         </div>
                         @if ($skill->specialties)
                             <div class="mt-1">
@@ -142,7 +142,7 @@
                                         </span>
                                         <span id="feat-{{$skill->id}}-{{ $feat->id }}"
                                               class="text-sm hidden pl-4">
-                                            {!! Str::of($feat->description)->markdown() !!}
+                                            {!! process_markdown($feat->description) !!}
                                         </span>
                                     </li>
                                 @endforeach

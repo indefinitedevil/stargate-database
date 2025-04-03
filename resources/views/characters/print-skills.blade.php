@@ -21,7 +21,7 @@
                                             <li>
                                                 {{ $skill->print_name ?? $skill->name }}
                                                 <div class="text-sm pl-4 space-y-2">
-                                                    {!! Str::of($skill->description)->markdown()->replace('<ul>', '<ul class="list-disc list-inside">') !!}
+                                                    {!! process_markdown($skill->description) !!}
                                                 </div>
                                             </li>
                                         @endforeach
@@ -49,7 +49,7 @@
                                                     </ul>
                                                 @endif
                                                 <div class="text-sm pl-4 space-y-2">
-                                                    {!! Str::of($characterSkill->skill->description)->markdown()->replace('<ul>', '<ul class="list-disc list-inside">') !!}
+                                                    {!! process_markdown($characterSkill->skill->description) !!}
                                                 </div>
                                             </li>
                                         @endforeach
@@ -79,7 +79,7 @@
                                         ({{ $feat->getPerEvent($character) }})
                                     @endif
                                     <div class="text-sm pl-4 space-y-2">
-                                        {!! Str::of($feat->description)->markdown() !!}
+                                        {!! process_markdown($feat->description) !!}
                                     </div>
                                 </li>
                             @endforeach

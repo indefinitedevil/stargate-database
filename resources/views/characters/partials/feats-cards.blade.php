@@ -21,7 +21,7 @@
                         ></i>
                     </span>
                     <div id="feat-{{ $feat->id }}" class="text-sm hidden pl-4">
-                        {!! Str::of($feat->description)->markdown() !!}
+                        {!! process_markdown($feat->description) !!}
                     </div>
                 </li>
             @endforeach

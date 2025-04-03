@@ -20,6 +20,12 @@
                             @endphp
                         <h4 class="text-lg font-semibold">{{ $skill->name }}</h4>
                         <ul>
+                            <li onclick="toggleVisibility('skill-{{ $skill->id }}')">
+                                {!! __('<strong class="cursor-pointer underline decoration-dashed underline-offset-4">Description</strong>') !!}
+                                <div id="skill-{{ $skill->id }}" class="text-sm hidden pl-4 space-y-2 mt-1 mb-2">
+                                    {!! process_markdown($skill->description) !!}
+                                </div>
+                            </li>
                             @if ($skill->cost)
                                 <li>
                                     {!! __('<strong>Cost:</strong> :cost months', ['cost' => $skill->cost]) !!}
@@ -106,4 +112,14 @@
             </div>
         </div>
     @endforeach
+    <script>
+        function toggleVisibility(id) {
+            var element = document.getElementById(id);
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+            } else {
+                element.classList.add('hidden');
+            }
+        }
+    </script>
 </x-app-layout>
