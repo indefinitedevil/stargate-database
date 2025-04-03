@@ -49,21 +49,21 @@
                 <ul class="space-y-6 sm:space-y-2">
                     @foreach ($character->trainedSkills->sortBy('name') as $characterSkill)
                         <li class="leading-loose sm:leading-normal">
-                                    <span class="cursor-pointer underline decoration-dashed underline-offset-4"
-                                          onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')">
-                                        {{ $characterSkill->name }}
-                                        @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
-                                            *
-                                            @php $flashOfInsight = true; @endphp
-                                        @endif
-                                        @if($characterSkill->skill->feats->contains(Feat::BOTCH_JOB))
-                                            †
-                                            @php $botchJob = true; @endphp
-                                        @endif
-                                        <i class="fa-regular fa-circle-question cursor-pointer"
-                                           title="{{ __('Show description') }}"
-                                        ></i>
-                                     </span>
+                            <span class="cursor-pointer underline decoration-dashed underline-offset-4"
+                                  onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')">
+                                {{ $characterSkill->name }}
+                                @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
+                                    *
+                                    @php $flashOfInsight = true; @endphp
+                                @endif
+                                @if($characterSkill->skill->feats->contains(Feat::BOTCH_JOB))
+                                    †
+                                    @php $botchJob = true; @endphp
+                                @endif
+                                <i class="fa-regular fa-circle-question cursor-pointer"
+                                   title="{{ __('Show description') }}"
+                                ></i>
+                             </span>
                             ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                             @if ($characterSkill->locked)
                                 <i class="fa-solid fa-lock inline-block ml-4 sm:ml-0"
@@ -102,7 +102,7 @@
                 </ul>
                 @if (in_array($character->status_id, [Status::NEW, Status::READY]))
                     <p class="mt-1">
-                        {{ sprintf(__('Total training: %d / %s'), $character->completedTrainingMonths, $character->background->adjustedMonths) }}
+                        {{ sprintf(__('Total training: %d / %s'), $character->trainingMonths, $character->background->adjustedMonths) }}
                     </p>
                 @endif
                 @if(!empty($flashOfInsight))

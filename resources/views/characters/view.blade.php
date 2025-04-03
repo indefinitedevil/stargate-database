@@ -91,7 +91,7 @@
                 </ul>
                 @if (in_array($character->status_id, [Status::NEW, Status::READY]))
                     <p class="mt-1">
-                        {{ sprintf(__('Total training: %d / %s'), $character->completedTrainingMonths, $character->background->adjustedMonths) }}
+                        {{ sprintf(__('Total training: %d / %s'), $character->trainingMonths, $character->background->adjustedMonths) }}
                     </p>
                 @endif
             </div>
