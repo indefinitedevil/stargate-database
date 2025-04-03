@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return view('events.index');
     }
 
@@ -24,7 +25,8 @@ class EventController extends Controller
         ]);
     }
 
-    public function create(Request $request) {
+    public function create(Request $request)
+    {
         if ($request->user()->cannot('edit events')) {
             return redirect(route('dashboard'));
         }
@@ -33,7 +35,8 @@ class EventController extends Controller
         ]);
     }
 
-    public function edit(Request $request, $eventId) {
+    public function edit(Request $request, $eventId)
+    {
         if ($request->user()->cannot('edit events')) {
             return redirect(route('dashboard'));
         }
@@ -42,7 +45,8 @@ class EventController extends Controller
         ]);
     }
 
-    public function storeAttendance(Request $request) {
+    public function storeAttendance(Request $request)
+    {
         if ($request->user()->cannot('record attendance')) {
             return redirect(route('dashboard'));
         }
@@ -57,13 +61,21 @@ class EventController extends Controller
             $user = User::findOrFail($userId);
             $data['attended'] = !empty($data['attended']) && $data['attended'] == 'on';
             $eventsData[$user->id] = $data;
+            if ($data['attended'] && !empty($data['character_id'])) {
+                $character = Character::findOrFail($data['character_id']);
+                if (Status::APPROVED == $character->status_id) {
+                    $character->status_id = Status::PLAYED;
+                    $character->save();
+                }
+            }
         }
         $event->users()->sync($eventsData);
 
         return redirect(route('events.attendance', $event->id));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         if ($request->user()->cannot('edit events')) {
             return redirect(route('dashboard'));
         }
