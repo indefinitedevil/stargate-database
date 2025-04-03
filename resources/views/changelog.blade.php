@@ -32,14 +32,14 @@
                     <li>Added inactive state for characters.</li>
                     <li>Improved skill description display universally.</li>
                     <li>Updated rules in line with the 1.2 release.
-                        <ul class="list-inside list-disc">
+                        <ul class="list-inside list-disc pl-4">
                             <li>Updated skill and feat descriptions.</li>
                             <li>Added Self-Defense skill.</li>
                             <li>Added Primitive Weapons as alternate prerequisite for Accuracy Training.</li>
                         </ul>
                     </li>
                 </ul>
-                <p class="text-sm">Tested by Ben, Fraser, Kat, and Orev</p>
+                <p class="text-sm">Tested by Ben B, Fraser, Kat, and Orev</p>
             </div>
             <div>
                 <h3 class="text-lg font-semibold"><a
