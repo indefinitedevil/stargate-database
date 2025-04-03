@@ -1,3 +1,6 @@
+@php
+    use App\Helpers\CharacterHelper;
+@endphp
 <x-app-layout>
     <x-slot name="title">{{ __('All characters') }}</x-slot>
     <x-slot name="header">
@@ -24,29 +27,32 @@
         </h2>
     </x-slot>
 
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+        <p>
+            <strong>{{ __('Lowest amount of training months on an active character:') }}</strong> {{ CharacterHelper::getLowestTrainedMonths() }}
+        </p>
+        <p>
+            <strong>{{ __('Highest amount of training months on an active character:') }}</strong> {{ CharacterHelper::getHighestTrainedMonths() }}
+        </p>
+    </div>
+
     <form method="GET" action="{{ route('plotco.print-some') }}" id="character_select" class="space-y-6">
         @if (count($newCharacters) > 0)
-            <div
-                class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-                <div class="mt-1">
-                    <h3 class="text-lg font-semibold">{{ __('Characters for approval') }}</h3>
-                    @include('characters.partials.index', ['characters' => $newCharacters, 'hideStatus' => true, 'checkbox' => true])
-                </div>
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+                <h3 class="text-lg font-semibold">{{ __('Characters for approval') }}</h3>
+                @include('characters.partials.index', ['characters' => $newCharacters, 'hideStatus' => true, 'checkbox' => true])
             </div>
         @endif
+
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-            <div class="mt-1">
-                <h3 class="text-lg font-semibold">{{ __('Active characters') }}</h3>
-                @include('characters.partials.index', ['characters' => $activeCharacters, 'checkbox' => true])
-            </div>
+            <h3 class="text-lg font-semibold">{{ __('Active characters') }}</h3>
+            @include('characters.partials.index', ['characters' => $activeCharacters, 'checkbox' => true])
         </div>
+
         @if (count($inactiveCharacters) > 0)
-            <div
-                class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-                <div class="mt-1">
-                    <h3 class="text-lg font-semibold">{{ __('Inactive characters') }}</h3>
-                    @include('characters.partials.index', ['characters' => $inactiveCharacters, 'checkbox' => true])
-                </div>
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+                <h3 class="text-lg font-semibold">{{ __('Inactive characters') }}</h3>
+                @include('characters.partials.index', ['characters' => $inactiveCharacters, 'checkbox' => true])
             </div>
         @endif
     </form>
