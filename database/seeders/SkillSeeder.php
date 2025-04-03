@@ -130,7 +130,7 @@ class SkillSeeder extends Seeder
                 'name' => 'Explosives Training',
                 'print_name' => NULL,
                 'skill_category_id' => 1,
-                'description' => 'Expertise in making and disposing a variety of devices aimed at blowing things up. Grants the knowledge of where to place a device for maximum effect. This is sometimes used in conjunction with other skills to make elaborate devices.',
+                'description' => 'Expertise in making and disposing a variety of devices aimed at blowing things up. Grants the knowledge of where to place a device for maximum effect. This is sometimes used in conjunction with other skills to make elaborate devices that may have more damaging effects than listed in the Explosives Table - speak to an event ref if you wish to attempt this.',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -384,7 +384,7 @@ This skill reduces the training time of Medical Doctor to 3 months, regardless o
                 'skill_category_id' => 2,
                 'description' => 'You have spent time learning about human psychology, enabling you to both lie convincingly and detect when others are doing so. You can understand and anticipate actions and analyse the dysfunctional.
 
-After role-playing with someone for at least five minutes you may spend 1 Vigor to do any *one* of the following:
+After role-playing with someone for at least five minutes you may spend 1 Vigor to do any and all of the following:
 * See whether someone’s last statement was a lie.
 * See whether someone in the general conversation is concealing something.
 * Find out what someone is trying to achieve (in broad terms) through their words.
@@ -411,7 +411,7 @@ You may spend additional points of Vigor to reduce the time needed to use these 
                 'print_name' => NULL,
                 'skill_category_id' => 2,
                 'description' => 'You are able to provide comfort and support when your fellows need it most. After roleplaying with someone for at least five minutes outside of combat, you may Spend 1 Vigor to do either or both of the following.
-* Refresh your target’s Vigor to full, regardless of their maximum Vigor.
+* Refresh your target’s Vigor to full, regardless of their maximum Vigor. (This does not affect others with the Psychotherapy skill)
 * Detect their current emotional state.
 
 After role-playing with someone for at least twenty minutes you may spend 1 Vigor to do the following:
@@ -1280,6 +1280,22 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'vigor' => 0,
                 'display' => 1,
             ],
+            [
+                'id' => 89,
+                'name' => 'Self-Defense',
+                'print_name' => NULL,
+                'skill_category_id' => 4,
+                'description' => 'This skill grants access to the following ability.
+* Break Hold (Costs 1 Vigor): You call "Break Hold". The target must release you from a grapple, or you can resist a throw as you’ve broken their hold.',
+                'upkeep' => 0,
+                'cost' => 0,
+                'specialties' => 0,
+                'specialty_type_id' => NULL,
+                'repeatable' => 0,
+                'body' => 0,
+                'vigor' => 0,
+                'display' => 1,
+            ],
         ], 'id', [
             'name',
             'description',
@@ -1319,7 +1335,8 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'print_name' => NULL,
                 'skill_category_id' => 5,
                 'description' => 'You gain the following ability:
-* Strike (unlimited): You may call damage with fists.',
+* Strike (unlimited): You may call damage with fists.
+Unarmed Combat Strikes should be represented by an open palm aimed at the target’s shoulder area, but should not make actual contact.',
                 'upkeep' => 0,
                 'cost' => 3,
                 'specialties' => 0,
@@ -1387,7 +1404,9 @@ Allows use of a Riot Shield (+2 BP).',
                 'skill_category_id' => 5,
                 'description' => 'You gain the following abilities using your hands:
 * Strike (unlimited): You cause damage as per Boxing.
-* Grapple (Costs 1 Vigor) You can keep the target restrained for 10 seconds. The target may still use small weapons, (not Unarmed strikes), against you, provided they were holding them when the grapple began. You MUST use both hands to grapple, or it ends immediately. ANY unarmed call you make after the grapple begins, (Except Knockout), ends it. If you are incapacitated or rendered unconscious the grapple automatically ends.
+* Grapple (Costs 1 Vigor) You can keep the target restrained for 10 seconds. The target may still use small weapons (not Unarmed strikes) against you, provided they were holding them when the grapple began.
+    A grappled target may not use any feats or abilities other than Break Hold.
+    You MUST use both hands to grapple, or it ends immediately. ANY unarmed call you make after the grapple begins, (Except Knockout), ends it. If you are incapacitated or rendered unconscious the grapple automatically ends.
 * Throw (Costs 1 Vigor): You call “Knockback”. The target must role-play being thrown away from you and Knocked Down.
 * Break Hold (Costs 1 Vigor): You call “Break Hold”. The target must release you from a grapple, or you can resist a throw as you’ve broken their hold.
 * Sleep (costs 1 additional Vigor on top of the Grapple) You can, after 10 seconds of grappling an opponent, render a person unconscious immediately.
@@ -1990,7 +2009,12 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             [
                 'skill_id' => 73,
                 'prereq_id' => 83,
-                'always_required' => 1,
+                'always_required' => 0,
+            ],
+            [
+                'skill_id' => 73,
+                'prereq_id' => 82,
+                'always_required' => 0,
             ],
             [
                 'skill_id' => 75,
@@ -2118,6 +2142,10 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'skill_id' => 42,
                 'lockout_id' => 72,
             ],
+            [
+                'skill_id' => 78,
+                'lockout_id' => 89,
+            ],
         ]);
     }
 
@@ -2213,6 +2241,11 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             [
                 'discounting_skill' => 72,
                 'discounted_skill' => 42,
+                'discount' => 3,
+            ],
+            [
+                'discounting_skill' => 89,
+                'discounted_skill' => 78,
                 'discount' => 3,
             ],
         ]);
@@ -2535,6 +2568,10 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             [
                 'taught_skill_id' => 42,
                 'trained_skill_id' => 72,
+            ],
+            [
+                'taught_skill_id' => 78,
+                'trained_skill_id' => 89,
             ],
         ]);
     }

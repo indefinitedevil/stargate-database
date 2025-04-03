@@ -50,7 +50,7 @@
                                     <strong>{{ __('Pre-requisites') }}</strong>
                                     <ul class="list-inside list-disc">
                                         @foreach($skill->prereqs as $prereq)
-                                            <li>{{ $prereq->requiredSkill->name }}</li>
+                                            <li>{{ $prereq->requiredSkill->name }} {{ count($skill->prereqs) > 1 ? __($prereq->always_required ? '(AND)' : '(OR)') : '' }}</li>
                                         @endforeach
                                     </ul>
                                 </li>
