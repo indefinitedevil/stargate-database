@@ -139,7 +139,7 @@ class Character extends Model
             });
         $user = Auth::user();
         if ($user->cannot('edit all characters')) {
-            $skills->where('skills.category_id', '!=', 7);
+            $skills->where('skills.skill_category_id', '!=', 7);
         }
 
         $skillsWithAnyPrerequisiteMet = Skill::select('skills.*')
@@ -155,7 +155,7 @@ class Character extends Model
                     ->orWhere('skills.repeatable', '>', 0);
             });
         if ($user->cannot('edit all characters')) {
-            $skills->where('skills.category_id', '!=', 7);
+            $skills->where('skills.skill_category_id', '!=', 7);
         }
 
         if ($this->status_id < Status::APPROVED) {
@@ -175,7 +175,7 @@ class Character extends Model
                 ->whereIn('skills.id', $skillsWithAllPrerequisitesUnmet)
                 ->whereNotIn('skills.id', $lockedOutSkills);
             if ($user->cannot('edit all characters')) {
-                $skills->where('skills.category_id', '!=', 7);
+                $skills->where('skills.skill_category_id', '!=', 7);
             }
 
             return $skills->union($backgroundSkills)

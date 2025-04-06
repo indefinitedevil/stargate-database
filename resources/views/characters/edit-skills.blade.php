@@ -118,17 +118,17 @@
                     <ul class="space-y-6 sm:space-y-2">
                         @foreach ($character->trainingSkills->sortBy('name') as $characterSkill)
                             <li class="leading-loose sm:leading-normal">
-                                        <span class="cursor-pointer underline decoration-dashed underline-offset-4"
-                                              onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')">
-                                            {{ $characterSkill->name }}
-                                            @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
-                                                *
-                                                @php $flashOfInsight = true; @endphp
-                                            @endif
-                                            <i class="fa-regular fa-circle-question cursor-pointer"
-                                               title="{{ __('Show description') }}"
-                                            ></i>
-                                         </span>
+                                <span class="cursor-pointer underline decoration-dashed underline-offset-4"
+                                      onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')">
+                                    {{ $characterSkill->name }}
+                                    @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
+                                        *
+                                        @php $flashOfInsight = true; @endphp
+                                    @endif
+                                    <i class="fa-regular fa-circle-question cursor-pointer"
+                                       title="{{ __('Show description') }}"
+                                    ></i>
+                                 </span>
                                 ({{ $characterSkill->trained }}/{{ $characterSkill->cost }})
                                 <a href="{{ route('characters.edit-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"
                                    class="inline-block ml-4 sm:ml-0"
