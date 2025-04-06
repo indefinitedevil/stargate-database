@@ -6,7 +6,7 @@
         <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
             {{ __('Feats') }}
         </h2>
-        <ul class="grid grid-cols-1 sm:grid-cols-4 gap-2 mt-1 space-y-6 sm:space-y-2">
+        <ul class="grid grid-cols-1 sm:grid-cols-4 gap-x-6 mt-1 gap-y-6 sm:gap-y-2">
             @foreach ($character->feats as $feat)
                 <li>
                     <span class="cursor-pointer underline decoration-dashed underline-offset-4"
@@ -41,7 +41,7 @@
             <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100 mt-4">
                 {{ __('Cards') }}
             </h2>
-            <ul class="grid grid-cols-1 sm:grid-cols-4 mt-1">
+            <ul class="grid grid-cols-1 sm:grid-cols-4 mt-1 gap-x-6 gap-y-2">
                 @foreach ($character->cards as $card)
                     <li>{{ $card->name }} ({{ $card->number }})</li>
                 @endforeach

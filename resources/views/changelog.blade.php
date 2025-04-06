@@ -34,6 +34,7 @@
                     <li>Improved skill description display universally.</li>
                     <li>Added handling of resuscitation.</li>
                     <li>Reorganised character actions.</li>
+                    <li>Aligned gap styling on character pages.</li>
                     <li>Updated rules in line with the 1.2 release.
                         <ul class="list-inside list-disc pl-4">
                             <li>Updated skill and feat descriptions.</li>
