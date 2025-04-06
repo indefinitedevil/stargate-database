@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PlotHelper;
 use App\Mail\CharacterApproved;
 use App\Mail\CharacterDenied;
 use App\Mail\CharacterReady;
@@ -567,6 +568,13 @@ class CharacterController extends Controller
                 $skill = Skill::find($validatedData['skill_id']);
                 if (!$skill->repeatable || $skill->repeatable <= $existing) {
                     throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
+                } elseif (PlotHelper::SKILL_RESUSCITATION_BUYBACK == $skill->id) {
+                    $resuscitations = CharacterSkill::where('character_id', $validatedData['character_id'])
+                        ->where('skill_id', PlotHelper::SKILL_RESUSCITATION)
+                        ->count();
+                    if ($resuscitations <= $existing) {
+                        throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
+                    }
                 }
             }
             $characterSkill = new CharacterSkill();

@@ -64,6 +64,12 @@ class SkillSeeder extends Seeder
                 'cost' => -1,
                 'scaling' => 0,
             ],
+            [
+                'id' => 7,
+                'name' => 'System',
+                'cost' => 0,
+                'scaling' => 0,
+            ],
         ], 'id');
     }
 
@@ -75,6 +81,7 @@ class SkillSeeder extends Seeder
         $this->seedBasicSkills();
         $this->seedCombatSkills();
         $this->seedAlienSkills();
+        $this->seedSystemSkills();
     }
 
     public function seedTechnologySkills()
@@ -2091,6 +2098,11 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'prereq_id' => 9,
                 'always_required' => 1,
             ],
+            [
+                'skill_id' => 92,
+                'prereq_id' => 91,
+                'always_required' => 1,
+            ],
         ]);
     }
 
@@ -2573,6 +2585,69 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'taught_skill_id' => 78,
                 'trained_skill_id' => 89,
             ],
+        ]);
+    }
+
+    public function seedSystemSkills()
+    {
+        DB::table('skills')->upsert([
+            [
+                'id' => 90,
+                'name' => 'Plot Changes',
+                'print_name' => NULL,
+                'skill_category_id' => 7,
+                'description' => '',
+                'upkeep' => 0,
+                'cost' => 0,
+                'specialties' => 0,
+                'specialty_type_id' => NULL,
+                'repeatable' => 100,
+                'body' => 0,
+                'vigor' => 0,
+                'display' => 0,
+            ],
+            [
+                'id' => 91,
+                'name' => 'Resuscitation',
+                'print_name' => NULL,
+                'skill_category_id' => 7,
+                'description' => 'The consequence of being brought back to life.',
+                'upkeep' => 0,
+                'cost' => 0,
+                'specialties' => 0,
+                'specialty_type_id' => NULL,
+                'repeatable' => 100,
+                'body' => 0,
+                'vigor' => -1,
+                'display' => 0,
+            ],
+            [
+                'id' => 92,
+                'name' => 'Resuscitation Vigor Buyback',
+                'print_name' => NULL,
+                'skill_category_id' => 7,
+                'description' => 'Getting your lost Vigor back.',
+                'upkeep' => 0,
+                'cost' => 3,
+                'specialties' => 0,
+                'specialty_type_id' => NULL,
+                'repeatable' => 100,
+                'body' => 0,
+                'vigor' => 1,
+                'display' => 0,
+            ],
+        ], 'id', [
+            'name',
+            'description',
+            'skill_category_id',
+            'upkeep',
+            'cost',
+            'specialties',
+            'specialty_type_id',
+            'repeatable',
+            'body',
+            'vigor',
+            'display',
         ]);
     }
 }

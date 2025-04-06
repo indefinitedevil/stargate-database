@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -136,6 +137,10 @@ class Character extends Model
                 $query->whereNull('character_skills.id')
                     ->orWhere('skills.repeatable', '>', 0);
             });
+        $user = Auth::user();
+        if ($user->cannot('edit all characters')) {
+            $skills->where('skills.category_id', '!=', 7);
+        }
 
         $skillsWithAnyPrerequisiteMet = Skill::select('skills.*')
             ->leftJoin('character_skills', function (JoinClause $join) {
@@ -149,9 +154,11 @@ class Character extends Model
                 $query->whereNull('character_skills.id')
                     ->orWhere('skills.repeatable', '>', 0);
             });
+        if ($user->cannot('edit all characters')) {
+            $skills->where('skills.category_id', '!=', 7);
+        }
 
-        // Check pre-requisites and
-        // lockouts for background skills
+        // Check pre-requisites and lockouts for background skills
         $skillsWithAllPrerequisitesUnmet = SkillPrereq::select('skill_prereqs.skill_id')
             ->join('background_skill', function (JoinClause $join) {
                 $join->on('skill_prereqs.prereq_id', '=', 'background_skill.skill_id');
@@ -166,6 +173,9 @@ class Character extends Model
             ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
             ->whereIn('skills.id', $skillsWithAllPrerequisitesUnmet)
             ->whereNotIn('skills.id', $lockedOutSkills);
+        if ($user->cannot('edit all characters')) {
+            $skills->where('skills.category_id', '!=', 7);
+        }
 
         return $skills->union($backgroundSkills)
             ->union($skillsWithAnyPrerequisiteMet)
