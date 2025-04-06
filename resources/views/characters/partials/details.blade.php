@@ -9,7 +9,7 @@
         <strong>{{ __('Short Name') }}:</strong> {{ $character->short_name }}
     </p>
 @endif
-<div class="grid grid-cols-1 sm:grid-cols-4">
+<div class="grid grid-cols-1 sm:grid-cols-4 gap-x-6 gap-y-1">
     <p class="mt-1">
         <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
     </p>
