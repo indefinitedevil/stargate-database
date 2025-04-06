@@ -12,6 +12,7 @@
                 <h3 class="text-lg font-semibold">Release: TBD</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: added downtime system.</li>
+                    <li>Plot Co: added handling of plot changes to characters.</li>
                     <li>Secretary: added event editing system.</li>
                     <li>Secretary: added event attendance system.</li>
                     <li>Secretary: added paid downtimes.</li>
@@ -31,6 +32,7 @@
                     <li>Customised emails with Stargate branding.</li>
                     <li>Added inactive state for characters.</li>
                     <li>Improved skill description display universally.</li>
+                    <li>Added handling of resuscitation.</li>
                     <li>Updated rules in line with the 1.2 release.
                         <ul class="list-inside list-disc pl-4">
                             <li>Updated skill and feat descriptions.</li>
