@@ -618,6 +618,19 @@ class CharacterController extends Controller
         $characterSkill->fill($validatedData);
         $characterSkill->save();
 
+        if ($validatedData['completed'] && $characterSkill->character->status_id > Status::READY) {
+            $log = new CharacterLog();
+            $log->fill([
+                'character_id' => $characterSkill->character->id,
+                'character_skill_id' => $characterSkill->id,
+                'locked' => true,
+                'amount_trained' => 0,
+                'log_type_id' => LogType::PLOT,
+                'teacher_id' => null,
+            ]);
+            $log->save();
+        }
+
         if (!empty($validatedData['specialty_id'])) {
             if ($characterSkill->skill->specialties != count($validatedData['specialty_id'])) {
                 throw ValidationException::withMessages([__('Character must select correct specialty count for :name.', [$characterSkill->skill->name])]);
