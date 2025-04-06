@@ -81,6 +81,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/characters/deny/{characterId}', [CharacterController::class, 'deny'])->name('characters.deny');
         Route::get('/characters/played/{characterId}', [CharacterController::class, 'played'])->name('characters.played');
         Route::get('/characters/inactive/{characterId}', [CharacterController::class, 'inactive'])->name('characters.inactive');
+        Route::get('/characters/resuscitate/{characterId}', [CharacterController::class, 'resuscitate'])->name('characters.resuscitate');
     });
 
     Route::group(['middleware' => 'can:edit downtimes'], function () {

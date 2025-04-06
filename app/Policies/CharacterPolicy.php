@@ -120,6 +120,26 @@ class CharacterPolicy
     }
 
     /**
+     * Determine whether the user can change the model status to inactive.
+     */
+    public function resuscitate(User $user, Character $character): Response
+    {
+        if ($character->status_id < Status::APPROVED) {
+            return Response::deny('Characters which have not been played cannot be resuscitated.');
+        }
+        if ($character->status_id > Status::PLAYED) {
+            return Response::deny('Character cannot be resuscitated.');
+        }
+        $resuscitate = false;
+        if ($user->can('edit all characters')) {
+            $resuscitate = true;
+        }
+        return $resuscitate
+            ? Response::allow()
+            : Response::deny('You are not authorized to resuscitate this character.');
+    }
+
+    /**
      * Determine whether the user can change the model status to played.
      */
     public function played(User $user, Character $character): Response
