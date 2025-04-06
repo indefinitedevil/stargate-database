@@ -74,7 +74,7 @@
                         </x-dropdown-link>
                     @endif
                 @endcan
-                @if(!request()->routeIs('characters.logs') && !request()->routeIs('characters.logs-pretty'))
+                @if(!request()->routeIs('characters.logs') && !request()->routeIs('characters.logs-pretty') && $character->status_id > Status::READY)
                     <x-dropdown-link :href="$character->getLogsRoute()"
                                      title="{{ __('Character Logs') }}"
                     >
