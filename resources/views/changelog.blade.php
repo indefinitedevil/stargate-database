@@ -9,8 +9,10 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Release: TBD</h3>
+                <h3 class="text-lg font-semibold"><a href="https://github.com/indefinitedevil/stargate-database/pull/48"
+                                                     class="underline" target="_blank">Release: TBD</a></h3>
                 <ul class="list-inside list-disc">
+                    <li>Executive: combined menu options.</li>
                     <li>Plot Co: added downtime system.</li>
                     <li>Plot Co: added handling of plot changes to characters.</li>
                     <li>Secretary: added event editing system.</li>
