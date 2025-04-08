@@ -34,7 +34,7 @@
 
     <!-- Page Content -->
     <main>
-        <div class="py-12">
+        <div class="py-6 sm:py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         @include('partials.downtimes')
         @include('partials.errors')
@@ -43,7 +43,7 @@
         </div>
     </main>
 
-    <footer class="pt-12 pb-4">
+    <footer class="pt-6 sm:pt-12 pb-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">

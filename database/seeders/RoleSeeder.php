@@ -54,6 +54,7 @@ class RoleSeeder extends Seeder
         $deleteResearchProjects = Permission::findOrCreate('delete research projects');
         $viewSkillBreakdown = Permission::findOrCreate('view skill breakdown');
         $editDowntimes = Permission::findOrCreate('edit downtimes');
+        $accessExecutiveMenu = Permission::findOrCreate('access executive menu');
 
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
@@ -70,6 +71,7 @@ class RoleSeeder extends Seeder
             $viewAllUsers,
             $editAllUsers,
             $deleteAllUsers,
+            $accessExecutiveMenu,
         ]);
 
         $plotCoordinator->syncPermissions([
@@ -92,6 +94,7 @@ class RoleSeeder extends Seeder
             $deleteResearchProjects,
             $viewSkillBreakdown,
             $editDowntimes,
+            $accessExecutiveMenu,
         ]);
 
         $systemReferee->syncPermissions([
@@ -107,12 +110,14 @@ class RoleSeeder extends Seeder
             $addSkillSpecialty,
             $editSkillSpecialty,
             $deleteSkillSpecialty,
+            $accessExecutiveMenu,
         ]);
 
         $secretary->syncPermissions([
             $editEvents,
             $viewAttendance,
             $recordAttendance,
+            $accessExecutiveMenu,
         ]);
 
         $researcher->syncPermissions([
@@ -121,6 +126,7 @@ class RoleSeeder extends Seeder
 
         $eventRunner->syncPermissions([
             $viewSkillBreakdown,
+            $accessExecutiveMenu,
         ]);
 
         $player->syncPermissions([

@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['middleware' => 'can:view attendance'], function () {
-        Route::get('/plot-co/attendance/', [PlotcoController::class, 'attendance'])->name('plotco.attendance');
+        Route::get('/events/attendance/', [PlotcoController::class, 'attendance'])->name('events.all-attendance');
     });
 
     Route::group(['middleware' => 'can:record attendance'], function () {
