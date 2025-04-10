@@ -1,3 +1,6 @@
+@php
+    use App\Helpers\CharacterHelper;
+@endphp
 <section class="space-y-2">
     <p>
         Welcome to the Stargate character database.
@@ -61,7 +64,8 @@
                     If a desired skill has a prerequisite, you must add the prerequisite first.
                 </li>
                 <li>
-                    You have 36 months to spend on skills and all of them must be used.
+                    You have {{ 36 + CharacterHelper::getLowestTrainedMonths() }} months to spend on skills and all of
+                    them must be used.
                     A running count of how many you have used will be shown under your trained skills.
                 </li>
                 <li>

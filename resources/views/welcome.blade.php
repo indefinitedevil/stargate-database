@@ -8,12 +8,10 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <p>
-                This is a character database system for the
-                <a class=underline" target="_blank" href="https://www.stargatelarp.co.uk/">Stargate LARP</a>.
-                Within you will be able to create and manage your characters.
-            </p>
-            <p class="text-2xl">
-                Downtime system coming soon!
+                This is a character database system for
+                <a class="underline" target="_blank" href="https://www.stargatelarp.co.uk/">Stargate LARP</a>.
+                Within you will be able to <a class="underline" href="{{ route('characters.index') }}">create and manage
+                    your characters</a> and <a class="underline" href="{{ route('downtimes.index') }}">their downtimes</a>.
             </p>
             @guest
                 <p>
@@ -22,12 +20,9 @@
                     @if (Route::has('register'))
                         or  <a class="underline" href="{{ route('register') }}">register</a>
                     @endif
-                    to access the character creator.
+                    to access the various systems.
                 </p>
             @endguest
-            @auth
-                @include('partials.help')
-            @endauth
         </div>
     </div>
 </x-app-layout>
