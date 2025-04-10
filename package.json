@@ -16,6 +16,7 @@
         "vite": "^6.2.5"
     },
     "dependencies": {
+        "@awesome.me/kit-39122919d6": "^1.0.4",
         "full-name-generator": "^0.1.4",
         "jquery": "^3.7.1"
     }
