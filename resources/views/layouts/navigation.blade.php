@@ -94,6 +94,9 @@
                                 {{ __('Register') }}
                             </x-nav-link>
                         @endif
+                        <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.*')">
+                            {{ __('Events') }}
+                        </x-nav-link>
                     @endauth
                 </div>
             </div>
@@ -251,6 +254,10 @@
                         {{ __('Register') }}
                     </x-responsive-nav-link>
                 @endif
+                <x-responsive-nav-link :href="route('events.index')"
+                                       :active="request()->routeIs('events.index')">
+                    {{ __('Events') }}
+                </x-responsive-nav-link>
             @endauth
         </div>
 
