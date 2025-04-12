@@ -566,7 +566,7 @@ class CharacterController extends Controller
             $character->events()->sync($syncEvents);
         }
         return redirect($character->getViewRoute())
-            ->with('success', new MessageBag([__('Character :character marked as deceased.', ['character' => $character->name])]));
+            ->with('success', new MessageBag([__('Character :character saved.', ['character' => $character->name])]));
     }
 
     /**
@@ -653,7 +653,7 @@ class CharacterController extends Controller
         }
 
         return redirect()->back()
-            ->with('success', new MessageBag([__('Character :character skills saved.', ['character' => $characterSkill->character->name])]));
+            ->with('success', new MessageBag([__('Character :character skill saved.', ['character' => $characterSkill->character->name])]));
     }
 
     /**
