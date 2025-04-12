@@ -28,7 +28,7 @@
                                 - {{ $downtime->end_time->format('d/m/Y') }})
                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
                             <a href="{{ route('plotco.downtimes.preprocess', ['downtimeId' => $downtime->id]) }}"
-                               class="underline">{{ __('Preprocess') }}</a>
+                               class="underline ps-3"><i class="fa-solid fa-file-check"></i> {{ __('Preprocess') }}</a>
 
                             <ul class="list-disc list-inside pl-4 sm:grid sm:grid-cols-6">
                                 @foreach ($downtime->getCharacters() as $character)

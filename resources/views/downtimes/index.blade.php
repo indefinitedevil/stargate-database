@@ -4,6 +4,11 @@
 <x-app-layout>
     <x-slot name="title">{{ __('Downtimes') }}</x-slot>
     <x-slot name="header">
+        @can('edit downtimes')
+            <a href="{{ route('plotco.downtimes') }}"
+               class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
+            >{{ __('Plot Co') }}</a>
+        @endcan
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Downtimes') }}
         </h2>
@@ -38,14 +43,18 @@
                                     - {{ $downtime->end_time->format('d/m/Y H:i') }})
                                     - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
                                     <ul class="list-inside list-disc ml-4">
-                                        @foreach ($activeCharacterIds as $characterId)
-                                            <li>
-                                                <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
-                                                   class="underline">
-                                                    {{ __('Submit for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
-                                                </a>
-                                            </li>
-                                        @endforeach
+                                        @if ($downtime->event->users->where('id', Auth::user()->id)->count())
+                                            @foreach ($activeCharacterIds as $characterId)
+                                                <li>
+                                                    <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
+                                                       class="underline">
+                                                        {{ __('Submit for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        @else
+                                            <li>{{ __('You do not appear to be eligible for this downtime.') }}</li>
+                                        @endif
                                     </ul>
                                 </li>
                             @endif
@@ -88,9 +97,14 @@
                     @endforeach
                 @endif
             </ul>
-            <p>Welcome to the Stargate downtime system. Downtimes open between events - usually for players and crew who were present at those events, but there are exceptions to that rule that aren't relevant to this explainer.</p>
-            <p>When a downtime period is open, if you are eligible for it, you should be able to submit downtime actions for your character.</p>
-            <p>Actions are split into Development actions where you train skills, teach others, and go on missions; Research actions which are up to the plot co to determine how they're used; and Miscellaneous actions were you can leave information for the plot co.</p>
+            <p>Welcome to the Stargate downtime system. Downtimes open between events - usually for players and crew who
+                were present at those events, but there are exceptions to that rule that aren't relevant to this
+                explainer.</p>
+            <p>When a downtime period is open, if you are eligible for it, you should be able to submit downtime actions
+                for your character.</p>
+            <p>Actions are split into Development actions where you train skills, teach others, and go on missions;
+                Research actions which are up to the plot co to determine how they're used; and Miscellaneous actions
+                were you can leave information for the plot co.</p>
             <p>The number of actions available is down to the plot co's decision for any given downtime.</p>
         </div>
     </div>

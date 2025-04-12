@@ -46,7 +46,7 @@
                                 @foreach($user->characters as $character)
                                     <option value="{{ $character->id }}"
                                         {{ !empty($characters[$user->id]) && $characters[$user->id] == $character->id ? 'selected' : '' }}>
-                                        {{ $character->name }}
+                                        {{ $character->listName }}
                                     </option>
                                 @endforeach
                             </x-select>
