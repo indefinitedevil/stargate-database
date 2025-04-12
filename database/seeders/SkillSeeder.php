@@ -455,7 +455,7 @@ Note: The requirement is time spent roleplaying with your target. The form of th
             ],
             [
                 'id' => 86,
-                'name' => 'Physiology (B)',
+                'name' => 'Physiology (discounted)',
                 'print_name' => 'Physiology',
                 'skill_category_id' => 2,
                 'description' => 'Physiology is the study of the mechanical, physical, and biochemical functions of animals, the study of anatomy and the interaction of cells. This skill combines both human and animal physiology.
@@ -472,7 +472,7 @@ This skill reduces the training time of Medical Doctor to 3 months, regardless o
             ],
             [
                 'id' => 87,
-                'name' => 'Medical Doctor (B)',
+                'name' => 'Medical Doctor (discounted)',
                 'print_name' => 'Medical Doctor',
                 'skill_category_id' => 2,
                 'description' => 'You are a trained medical doctor. You can treat and assist in the treatment of medical injuries, using the RED times on the Medical Skill Game card.
