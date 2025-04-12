@@ -8,5 +8,5 @@
         </option>
     @endforeach
 @else
-    <option value="" disabled>{{__('No research projects are available')}}</option>
+    <option value="" disabled>{{ __('No research projects are available') }}</option>
 @endif

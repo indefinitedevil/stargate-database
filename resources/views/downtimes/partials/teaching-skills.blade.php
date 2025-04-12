@@ -8,5 +8,5 @@
         </option>
     @endforeach
 @else
-    <option value="" disabled>{{__('You must learn skills before you can teach them')}}</option>
+    <option value="" disabled>{{ __('You must learn skills before you can teach them') }}</option>
 @endif
