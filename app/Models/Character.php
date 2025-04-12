@@ -44,6 +44,7 @@ use Illuminate\Support\Str;
  * @property string character_links
  * @property string plot_notes
  * @property Object[] cards
+ * @property int completedTrainingMonths
  * @property int trainingMonths
  * @property bool isPrimary
  * @property int primary_secondary
@@ -282,10 +283,19 @@ class Character extends Model
         return $vigor;
     }
 
-    public function getTrainingMonthsAttribute(): int
+    public function getCompletedTrainingMonthsAttribute(): int
     {
         $totalTraining = 0;
         foreach ($this->trainedSkills as $characterSkill) {
+            $totalTraining += $characterSkill->trained;
+        }
+        return $totalTraining;
+    }
+
+    public function getTrainingMonthsAttribute(): int
+    {
+        $totalTraining = 0;
+        foreach ($this->skills as $characterSkill) {
             $totalTraining += $characterSkill->trained;
         }
         return $totalTraining;
