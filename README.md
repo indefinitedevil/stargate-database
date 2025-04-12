@@ -3,7 +3,7 @@
 This is a Laravel application designed to serve as an initial model for the Stargate LARP Season 2 character database.
 It is seeded with tables representing the rules.
 
-- Up to date with S2 rules v1.1 mechanics as of 26th December 2024
+- Up to date with S2 rules v1.2 mechanics as of 12th April 2025
 
 ## Design Intent
 
@@ -32,14 +32,13 @@ New features and issues are tracked in the [Issues](https://github.com/indefinit
 
 1. Clone the repository
 2. Set up your local environment (ddev recommended)
-   1. If running ddev, run the following commands withini the ddev shell (`ddev ssh`) 
+   1. If running ddev, run the following commands within the ddev shell (`ddev ssh`) or add `ddev ` before the commands to have ddev do that
 3. Run `composer install`
 4. Run `php artisan key:generate` to generate a new key for your local environment or get one from an existing environment (existing key needed for using database dumps without issues)
 5. Run `php artisan migrate --seed` to install/migrate database tables and any data seeding
-   1. Also run this after any update that involves database changes
-6. Run `npm install`
-7. Run `npm run build`
+   1. Also run `php artisan migrate` after any update that involves database changes
+6. Run `npm install` then `npm run build` to incorporate any changes to the front end
 
 ## Contributing
 
-Once the GUI is in place, testing it and raising issues would be appreciated.
+Testing, raising issues, and helping out with the code is always welcome. If you have any questions, please reach out to Eligos on Discord (moonemprah) or raise an issue on GitHub.
