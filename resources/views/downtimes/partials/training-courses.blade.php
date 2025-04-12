@@ -23,8 +23,8 @@
                         </li>
                     @endforeach
                 </ul>
+                <p>{{ __('Training courses provides an additional month of training beyond your own actions. Benefits from training courses will be applied after the downtime is processed.') }}</p>
             </div>
-            <p>{{ __('Training courses provides an additional month of training beyond your own actions. Benefits from training courses will be applied after the downtime is processed.') }}</p>
         </div>
     </div>
 @endif

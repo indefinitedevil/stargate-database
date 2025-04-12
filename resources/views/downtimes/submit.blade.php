@@ -109,6 +109,7 @@
                                 <x-select id="ds_{{ $actionCount }}_{{ ActionType::UPKEEP }}"
                                           class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => $action])</x-select>
 
+                                <p id="da_{{ $actionCount }}_teaching" class="{{ ActionType::TEACHING == $action->action_type_id ? '' : 'hidden' }} text-sm mt-1">{{ __('Teaching a training course provides you with +1 maximum Vigor for the next event.') }}</p>
                                 <div id="da_{{ $actionCount }}_notes"
                                      class="{{ ActionType::MISSION == $action->action_type_id ? '' : 'hidden' }}">
                                     <x-input-label for="development_action_{{ $actionCount }}_notes" class="mt-1"
@@ -148,6 +149,7 @@
                                 <x-select id="ds_{{ $actionCount }}_{{ ActionType::UPKEEP }}"
                                           class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => null])</x-select>
 
+                                <p id="da_{{ $actionCount }}_teaching" class="hidden text-sm mt-1">{{ __('Teaching a training course provides you with +1 maximum Vigor for the next event.') }}</p>
                                 <div id="da_{{ $actionCount }}_notes" class="hidden">
                                     <x-input-label for="development_action_{{ $actionCount }}_notes" class="mt-1"
                                                    :value="__('Notes')"/>
@@ -310,14 +312,18 @@
                 } else {
                     jQuery('#da_' + id + '_notes').addClass('hidden');
                 }
+                if (jQuery(this).val() == {{ ActionType::TEACHING }}) {
+                    jQuery('#da_' + id + '_teaching').removeClass('hidden');
+                } else {
+                    jQuery('#da_' + id + '_teaching').addClass('hidden');
+                }
             });
             jQuery('[id^="research_action_"]').on('change', function () {
                 let id = jQuery(this).attr('id').split('_').pop();
                 if (jQuery(this).val() == {{ ActionType::UPKEEP_2 }}) {
                     jQuery('#upkeep_skill_' + id).removeClass('hidden');
                     jQuery('#research_project_' + id).addClass('hidden');
-                }
-                if (jQuery(this).val() == {{ ActionType::RESEARCHING }}) {
+                } else if (jQuery(this).val() == {{ ActionType::RESEARCHING }}) {
                     jQuery('#upkeep_skill_' + id).addClass('hidden');
                     jQuery('#research_project_' + id).removeClass('hidden');
                 }
