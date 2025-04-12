@@ -10,7 +10,7 @@
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
                 <h3 class="text-lg font-semibold"><a href="https://github.com/indefinitedevil/stargate-database/pull/48"
-                                                     class="underline" target="_blank">Release: TBD</a></h3>
+                                                     class="underline" target="_blank">Release: 12th April 2025</a></h3>
                 <ul class="list-inside list-disc">
                     <li>Executive: combined menu options.</li>
                     <li>Plot Co: added downtime system.</li>
@@ -37,7 +37,7 @@
                     <li>Added handling of resuscitation.</li>
                     <li>Reorganised character actions.</li>
                     <li>Aligned gap styling on character pages.</li>
-                    <li>Updated rules in line with the 1.2 release.
+                    <li>Updated rules in line with the 1.2 update.
                         <ul class="list-inside list-disc pl-4">
                             <li>Updated skill and feat descriptions.</li>
                             <li>Character creation months are now adjusted in line with lowest trained months.</li>
