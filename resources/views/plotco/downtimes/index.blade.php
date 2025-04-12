@@ -24,8 +24,8 @@
                             @if ($downtime->event_id)
                                 ({{ $downtime->event->name }})
                             @endif
-                                ({{ $downtime->start_time->format('d/m/Y') }}
-                                - {{ $downtime->end_time->format('d/m/Y') }})
+                                ({{ format_datetime($downtime->start_time, 'd/m/Y') }}
+                                - {{ format_datetime($downtime->end_time, 'd/m/Y') }})
                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
                             <a href="{{ route('plotco.downtimes.preprocess', ['downtimeId' => $downtime->id]) }}"
                                class="underline ps-3"><i class="fa-solid fa-file-check"></i> {{ __('Preprocess') }}</a>

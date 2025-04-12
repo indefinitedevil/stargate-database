@@ -11,7 +11,7 @@
                        value="{{ $event->id }}"
                        @if(!empty($character) && $character->events->contains($event->id)) checked @endif />
                 {{ $event->name}}
-                ({{ $event->start_date->format('d/m/y') }} - {{ $event->end_date->format('d/m/y') }})
+                ({{ format_datetime($event->start_date, 'd/m/y') }} - {{ format_datetime($event->end_date, 'd/m/y') }})
             </x-input-label>
         @endforeach
     </div>

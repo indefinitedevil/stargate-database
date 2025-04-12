@@ -29,7 +29,7 @@
                         <x-input-label for="start_time" :value="__('Start Time')"/>
                         <x-text-input id="start_time" name="start_time" type="datetime-local"
                                       class="mt-1 block w-full"
-                                      :value="old('start_time', $downtime->start_time ? $downtime->start_time->format('Y-m-d H:i:s') : '')"
+                                      :value="old('start_time', $downtime->start_time ? format_datetime($downtime->start_time, 'Y-m-d H:i:s') : '')"
                                       required/>
                         <x-input-error class="mt-2" :messages="$errors->get('start_time')"/>
                     </div>
@@ -38,13 +38,13 @@
                         <x-input-label for="end_time" :value="__('End Time')"/>
                         <x-text-input id="end_time" name="end_time" type="datetime-local"
                                       class="mt-1 block w-full"
-                                      :value="old('end_time', $downtime->end_time ? $downtime->end_time->format('Y-m-d H:i:s') : '')"
+                                      :value="old('end_time', $downtime->end_time ? format_datetime($downtime->end_time, 'Y-m-d H:i:s') : '')"
                                       required/>
                         <x-input-error class="mt-2" :messages="$errors->get('end_time')"/>
                     </div>
 
                     <div class="col-span-2">
-                        <x-input-label for="event_id" :value="__('End Time')"/>
+                        <x-input-label for="event_id" :value="__('Event (optional)')"/>
                         <x-select id="event_id" name="event_id" class="mt-1 block w-full">
                             <option value="">{{ __('Select an event') }}</option>
                             @foreach(Event::all() as $event)

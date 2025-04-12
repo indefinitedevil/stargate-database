@@ -24,8 +24,8 @@
                         @if ($downtime->event_id)
                             ({{ $downtime->event->name }})
                         @endif
-                        ({{ $downtime->start_time->format('d/m/Y H:i') }}
-                        - {{ $downtime->end_time->format('d/m/Y H:i') }})
+                        ({{ format_datetime($downtime->start_time, 'd/m/Y H:i') }}
+                        - {{ format_datetime($downtime->end_time, 'd/m/Y H:i') }})
                         - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
                     </p>
                 </div>

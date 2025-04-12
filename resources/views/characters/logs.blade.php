@@ -31,7 +31,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-4 clear-both gap-6">
             @foreach ($character->logs as $log)
                 <div>
-                    <p>{{ __('Date: :date', ['date' => $log->created_at->format('j M Y')]) }}</p>
+                    <p>{{ __('Date: :date', ['date' => format_datetime($log->created_at, 'j M Y')]) }}</p>
                     <p>{{ __('Type: :type', ['type' => $log->logType->name]) }}</p>
                     <p>{{ __('Skill: :skill', ['skill' => $log->skill->name]) }}</p>
                     @if (0 != $log->amount_trained)

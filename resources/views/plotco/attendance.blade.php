@@ -49,8 +49,8 @@
         <ul class="list-disc list-inside">
             @foreach (Event::where('end_date', '<', date('Y-m-d'))->get() as $event)
                 <li>
-                    <strong>{{ $event->name }}:</strong> {{ $event->start_date->format('d/m/y') }}
-                    - {{ $event->end_date->format('d/m/y') }}
+                    <strong>{{ $event->name }}:</strong> {{ format_datetime($event->start_date, 'd/m/y') }}
+                    - {{ format_datetime($event->end_date, 'd/m/y') }}
                     @can('record attendance')
                         <a class="underline ms-6" href="{{ route('events.attendance', $event) }}">
                             <i class="fa-solid fa-pen-to-square"></i>

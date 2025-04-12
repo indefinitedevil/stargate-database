@@ -27,7 +27,7 @@
                     <div>
                         <x-input-label for="start_date" :value="__('Start Date')"/>
                         <x-text-input id="start_date" name="start_date" type="date" class="mt-1 block w-full"
-                                      :value="old('start_date', $event->start_date ? $event->start_date->format('Y-m-d') : '')"
+                                      :value="old('start_date', $event->start_date ? format_datetime($event->start_date, 'Y-m-d') : '')"
                                       required/>
                         <x-input-error class="mt-2" :messages="$errors->get('start_date')"/>
                     </div>
@@ -35,7 +35,7 @@
                     <div>
                         <x-input-label for="end_date" :value="__('End Date')"/>
                         <x-text-input id="end_date" name="end_date" type="date" class="mt-1 block w-full"
-                                      :value="old('end_date', $event->end_date ? $event->end_date->format('Y-m-d') : '')"
+                                      :value="old('end_date', $event->end_date ? format_datetime($event->end_date, 'Y-m-d') : '')"
                                       required/>
                         <x-input-error class="mt-2" :messages="$errors->get('end_date')"/>
                     </div>

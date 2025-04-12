@@ -123,6 +123,8 @@ class DowntimeController extends Controller
                 throw ValidationException::withMessages(['event_id' => __('Event already has a downtime.')]);
             }
         }
+        $validatedData['start_time'] = utc_datetime($validatedData['start_time']);
+        $validatedData['end_time'] = utc_datetime($validatedData['end_time']);
         $downtime = empty($validatedData['id']) ? new Downtime() : Downtime::find($validatedData['id']);
         $downtime->fill($validatedData);
         $downtime->save();
