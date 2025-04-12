@@ -2476,7 +2476,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
     }
 
     public function seedSkillTraining() {
-        DB::table('skill_training')->insertOrIgnore([
+        DB::table('skill_training')->upsert([
             [
                 'taught_skill_id' => 1,
                 'trained_skill_id' => 49,
@@ -2585,6 +2585,9 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'taught_skill_id' => 78,
                 'trained_skill_id' => 89,
             ],
+        ],[
+            'taught_skill_id',
+            'trained_skill_id',
         ]);
     }
 
