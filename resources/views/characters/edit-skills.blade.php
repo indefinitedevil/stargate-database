@@ -135,7 +135,7 @@
                                 ><i class="fa-solid fa-pencil" title="{{ __('Edit skill') }}"></i><span
                                         class="sm:hidden"> {{ __('Edit') }}</span></a>
                                 @if ($characterSkill->locked)
-                                    <i class="fa-solid fa-lockinline-block ml-4 sm:ml-0"
+                                    <i class="fa-solid fa-lock inline-block ml-4 sm:ml-0"
                                        title="{{ __('Expenditure is locked') }}"></i>
                                 @else
                                     <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"
