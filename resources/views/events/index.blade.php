@@ -26,14 +26,20 @@
                         <li>
                             <strong>{{ $event->name }}:</strong> {{ $event->start_date->format('d/m/y') }}
                             - {{ $event->end_date->format('d/m/y') }}
+                            @can('edit events')
+                                <a class="underline ms-6" href="{{ route('events.edit', $event) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    {{ __('Edit') }}
+                                </a>
+                            @endcan
                             @can('record attendance')
                                 <a class="underline ms-6" href="{{ route('events.attendance', $event) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <i class="fa-solid fa-file-check"></i>
                                     {{ __('Record Attendance') }}
                                 </a>
                             @endcan
                             <p>{{ __('Location: :location', ['location' => $event->location]) }}</p>
-                            <p>{{ $event->description }}</p>
+                            <p>{!! process_markdown($event->description) !!}</p>
                         </li>
                     @endforeach
                 @endif
