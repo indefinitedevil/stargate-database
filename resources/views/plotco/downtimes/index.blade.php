@@ -13,7 +13,7 @@
 
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-            <ul class="list-disc list-inside">
+            <ul class="list-disc list-inside space-y-2">
                 @if ($downtimes->isEmpty())
                     <li>{{ __('No downtimes available') }}</li>
                 @else
@@ -46,6 +46,7 @@
             </ul>
         </div>
     </div>
+
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <h3 class="text-lg font-semibold">{{ __('How to use the downtime system') }}</h3>

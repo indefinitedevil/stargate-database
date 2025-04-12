@@ -16,7 +16,7 @@
 
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-            <ul class="list-disc list-inside">
+            <ul class="list-disc list-inside space-y-2">
                 @if ($downtimes->isEmpty())
                     <li>{{ __('No downtimes available') }}</li>
                 @else
@@ -97,15 +97,16 @@
                     @endforeach
                 @endif
             </ul>
-            <p>Welcome to the Stargate downtime system. Downtimes open between events - usually for players and crew who
-                were present at those events, but there are exceptions to that rule that aren't relevant to this
-                explainer.</p>
-            <p>When a downtime period is open, if you are eligible for it, you should be able to submit downtime actions
-                for your character.</p>
-            <p>Actions are split into Development actions where you train skills, teach others, and go on missions;
-                Research actions which are up to the plot co to determine how they're used; and Miscellaneous actions
-                were you can leave information for the plot co.</p>
-            <p>The number of actions available is down to the plot co's decision for any given downtime.</p>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+            <p>{{ __('Downtimes open between events to allow for character development to occur.') }}</p>
+            <p>{{ __('When a downtime period is open, if you are eligible for it, you can submit downtime actions for your character.') }}</p>
+            <p>{{ __('Actions are split into Development actions where you train skills, teach others, and go on missions; Research actions which are up to the Plot Co to determine how they\'re used; and Miscellaneous actions where you can leave information for the Plot Co.') }}</p>
+            <p>{{ __('The number of actions available is determined by the Plot Co for any given downtime.') }}</p>
+            <p>{{ __('If you are bringing in a new character, you get catchup training to minimise the training advantage existing characters have.') }}</p>
         </div>
     </div>
 </x-app-layout>
