@@ -217,7 +217,7 @@ class DowntimeController extends Controller
                 case ActionType::OTHER:
                     if (!empty($actionData['notes']) && strlen($actionData['notes']) > 65535) {
                         $errors[] = __(':type Action :index: Notes are limited to 65000 characters.', ['type' => $type, 'index' => $key]);
-                    } else {
+                    } elseif (!empty(strlen($actionData['notes']))) {
                         if (!empty($actionData['id'])) {
                             $action = DowntimeAction::find($actionData['id']);
                             if (empty($action)) {
