@@ -71,7 +71,7 @@
                                         <li>
                                             {{ __(':skill trained by :name (:months months)', ['skill' => $subSkill->name, 'name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
                                             @if (!in_array($characterId, $teachers))
-                                                ({{ __('+1 month training') }})
+                                                ({{ __('+1 month from course') }})
                                             @endif
                                         </li>
                                     @endforeach
