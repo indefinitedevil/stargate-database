@@ -77,12 +77,15 @@ class CharacterLog extends Model
         return $this->belongsTo(Character::class);
     }
 
-    public function addModifier($int): string
+    public function save(array $options = [])
     {
-        if ($int > 0) {
-            return '+' . $int;
+        if ($this->amount_trained) {
+            $characterSkill = CharacterSkill::find($this->character_skill_id);
+            if ($characterSkill->trained >= $characterSkill->cost) {
+                $characterSkill->completed = true;
+                $characterSkill->save();
+            }
         }
-
-        return (string) $int;
+        return parent::save($options);
     }
 }

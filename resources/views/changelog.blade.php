@@ -20,6 +20,7 @@
                     <li>Fixed a broken icon.</li>
                     <li>Fixed the email header to use the logo.</li>
                     <li>Improved display of downtime indexes.</li>
+                    <li>Adapted downtime processing to handle over-training a skill.</li>
                 </ul>
             </div>
             <div>

@@ -256,9 +256,7 @@ class Downtime extends Model
                     $result['amount_trained'] = $change['amount_trained'];
 
                     $characterSkill = CharacterSkill::find($log->character_skill_id);
-                    if ($characterSkill->trained == $characterSkill->cost) {
-                        $characterSkill->completed = true;
-                        $characterSkill->save();
+                    if ($characterSkill->completed) {
                         $result['skill_completed'] = true;
                     }
                 }
