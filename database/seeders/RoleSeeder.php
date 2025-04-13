@@ -88,6 +88,7 @@ class RoleSeeder extends Seeder
             $editSkillSpecialty,
             $deleteSkillSpecialty,
             $viewAllUsers,
+            $editEvents,
             $viewAttendance,
             $addResearchProjects,
             $editResearchProjects,
