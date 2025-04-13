@@ -2482,60 +2482,28 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'trained_skill_id' => 49,
             ],
             [
-                'taught_skill_id' => 1,
-                'trained_skill_id' => 61,
-            ],
-            [
                 'taught_skill_id' => 2,
                 'trained_skill_id' => 55,
             ],
             [
-                'taught_skill_id' => 2,
-                'trained_skill_id' => 62,
-            ],
-            [
                 'taught_skill_id' => 3,
                 'trained_skill_id' => 50,
-            ],
-            [
-                'taught_skill_id' => 3,
-                'trained_skill_id' => 63,
             ],
             [
                 'taught_skill_id' => 4,
                 'trained_skill_id' => 51,
             ],
             [
-                'taught_skill_id' => 4,
-                'trained_skill_id' => 64,
-            ],
-            [
                 'taught_skill_id' => 5,
                 'trained_skill_id' => 54,
-            ],
-            [
-                'taught_skill_id' => 5,
-                'trained_skill_id' => 65,
             ],
             [
                 'taught_skill_id' => 6,
                 'trained_skill_id' => 50,
             ],
             [
-                'taught_skill_id' => 6,
-                'trained_skill_id' => 66,
-            ],
-            [
-                'taught_skill_id' => 7,
-                'trained_skill_id' => 67,
-            ],
-            [
                 'taught_skill_id' => 8,
                 'trained_skill_id' => 49,
-            ],
-            [
-                'taught_skill_id' => 8,
-                'trained_skill_id' => 68,
             ],
             [
                 'taught_skill_id' => 9,
