@@ -163,6 +163,7 @@ class DowntimeController extends Controller
             $researchActions = $request->get('research_action');
             $this->validateActions($researchActions ?? [], $errors, $character, $downtime, 'Research');
             $otherActions = $request->get('other_action');
+            $this->validateActions($otherActions ?? [], $errors, $character, $downtime, 'Miscellaneous');
         }
         if (!empty($errors)) {
             throw ValidationException::withMessages($errors);
@@ -214,12 +215,11 @@ class DowntimeController extends Controller
                     }
                     break;
                 case ActionType::OTHER:
-                    $actionId = $actionData['id'] ?? null;
                     if (!empty($actionData['notes']) && strlen($actionData['notes']) > 65535) {
                         $errors[] = __(':type Action :index: Notes are limited to 65000 characters.', ['type' => $type, 'index' => $key]);
                     } else {
-                        if (!empty($actionId)) {
-                            $action = DowntimeAction::find($actionId);
+                        if (!empty($actionData['id'])) {
+                            $action = DowntimeAction::find($actionData['id']);
                             if (empty($action)) {
                                 $errors[] = __(':type Action :index: Action not found.', ['type' => $type, 'index' => $key]);
                             }

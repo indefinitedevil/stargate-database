@@ -188,20 +188,20 @@
                                     <option value="0">{{ __('No action') }}</option>
                                     @foreach($actionTypes as $type)
                                         <option value="{{ $type->id }}"
-                                                @if ($action->type == $type->id) selected @endif
+                                                @if ($action->action_type_id == $type->id) selected @endif
                                         >{{ $type->name }}</option>
                                     @endforeach
                                 </x-select>
                                 <x-select id="upkeep_skill_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][skill_id]"
                                           :disabled="!$downtime->isOpen()"
-                                          class="mt-1 block hidden">
+                                          class="mt-1 block {{ ActionType::UPKEEP_2 == $action->action_type_id ? '' : 'hidden' }}">
                                     @include('downtimes.partials.upkeep-skills', ['action' => $action])
                                 </x-select>
                                 <x-select id="research_project_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][research_project_id]"
                                           :disabled="!$downtime->isOpen()"
-                                          class="mt-1 block hidden">@include('downtimes.partials.research', ['action' => $action])</x-select>
+                                          class="mt-1 block {{ ActionType::RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research', ['action' => $action])</x-select>
 
                                 <x-input-label for="research_action_{{ $actionCount }}_notes" class="mt-1"
                                                :value="__('Notes')"/>
@@ -255,7 +255,7 @@
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
                         @php
                             $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
-                                ->whereIn('action_type_id', [ActionType::MISC])
+                                ->whereIn('action_type_id', [ActionType::OTHER])
                                 ->get();
                             $actionCount = 0;
                         @endphp
@@ -268,16 +268,15 @@
                                        value="{{ ActionType::OTHER }}">
                                 <x-textarea id="other_action_{{ $actionCount }}_notes"
                                             name="other_action[{{ $actionCount }}][notes]"
-                                            :value="$action->notes"
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full"
-                                            :placeholder="__('Any other actions or information you want to pass to the plot coordinator.')"/>
+                                            :placeholder="__('Any other actions or information you want to pass to the plot coordinator.')">{{ $action->notes }}</x-textarea>
                             </div>
                         @endforeach
                         @while($actionCount < $downtime->other_actions)
                             <div>
-
                                 <p class="text-lg">{{ trans_choice('Miscellaneous Actions|Miscellaneous Action :number', $downtime->other_actions, ['number' => ++$actionCount]) }}</p>
+                                <input type="hidden" name="other_action[{{ $actionCount }}][type]" value="{{ ActionType::OTHER }}"/>
                                 <x-textarea id="other_action_{{ $actionCount }}_notes"
                                             name="other_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
@@ -295,7 +294,7 @@
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-1">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                         <p>{{ __('You can come back and edit your downtime submission at any point until downtime closes.') }}</p>
-                        <p>{{ __('Save your progress before adding new skills.') }}</p>
+                        <p>{{ __('Save your progress before adding new skills to avoid losing your inputs.') }}</p>
                         <x-primary-button>{{ __('Save your progress') }}</x-primary-button>
                     </div>
                 </div>

@@ -290,4 +290,13 @@ class Downtime extends Model
         $this->processed = true;
         $this->save();
     }
+
+    public function miscActions(): Collection
+    {
+        static $miscActions = null;
+        if (is_null($miscActions)) {
+            $miscActions = $this->actions()->where('action_type_id', ActionType::OTHER)->get();
+        }
+        return $miscActions;
+    }
 }

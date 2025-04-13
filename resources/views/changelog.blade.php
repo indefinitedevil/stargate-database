@@ -9,6 +9,20 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Bugfix: 13th April 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Fixed bug with skill training seeding.</li>
+                    <li>Fixed timezone display and saving.</li>
+                    <li>Fixed bug with skill training costs on downtime submission.</li>
+                    <li>Fixed bug with Research Action display.</li>
+                    <li>Fixed bug with Misc Action saving and display.</li>
+                    <li>Added better notes around teaching and training.</li>
+                    <li>Fixed a broken icon.</li>
+                    <li>Fixed the email header to use the logo.</li>
+                    <li>Improved display of downtime indexes.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold"><a href="https://github.com/indefinitedevil/stargate-database/pull/48"
                                                      class="underline" target="_blank">Release: 12th April 2025</a></h3>
                 <ul class="list-inside list-disc">
