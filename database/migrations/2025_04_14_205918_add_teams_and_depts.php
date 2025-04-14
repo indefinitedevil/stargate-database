@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -48,6 +48,89 @@ return new class extends Migration
             $table->tinyInteger('position')->default(0);
             $table->primary(['department_id', 'character_id']);
         });
+
+        DB::table('divisions')->insert([
+            [
+                'id' => 1,
+                'name' => 'Command',
+                'description' => 'Command Division',
+            ],
+            [
+                'id' => 2,
+                'name' => 'External Relations',
+                'description' => 'External Relations Division',
+            ],
+            [
+                'id' => 3,
+                'name' => 'Research',
+                'description' => 'Research Division',
+            ],
+            [
+                'id' => 4,
+                'name' => 'Field Operations',
+                'description' => 'Field Operations Division',
+            ],
+        ]);
+        DB::table('departments')->insert([
+            [
+                'name' => 'Diplomatic Corps',
+                'division_id' => 2,
+            ],
+            [
+                'name' => 'Intelligence',
+                'division_id' => 2,
+            ],
+            [
+                'name' => 'Humanities',
+                'division_id' => 3,
+            ],
+            [
+                'name' => 'Technology',
+                'division_id' => 3,
+            ],
+            [
+                'name' => 'Tactical',
+                'division_id' => 4,
+            ],
+            [
+                'name' => 'Support Services',
+                'division_id' => 4,
+            ],
+        ]);
+        DB::table('teams')->insert([
+            [
+                'name' => 'Unicorn',
+                'description' => 'Command Team',
+            ],
+            [
+                'name' => 'Siren',
+                'description' => 'SAR/Medivac',
+            ],
+            [
+                'name' => 'Cerberus',
+                'description' => 'Electronic Reconnaissance',
+            ],
+            [
+                'name' => 'Cat Sith',
+                'description' => 'Cultural Investigation/Sociology',
+            ],
+            [
+                'name' => 'Dragon',
+                'description' => 'Forensics, Armoury and Engineerying',
+            ],
+            [
+                'name' => 'Sphinx',
+                'description' => 'Esoterica/Specialist Knowledge',
+            ],
+            [
+                'name' => 'Selkie',
+                'description' => 'First Contact',
+            ],
+            [
+                'name' => 'Pegasus',
+                'description' => 'Conflict Resolution',
+            ],
+        ]);
     }
 
     /**

@@ -11,7 +11,7 @@ class Team extends Model
     use HasFactory;
 
     const LEAD = 1;
-    const SECOND = 1;
+    const SECOND = 2;
 
     public function characters(): BelongsToMany
     {

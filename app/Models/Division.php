@@ -12,7 +12,8 @@ class Division extends Model
     use HasFactory;
 
     const HEAD = 1;
-    const SECOND = 1;
+    const SECOND = 2;
+    const STAFF = 3;
 
     public function characters(): BelongsToMany
     {
