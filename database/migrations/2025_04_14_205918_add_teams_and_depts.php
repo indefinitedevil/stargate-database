@@ -20,7 +20,7 @@ return new class extends Migration
         Schema::create('character_team', function (Blueprint $table) {
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->foreignId('character_id')->constrained()->cascadeOnDelete();
-            $table->smallInteger('position')->default(0);
+            $table->tinyInteger('position')->default(0);
             $table->primary(['team_id', 'character_id']);
         });
         Schema::create('divisions', function (Blueprint $table) {
@@ -32,7 +32,7 @@ return new class extends Migration
         Schema::create('character_division', function (Blueprint $table) {
             $table->foreignId('division_id')->constrained()->cascadeOnDelete();
             $table->foreignId('character_id')->constrained()->cascadeOnDelete();
-            $table->smallInteger('position')->default(0);
+            $table->tinyInteger('position')->default(0);
             $table->primary(['division_id', 'character_id']);
         });
         Schema::create('departments', function (Blueprint $table) {
@@ -45,6 +45,7 @@ return new class extends Migration
         Schema::create('character_department', function (Blueprint $table) {
             $table->foreignId('department_id')->constrained()->cascadeOnDelete();
             $table->foreignId('character_id')->constrained()->cascadeOnDelete();
+            $table->tinyInteger('position')->default(0);
             $table->primary(['department_id', 'character_id']);
         });
     }
@@ -54,6 +55,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::drop('character_department');
+        Schema::drop('departments');
+        Schema::drop('character_division');
+        Schema::drop('divisions');
+        Schema::drop('character_team');
+        Schema::drop('teams');
     }
 };
