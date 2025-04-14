@@ -52,7 +52,7 @@
                                         }
                                     @endphp
                                     <li>
-                                        {{ __('Trained by :name (:months months)', ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
+                                        {{ trans_choice('Trained by :name (:months month)|Trained by :name (:months months)', count($actions), ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
                                         @if (!in_array($characterId, $teachers))
                                             ({{ __('+1 month from course') }})
                                         @endif
@@ -69,7 +69,7 @@
                                             }
                                         @endphp
                                         <li>
-                                            {{ __(':skill trained by :name (:months months)', ['skill' => $subSkill->name, 'name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
+                                            {{ trans_choice(':skill trained by :name (:months month)|:skill trained by :name (:months months)', count($actions), ['skill' => $subSkill->name, 'name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
                                             @if (!in_array($characterId, $teachers))
                                                 ({{ __('+1 month from course') }})
                                             @endif
@@ -98,7 +98,7 @@
                                     }
                                 @endphp
                                 <li>
-                                    {{ __('Trained by :name (:months months)', ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
+                                    {{ trans_choice('Trained by :name (:months month)|Trained by :name (:months months)', count($actions), ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
                                 </li>
                             @endforeach
                         </ul>
