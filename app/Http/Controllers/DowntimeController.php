@@ -233,6 +233,9 @@ class DowntimeController extends Controller
                             'notes' => $actionData['notes'] ?? '',
                         ]);
                         $action->save();
+                    } elseif (!empty($actionData['id'])) {
+                        $action = DowntimeAction::find($actionData['id']);
+                        $action->delete();
                     }
                     break;
                 case ActionType::RESEARCHING:
