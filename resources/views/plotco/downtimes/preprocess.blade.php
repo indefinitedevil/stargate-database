@@ -54,7 +54,7 @@
                                     <li>
                                         {{ __('Trained by :name (:months months)', ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
                                         @if (!in_array($characterId, $teachers))
-                                            ({{ __('+1 month training') }})
+                                            ({{ __('+1 month from course') }})
                                         @endif
                                     </li>
                                 @endforeach
