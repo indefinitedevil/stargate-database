@@ -29,6 +29,7 @@
                         if (empty($skills[$skillId])) {
                             $skills[$skillId] = Skill::find($skillId);
                         }
+                        $trainedCharacters = [];
                     @endphp
                     <div>
                         <p class="text-lg font-semibold">{{ $skills[$skillId]->name }}</p>
@@ -50,6 +51,7 @@
                                         if (empty($characters[$characterId])) {
                                             $characters[$characterId] = Character::find($characterId);
                                         }
+                                        $trainedCharacters[] = $characterId;
                                     @endphp
                                     <li>
                                         {{ trans_choice('Trained by :name (:months month)|Trained by :name (:months months)', count($actions), ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
@@ -70,10 +72,13 @@
                                         @endphp
                                         <li>
                                             {{ trans_choice(':skill trained by :name (:months month)|:skill trained by :name (:months months)', count($actions), ['skill' => $subSkill->name, 'name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
-                                            @if (!in_array($characterId, $teachers))
+                                            @if (!in_array($characterId, $teachers) && !in_array($characterId, $trainedCharacters))
                                                 ({{ __('+1 month from course') }})
                                             @endif
                                         </li>
+                                        @php
+                                            $trainedCharacters[] = $characterId;
+                                        @endphp
                                     @endforeach
                                     @php unset($trainedSkills[$subSkill->id]); @endphp
                                 @endif
