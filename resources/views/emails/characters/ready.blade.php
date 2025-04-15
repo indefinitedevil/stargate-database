@@ -3,7 +3,7 @@ Hello Plot Coordinator,
 
 {{ $character->user->name }} has submitted the character "{{ $character->name }}" for approval.
 
-Link: [{{ route('characters.view', $character) }}]({{ route('characters.view', $character) }})
+<x-mail::button :url="$character->getViewRoute()">Go to Downtime System</x-mail::button>
 
 Regards,
 
