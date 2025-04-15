@@ -103,14 +103,23 @@ class Downtime extends Model
         return $trainees[$skillId];
     }
 
-    public function countTrainees($skillId): int
+    public function getAllTrainees($skillId): array
     {
-        $count = count($this->getTrainees($skillId));
-        $skill = Skill::find($skillId);
-        foreach ($skill->subSkills as $subSkill) {
-            $count += count($this->getTrainees($subSkill->id));
+        static $trainees = [];
+        if (!isset($trainees[$skillId])) {
+            $characters = $this->getTrainees($skillId);
+            foreach ($characters as $character) {
+                $trainees[$skillId][$character->character_id] = $character->character_id;
+            }
+            $skill = Skill::find($skillId);
+            foreach ($skill->subSkills as $subSkill) {
+                $characters = $this->getTrainees($subSkill->id);
+                foreach ($characters as $character) {
+                    $trainees[$skillId][$character->character_id] = $character->character_id;
+                }
+            }
         }
-        return $count;
+        return $trainees[$skillId];
     }
 
     public function getCharacters(): Collection

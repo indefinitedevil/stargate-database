@@ -46,4 +46,13 @@ class CharacterHelper
             ->get();
         return $logs->count() ? $logs->first()->total : 0;
     }
+
+    public static function getCharacter(int $id): ?Character
+    {
+        static $characters = [];
+        if (empty($characters[$id])) {
+            $characters[$id] = Character::find($id);
+        }
+        return $characters[$id];
+    }
 }

@@ -1,3 +1,4 @@
+@php use App\Helpers\CharacterHelper; @endphp
 @if($downtime->isOpen() && $downtime->trainingCourses->count() > 0)
     <div class="p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <div>
@@ -9,7 +10,13 @@
                         <li>
                             {{ $trainingCourse->characterSkill->name }}
                             @if ($trainingCourse->character_id == $character->id)
-                                ({{ trans_choice('You are teaching :count trainee|You are teaching :count trainees', $downtime->countTrainees($trainingCourse->characterSkill->skill_id), ['count' => $downtime->countTrainees($trainingCourse->characterSkill->skill_id)]) }})
+                                {!! trans_choice('(You are teaching :count trainee|You are teaching :count trainees <i class="fa-solid fa-info-circle" title=":names"></i>)',
+                                    count($downtime->getAllTrainees($trainingCourse->characterSkill->skill_id)),
+                                    [
+                                        'count' => count($downtime->getAllTrainees($trainingCourse->characterSkill->skill_id)),
+                                        'names' => implode(', ', array_map(function($id) { $character = CharacterHelper::getCharacter($id); return $character->listName ?? '';}, $downtime->getAllTrainees($trainingCourse->characterSkill->skill_id)))
+                                    ]) !!}
+
                             @endif
                             @if ($trainingCourse->characterSkill->skill->subSkills->count() > 0)
                                 <ul class="list-inside list-disc ml-4">
