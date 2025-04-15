@@ -9,6 +9,8 @@ It will open at {{ format_datetime($downtime->start_time, 'd/m/Y H:i') }} and cl
 This downtime is associated with the event {{ $downtime->event->name }} and open to attendees of same.
 @endif
 
+<x-mail::button :url="route('downtimes.index')">Go to Downtime System</x-mail::button>
+
 Regards,
 
 Plot Coordinator
