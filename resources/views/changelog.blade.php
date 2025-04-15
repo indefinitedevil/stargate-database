@@ -19,6 +19,7 @@
                     <li>Aligned language on preprocess downtime view.</li>
                     <li>Limited emails when testing to prevent upsetting Mailtrap.</li>
                     <li>Expert Knowledge skills no longer trained by main skill.</li>
+                    <li>Fixed potential exploit where a character could double their training from a single course.</li>
                 </ul>
             </div>
             <div>
