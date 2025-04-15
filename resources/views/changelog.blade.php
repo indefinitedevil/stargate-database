@@ -9,6 +9,19 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Minor updates: 15th April 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: now has event editing permission.</li>
+                    <li>Added CTA to downtime announcements.</li>
+                    <li>Teachers now get the number of trainees when checking their downtime submission.</li>
+                    <li>Empty miscellaneous actions are now removed.</li>
+                    <li>Fixed some issues with training course information display.</li>
+                    <li>Aligned language on preprocess downtime view.</li>
+                    <li>Limited emails when testing to prevent upsetting Mailtrap.</li>
+                    <li>Expert Knowledge skills no longer trained by main skill.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 13th April 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed bug with skill training seeding.</li>
