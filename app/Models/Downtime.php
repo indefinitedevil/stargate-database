@@ -284,6 +284,9 @@ class Downtime extends Model
                 $character->save();
             }
             Mail::to($character->user->email, $character->user->name)->send(new DowntimeProcessed($this, $character, $results));
+            if ('local' == env('APP_ENV')) {
+                break;
+            }
         }
         $this->processed = true;
         $this->save();
