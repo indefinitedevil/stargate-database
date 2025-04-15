@@ -82,7 +82,7 @@ class Downtime extends Model
         return ResearchProject::all();
     }
 
-    public function getTrainingCoursesAttribute(): HasMany
+    public function trainingCourses(): HasMany
     {
         return $this->actions()->where('action_type_id', ActionType::TEACHING)->where('downtime_id', $this->id);
     }
@@ -165,7 +165,7 @@ class Downtime extends Model
                     'amount_trained' => count($actions),
                     'locked' => true,
                     'downtime_id' => $this->id,
-                    'notes' => __( 'Trained :skill', ['skill' => $skill->name]),
+                    'notes' => __('Trained :skill', ['skill' => $skill->name]),
                 ];
             }
         }
@@ -184,7 +184,7 @@ class Downtime extends Model
                     'teacher_id' => $characterId,
                     'locked' => true,
                     'downtime_id' => $this->id,
-                    'notes' => __( 'Taught :skill', ['skill' => $skills[$skillId]->name]),
+                    'notes' => __('Taught :skill', ['skill' => $skills[$skillId]->name]),
                     'temp_vigor_change' => 1,
                 ];
             }

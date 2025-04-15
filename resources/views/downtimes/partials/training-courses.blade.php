@@ -5,7 +5,7 @@
             <div class="space-y-2">
                 <p>{{ __('The following training courses are being run this cycle:') }}</p>
                 <ul class="list-inside list-disc">
-                    @foreach($downtime->trainingCourses->get() as $trainingCourse)
+                    @foreach($downtime->trainingCourses as $trainingCourse)
                         <li>
                             {{ $trainingCourse->characterSkill->name }}
                             @if ($trainingCourse->character_id == $character->id)
