@@ -84,7 +84,33 @@ class Downtime extends Model
 
     public function trainingCourses(): HasMany
     {
-        return $this->actions()->where('action_type_id', ActionType::TEACHING)->where('downtime_id', $this->id);
+        return $this->actions()->where('action_type_id', ActionType::TEACHING)
+            ->join('character_skills', 'character_skill_id', 'character_skills.id')
+            ->join('skills', 'skill_id', 'skills.id')
+            ->orderBy('skills.name');
+    }
+
+    public function getTrainees($skillId): Collection
+    {
+        static $trainees = [];
+        if (!isset($trainees[$skillId])) {
+            $trainees[$skillId] = $this->actions()->where('action_type_id', ActionType::TRAINING)
+                ->join('character_skills', 'character_skill_id', 'character_skills.id')
+                ->where('skill_id', $skillId)
+                ->selectRaw('DISTINCT downtime_actions.character_id')
+                ->get();
+        }
+        return $trainees[$skillId];
+    }
+
+    public function countTrainees($skillId): int
+    {
+        $count = count($this->getTrainees($skillId));
+        $skill = Skill::find($skillId);
+        foreach ($skill->subSkills as $subSkill) {
+            $count += count($this->getTrainees($subSkill->id));
+        }
+        return $count;
     }
 
     public function getCharacters(): Collection
