@@ -31,7 +31,7 @@ class PlotcoController extends Controller
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         if ($request->has('event')) {
-            $characters = Event::where('id', $request->get('event'))->first()->characters()->whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get()->pluck('id');
+            $characters = Event::where('id', $request->get('event'))->first()->characters()->whereIn('status_id', [Status::APPROVED, Status::PLAYED])->sortBy('name')->pluck('id');
         } else {
             $characters = Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get()->pluck('id');
         }
