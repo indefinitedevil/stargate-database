@@ -89,6 +89,17 @@ class PlotcoController extends Controller
         ]);
     }
 
+    public function remindDowntime(Request $request, $downtimeId)
+    {
+        if ($request->user()->cannot('edit downtimes')) {
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
+        }
+        return view('plotco.downtimes.preprocess', [
+            'downtime' => Downtime::findOrFail($downtimeId),
+        ]);
+    }
+
     public function preprocessDowntime(Request $request, $downtimeId)
     {
         if ($request->user()->cannot('edit downtimes')) {
