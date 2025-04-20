@@ -106,7 +106,7 @@ class PlotcoController extends Controller
             }
         }
         return redirect(route('plotco.downtimes.preprocess', [
-            'downtime' => Downtime::findOrFail($downtimeId),
+            'downtimeId' => $downtimeId,
         ]))->with('success', new MessageBag([__('Downtime reminder sent successfully.')]));
     }
 
