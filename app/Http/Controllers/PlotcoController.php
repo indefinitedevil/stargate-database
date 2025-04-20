@@ -95,9 +95,9 @@ class PlotcoController extends Controller
             return redirect(route('dashboard'))
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
-        return view('plotco.downtimes.preprocess', [
+        return redirect(route('plotco.downtimes.preprocess', [
             'downtime' => Downtime::findOrFail($downtimeId),
-        ]);
+        ]))->with('success', new MessageBag([__('Downtime reminder sent successfully.')]));
     }
 
     public function preprocessDowntime(Request $request, $downtimeId)
