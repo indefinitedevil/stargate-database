@@ -9,10 +9,17 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 20th April 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: add downtime reminder email.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 17th April 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: fixed event skill breakdown.</li>
                 </ul>
+            </div>
             <div>
                 <h3 class="text-lg font-semibold">Minor updates: 15th April 2025</h3>
                 <ul class="list-inside list-disc">
