@@ -6,17 +6,16 @@
     <x-slot name="title">{{ __('Check Downtime Processing') }}</x-slot>
     <x-slot name="header">
         @if(!$downtime->open && now()->gt($downtime->end_time) && !$downtime->processed)
-            <div class="sm:float-right grid grid-cols-2 sm:flex gap-4 sm:gap-1 mb-6">
-                <a href="{{ route('plotco.downtimes.process', ['downtimeId' => $downtime]) }}"
-                   class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
-                   onclick="return confirm('{{ __('Are you sure you want to process this downtime?') }}')"
-                >{{ __('Process') }}</a>
-                <a href="{{ route('plotco.downtimes.process', ['downtimeId' => $downtime]) }}"
-                   class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
-                   onclick="return confirm('{{ __('Are you sure you want to send a reminder?') }}')"
-                ><i class="fa-solid fa-envelope"></i> {{ __('Remind') }}</a>
-            </div>
-        @endcan
+            <a href="{{ route('plotco.downtimes.process', ['downtimeId' => $downtime]) }}"
+               class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
+               onclick="return confirm('{{ __('Are you sure you want to process this downtime?') }}')"
+            >{{ __('Process') }}</a>
+        @elseif ($downtime->open)
+            <a href="{{ route('plotco.downtimes.process', ['downtimeId' => $downtime]) }}"
+               class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
+               onclick="return confirm('{{ __('Are you sure you want to send a reminder?') }}')"
+            ><i class="fa-solid fa-envelope"></i> {{ __('Remind') }}</a>
+        @endif
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __($downtime->event_id ? 'Check Downtime Processing: :name (:event)' : 'Check Downtime Processing: :name', ['name' => $downtime->name, 'event' => $downtime->event->name ?? '']) }}
         </h2>
