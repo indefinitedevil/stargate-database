@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DowntimeReminder;
 use App\Models\Character;
 use App\Models\Downtime;
 use App\Models\Event;
 use App\Models\Status;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\MessageBag;
 
 class PlotcoController extends Controller
@@ -94,6 +97,13 @@ class PlotcoController extends Controller
         if ($request->user()->cannot('edit downtimes')) {
             return redirect(route('dashboard'))
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
+        }
+        $downtime = Downtime::findOrFail($downtimeId);
+        foreach (User::all() as $user) {
+            Mail::to($user->email, $user->name)->send(new DowntimeReminder($downtime, $user));
+            if ('local' == env('APP_ENV') || str_contains($_SERVER['HTTP_HOST'], 'herokuapp.com')) {
+                break;
+            }
         }
         return redirect(route('plotco.downtimes.preprocess', [
             'downtime' => Downtime::findOrFail($downtimeId),
