@@ -161,8 +161,6 @@
                         @endif
                     </div>
 
-                    @include('characters.partials.event-attendance')
-
                     <div>
                         <x-input-label for="history" :value="__('History')"/>
                         <p class="text-xs">

@@ -558,13 +558,6 @@ class CharacterController extends Controller
         $character->fill($validatedData);
         $character->save();
 
-        if (!empty($validatedData['events'])) {
-            $syncEvents = [];
-            foreach ($validatedData['events'] as $eventId) {
-                $syncEvents[$eventId] = ['character_id' => $character->id, 'attended' => false, 'role' => Event::ROLE_PLAYER];
-            }
-            $character->events()->sync($syncEvents);
-        }
         return redirect($character->getViewRoute())
             ->with('success', new MessageBag([__('Character :character saved.', ['character' => $character->name])]));
     }
