@@ -72,7 +72,7 @@ class PlotcoController extends Controller
         if ($request->has('characters')) {
             $characters = Character::whereIn('id', $request->get('characters'))->orderBy('name', 'asc')->get();
         } elseif ($request->has('event')) {
-            $characters = Event::where('id', $request->get('event'))->first()->characters()->orderBy('name', 'asc')->get();
+            $characters = Event::where('id', $request->get('event'))->first()->characters()->sortBy('name')->get();
         } else {
             $characters = [];
         }

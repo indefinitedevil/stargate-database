@@ -12,6 +12,7 @@
                 <h3 class="text-lg font-semibold">Update: 20th April 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: add downtime reminder email.</li>
+                    <li>Plot Co: fixed bug with printing characters.</li>
                     <li>Remove attendance feature from characters.</li>
                 </ul>
             </div>
