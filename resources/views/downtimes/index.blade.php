@@ -86,7 +86,7 @@
                                             <li>
                                                 <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
                                                    class="text-blue-500 hover:underline">
-                                                    {{ __('Submit for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
+                                                    {{ __('Downtime actions for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
                                                 </a>
                                             </li>
                                         @endforeach
