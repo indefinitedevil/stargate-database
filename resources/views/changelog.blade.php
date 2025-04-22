@@ -12,6 +12,7 @@
                 <h3 class="text-lg font-semibold">Bugfix: 22nd April 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: added ability to delete downtime actions before processing.</li>
+                    <li>Plot Co: show misc actions in downtime view.</li>
                     <li>Fixed bug which allowed anyone to submit downtime actions regardless of event attendance.</li>
                     <li>Replaced wording about submitting downtime actions with additional notes.</li>
                 </ul>

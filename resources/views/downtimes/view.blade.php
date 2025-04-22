@@ -92,7 +92,7 @@
 
         @php
             $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
-                ->whereIn('action_type_id', [ActionType::MISC])
+                ->whereIn('action_type_id', [ActionType::OTHER])
                 ->get();
             $actionCount = 0;
         @endphp
