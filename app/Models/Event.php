@@ -21,6 +21,7 @@ class Event extends Model
 {
     use HasFactory;
 
+    const ROLE_NONE = 0;
     const ROLE_PLAYER = 1;
     const ROLE_CREW = 2;
     const ROLE_RUNNER = 3;
@@ -43,6 +44,7 @@ class Event extends Model
     {
         return $this->belongsToMany(User::class)
             ->withPivot('character_id', 'attended', 'role')
+            ->where('role', '>', self::ROLE_NONE)
             ->orderBy('role');
     }
 
@@ -59,6 +61,7 @@ class Event extends Model
             self::ROLE_CREW => 'Crew',
             self::ROLE_RUNNER => 'Runner',
             self::ROLE_PAID_DOWNTIME => 'Paid Downtime',
+            self::ROLE_NONE => 'Did not attend',
             default => 'Unknown',
         };
     }
