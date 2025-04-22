@@ -13,6 +13,7 @@
                 <ul class="list-inside list-disc">
                     <li>Plot Co: added ability to delete downtime actions before processing.</li>
                     <li>Plot Co: show misc actions in downtime view.</li>
+                    <li>Secretary: added labels for accessibility.</li>
                     <li>Fixed bug which allowed anyone to submit downtime actions regardless of event attendance.</li>
                     <li>Replaced wording about submitting downtime actions with additional notes.</li>
                 </ul>
