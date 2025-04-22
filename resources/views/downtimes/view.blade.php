@@ -18,7 +18,12 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <p>
-                <strong>{{ __('Name') }}:</strong> {{ $character->name }}
+                <strong>{{ __('Name') }}:</strong>
+                @can ('view all characters')
+                    <a href="{{ $character->getViewRoute() }}" class="underline">{{ $character->name }}</a>
+                @else
+                    {{ $character->name }}
+                @endcan
             </p>
             <p>
                 <strong>{{ __('Downtime') }}:</strong> {{ $downtime->name }}
