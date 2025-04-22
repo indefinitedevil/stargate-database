@@ -2,10 +2,10 @@
     use App\Models\ActionType;
 @endphp
 <x-app-layout>
-    <x-slot name="title">{{ __('Submit Downtime') }}</x-slot>
+    <x-slot name="title">{{ __('Downtime Actions for :downtime', ['downtime' => $downtime->name]) }}</x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Submit Downtime') }}
+            {{ __('Downtime Actions for :downtime', ['downtime' => $downtime->name]) }}
         </h2>
     </x-slot>
 
@@ -38,8 +38,9 @@
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <p>
                     {{ __('You do not need to fill in all details immediately.') }}
-                    {{ __('You can come back and edit your downtime submission at any point until downtime closes.') }}
+                    {{ __('You can come back and edit your downtime actions at any point until downtime closes.') }}
                 </p>
+                <p>{{ __('No submission is required - saved actions will all be taken into account when downtime closes.') }}</p>
                 <p>{{ __('Information on training courses being run will be made available as teachers submit their actions.') }}</p>
             </div>
         </div>
@@ -293,7 +294,8 @@
                 <div
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-1">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-                        <p>{{ __('You can come back and edit your downtime submission at any point until downtime closes.') }}</p>
+                        <p>{{ __('You can come back and edit your downtime actions at any point until downtime closes.') }}</p>
+                        <p>{{ __('You do not need to submit your downtime - all saved actions will be processed.') }}</p>
                         <p>{{ __('Save your progress before adding new skills to avoid losing your inputs.') }}</p>
                         <x-primary-button>{{ __('Save your progress') }}</x-primary-button>
                     </div>
