@@ -57,8 +57,12 @@
                         </td>
                         @foreach($roles as $role)
                             <td class="{{ $cellClass }}">
+                                <label>
                                 <input type="radio" name="attendance[{{ $user->id }}][role]"
+                                       title="{{ Event::roleName($role) }}"
                                        value="{{ $role }}" {{ !empty($eventRoles[$user->id]) && $eventRoles[$user->id] == $role ? 'checked' : '' }}>
+                                    {{ Event::roleName($role) }}
+                                </label>
                             </td>
                         @endforeach
                         <td class="{{ $cellClass }}">
