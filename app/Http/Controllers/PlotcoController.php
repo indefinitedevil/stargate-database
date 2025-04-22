@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\DowntimeReminder;
 use App\Models\Character;
 use App\Models\Downtime;
+use App\Models\DowntimeAction;
 use App\Models\Event;
 use App\Models\Status;
 use App\Models\User;
@@ -108,6 +109,28 @@ class PlotcoController extends Controller
         return redirect(route('plotco.downtimes.preprocess', [
             'downtimeId' => $downtimeId,
         ]))->with('success', new MessageBag([__('Downtime reminder sent successfully.')]));
+    }
+
+    public function deleteDowntimeActions(Request $request, $downtimeId, $characterId)
+    {
+        if ($request->user()->cannot('edit downtimes')) {
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
+        }
+        $downtime = Downtime::findOrFail($downtimeId);
+        if ($downtime->processed) {
+            return redirect(route('plotco.downtimes'))
+                ->with('errors', new MessageBag([__('Downtime already processed.')]));
+        }
+        $actions = DowntimeAction::where('downtime_id', $downtimeId)
+            ->where('character_id', $characterId)
+            ->get();
+        foreach ($actions as $action) {
+            $action->delete();
+        }
+        $character = Character::findOrFail($characterId);
+        return redirect(route('plotco.downtimes'))
+            ->with('success', new MessageBag([__('Downtime actions for :character deleted successfully.', ['character' => $character->listName])]));
     }
 
     public function preprocessDowntime(Request $request, $downtimeId)
