@@ -61,7 +61,7 @@ class EventController extends Controller
             $user = User::findOrFail($userId);
             $data['attended'] = !empty($data['attended']) && $data['attended'] == 'on';
             $eventsData[$user->id] = $data;
-            if ($data['attended'] && !empty($data['character_id'])) {
+            if ($data['attended'] && in_array($data['role'], [Event::ROLE_PLAYER, Event::ROLE_PAID_DOWNTIME]) && !empty($data['character_id'])) {
                 $character = Character::findOrFail($data['character_id']);
                 if (Status::APPROVED == $character->status_id) {
                     $character->status_id = Status::PLAYED;
