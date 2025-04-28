@@ -28,9 +28,10 @@
                                 - {{ format_datetime($downtime->end_time, 'd/m/Y') }})
                             - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
                             <a href="{{ route('plotco.downtimes.preprocess', ['downtimeId' => $downtime->id]) }}"
-                               class="underline ps-3"><i class="fa-solid fa-file-check"></i> {{ __('Preprocess') }}</a>
+                               class="underline ps-3"><i class="fa-solid fa-file-check"></i> {{ __('View actions') }}</a>
 
                             <ul class="list-disc list-inside pl-4 sm:grid sm:grid-cols-6">
+                                <li>{{ __(':count / :eligible submitted', ['count' => $downtime->getCharacters()->count(), 'eligible' => $downtime->getEligibleUsers()->count()]) }}</li>
                                 @foreach ($downtime->getCharacters() as $character)
                                     <li>
                                         <a class="underline"

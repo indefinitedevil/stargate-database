@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\CharacterHelper;
 use App\Mail\DowntimeProcessed;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -115,11 +116,28 @@ class Downtime extends Model
 
     public function getCharacters(): Collection
     {
-        $characters = [];
-        foreach ($this->actions as $action) {
-            $characters[$action->character_id] = $action->character;
+        static $characters = [];
+        if (empty($characters)) {
+            foreach ($this->actions as $action) {
+                $characters[$action->character_id] = $action->character;
+            }
+            $characters = collect($characters);
         }
-        return collect($characters);
+        return $characters;
+    }
+
+    public function getEligibleUsers(): Collection
+    {
+        static $users = null;
+        if (empty($users)) {
+            if ($this->event_id) {
+                $event = Event::find($this->event_id);
+                $users = $event->users;
+            } else {
+                $users = User::all();
+            }
+        }
+        return $users;
     }
 
     public static function getOpenDowntime(): ?Downtime
