@@ -9,6 +9,13 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Bugfix: 30th April 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Fixed bug with skill completion during downtime processing.</li>
+                    <li>Fixed display bug in downtime processing emails.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 28th April 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: added count of submitted downtimes.</li>
