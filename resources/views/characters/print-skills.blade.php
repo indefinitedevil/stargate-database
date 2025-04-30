@@ -28,32 +28,27 @@
                                     </ul>
                                 </div>
                             @endif
-                            @foreach($character->displayedTrainedSkills->chunk(4) as $trainedSkills)
+                            @foreach($character->displayedTrainedSkills as $characterSkill)
                                 <div>
-                                    <ul>
-                                        @foreach ($trainedSkills as $characterSkill)
-                                            <li>{{ $characterSkill->print_name }}
-                                                @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
-                                                    *
-                                                    @php $flashOfInsight = true; @endphp
-                                                @endif
-                                                @if($characterSkill->skill->feats->contains(Feat::BOTCH_JOB))
-                                                    †
-                                                    @php $botchJob = true; @endphp
-                                                @endif
-                                                @if($characterSkill->skill->specialties > 1)
-                                                    <ul class="list-disc list-inside">
-                                                        @foreach ($characterSkill->allSpecialties as $specialty)
-                                                            <li>{{ $specialty->name }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                @endif
-                                                <div class="text-sm pl-4 space-y-2">
-                                                    {!! process_markdown($characterSkill->skill->description) !!}
-                                                </div>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                                    {{ $characterSkill->print_name }}
+                                    @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
+                                        *
+                                        @php $flashOfInsight = true; @endphp
+                                    @endif
+                                    @if($characterSkill->skill->feats->contains(Feat::BOTCH_JOB))
+                                        †
+                                        @php $botchJob = true; @endphp
+                                    @endif
+                                    @if($characterSkill->skill->specialties > 1)
+                                        <ul class="list-disc list-inside">
+                                            @foreach ($characterSkill->allSpecialties as $specialty)
+                                                <li>{{ $specialty->name }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                    <div class="text-sm pl-4 space-y-2">
+                                        {!! process_markdown($characterSkill->skill->description) !!}
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
