@@ -79,6 +79,7 @@ class CharacterLog extends Model
 
     public function save(array $options = [])
     {
+        $return = parent::save($options);
         if ($this->amount_trained) {
             $characterSkill = CharacterSkill::find($this->character_skill_id);
             if ($characterSkill->trained >= $characterSkill->cost) {
@@ -86,6 +87,6 @@ class CharacterLog extends Model
                 $characterSkill->save();
             }
         }
-        return parent::save($options);
+        return $return;
     }
 }
