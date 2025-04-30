@@ -40,6 +40,7 @@
                     <li>Plot Co: fixed bug with printing characters.</li>
                     <li>Remove attendance feature from characters.</li>
                     <li>Fixed Botch Job showing up erroneously on bulk prints.</li>
+                    <li>Changed formatting of print skills.</li>
                 </ul>
             </div>
             <div>

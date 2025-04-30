@@ -13,7 +13,7 @@
                         <h2 class="text-xl font-medium text-gray-900">
                             {{ __('Skills') }}
                         </h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 clear-both">
+                        <div class="space-y-6 clear-both">
                             @if ($character->status_id < Status::APPROVED)
                                 <div>
                                     <ul>
@@ -66,7 +66,7 @@
                         <h2 class="text-xl font-medium text-gray-900">
                             {{ __('Feats') }}
                         </h2>
-                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 mt-1">
+                        <ul class="space-y-6 mt-1">
                             @foreach ($character->feats as $feat)
                                 <li>
                                     {{ $feat->name }}
