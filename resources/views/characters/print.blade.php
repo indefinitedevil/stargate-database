@@ -54,6 +54,7 @@
                                     </ul>
                                 </div>
                             @endif
+                            @php $botchJob = false; @endphp
                             @foreach($character->displayedTrainedSkills->chunk(5) as $trainedSkills)
                                 <div>
                                     <ul>
@@ -80,11 +81,11 @@
                                 </div>
                             @endforeach
                         </div>
-                        @if(!empty($flashOfInsight))
+                        @if (!empty($flashOfInsight))
                             <p class="mt-1 text-sm">{{ __('* Flash of Insight discount available') }}</p>
                         @endif
-                        @if(!empty($botchJob))
-                            <p class="mt-1">{{ __('† Botch Job available') }}</p>
+                        @if (!empty($botchJob))
+                            <p class="mt-1 text-sm">{{ __('† Botch Job available') }}</p>
                         @endif
                     </div>
                 </div>

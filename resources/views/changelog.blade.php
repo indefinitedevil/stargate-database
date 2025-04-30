@@ -39,6 +39,7 @@
                     <li>Plot Co: add downtime reminder email.</li>
                     <li>Plot Co: fixed bug with printing characters.</li>
                     <li>Remove attendance feature from characters.</li>
+                    <li>Fixed Botch Job showing up erroneously on bulk prints.</li>
                 </ul>
             </div>
             <div>
