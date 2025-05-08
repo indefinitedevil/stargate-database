@@ -76,10 +76,12 @@ class Character extends Model
         'fa-ghost',
         'fa-duck',
         'fa-cupcake',
-        'fa-anchor',
-        'fa-fish',
+        'fa-tree',
+        'fa-fire',
         'fa-star',
         'fa-heart',
+        'fa-bolt',
+        'fa-leaf',
     ];
 
     protected $fillable = [
