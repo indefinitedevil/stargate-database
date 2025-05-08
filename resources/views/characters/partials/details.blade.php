@@ -25,6 +25,9 @@
     <p class="mt-1">
         <strong>{{ __('Type') }}:</strong> {{ $character->type }}
     </p>
+    <p class="mt-1">
+        <strong>{{ __('Genetics') }}:</strong> {!! $character->genetics_indicator !!}
+    </p>
     <p class="mt-1 col-span-2">
         <strong>{{ __('Rank') }}:</strong> {!! $character->rank ?: __('To be determined') !!}
         @if (empty($character->rank) && $character->former_rank)

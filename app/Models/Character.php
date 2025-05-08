@@ -52,6 +52,9 @@ use Illuminate\Support\Str;
  * @property int hero_scoundrel
  * @property string type
  * @property Collection downtimeActions
+ * @property int ata_gene
+ * @property bool ata_revealed
+ * @property string genetics_indicator
  */
 class Character extends Model
 {
@@ -59,6 +62,25 @@ class Character extends Model
 
     const HERO = 1;
     const SCOUNDREL = 2;
+
+    const ATA_SYMBOL = 'fa-atom-simple';
+    const GENETICS_MASKS = [
+        'fa-shield-halved',
+        'fa-puzzle-piece',
+        'fa-sword',
+        'fa-crown',
+        'fa-eye-evil',
+        'fa-dice-three',
+        'fa-moon',
+        'fa-balloon',
+        'fa-ghost',
+        'fa-duck',
+        'fa-cupcake',
+        'fa-anchor',
+        'fa-fish',
+        'fa-star',
+        'fa-heart',
+    ];
 
     protected $fillable = [
         'user_id',
@@ -417,5 +439,33 @@ class Character extends Model
     public function getListNameAttribute(): string
     {
         return $this->short_name ?: $this->name;
+    }
+
+    public function getGeneticsIndicatorAttribute(): string
+    {
+        if ($this->status_id < Status::APPROVED) {
+            return __('N/A');
+        }
+        if ($this->ata_revealed) {
+            //return $this->ata_gene ? __('Yes') : __('No');
+        }
+        if (empty($this->attributes['genetics_indicator'])) {
+            $indicators = [];
+            if ($this->ata_gene > 0) {
+                $indicators[] = self::ATA_SYMBOL;
+            }
+            $keys = array_rand(self::GENETICS_MASKS, 3 - count($indicators));
+            foreach ($keys as $key) {
+                $indicators[] = self::GENETICS_MASKS[$key];
+            }
+            shuffle($indicators);
+            $this->attributes['genetics_indicator'] = json_encode($indicators);
+            $this->saveQuietly();
+        }
+        $return = '';
+        foreach (json_decode($this->attributes['genetics_indicator']) as $indicator) {
+            $return .= '<i class="fa-solid ' . $indicator . '"></i> ';
+        }
+        return $return;
     }
 }

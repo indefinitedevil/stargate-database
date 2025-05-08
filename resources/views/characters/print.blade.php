@@ -27,11 +27,14 @@
                         <p class="mt-1">
                             <strong>{{ __('Body') }}:</strong> {{ $character->body }} @if ($character->temp_body) {{ __('(+:temp for this event)', ['temp' => $character->temp_body]) }} @endif
                         </p>
-                        <p class="mt-1 sm:col-span-2">
+                        <p class="mt-1">
                             <strong>{{ __('Rank') }}:</strong> {!! $character->rank ?: __('To Be Determined') !!}
                             @if (empty($character->rank) && $character->former_rank)
                                 ({{ $character->former_rank }})
                             @endif
+                        </p>
+                        <p class="mt-1">
+                            <strong>{{ __('Genetics') }}:</strong> {!! $character->genetics_indicator !!}
                         </p>
                         <p class="mt-1">
                             <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor) {{ __('(+:temp for this event)', ['temp' => $character->temp_vigor]) }} @endif
