@@ -443,7 +443,7 @@ class Character extends Model
 
     public function getGeneticsIndicatorAttribute(): string
     {
-        if ($this->status_id < Status::APPROVED) {
+        if ($this->status_id < Status::APPROVED || 0 > $this->ata_gene) {
             return __('N/A');
         }
         if ($this->ata_revealed) {
