@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\CharacterApproved;
+use Random\RandomException;
 
 class RollAtaGene
 {
@@ -22,7 +23,7 @@ class RollAtaGene
         if ($event->character->ata_gene < 0) {
             try {
                 $roll = random_int(1, 20);
-            } catch (\Throwable $th) {
+            } catch (RandomException $e) {
                 $roll = rand(1, 20);
             }
             if (20 == $roll) {
