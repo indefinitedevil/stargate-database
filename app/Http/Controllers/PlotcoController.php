@@ -24,7 +24,7 @@ class PlotcoController extends Controller
         return view('plotco.characters', [
             'newCharacters' => Character::where('status_id', Status::READY)->orderBY('name', 'asc')->get(),
             'activeCharacters' => Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get(),
-            'inactiveCharacters' => Character::whereIn('status_id', [Status::DEAD, Status::RETIRED])->orderBy('name', 'asc')->get(),
+            'inactiveCharacters' => Character::whereIn('status_id', [Status::DEAD, Status::RETIRED, Status::INACTIVE])->orderBy('name', 'asc')->get(),
         ]);
     }
 
@@ -60,7 +60,7 @@ class PlotcoController extends Controller
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         return view('characters.print', [
-            'characters' => Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get(),
+            'characters' => Character::whereIn('status_id', [Status::READY, Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get(),
         ]);
     }
 

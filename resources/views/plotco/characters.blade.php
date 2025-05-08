@@ -1,5 +1,6 @@
 @php
     use App\Helpers\CharacterHelper;
+    use App\Models\User;
 @endphp
 <x-app-layout>
     <x-slot name="title">{{ __('All characters') }}</x-slot>
@@ -27,7 +28,7 @@
         </h2>
     </x-slot>
 
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:px-8 sm:py-4 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <p>
             <strong>{{ __('Lowest amount of training months on an active character:') }}</strong> {{ CharacterHelper::getLowestTrainedMonths() }}
         </p>
@@ -45,14 +46,31 @@
         @endif
 
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-            <h3 class="text-lg font-semibold">{{ __('Active characters') }}</h3>
-            @include('characters.partials.index', ['characters' => $activeCharacters, 'checkbox' => true])
+            <h3 class="text-xl font-semibold">{{ __('Active characters') }}</h3>
+            <div class="sm:grid sm:grid-cols-2 gap-6">
+                <div>
+                    <p class="text-lg">{{ __('Heroes') }}</p>
+                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', 1), 'checkbox' => true, 'hideStatus' => true])
+                </div>
+                <div>
+                    <p class="text-lg">{{ __('Scoundrels') }}</p>
+                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', 1), 'checkbox' => true, 'hideStatus' => true])
+                </div>
+                <div>
+                    <p class="text-lg">{{ __('Unknown') }}</p>
+                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', 1), 'checkbox' => true, 'hideStatus' => true])
+                </div>
+                <div>
+                    <p class="text-lg">{{ __('NPCs') }}</p>
+                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', User::PLOT_CO_ID), 'checkbox' => true, 'hideStatus' => true])
+                </div>
+            </div>
         </div>
 
         @if (count($inactiveCharacters) > 0)
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                 <h3 class="text-lg font-semibold">{{ __('Inactive characters') }}</h3>
-                @include('characters.partials.index', ['characters' => $inactiveCharacters, 'checkbox' => true])
+                @include('characters.partials.index', ['characters' => $inactiveCharacters])
             </div>
         @endif
     </form>

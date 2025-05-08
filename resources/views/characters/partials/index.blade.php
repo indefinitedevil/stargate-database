@@ -9,19 +9,21 @@
                 @endif
                 <a class="underline" href="{{ $character->getViewRoute() }}">
                     {{ $character->listName }}</a>
-                @if($character->isPrimary)
+                @if ($character->isPrimary && empty($hidePrimary))
                     <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i>
                 @endif
-                               ({{ $character->background->name }})
-                @if(auth()->user()->can('view all characters') && empty($hideUser))
+                ({{ $character->background->name }})
+                @if (auth()->user()->can('view all characters') && empty($hideUser))
                     [<a class="underline" href="{{ $character->user->getViewRoute() }}">{{ $character->user->name }}</a>]
                 @endif
                 @if (empty($hideStatus))
                     - {{ $character->status->name }}
                 @endif
-                -
-                <a class="underline" href="{{ route('characters.print', $character) }}"><i class="fa-solid fa-print"
-                                                                                           title="{{ __('Print') }}"></i></a>
+                @if (request()->routeIs('characters.*'))
+                    -
+                    <a class="underline" href="{{ route('characters.print', $character) }}"><i class="fa-solid fa-print"
+                                                                                               title="{{ __('Print') }}"></i></a>
+                @endif
             </li>
         @endforeach
     @endif
