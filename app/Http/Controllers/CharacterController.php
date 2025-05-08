@@ -211,6 +211,8 @@ class CharacterController extends Controller
         }
         $character->save();
 
+        \App\Events\CharacterApproved::dispatch($character);
+
         $notes = $request->post('notes', '');
         Mail::to($character->user->email)->send(new CharacterApproved($character, $notes));
 
