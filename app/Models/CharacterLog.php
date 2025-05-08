@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @property int character_id
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property Character character
  * @property int id
  * @property int character_skill_id
+ * @property int user_id
  * @property \DateTime created_at
  */
 class CharacterLog extends Model
@@ -79,6 +81,11 @@ class CharacterLog extends Model
 
     public function save(array $options = [])
     {
+        if (LogType::PLOT === $this->log_type_id) {
+            $this->user_id = Auth::user()->id;
+        } else {
+            $this->user_id = $this->character->user_id;
+        }
         $return = parent::save($options);
         if ($this->amount_trained) {
             $characterSkill = CharacterSkill::find($this->character_skill_id);
