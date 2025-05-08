@@ -54,11 +54,11 @@
                 </div>
                 <div>
                     <p class="text-lg">{{ __('Scoundrels') }}</p>
-                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', 1), 'checkbox' => true, 'hideStatus' => true])
+                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', 2), 'checkbox' => true, 'hideStatus' => true])
                 </div>
                 <div>
                     <p class="text-lg">{{ __('Unknown') }}</p>
-                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', 1), 'checkbox' => true, 'hideStatus' => true])
+                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', 0), 'checkbox' => true, 'hideStatus' => true])
                 </div>
                 <div>
                     <p class="text-lg">{{ __('NPCs') }}</p>
