@@ -2,6 +2,7 @@
     use App\Models\Background;
     use App\Models\Character;
     use App\Models\Status;
+    use App\Models\User;
     $title = empty($character) ? __('Create character') : sprintf(__('Edit character: %s'), $character->name);
 @endphp
 <x-app-layout>
@@ -26,14 +27,28 @@
         <div class="mt-1">
             <form method="POST" action="{{ route('characters.store') }}">
                 @csrf
-                <input type="hidden" name="user_id"
-                       value="{{ empty($character) ? auth()->user()->id : $character->user_id }}">
                 @if (!empty($character))
                     <input type="hidden" name="id" value="{{ $character->id }}">
                 @endif
                 <input type="hidden" name="status_id"
                        value="{{ empty($character) ? Status::NEW : $character->status_id }}">
                 <div class="grid grid-cols-1 gap-6">
+                    @can ('edit all characters')
+                        <div>
+                            <x-input-label for="user_id" :value="__('User')"/>
+                            <x-select id="user_id" name="user_id" class="mt-1 block w-full" required>
+                                @foreach (User::all() as $user)
+                                    <option value="{{ $user->id }}"
+                                            @if(!empty($character) && $user->id === $character->user_id || empty($character) && auth()->user()->id == $user->id) selected @endif >
+                                        {{ $user->name }}
+                                    </option>
+                                @endforeach
+                            </x-select>
+                        </div>
+                    @else
+                        <input type="hidden" name="user_id"
+                               value="{{ empty($character) ? auth()->user()->id : $character->user_id }}">
+                    @endcan
                     <div>
                         <x-input-label for="name" :value="__('Full Name')"/>
                         <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
