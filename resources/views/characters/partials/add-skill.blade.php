@@ -94,7 +94,7 @@
                     </div>
                 @endif
 
-                @if (Status::APPROVED > $character->status_id || \Illuminate\Support\Facades\Auth::user()->can('edit all characters'))
+                @if (Status::APPROVED > $character->status_id)
                     <div>
                         <x-input-label for="completed">
                             {{ __('Completed') }}

@@ -31,6 +31,13 @@
         <div class="grid grid-cols-1 sm:grid-cols-4 clear-both gap-6">
             @foreach ($character->logs as $log)
                 <div>
+                    @can ('edit all characters')
+                    <a href="{{ route('characters.edit-log', ['characterId' => $character, 'logId' => $log]) }}"
+                    class="underline float-right">
+                        <i class="fa-solid fa-pen-to-square" title="{{ __('Edit log') }}"></i>
+                        {{ __('Edit') }}
+                    </a>
+                    @endcan
                     <p>{{ __('Date: :date', ['date' => format_datetime($log->created_at, 'j M Y')]) }}</p>
                     <p>{{ __('Type: :type', ['type' => $log->logType->name]) }}</p>
                     <p>{{ __('Skill: :skill', ['skill' => $log->skill->name]) }}</p>
@@ -54,4 +61,5 @@
             @endforeach
         </div>
     </div>
+    @include('characters.partials.add-log')
 </x-app-layout>

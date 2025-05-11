@@ -51,7 +51,7 @@ class CharacterController extends Controller
         return view('characters.view', ['character' => $character]);
     }
 
-    public function logs(Request $request, $characterId)
+    public function logs(Request $request, $characterId, $logId = null)
     {
         $character = Character::find($characterId);
         if ($request->user()->cannot('view', $character)) {
@@ -62,7 +62,10 @@ class CharacterController extends Controller
             return redirect($character->getViewRoute())
                 ->with('errors', new MessageBag([__('Character must be approved to view logs.')]));
         }
-        return view('characters.logs', ['character' => $character]);
+        return view('characters.logs', [
+            'character' => $character,
+            'editLog' => $logId ? CharacterLog::find($logId) : null,
+        ]);
     }
 
     public function print(Request $request, $characterId)
@@ -647,6 +650,95 @@ class CharacterController extends Controller
 
         return redirect()->back()
             ->with('success', new MessageBag([__('Character :character skill saved.', ['character' => $characterSkill->character->name])]));
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function storeLog(Request $request)
+    {
+        $validatedData = $request->validate([
+            'log_id' => 'integer|exists:character_logs,id',
+            'character_id' => 'integer|exists:characters,id',
+            'character_skill_id' => 'integer|exists:character_skills,id',
+            'skill_id' => 'integer|exists:skills,id',
+            'specialty_id' => 'array|exists:skill_specialties,id',
+            'completed' => 'boolean',
+            'amount_trained' => 'integer',
+            'body_change' => 'integer',
+            'temp_body_change' => 'integer',
+            'vigor_change' => 'integer',
+            'temp_vigor_change' => 'integer',
+            'notes' => 'string|nullable',
+        ]);
+
+        if (!empty($validatedData['character_id']) && $request->user()->cannot('edit', Character::find($validatedData['character_id']))) {
+            return redirect(route('characters.view', ['characterId' => $validatedData['character_id']]))
+                ->with('errors', new MessageBag([__('You cannot edit this character.')]));
+        }
+
+        if (!empty($validatedData['character_skill_id'])) {
+            $characterSkill = CharacterSkill::find($validatedData['character_skill_id']);
+            if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
+                return redirect(route('characters.view', ['characterId' => $validatedData['character_id']]))
+                    ->with('errors', new MessageBag([__('You cannot modify this character.')]));
+            }
+        } else {
+            $existing = CharacterSkill::where('character_id', $validatedData['character_id'])
+                ->where('skill_id', $validatedData['skill_id'])
+                ->count();
+            if ($existing) {
+                $skill = Skill::find($validatedData['skill_id']);
+                if (!$skill->repeatable || $skill->repeatable <= $existing) {
+                    throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
+                } elseif (PlotHelper::SKILL_RESUSCITATION_BUYBACK == $skill->id) {
+                    $resuscitations = CharacterSkill::where('character_id', $validatedData['character_id'])
+                        ->where('skill_id', PlotHelper::SKILL_RESUSCITATION)
+                        ->count();
+                    if ($resuscitations <= $existing) {
+                        throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
+                    }
+                }
+            }
+            $characterSkill = new CharacterSkill();
+        }
+        $validatedData['completed'] = $validatedData['completed'] ?? false;
+        $characterSkill->fill([
+            'completed' => $validatedData['completed'],
+            'character_id' => $validatedData['character_id'],
+            'skill_id' => $validatedData['skill_id'],
+        ]);
+        $characterSkill->save();
+
+        if (!empty($validatedData['log_id'])) {
+            $log = CharacterLog::find($validatedData['log_id']);
+        } else {
+            $log = new CharacterLog();
+        }
+        $log->fill([
+            'character_id' => $characterSkill->character->id,
+            'character_skill_id' => $characterSkill->id,
+            'locked' => true,
+            'amount_trained' => $validatedData['amount_trained'] ?? 0,
+            'body_change' => $validatedData['body_change'] ?? 0,
+            'temp_body_change' => $validatedData['temp_body_change'] ?? 0,
+            'vigor_change' => $validatedData['vigor_change'] ?? 0,
+            'temp_vigor_change' => $validatedData['temp_vigor_change'] ?? 0,
+            'notes' => $validatedData['notes'] ?? '',
+            'log_type_id' => LogType::PLOT,
+            'teacher_id' => null,
+        ]);
+        $log->save();
+
+        if (!empty($validatedData['specialty_id'])) {
+            if ($characterSkill->skill->specialties != count($validatedData['specialty_id'])) {
+                throw ValidationException::withMessages([__('You must select correct specialty count for :name.', [$characterSkill->skill->name])]);
+            }
+            $characterSkill->skillSpecialties()->sync($validatedData['specialty_id']);
+        }
+
+        return redirect()->back()
+            ->with('success', new MessageBag([__('Character log for :character saved.', ['character' => $characterSkill->character->name])]));
     }
 
     /**
