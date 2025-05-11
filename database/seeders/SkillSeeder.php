@@ -426,8 +426,6 @@ After role-playing with someone for at least twenty minutes you may spend 1 Vigo
 
 You may spend additional points of Vigor to reduce the time needed to use these abilities, at a rate of 1 Vigor per five minutes, to a minimum of 1 minute.
 
-Possession of this skill means that you cannot be targeted by its effect by another therapist, as you know all the tricks that they use.
-
 Note: The requirement is time spent roleplaying with your target. The form of that roleplay could be a cup of tea with the padre, a chat with your best mate about how this is all a bit shit and you\'re knackered, going for a jog around the camp because the Sgt Major thinks exercise endorphins are the cure for all - while the skill is called psychotherapy because it interacts with the psychology wound tokens, the use in play can be tailored to your character type.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -2572,7 +2570,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'cost' => 0,
                 'specialties' => 0,
                 'specialty_type_id' => NULL,
-                'repeatable' => 100,
+                'repeatable' => 1000,
                 'body' => 0,
                 'vigor' => 0,
                 'display' => 0,
@@ -2587,7 +2585,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'cost' => 0,
                 'specialties' => 0,
                 'specialty_type_id' => NULL,
-                'repeatable' => 100,
+                'repeatable' => 1000,
                 'body' => 0,
                 'vigor' => -1,
                 'display' => 0,
@@ -2602,9 +2600,24 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'cost' => 3,
                 'specialties' => 0,
                 'specialty_type_id' => NULL,
-                'repeatable' => 100,
+                'repeatable' => 1000,
                 'body' => 0,
                 'vigor' => 1,
+                'display' => 0,
+            ],
+            [
+                'id' => 94,
+                'name' => 'System Changes',
+                'print_name' => NULL,
+                'skill_category_id' => 7,
+                'description' => '',
+                'upkeep' => 0,
+                'cost' => 0,
+                'specialties' => 0,
+                'specialty_type_id' => NULL,
+                'repeatable' => 1000,
+                'body' => 0,
+                'vigor' => 0,
                 'display' => 0,
             ],
         ], 'id', [
