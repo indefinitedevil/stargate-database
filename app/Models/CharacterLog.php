@@ -81,10 +81,12 @@ class CharacterLog extends Model
 
     public function save(array $options = [])
     {
-        if (LogType::PLOT === $this->log_type_id) {
-            $this->user_id = Auth::user()->id;
-        } else {
-            $this->user_id = $this->character->user_id;
+        if (empty($this->user_id)) {
+            if (LogType::PLOT === $this->log_type_id) {
+                $this->user_id = Auth::user()->id;
+            } else {
+                $this->user_id = $this->character->user_id;
+            }
         }
         $return = parent::save($options);
         if ($this->amount_trained) {
