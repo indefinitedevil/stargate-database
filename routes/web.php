@@ -86,6 +86,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/characters/resuscitate/{characterId}', [CharacterController::class, 'resuscitate'])->name('characters.resuscitate');
         Route::get('/characters/logs/{characterId}/edit/{logId}', [CharacterController::class, 'logs'])->name('characters.edit-log');
         Route::post('/characters/store-log', [CharacterController::class, 'storeLog'])->name('characters.store-log');
+        Route::get('/plot-co/logs/', [PlotcoController::class, 'logs'])->name('plotco.logs');
     });
 
     Route::group(['middleware' => 'can:edit downtimes'], function () {

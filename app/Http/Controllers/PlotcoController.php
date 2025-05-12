@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Mail\DowntimeReminder;
 use App\Models\Character;
+use App\Models\CharacterLog;
 use App\Models\Downtime;
 use App\Models\DowntimeAction;
 use App\Models\Event;
+use App\Models\LogType;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -165,5 +167,16 @@ class PlotcoController extends Controller
         return redirect(route('plotco.downtimes.preprocess', [
             'downtimeId' => $downtimeId,
         ]))->with('success', new MessageBag([__('Downtime processed successfully.')]));
+    }
+
+    public function logs(Request $request)
+    {
+        if ($request->user()->cannot('viewAll', Character::class)) {
+            return redirect(route('dashboard'))
+                ->with('errors', new MessageBag([__('Access not allowed.')]));
+        }
+        return view('plotco.logs', [
+            'logs' => CharacterLog::where('log_type_id', LogType::PLOT)->orderBy('created_at', 'desc')->get(),
+        ]);
     }
 }
