@@ -158,4 +158,5 @@
             <p class="mt-1">{!! nl2br($character->plot_notes) !!}</p>
         </div>
     @endcan
+    @include('characters.partials.add-log')
 </x-app-layout>
