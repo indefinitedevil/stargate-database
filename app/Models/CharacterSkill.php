@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property Collection allSpecialties
  * @property Collection characterLogs
  * @property bool completed
+ * @property bool locked
  * @property int cost
  * @property int remainingCost
  * @property int trained
@@ -43,6 +44,7 @@ class CharacterSkill extends Model
         'completed',
         'discount_used',
         'discount_used_by',
+        'removed',
     ];
 
     public function character(): BelongsTo

@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/characters/edit/{characterId}/skills', [CharacterController::class, 'editSkills'])->name('characters.edit-skills');
         Route::get('/characters/edit/{characterId}/skills/{skillId}', [CharacterController::class, 'editSkills'])->name('characters.edit-skill');
         Route::get('/characters/create', [CharacterController::class, 'create'])->name('characters.create');
+        Route::get('/characters/edit/{characterId}/delete-skill/{skillId}', [CharacterController::class, 'deleteSkill'])->name('characters.delete-skill');
         Route::get('/characters/edit/{characterId}/remove-skill/{skillId}', [CharacterController::class, 'removeSkill'])->name('characters.remove-skill');
         Route::post('/characters/store', [CharacterController::class, 'store'])->name('characters.store');
         Route::post('/characters/store-skill', [CharacterController::class, 'storeSkill'])->name('characters.store-skill');

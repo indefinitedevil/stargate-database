@@ -18,7 +18,7 @@
             @foreach ($logs as $log)
                 <div>
                     @can ('edit all characters')
-                        <a href="{{ route('characters.edit-log', ['characterId' => $log->character, 'logId' => $log]) }}"
+                        <a href="{{ route('characters.edit-log', ['characterId' => $log->character, 'logId' => $log]) }}#add-log"
                            class="underline float-right">
                             <i class="fa-solid fa-pen-to-square" title="{{ __('Edit log') }}"></i>
                             {{ __('Edit') }}
