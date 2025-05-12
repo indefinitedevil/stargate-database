@@ -16,9 +16,7 @@
 
     @include('plotco.partials.approval')
     @include('characters.partials.reset')
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-        @include('characters.partials.details')
-    </div>
+    @include('characters.partials.details')
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         @can('edit', $character)
