@@ -178,9 +178,15 @@ class Downtime extends Model
             $relevantCharacters = [];
             $relevantCharacterSkills = $skill->characterSkills()->whereIn('character_id', $characters)->get();
             foreach ($relevantCharacterSkills as $characterSkill) {
-                $relevantCharacters[$characterSkill->character_id] = $characterSkill->character_id;
+                $relevantCharacters[$characterSkill->character_id][] = $characterSkill->id;
             }
-            $requiredUpkeepSkills[$skill->id] = $relevantCharacters;
+            $requiredCharacters = [];
+            foreach ($relevantCharacters as $characterId => $skills) {
+                if (count($skills) > 1) {
+                    $requiredCharacters[$characterId] = $characterId;
+                }
+            }
+            $requiredUpkeepSkills[$skill->id] = $requiredCharacters;
         }
         return [
             'taughtSkills' => $taughtSkills,

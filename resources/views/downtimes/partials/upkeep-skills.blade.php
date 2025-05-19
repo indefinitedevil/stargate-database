@@ -1,6 +1,6 @@
-@if ($character->upkeepSkills->count())
+@if ($character->requiredUpkeepSkills->count())
     <option value="">{{ __('Select a skill to upkeep') }}</option>
-    @foreach ($character->upkeepSkills as $skill)
+    @foreach ($character->requiredUpkeepSkills as $skill)
         <option value="{{$skill->id}}"
                 @if (!empty($action->character_skill_id) && $skill->id == $action->character_skill_id) selected @endif
         >

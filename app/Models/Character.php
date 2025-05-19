@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -28,7 +28,9 @@ use Illuminate\Support\Str;
  * @property Collection displayedSkills
  * @property Collection displayedTrainedSkills
  * @property Collection hiddenTrainedSkills
- * @property Collection trainingSkill
+ * @property Collection trainingSkills
+ * @property Collection upkeepSkills
+ * @property Collection requiredUpkeepSkills
  * @property Collection logs
  * @property Status status
  * @property Feat[] feats
@@ -204,6 +206,18 @@ class Character extends Model
     {
         return $this->skills()->where('completed', true)
             ->where('upkeep', true);
+    }
+
+    public function requiredUpkeepSkills(): Collection
+    {
+        $upkeepSkills = $this->upkeepSkills;
+        $requiredUpkeepSkills = [];
+        foreach ($upkeepSkills as $upkeepSkill) {
+            if (1 < $upkeepSkill->level) {
+                $requiredUpkeepSkills[] = $upkeepSkill;
+            }
+        }
+        return collect($requiredUpkeepSkills);
     }
 
     public function displayedTrainedSkills(): HasMany

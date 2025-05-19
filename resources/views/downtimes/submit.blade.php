@@ -47,12 +47,12 @@
 
         @include('downtimes.partials.training-courses')
 
-        @if ($downtime->isOpen() && $character->upkeepSkills->count())
+        @if ($downtime->isOpen() && $character->requiredUpkeepSkills->count())
             <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-5 shadow">
                 <p class="font-bold">{{ __('Upkeep Skills') }}</p>
-                <p>{{ __('The following skills require actions to be spent on upkeep or the skill will be lost:') }}</p>
+                <p>{{ __('The following skills require actions to be spent on upkeep or a level of the skill will be lost:') }}</p>
                 <ul class="list-disc list-inside">
-                    @foreach($character->upkeepSkills as $skill)
+                    @foreach($character->requiredUpkeepSkills as $skill)
                         <li>{{ $skill->name }}</li>
                     @endforeach
                 </ul>
