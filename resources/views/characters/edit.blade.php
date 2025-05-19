@@ -181,7 +181,7 @@
                         <x-input-label for="other_abilities" :value="__('Other Abilities')"/>
                         <x-textarea id="other_abilities" name="other_abilities" rows="12"
                                     class="mt-1 block w-full">{{ $character->other_abilities ?? '' }}</x-textarea>
-                        <p class="text-sm">{{ __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) }}</p>
+                        <p class="text-sm">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                     </div>
                 @endcan
 
