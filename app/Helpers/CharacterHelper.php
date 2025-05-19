@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 
 class CharacterHelper
 {
-    private static Collection $charactersWithoutDowntime;
+    private static ?Collection $charactersWithoutDowntime = null;
 
     public static function getLowestTrainedMonths(): int
     {
