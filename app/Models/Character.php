@@ -220,6 +220,11 @@ class Character extends Model
         return collect($requiredUpkeepSkills);
     }
 
+    public function getRequiredUpkeepSkillsAttribute(): Collection
+    {
+        return $this->requiredUpkeepSkills();
+    }
+
     public function displayedTrainedSkills(): HasMany
     {
         return $this->trainedSkills()
