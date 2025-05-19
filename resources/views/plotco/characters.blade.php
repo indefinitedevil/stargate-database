@@ -1,5 +1,6 @@
 @php
     use App\Helpers\CharacterHelper;
+    use App\Models\Character;
     use App\Models\User;
 @endphp
 <x-app-layout>
@@ -57,15 +58,15 @@
             <div class="sm:grid sm:grid-cols-2 gap-6">
                 <div>
                     <p class="text-lg">{{ __('Heroes') }}</p>
-                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', 1), 'checkbox' => true, 'hideStatus' => true])
+                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', Character::HERO), 'checkbox' => true, 'hideStatus' => true])
                 </div>
                 <div>
                     <p class="text-lg">{{ __('Scoundrels') }}</p>
-                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', 2), 'checkbox' => true, 'hideStatus' => true])
+                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', Character::SCOUNDREL), 'checkbox' => true, 'hideStatus' => true])
                 </div>
                 <div>
                     <p class="text-lg">{{ __('Unknown') }}</p>
-                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', 0), 'checkbox' => true, 'hideStatus' => true])
+                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', Character::UNKNOWN), 'checkbox' => true, 'hideStatus' => true])
                 </div>
                 <div>
                     <p class="text-lg">{{ __('NPCs') }}</p>

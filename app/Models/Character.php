@@ -58,6 +58,7 @@ class Character extends Model
 {
     use HasFactory;
 
+    const UNKNOWN = 0;
     const HERO = 1;
     const SCOUNDREL = 2;
 
