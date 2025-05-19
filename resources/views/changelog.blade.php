@@ -9,12 +9,13 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Update: 11th May 2025</h3>
+                <h3 class="text-lg font-semibold">Update: 19th May 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: allow change of user on characters to allow for NPCs to be assigned to plot co user.</li>
                     <li>Plot Co: organise user lists by type.</li>
                     <li>Plot Co: allow direct creation and editing of character logs.</li>
                     <li>Plot Co: removed ability to add completed skills to characters without creating a log.</li>
+                    <li>Plot Co: added section for "other abilities" to characters.</li>
                     <li>Track ID of user making changes to characters.</li>
                     <li>Add plot coordinator user for system use.</li>
                     <li>Changed Endurance Training additions from E1 to be permanent Body changes instead.</li>
