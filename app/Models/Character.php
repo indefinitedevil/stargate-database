@@ -43,6 +43,7 @@ use Illuminate\Support\Str;
  * @property string history
  * @property string character_links
  * @property string plot_notes
+ * @property string other_abilities
  * @property Object[] cards
  * @property int completedTrainingMonths
  * @property int trainingMonths

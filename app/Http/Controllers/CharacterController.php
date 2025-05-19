@@ -533,6 +533,7 @@ class CharacterController extends Controller
             'history' => 'sometimes|string|max:65535|nullable',
             'character_links' => 'sometimes|string|max:65535|nullable',
             'plot_notes' => 'sometimes|string|max:65535|nullable',
+            'other_abilities' => 'sometimes|string|max:65535|nullable',
             'events' => 'sometimes|array|exists:events,id',
             'hero_scoundrel' => 'sometimes|int',
         ]);
@@ -556,6 +557,7 @@ class CharacterController extends Controller
         $validatedData['history'] = $validatedData['history'] ?? '';
         $validatedData['character_links'] = $validatedData['character_links'] ?? '';
         $validatedData['plot_notes'] = $validatedData['plot_notes'] ?? '';
+        $validatedData['other_abilities'] = $validatedData['other_abilities'] ?? '';
         $validatedData['former_rank'] = $validatedData['former_rank'] ?? '';
         $validatedData['rank'] = $validatedData['rank'] ?? '';
         $character->fill($validatedData);
@@ -810,6 +812,9 @@ class CharacterController extends Controller
         $characterSkill = CharacterSkill::find($skillId);
         if (empty($characterSkill)) {
             throw ValidationException::withMessages([__('Skill not found.')]);
+        }
+        if ($characterId != $characterSkill->character_id) {
+            throw ValidationException::withMessages([__('Character doesn\'t match skill.')]);
         }
         if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
             throw ValidationException::withMessages([__('Character can no longer be modified.')]);

@@ -123,6 +123,17 @@
                     </div>
                 @endif
 
+                @if (!empty($character->other_abilities))
+                    <div class="py-2 bg-white text-gray-800">
+                        <div class="">
+                            <h2 class="text-xl font-medium text-gray-900">
+                                {{ __('Other Abilities') }}
+                            </h2>
+                            <div class="mt-1">{{ process_markdown($character->other_abilities) }}</div>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="py-2 bg-white text-gray-800 mt-2 break-before-page">
                     <div class="">
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4">
