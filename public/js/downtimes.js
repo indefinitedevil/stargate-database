@@ -1,6 +1,6 @@
 jQuery('[id^="development_action_"]').on('change', function () {
     let id = jQuery(this).attr('id').split('_').pop();
-    jQuery('[id^="development_skill_' + id).html(jQuery('#ds_' + id + '_' + jQuery(this).val()).html());
+    jQuery('[id^="development_skill_' + id + '"]').html(jQuery('#ds_' + id + '_' + jQuery(this).val()).html());
     if (jQuery(this).val() == 4) { // Mission
         jQuery('#da_' + id + '_notes').removeClass('hidden');
     } else {

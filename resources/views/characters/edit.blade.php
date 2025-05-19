@@ -154,6 +154,7 @@
                     <p class="text-xs">
                         {{ __('This remains editable after character creation.') }}
                     </p>
+                    <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                     <x-textarea id="history" name="history" rows="12"
                                 class="mt-1 block w-full">{{ $character->history ?? '' }}</x-textarea>
                 </div>
@@ -173,15 +174,16 @@
                 @can('edit all characters')
                     <div>
                         <x-input-label for="plot_notes" :value="__('Plot Notes')"/>
+                        <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                         <x-textarea id="plot_notes" name="plot_notes" rows="12"
                                     class="mt-1 block w-full">{{ $character->plot_notes ?? '' }}</x-textarea>
                     </div>
 
                     <div>
                         <x-input-label for="other_abilities" :value="__('Other Abilities')"/>
+                        <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                         <x-textarea id="other_abilities" name="other_abilities" rows="12"
                                     class="mt-1 block w-full">{{ $character->other_abilities ?? '' }}</x-textarea>
-                        <p class="text-sm">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                     </div>
                 @endcan
 

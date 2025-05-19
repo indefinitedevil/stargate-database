@@ -138,14 +138,14 @@
         <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
             {{ __('History') }}
         </h2>
-        <p class="mt-1">{!! nl2br($character->history) !!}</p>
+        <p class="mt-1">{!! process_markdown($character->history) !!}</p>
     </div>
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
             {{ __('Pre-Existing Character Links') }}
         </h2>
-        <p class="mt-1">{!! nl2br($character->character_links) !!}</p>
+        <p class="mt-1">{!! process_markdown($character->character_links) !!}</p>
     </div>
 
     @can('view hidden notes')
@@ -153,7 +153,7 @@
             <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
                 {{ __('Plot notes') }}
             </h2>
-            <p class="mt-1">{!! nl2br($character->plot_notes) !!}</p>
+            <p class="mt-1">{!! process_markdown($character->plot_notes) !!}</p>
         </div>
     @endcan
     @include('characters.partials.add-log')
