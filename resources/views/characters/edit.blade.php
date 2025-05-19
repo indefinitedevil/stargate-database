@@ -58,22 +58,6 @@
                             {!! __('Feeling stuck? <a class="underline cursor-pointer" onclick="generateRandomNames()">Generate some random names</a>') !!}
                         </p>
                         <div id="randomNames" class="grid grid-cols-1 sm:grid-cols-2"></div>
-                        <script>
-                            function generateRandomNames() {
-                                let randomNames = document.getElementById('randomNames');
-                                randomNames.innerHTML = '';
-                                let nameHtml = '<ul class="list-inside list-disc">';
-                                for (let i = 0; i < 5; i++) {
-                                    nameHtml += '<li>' + window.generateName(0) + '</li>';
-                                }
-                                nameHtml += '</ul><ul class="list-inside list-disc">';
-                                for (let i = 0; i < 5; i++) {
-                                    nameHtml += '<li>' + window.generateName(1) + '</li>';
-                                }
-                                nameHtml += '</ul>';
-                                randomNames.innerHTML = nameHtml;
-                            }
-                        </script>
                     </div>
                 </div>
 
@@ -156,16 +140,6 @@
                                 </div>
                             </div>
                         @endforeach
-                        <script>
-                            function showBackgroundDescription(backgroundId) {
-                                let backgrounds = document.querySelectorAll('.background-description');
-                                backgrounds.forEach(function (background) {
-                                    background.classList.add('hidden');
-                                });
-                                let background = document.getElementById('background-description-' + backgroundId);
-                                background.classList.remove('hidden');
-                            }
-                        </script>
                         <x-input-error class="mt-2" :messages="$errors->get('background')"/>
                     @else
                         <x-text-input id="background" name="background" type="text"
@@ -217,4 +191,5 @@
             </div>
         </form>
     </div>
+    <script src="{{ asset('js/characters.js') }}" defer></script>
 </x-app-layout>

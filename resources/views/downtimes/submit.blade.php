@@ -303,34 +303,7 @@
             @endif
         </div>
     </form>
-    <script>
-        window.onload = function () {
-            jQuery('[id^="development_action_"]').on('change', function () {
-                let id = jQuery(this).attr('id').split('_').pop();
-                jQuery('[id^="development_skill_' + id).html(jQuery('#ds_' + id + '_' + jQuery(this).val()).html());
-                if (jQuery(this).val() == {{ ActionType::MISSION }}) {
-                    jQuery('#da_' + id + '_notes').removeClass('hidden');
-                } else {
-                    jQuery('#da_' + id + '_notes').addClass('hidden');
-                }
-                if (jQuery(this).val() == {{ ActionType::TEACHING }}) {
-                    jQuery('#da_' + id + '_teaching').removeClass('hidden');
-                } else {
-                    jQuery('#da_' + id + '_teaching').addClass('hidden');
-                }
-            });
-            jQuery('[id^="research_action_"]').on('change', function () {
-                let id = jQuery(this).attr('id').split('_').pop();
-                if (jQuery(this).val() == {{ ActionType::UPKEEP_2 }}) {
-                    jQuery('#upkeep_skill_' + id).removeClass('hidden');
-                    jQuery('#research_project_' + id).addClass('hidden');
-                } else if (jQuery(this).val() == {{ ActionType::RESEARCHING }}) {
-                    jQuery('#upkeep_skill_' + id).addClass('hidden');
-                    jQuery('#research_project_' + id).removeClass('hidden');
-                }
-            });
-        }
-    </script>
 
     @include('characters.partials.add-skill')
+    <script src="{{ asset('js/downtimes.js') }}" defer></script>
 </x-app-layout>

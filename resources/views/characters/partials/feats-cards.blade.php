@@ -26,16 +26,6 @@
                 </li>
             @endforeach
         </ul>
-        <script>
-            function toggleVisibility(id) {
-                var element = document.getElementById(id);
-                if (element.classList.contains('hidden')) {
-                    element.classList.remove('hidden');
-                } else {
-                    element.classList.add('hidden');
-                }
-            }
-        </script>
 
         @if (!empty($character->cards))
             <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100 mt-4">

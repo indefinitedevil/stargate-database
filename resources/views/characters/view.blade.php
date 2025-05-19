@@ -157,4 +157,5 @@
         </div>
     @endcan
     @include('characters.partials.add-log')
+    <script src="{{ asset('js/characters.js') }}" defer></script>
 </x-app-layout>

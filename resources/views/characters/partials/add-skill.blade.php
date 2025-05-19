@@ -177,16 +177,7 @@
                     </div>
                 @endforeach
             </div>
-            <script>
-                function showSkillDescription(skillId) {
-                    let skills = document.querySelectorAll('.skill-description');
-                    skills.forEach(function (skill) {
-                        skill.classList.add('hidden');
-                    });
-                    let skill = document.getElementById('skill-description-' + skillId);
-                    skill.classList.remove('hidden');
-                }
-            </script>
+            <script src="{{ asset('js/characters.js') }}" defer></script>
         </div>
     </form>
 </div>
