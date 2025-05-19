@@ -21,7 +21,7 @@ jQuery('[id^="research_action_"]').on('change', function () {
     } else if (jQuery(this).val() == 5) { // Research
         jQuery('#upkeep_skill_' + id).addClass('hidden');
         jQuery('#research_project_' + id).removeClass('hidden');
-        if (jQuery('#research_project_' + id).length) {
+        if (jQuery('#research_project_' + id).length > 1) {
             jQuery('#research_project_' + id + '_notes').removeClass('hidden');
         }
     }

@@ -204,13 +204,11 @@
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block {{ ActionType::RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research', ['action' => $action])</x-select>
 
-                                <x-input-label for="research_action_{{ $actionCount }}_notes" class="mt-1"
-                                               :value="__('Notes')"/>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
                                             :value="$action->notes"
                                             :disabled="!$downtime->isOpen()"
-                                            class="mt-1 block w-full"
+                                            class="mt-1 block w-full {{ ActionType::RESEARCHING == $action->action_type_id ? '' : 'hidden' }}"
                                             :placeholder="__('Notes')"/>
                             </div>
                         @endforeach
@@ -237,12 +235,10 @@
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block hidden">@include('downtimes.partials.research', ['action' => null])</x-select>
 
-                                <x-input-label for="research_action_{{ $actionCount }}_notes" class="mt-1"
-                                               :value="__('Notes')"/>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
-                                            class="mt-1 block w-full"
+                                            class="mt-1 block w-full hidden"
                                             :placeholder="__('Notes')"/>
                             </div>
                         @endwhile
