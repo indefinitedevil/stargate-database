@@ -20,7 +20,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('characters', function ($table) {
+        Schema::table('character_logs', function ($table) {
             $table->dropColumn('skill_completed');
             $table->dropColumn('skill_removed');
         });
