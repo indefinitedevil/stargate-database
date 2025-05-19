@@ -214,7 +214,7 @@ class Character extends Model
         $requiredUpkeepSkills = [];
         foreach ($upkeepSkills as $upkeepSkill) {
             if (1 < $upkeepSkill->level) {
-                $requiredUpkeepSkills[] = $upkeepSkill;
+                $requiredUpkeepSkills[$upkeepSkill->skill_id] = $upkeepSkill;
             }
         }
         return collect($requiredUpkeepSkills);
