@@ -123,7 +123,7 @@
                                        :disabled="!empty($character) && Status::READY < $character->status_id"/>
                         {{ __('Scoundrel') }}
                     </x-input-label>
-                    <x-input-error class="mt-2" :messages="$errors->get('former_rank')"/>
+                    <x-input-error class="mt-2" :messages="$errors->get('hero_scoundrel')"/>
                 </div>
 
                 <div>
