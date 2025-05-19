@@ -2,18 +2,20 @@
 
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        $user = User::find(1);
-        $user->name = 'Plot Coordinator';
-        $user->email = 'plotcoordinator_sglrp@hotmail.co.uk';
-        $user->save();
+        DB::table('users')
+            ->where('id', User::PLOT_CO_ID)
+            ->update([
+                'name' => 'Plot Coordinator',
+                'email' => 'plotcoordinator_sglrp@hotmail.co.uk',
+            ]);
     }
 
     /**
