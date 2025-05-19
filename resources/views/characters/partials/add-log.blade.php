@@ -11,20 +11,12 @@
                 <input type="hidden" name="log_id" value="{{ $editLog->id }}">
                 <input type="hidden" name="character_skill_id" value="{{ $editLog->character_skill_id }}">
             @endif
-            @php
-                global $skills;
-                $skills = [];
-            @endphp
             <input type="hidden" name="character_id" value="{{$character->id }}">
             <div class="grid grid-cols-1 sm:grid-cols-6 gap-6">
                 <div class="col-span-3">
-                    <x-input-label for="skill">{{ __('Skill') }}</x-input-label>
+                    <x-input-label for="skill">{{ !empty($editLog) ? __('Skill') : __('New Skill') }}</x-input-label>
                     <x-select id="skill" name="skill_id" class="mt-1 block w-full" required>
-                        >
                         @if (!empty($editLog))
-                            @php
-                                $skills[] = $editLog->characterSkill->skill;
-                            @endphp
                             <option value="{{ $editLog->characterSkill->skill_id }}" selected="selected">
                                 {{ __(':name (:cost months)', ['name' => $editLog->characterSkill->name, 'cost' => $editLog->characterSkill->cost]) }}
                             </option>
@@ -108,7 +100,7 @@
 
                 <div class="col-span-3">
                     <x-input-label for="notes" :value="__('Notes')"/>
-                    <x-textarea id="notes" name="notes" class="mt-1 block w-full">{{ empty($editLog) ? '' : $editLog->notes }}</x-textarea>
+                    <x-textarea id="notes" name="notes" class="mt-1 block w-full" required>{{ empty($editLog) ? '' : $editLog->notes }}</x-textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('notes')"/>
                 </div>
 

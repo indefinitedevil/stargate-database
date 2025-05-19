@@ -6,10 +6,11 @@ use App\Models\Character;
 use App\Models\CharacterLog;
 use App\Models\LogType;
 use App\Models\Status;
+use Illuminate\Support\Collection;
 
 class CharacterHelper
 {
-    private static $charactersWithoutDowntime;
+    private static Collection $charactersWithoutDowntime;
 
     public static function getLowestTrainedMonths(): int
     {

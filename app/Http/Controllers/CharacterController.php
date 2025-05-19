@@ -677,6 +677,8 @@ class CharacterController extends Controller
                 ->with('errors', new MessageBag([__('You cannot edit this character.')]));
         }
 
+        $skill = Skill::find($validatedData['skill_id']);
+
         if (!empty($validatedData['character_skill_id'])) {
             $characterSkill = CharacterSkill::find($validatedData['character_skill_id']);
             if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
@@ -688,7 +690,6 @@ class CharacterController extends Controller
                 ->where('skill_id', $validatedData['skill_id'])
                 ->count();
             if ($existing) {
-                $skill = Skill::find($validatedData['skill_id']);
                 if (!$skill->repeatable || $skill->repeatable <= $existing) {
                     throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
                 } elseif (PlotHelper::SKILL_RESUSCITATION_BUYBACK == $skill->id) {
@@ -703,6 +704,11 @@ class CharacterController extends Controller
             $characterSkill = new CharacterSkill();
         }
         $validatedData['completed'] = $validatedData['completed'] ?? false;
+
+        if (!$validatedData['completed'] && !$validatedData['amount_trained'] && $skill->cost() > 0) {
+            throw ValidationException::withMessages([__('Log must apply training or a completed skill.')]);
+        }
+
         $characterSkill->fill([
             'completed' => $validatedData['completed'],
             'character_id' => $validatedData['character_id'],

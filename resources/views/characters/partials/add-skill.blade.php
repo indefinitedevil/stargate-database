@@ -28,7 +28,6 @@
                     @else
                         <x-select id="skill" name="skill_id" class="mt-1 block w-full" required
                                   onchange="showSkillDescription(this.value)">
-                            >
                             @if (!empty($editSkill))
                                 @php
                                     $skills[] = $editSkill->skill;
