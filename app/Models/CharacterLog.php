@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Auth;
  * @property int vigor_change
  * @property int temp_body_change
  * @property int temp_vigor_change
+ * @property bool skill_completed
+ * @property bool skill_removed
  * @property Character character
  * @property int id
  * @property int character_skill_id
@@ -48,6 +50,8 @@ class CharacterLog extends Model
         'vigor_change',
         'temp_body_change',
         'temp_vigor_change',
+        'skill_completed',
+        'skill_removed',
     ];
 
     protected $casts = [
@@ -94,6 +98,9 @@ class CharacterLog extends Model
             if ($characterSkill->trained >= $characterSkill->cost) {
                 $characterSkill->completed = true;
                 $characterSkill->save();
+
+                $this->skill_completed = true;
+                parent::save($options);
             }
         }
         return $return;

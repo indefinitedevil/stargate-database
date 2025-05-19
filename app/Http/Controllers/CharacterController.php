@@ -735,6 +735,7 @@ class CharacterController extends Controller
             'notes' => $validatedData['notes'] ?? '',
             'log_type_id' => LogType::PLOT,
             'teacher_id' => null,
+            'skill_completed' => $validatedData['completed'],
         ]);
         $log->save();
 
@@ -765,7 +766,16 @@ class CharacterController extends Controller
             ->get();
         if (1 == $skillLogs->count()) {
             $log->characterSkill->delete();
+        } else {
+            if ($log->skill_completed) {
+                $log->characterSkill->completed = false;
+                $log->characterSkill->save();
+            } elseif ($log->skill_removed) {
+                $log->characterSkill->removed = false;
+                $log->characterSkill->save();
+            }
         }
+        $log->delete();
 
         return redirect()->back()
             ->with('success', new MessageBag([__('Character log for :character removed.', ['character' => $characterName])]));
@@ -837,6 +847,7 @@ class CharacterController extends Controller
             'amount_trained' => 0,
             'log_type_id' => LogType::PLOT,
             'notes' => 'Skill removed.',
+            'skill_removed' => true,
         ]);
 
         return redirect(route('characters.edit-skills', ['characterId' => $characterSkill->character->id]));
