@@ -70,6 +70,7 @@ class Character extends Model
         'status_id',
         'history',
         'plot_notes',
+        'other_abilities',
         'rank',
         'former_rank',
         'character_links',
