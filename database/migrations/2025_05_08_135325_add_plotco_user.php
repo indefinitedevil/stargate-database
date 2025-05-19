@@ -10,12 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        DB::table('users')
-            ->where('id', User::PLOT_CO_ID)
-            ->update([
-                'name' => 'Plot Coordinator',
-                'email' => 'plotcoordinator_sglrp@hotmail.co.uk',
-            ]);
+        DB::table('users')->upsert([[
+            'id' => User::PLOT_CO_ID,
+            'name' => 'Plot Coordinator',
+            'email' => 'plotcoordinator_sglrp@hotmail.co.uk',
+        ]], ['id'], ['name', 'email']);
     }
 
     /**
