@@ -849,6 +849,7 @@ class CharacterController extends Controller
             'notes' => 'Skill removed.',
             'skill_removed' => true,
         ]);
+        $log->save();
 
         return redirect(route('characters.edit-skills', ['characterId' => $characterSkill->character->id]));
     }
