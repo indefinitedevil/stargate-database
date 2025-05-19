@@ -129,7 +129,7 @@
                             <h2 class="text-xl font-medium text-gray-900">
                                 {{ __('Other Abilities') }}
                             </h2>
-                            <div class="mt-1">{{ process_markdown($character->other_abilities) }}</div>
+                            <div class="mt-1">{!! process_markdown($character->other_abilities) !!}</div>
                         </div>
                     </div>
                 @endif
