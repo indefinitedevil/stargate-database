@@ -20,6 +20,8 @@
                     <li>Add plot coordinator user for system use.</li>
                     <li>Changed Endurance Training additions from E1 to be permanent Body changes instead.</li>
                     <li>Changed attendance tracking to remove temporary Body/Vigor.</li>
+                    <li>Refactored inline scripts to be shared files.</li>
+                    <li>Had CodeRabbit do a code review and fixed some bugs as a result.</li>
                 </ul>
             </div>
             <div>
