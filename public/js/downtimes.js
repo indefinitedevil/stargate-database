@@ -17,8 +17,12 @@ jQuery('[id^="research_action_"]').on('change', function () {
     if (jQuery(this).val() == 6) { // Upkeep 2
         jQuery('#upkeep_skill_' + id).removeClass('hidden');
         jQuery('#research_project_' + id).addClass('hidden');
+        jQuery('#research_project_' + id + '_notes').addClass('hidden');
     } else if (jQuery(this).val() == 5) { // Research
         jQuery('#upkeep_skill_' + id).addClass('hidden');
         jQuery('#research_project_' + id).removeClass('hidden');
+        if (jQuery('#research_project_' + id).length) {
+            jQuery('#research_project_' + id + '_notes').removeClass('hidden');
+        }
     }
 });
