@@ -22,6 +22,7 @@
                     <li>Changed attendance tracking to remove temporary Body/Vigor.</li>
                     <li>Refactored inline scripts to be shared files.</li>
                     <li>Had CodeRabbit do a code review and fixed some bugs as a result.</li>
+                    <li>Corrected the parameters for when skill upkeep is required.</li>
                 </ul>
             </div>
             <div>
