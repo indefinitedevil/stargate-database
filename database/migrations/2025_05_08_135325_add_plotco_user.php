@@ -14,7 +14,8 @@ return new class extends Migration {
             'id' => User::PLOT_CO_ID,
             'name' => 'Plot Coordinator',
             'email' => 'plotcoordinator_sglrp@hotmail.co.uk',
-        ]], ['id'], ['name', 'email']);
+            'password' => '',
+        ]], ['id'], ['name', 'email', 'password']);
     }
 
     /**
