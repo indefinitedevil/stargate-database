@@ -92,8 +92,9 @@ class CharacterLog extends Model
                 $this->user_id = $this->character->user_id;
             }
         }
+        $exists = $this->exists;
         $return = parent::save($options);
-        if ($this->amount_trained) {
+        if (!$exists && $this->amount_trained) {
             $characterSkill = CharacterSkill::find($this->character_skill_id);
             if ($characterSkill->trained >= $characterSkill->cost) {
                 $characterSkill->completed = true;
