@@ -24,9 +24,9 @@ class PlotcoController extends Controller
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         return view('plotco.characters', [
-            'newCharacters' => Character::where('status_id', Status::READY)->orderBY('name', 'asc')->get(),
-            'activeCharacters' => Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get(),
-            'inactiveCharacters' => Character::whereIn('status_id', [Status::DEAD, Status::RETIRED, Status::INACTIVE])->orderBy('name', 'asc')->get(),
+            'newCharacters' => Character::with('user')->where('status_id', Status::READY)->orderBY('name', 'asc')->get(),
+            'activeCharacters' => Character::with('user')->whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get(),
+            'inactiveCharacters' => Character::with('user')->whereIn('status_id', [Status::DEAD, Status::RETIRED, Status::INACTIVE])->orderBy('name', 'asc')->get(),
         ]);
     }
 
@@ -62,7 +62,7 @@ class PlotcoController extends Controller
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         return view('characters.print', [
-            'characters' => Character::whereIn('status_id', [Status::READY, Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get(),
+            'characters' => Character::with('user')->whereIn('status_id', [Status::READY, Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get(),
         ]);
     }
 
@@ -73,7 +73,7 @@ class PlotcoController extends Controller
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         if ($request->has('characters')) {
-            $characters = Character::whereIn('id', $request->get('characters'))->orderBy('name', 'asc')->get();
+            $characters = Character::with('user')->whereIn('id', $request->get('characters'))->orderBy('name', 'asc')->get();
         } elseif ($request->has('event')) {
             $characters = Event::where('id', $request->get('event'))->first()->characters()->sortBy('name');
         } else {

@@ -39,14 +39,14 @@
                     <div>
                         <p class="text-lg font-semibold">{{ $skills[$skillId]->name }}</p>
                         <ul class="list-disc list-inside">
-                            @foreach($teachers as $teacher)
+                            @foreach($teachers as $teacherId => $action)
                                 @php
-                                    if (empty($characters[$teacher])) {
-                                        $characters[$teacher] = Character::find($teacher);
+                                    if (empty($characters[$teacherId])) {
+                                        $characters[$teacherId] = Character::find($teacherId);
                                     }
                                 @endphp
                                 <li>
-                                    {{ __('Taught by :name', ['name' => $characters[$teacher]->listName]) }}
+                                    {{ __('Taught by :name', ['name' => $characters[$teacherId]->listName]) }}
                                     ({{ __('+1 Vigor at next event') }})
                                 </li>
                             @endforeach
@@ -135,7 +135,7 @@
                                         }
                                     @endphp
                                     <li>
-                                        @if (!empty($upkeepMaintenance) && in_array($characterId, $upkeepMaintenance))
+                                        @if (!empty($upkeepMaintenance) && in_array($characterId, $upkeepMaintenance[$skillId]))
                                             {{ __('Maintained by :name', ['name' => $characters[$characterId]->listName]) }}
                                         @else
                                             {{ __('Required by :name - WILL BE LOST', ['name' => $characters[$characterId]->listName]) }}
