@@ -16,14 +16,16 @@ return new class extends Migration
         Schema::table('character_logs', function (Blueprint $table) {
             $table->foreignId('user_id')->default(0);
         });
-        foreach (CharacterLog::all() as $characterLog) {
-            if (LogType::PLOT === $characterLog->log_type_id) {
-                $characterLog->user_id = 64;
-            } else {
-                $characterLog->user_id = $characterLog->character->user_id;
+        CharacterLog::chunk(100, function ($characterLogs) {
+            foreach ($characterLogs as $characterLog) {
+                if (LogType::PLOT === $characterLog->log_type_id) {
+                    $characterLog->user_id = 64; // Plot Coordinator ID
+                } else {
+                    $characterLog->user_id = $characterLog->character->user_id;
+                }
+                $characterLog->save();
             }
-            $characterLog->save();
-        }
+        });
         Schema::table('character_logs', function (Blueprint $table) {
             $table->foreignId('user_id')->change()->constrained();
         });

@@ -48,5 +48,9 @@
                 </div>
             @endforeach
         </div>
+
+        <div class="mt-6">
+            {{ $logs->links() }}
+        </div>
     </div>
 </x-app-layout>

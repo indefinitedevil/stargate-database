@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Auth;
  * @property int id
  * @property int character_skill_id
  * @property int user_id
+ * @property User user
  * @property \DateTime created_at
  */
 class CharacterLog extends Model
@@ -76,6 +77,11 @@ class CharacterLog extends Model
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(Character::class, 'teacher_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function character(): BelongsTo

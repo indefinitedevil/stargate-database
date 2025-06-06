@@ -176,7 +176,10 @@ class PlotcoController extends Controller
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         return view('plotco.logs', [
-            'logs' => CharacterLog::where('log_type_id', LogType::PLOT)->orderBy('created_at', 'desc')->get(),
+            'logs' => CharacterLog::with(['character', 'character.user', 'user', 'logType', 'skill'])
+                ->where('log_type_id', LogType::PLOT)
+                ->orderBy('created_at', 'desc')
+                ->paginate(30),
         ]);
     }
 }
