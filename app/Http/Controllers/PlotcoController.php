@@ -48,7 +48,7 @@ class PlotcoController extends Controller
 
     public function attendance(Request $request)
     {
-        if ($request->user()->cannot('viewAll', Character::class)) {
+        if ($request->user()->cannot('view attendance')) {
             return redirect(route('dashboard'))
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
