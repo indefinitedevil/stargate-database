@@ -1,6 +1,3 @@
-@php
-    use Spatie\Permission\Models\Role;
-@endphp
 <x-app-layout>
     <x-slot name="title">{{ __('User Roles') }}</x-slot>
     <x-slot name="header">
@@ -13,7 +10,7 @@
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <p>{{ __('Roles are used to determine what a user can do on the site. Each user can have multiple roles, and each role can have multiple permissions.') }}</p>
             <p>{{ __('This is a breakdown of what roles are available on the site and what they do.') }}</p>
-            @foreach(Role::all() as $role)
+            @foreach($roles as $role)
                 <h3 class="text-lg font-semibold">{{ ucwords($role->name) }}</h3>
                 <ul class="list-disc list-inside mt-2">
                     @foreach($role->permissions as $permission)

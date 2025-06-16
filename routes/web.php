@@ -8,6 +8,7 @@ use App\Http\Controllers\PlotcoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SysrefController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,7 +20,9 @@ Route::get('/changelog', function () {
     return view('changelog');
 })->name('changelog');
 Route::get('/roles', function () {
-    return view('roles');
+    return view('roles', [
+        'roles' => Role::with('permissions')->get(),
+    ]);
 })->name('roles');
 
 Route::get('/events/', [EventController::class, 'index'])->name('events.index');
