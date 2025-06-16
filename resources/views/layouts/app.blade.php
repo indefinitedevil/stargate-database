@@ -73,6 +73,7 @@
                 <div class="py-2 px-6 text-gray-900 dark:text-gray-100 text-center text-sm gap-4 flex justify-center">
                     <a href="{{ route('changelog') }}" class="inline-block underline">{{ __('Changelog') }}</a>
                     <a href="{{ route('privacy') }}" class="inline-block underline">{{ __('Privacy Policy') }}</a>
+                    <a href="{{ route('roles') }}" class="inline-block underline">{{ __('Roles') }}</a>
                 </div>
             </div>
         </div>

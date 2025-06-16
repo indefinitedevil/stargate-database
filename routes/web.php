@@ -18,6 +18,9 @@ Route::get('/privacy', function () {
 Route::get('/changelog', function () {
     return view('changelog');
 })->name('changelog');
+Route::get('/roles', function () {
+    return view('roles');
+})->name('roles');
 
 Route::get('/events/', [EventController::class, 'index'])->name('events.index');
 
