@@ -11,9 +11,13 @@
                 <li>
                     <span class="cursor-pointer underline decoration-dashed underline-offset-4"
                           onclick="toggleVisibility('feat-{{ $feat->id }}')">
-                        {{ $feat->name }}
+                        {{ $feat->print_name ?: $feat->name }}
+                        {{ '' != $feat->cost ? '(' . $feat->cost . ' Vigor)' : '' }}
                         @if ($feat->per_event)
-                            ({{ $feat->getPerEvent($character) }})
+                            ({{ __(':count per event', ['count' => $feat->getPerEvent($character)]) }})
+                        @endif
+                        @if ($feat->per_day)
+                            ({{ __(':count per day', ['count' => $feat->getPerDay($character)]) }})
                         @endif
                         <i class="fa-regular fa-circle-question" title="{{ __('Show description') }}"
                            data-tooltip-target="feat-{{ $feat->id }}"

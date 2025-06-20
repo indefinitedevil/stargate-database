@@ -12,8 +12,12 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('feats', function ($table) {
-            $table->string('print_name')->nullable()->after('name');
+            if ($table->hasColumn('print_name')) {
+                return;
+            }
+            $table->string('print_name', 64)->nullable()->after('name');
             $table->tinyInteger('per_day')->default(0)->after('per_event');
+            $table->string('cost', 16)->default('')->after('per_day');
         });
 
         // Add skill adjustments
@@ -33,6 +37,7 @@ return new class extends Migration {
         Schema::table('feats', function ($table) {
             $table->dropColumn('print_name');
             $table->dropColumn('per_day');
+            $table->dropColumn('cost');
         });
     }
 };

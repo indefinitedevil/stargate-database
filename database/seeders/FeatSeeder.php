@@ -18,14 +18,11 @@ class FeatSeeder extends Seeder
         $this->seedSkillFeats();
     }
 
-    /**
-     * Feat descriptions last updated with Season Two V1.1 by Ki 2024-10-22
-     */
     public function seedFeats()
     {
         $toolkitDescription = '**For a cost of 1 Vigor**, you can use this feat to automatically solve one problem card from a skill game that you are attempting of the appropriate type (with a time of zero). You must state that you are using this feat before the problem solving has begun and indicate which card it is to be used on before any are revealed – and only one card can be negated per problem, regardless of the number of participants.
 
-This feat can, **in addition to the above**, be used to select additional cards from your deck to attempt to solve a problem. **For a cost of 2 Vigor per card**, you may draw a card (selected at random), from those in your deck that are not in your hand. You can declare this at any time during the problem card game. This may be used by a Technical Mentor joining the game. **You may draw additional cards equal to your current hand size.** You ***must*** be able to phys-rep the additional cards you have drawn.';
+This feat can, **in addition to the above**, be used to select additional cards from your deck to attempt to solve a problem. **For a cost of 2 Vigor per card**, you may draw a card (selected at random), from those in your deck that are not in your hand. You can declare this at any time during the problem card game. This may be used by a Technical Mentor joining the game. **You may draw additional cards equal to your current hand size.** You ***must*** be able to physrep the additional cards you have drawn.';
 
         DB::table('feats')->upsert([
             [
@@ -37,6 +34,7 @@ This feat can, **in addition to the above**, be used to select additional cards 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 2,
@@ -47,6 +45,7 @@ This feat cannot be used whilst you are inside the 10 minute cooldown period of 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 3,
@@ -57,6 +56,7 @@ This feat costs 2 Vigor unless you have a skill that is relevant to the problem.
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '2 or 1',
             ],
             [
                 'id' => 4,
@@ -69,6 +69,7 @@ This feat costs zero Vigor to use, however it prevents your Vigor track from ref
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '0',
             ],
             [
                 'id' => 5,
@@ -81,6 +82,7 @@ Whilst under the effects of this feat you may ignore all damage and all restrain
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '0',
             ],
             [
                 'id' => 6,
@@ -91,6 +93,7 @@ Only weapons with the All Guns Blazing trait can be used with this feat.',
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 7,
@@ -103,6 +106,7 @@ You may also use this feat to determine the Maximum Vigor of someone you have ob
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 8,
@@ -111,6 +115,7 @@ You may also use this feat to determine the Maximum Vigor of someone you have ob
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 9,
@@ -121,6 +126,7 @@ The device will only work for 1 scene before it breaks down again. Future attemp
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 10,
@@ -129,6 +135,7 @@ The device will only work for 1 scene before it breaks down again. Future attemp
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 11,
@@ -137,6 +144,7 @@ The device will only work for 1 scene before it breaks down again. Future attemp
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 12,
@@ -151,6 +159,7 @@ If you leave a **Critical** character, or the **Critical** Character moves they 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 13,
@@ -161,6 +170,7 @@ This must be role-played, as the effects of the drug are slowly creeping up on t
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 14,
@@ -169,6 +179,7 @@ This must be role-played, as the effects of the drug are slowly creeping up on t
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 15,
@@ -177,6 +188,7 @@ This must be role-played, as the effects of the drug are slowly creeping up on t
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 16,
@@ -189,6 +201,7 @@ You may spend additional points of Vigor to reduce the time needed to use this a
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '2+',
             ],
             [
                 'id' => 17,
@@ -201,6 +214,7 @@ This feat has a 10 minute cooldown between uses on the same target. This feat ha
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 18,
@@ -211,6 +225,7 @@ If you are carrying an appropriately modern shield physrep, you may stand still 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 19,
@@ -219,6 +234,7 @@ If you are carrying an appropriately modern shield physrep, you may stand still 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '1 or 2',
             ],
             [
                 'id' => 20,
@@ -227,6 +243,7 @@ If you are carrying an appropriately modern shield physrep, you may stand still 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '1 or 2',
             ],
             [
                 'id' => 21,
@@ -235,6 +252,7 @@ If you are carrying an appropriately modern shield physrep, you may stand still 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '1 or 2',
             ],
             [
                 'id' => 22,
@@ -243,6 +261,7 @@ If you are carrying an appropriately modern shield physrep, you may stand still 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '1 or 2',
             ],
             [
                 'id' => 23,
@@ -251,6 +270,7 @@ If you are carrying an appropriately modern shield physrep, you may stand still 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '1 or 2',
             ],
             [
                 'id' => 24,
@@ -259,6 +279,7 @@ If you are carrying an appropriately modern shield physrep, you may stand still 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '1 or 2',
             ],
             [
                 'id' => 25,
@@ -267,6 +288,7 @@ If you are carrying an appropriately modern shield physrep, you may stand still 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '1 or 2',
             ],
             [
                 'id' => 26,
@@ -284,6 +306,7 @@ NOTE: Holding your gun to someone\'s head is a threat, not a position of authori
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '2',
             ],
             [
                 'id' => 27,
@@ -298,6 +321,7 @@ This feat **cannot** be given to an NPC without approval from the System Referee
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 28,
@@ -306,6 +330,7 @@ This feat **cannot** be given to an NPC without approval from the System Referee
                 'per_event' => 1,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 29,
@@ -319,6 +344,7 @@ This feat **cannot** be given to an NPC without approval from the System Referee
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 30,
@@ -331,6 +357,7 @@ This Feat costs 1 Vigor to use, which remains \'spent\' and does not refresh unt
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 31,
@@ -347,6 +374,7 @@ This feat may be used by proxy through another character translating at a cost o
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '1+',
             ],
             [
                 'id' => 32,
@@ -355,6 +383,7 @@ This feat may be used by proxy through another character translating at a cost o
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 33,
@@ -365,16 +394,18 @@ This feat may be used by proxy through another character translating at a cost o
                 'per_event' => 0,
                 'per_day' => 1,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 44,
                 'name' => 'Old College Professor (Tenured Academic)',
                 'description' => 'You may act as though you have a non-Alien, non-Combat skill you don\'t have for the solution of one particular problem. This does not confer any cards, feats, or special abilities. You need to roleplay where the knowledge of this skill has come from.
 
-*This feat is limited to one use per day, unless you possess the Tenured Academic skill.*',
+*This feat is limited to one use per event, as it is from the Tenured Academic skill.*',
                 'per_event' => 1,
                 'per_day' => 0,
                 'print_name' => 'Old College Professor',
+                'cost' => '',
             ],
             [
                 'id' => 34,
@@ -391,6 +422,7 @@ Once the effect of this feat ends, if the character has not been stabilised, the
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 35,
@@ -399,6 +431,7 @@ Once the effect of this feat ends, if the character has not been stabilised, the
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 36,
@@ -409,6 +442,7 @@ Only one additional card may be played on a problem, and once a Mentor card has 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 37,
@@ -417,6 +451,7 @@ Only one additional card may be played on a problem, and once a Mentor card has 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 38,
@@ -425,6 +460,7 @@ Only one additional card may be played on a problem, and once a Mentor card has 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 39,
@@ -438,6 +474,7 @@ Note: This does not work on Psychology Challenges.',
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 40,
@@ -446,6 +483,7 @@ Note: This does not work on Psychology Challenges.',
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 41,
@@ -460,6 +498,7 @@ Once affected by this feat (from anyone), you cannot be affected by another "We 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '',
             ],
             [
                 'id' => 42,
@@ -468,6 +507,7 @@ Once affected by this feat (from anyone), you cannot be affected by another "We 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '1 or 2',
             ],
             [
                 'id' => 43,
@@ -478,11 +518,14 @@ Once affected by this feat (from anyone), you cannot be affected by another "We 
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
+                'cost' => '1 or 2',
             ],
         ], 'id', [
             'name',
             'description',
             'per_event',
+            'per_day',
+            'cost',
         ]);
     }
 
