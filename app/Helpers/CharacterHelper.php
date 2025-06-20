@@ -57,4 +57,13 @@ class CharacterHelper
     {
         return self::getLowestDowntimeMonths();
     }
+
+    public static function getCharacterById(int $characterId): ?Character
+    {
+        static $characters = [];
+        if (!isset($characters[$characterId])) {
+            $characters[$characterId] = Character::find($characterId);
+        }
+        return $characters[$characterId];
+    }
 }
