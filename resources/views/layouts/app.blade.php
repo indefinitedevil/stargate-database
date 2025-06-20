@@ -26,7 +26,7 @@
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
     @include('layouts.navigation')
 
-    @if (str_contains($_SERVER['HTTP_HOST'], 'ddev') || str_contains($_SERVER['HTTP_HOST'], 'herokuapp.com'))
+    @if ('local' == config('app.env'))
         <div class="bg-orange-100 text-orange-700">
             <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
                 <p class="font-bold">{{ __('This is a development version of the Stargate Database. Changes made here will not reflect on the live database.') }}</p>
