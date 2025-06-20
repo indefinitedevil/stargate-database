@@ -9,6 +9,13 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Bugfix: 16th June 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Secretary: fixed bug with access to executive screen.</li>
+                    <li>Added <a href="/roles" class="underline">roles page</a> to show the different available roles.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 19th May 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: allow change of user on characters to allow for NPCs to be assigned to plot co user.</li>
