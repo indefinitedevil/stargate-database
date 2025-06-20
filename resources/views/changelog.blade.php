@@ -11,6 +11,7 @@
             <div>
                 <h3 class="text-lg font-semibold">Update: 20th June 2025</h3>
                 <ul class="list-inside list-disc">
+                    <li>Admin: tidied manage roles screen.</li>
                     <li>Secretary: updated attendance lists to show event roles.</li>
                     <li>Sys Ref: updated catchup XP calculations to be based solely on downtime training, ignoring characters who have not submitted a downtime.</li>
                     <li>Sys Ref: rules 1.3 update.</li>
