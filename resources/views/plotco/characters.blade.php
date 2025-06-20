@@ -38,10 +38,16 @@
 
     <div class="p-4 sm:px-8 sm:py-4 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <p>
-            <strong>{{ __('Lowest amount of training months on an active character:') }}</strong> {{ CharacterHelper::getLowestTrainedMonths() }}
+            <strong>{{ __('Lowest training months on an active character:') }}</strong> {{ CharacterHelper::getLowestTrainedMonths() }}
         </p>
         <p>
-            <strong>{{ __('Highest amount of training months on an active character:') }}</strong> {{ CharacterHelper::getHighestTrainedMonths() }}
+            <strong>{{ __('Lowest training months on an active character who has done a downtime:') }}</strong> {{ CharacterHelper::getLowestDowntimeMonths() }}
+        </p>
+        <p>
+            <strong>{{ __('Highest training months on an active character:') }}</strong> {{ CharacterHelper::getHighestTrainedMonths() }}
+        </p>
+        <p>
+            <strong>{{ __('Catchup XP:') }}</strong> {{ CharacterHelper::getLowestDowntimeMonths() }}
         </p>
     </div>
 

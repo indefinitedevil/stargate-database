@@ -26,6 +26,11 @@ class CharacterHelper
         if (self::$charactersWithoutDowntime->count()) {
             return 0;
         }
+        return self::getLowestDowntimeMonths();
+    }
+
+    public static function getLowestDowntimeMonths(): int
+    {
         $logs = CharacterLog::where('log_type_id', LogType::DOWNTIME)
             ->join('characters', 'characters.id', '=', 'character_logs.character_id')
             ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
@@ -46,5 +51,10 @@ class CharacterHelper
             ->orderBy('total', 'DESC')
             ->get();
         return $logs->count() ? $logs->first()->total : 0;
+    }
+
+    public static function getCatchupXP(): int
+    {
+        return self::getLowestDowntimeMonths();
     }
 }
