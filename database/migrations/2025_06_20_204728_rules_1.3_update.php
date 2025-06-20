@@ -12,7 +12,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('feats', function ($table) {
-            if ($table->hasColumn('print_name')) {
+            if (Schema::hasColumn('feats', 'print_name')) {
                 return;
             }
             $table->string('print_name', 64)->nullable()->after('name');

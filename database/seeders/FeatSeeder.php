@@ -522,6 +522,7 @@ Once affected by this feat (from anyone), you cannot be affected by another "We 
             ],
         ], 'id', [
             'name',
+            'print_name',
             'description',
             'per_event',
             'per_day',
