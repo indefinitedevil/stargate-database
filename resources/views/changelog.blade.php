@@ -9,6 +9,12 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 20th June 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Sys Ref: updated catchup XP calculations to be based solely on downtime training, ignoring characters who have not submitted a downtime.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 16th June 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Secretary: fixed bug with access to executive screen.</li>
