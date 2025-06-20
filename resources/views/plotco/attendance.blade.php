@@ -1,5 +1,6 @@
 @php
-    use App\Helpers\CharacterHelper;use App\Models\Event;
+    use App\Helpers\CharacterHelper;
+    use App\Models\Event;
 @endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Attendance') }}</x-slot>
@@ -45,7 +46,7 @@
                                 @if ($user->pivot->character_id)
                                     <a class="underline"
                                        href="{{ route('characters.view', ['characterId' => $user->pivot->character_id]) }}">
-                                        {{ CharacterHelper::getCharacterById($user->pivot->character_id)->listName ?? __('No character') }}
+                                        {{ $user->characters->firstWhere('id', $user->pivot->character_id)->listName ?? __('No character') }}
                                     </a>
                                 @else
                                     {{ __('No character') }}
