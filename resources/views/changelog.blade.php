@@ -20,6 +20,7 @@
                     <li>Event Runner: removed dedicated role.</li>
                     <li>Event runners now have access to the skill breakdown based on their attendance role for future events.</li>
                     <li>Updated feat display to be clearer regarding uses per day/event and Vigor costs.</li>
+                    <li>Added a banner to make it clear when on a test site.</li>
                 </ul>
             </div>
             <div>

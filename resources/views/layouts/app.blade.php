@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@isset($title) {{ $title }} - @endif{{ config('app.name') }}</title>
+    <title>@isset($title)
+            {{ $title }} -
+        @endif{{ config('app.name') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -24,6 +26,14 @@
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
     @include('layouts.navigation')
 
+    @if (str_contains($_SERVER['HTTP_HOST'], 'ddev') || str_contains($_SERVER['HTTP_HOST'], 'herokuapp.com'))
+        <div class="bg-orange-100 text-orange-700">
+            <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
+                <p class="font-bold">{{ __('This is a development version of the Stargate Database. Changes made here will not reflect on the live database.') }}</p>
+            </div>
+        </div>
+    @endif
+
     <!-- Page Heading -->
     @isset($header)
         <header class="bg-white dark:bg-gray-800 shadow">
@@ -37,9 +47,9 @@
     <main>
         <div class="py-6 sm:py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-        @include('partials.downtimes')
-        @include('partials.errors')
-        {{ $slot }}
+                @include('partials.downtimes')
+                @include('partials.errors')
+                {{ $slot }}
             </div>
         </div>
     </main>
