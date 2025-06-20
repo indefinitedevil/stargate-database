@@ -32,7 +32,7 @@ class PlotcoController extends Controller
 
     public function skills(Request $request)
     {
-        if ($request->user()->cannot('view skill breakdown')) {
+        if ($request->user()->cannot('viewSkills', Character::class)) {
             return redirect(route('dashboard'))
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }

@@ -69,9 +69,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/downtimes/store-submission', [DowntimeController::class, 'storeSubmission'])->name('downtimes.store-submission');
     });
 
-    Route::group(['middleware' => 'can:view skill breakdown'], function () {
-        Route::get('/plot-co/skills/', [PlotcoController::class, 'skills'])->name('plotco.skills');
-    });
+    Route::get('/plot-co/skills/', [PlotcoController::class, 'skills'])->name('plotco.skills')
+        ->middleware('can:viewSkills,App\Models\Character');
 
     Route::group(['middleware' => 'can:view attendance'], function () {
         Route::get('/events/attendance/', [PlotcoController::class, 'attendance'])->name('events.all-attendance');

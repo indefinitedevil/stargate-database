@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Character;
+use App\Models\Event;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -36,9 +37,23 @@ class CharacterPolicy
         $view = false;
         if ($user->can('view all characters')) {
             $view = true;
-        }
-        if ($user->can('view own character') && $user->id === $character->user_id) {
+        } else if ($user->can('view own character') && $user->id === $character->user_id) {
             $view = true;
+        }
+        return $view
+            ? Response::allow()
+            : Response::denyAsNotFound();
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     */
+    public function viewSkills(User $user): Response
+    {
+        if ($user->can('view skill breakdown')) {
+            $view = true;
+        } else {
+            $view = $user->events()->where('end_date', '>', now())->wherePivot('role', Event::ROLE_RUNNER)->count() > 0;
         }
         return $view
             ? Response::allow()
@@ -63,8 +78,7 @@ class CharacterPolicy
         $update = false;
         if ($user->can('edit all characters')) {
             $update = true;
-        }
-        if ($user->can('edit own character') && $user->id === $character->user_id) {
+        } else if ($user->can('edit own character') && $user->id === $character->user_id) {
             $update = !in_array($character->status_id, [Status::DEAD, Status::RETIRED]);
         }
         return $update
@@ -86,15 +100,13 @@ class CharacterPolicy
     {
         if ($character->status_id > Status::APPROVED) {
             return Response::deny('Characters which have been played cannot be deleted.');
-        }
-        if (!$character->canBeReset()) {
+        } else if (!$character->canBeReset()) {
             return Response::deny('Characters which have been played cannot be deleted.');
         }
         $delete = false;
         if ($user->can('delete all characters')) {
             $delete = true;
-        }
-        if ($user->can('delete own character') && $user->id === $character->user_id) {
+        } else if ($user->can('delete own character') && $user->id === $character->user_id) {
             $delete = true;
         }
         return $delete
@@ -126,8 +138,7 @@ class CharacterPolicy
     {
         if ($character->status_id < Status::APPROVED) {
             return Response::deny('Characters which have not been played cannot be resuscitated.');
-        }
-        if ($character->status_id > Status::PLAYED) {
+        } else if ($character->status_id > Status::PLAYED) {
             return Response::deny('Character cannot be resuscitated.');
         }
         $resuscitate = false;

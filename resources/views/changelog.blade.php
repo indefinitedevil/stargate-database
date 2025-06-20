@@ -13,6 +13,7 @@
                 <ul class="list-inside list-disc">
                     <li>Sys Ref: updated catchup XP calculations to be based solely on downtime training, ignoring characters who have not submitted a downtime.</li>
                     <li>Event Runner: removed dedicated role.</li>
+                    <li>Event runners now have access to the skill breakdown based on their attendance role for future events.</li>
                 </ul>
             </div>
             <div>
