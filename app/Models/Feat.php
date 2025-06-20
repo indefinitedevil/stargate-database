@@ -9,8 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property string name
+ * @property string print_name
  * @property string description
  * @property int per_event
+ * @property int per_day
+ * @property string cost
  * @property Collection skills
  */
 class Feat extends Model
@@ -31,10 +34,23 @@ class Feat extends Model
         if ($this->per_event) {
             foreach ($character->trainedSkills as $trainedSkill) {
                 if ($trainedSkill->skill->feats->contains($this)) {
-                    $perEvent ++;
+                    $perEvent++;
                 }
             }
         }
         return $perEvent;
+    }
+
+    public function getPerDay(Character $character): int
+    {
+        $perDay = 0;
+        if ($this->per_day) {
+            foreach ($character->trainedSkills as $trainedSkill) {
+                if ($trainedSkill->skill->feats->contains($this)) {
+                    $perDay += $this->per_day;
+                }
+            }
+        }
+        return $perDay;
     }
 }

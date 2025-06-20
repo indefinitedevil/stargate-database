@@ -397,7 +397,7 @@ After role-playing with someone for at least five minutes you may spend 1 Vigor 
 * Find out what someone is trying to achieve (in broad terms) through their words.
 * Detect their current emotional state.
 
-You may Spend 1 Vigor to falsify a response to a Psychological Challenge if these abilities are used against you.
+You may Spend 2 Vigor to falsify a response to a Psychological Challenge if these abilities are used against you.
 
 After role-playing with someone for at least twenty minutes you may spend 2 Vigor to do the following:
 * Detect someone’s psychological flaws.
@@ -856,6 +856,36 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'vigor' => 0,
                 'display' => 1,
             ],
+            [
+                'id' => 25,
+                'name' => 'Poker Face',
+                'print_name' => NULL,
+                'skill_category_id' => 3,
+                'description' => 'You are particularly difficult to get a read on, psychologically speaking. This skill reduces the cost of falsifying psychological responses by one.',
+                'upkeep' => 0,
+                'cost' => 0,
+                'specialties' => 0,
+                'specialty_type_id' => NULL,
+                'repeatable' => 0,
+                'body' => 0,
+                'vigor' => 0,
+                'display' => 1,
+            ],
+            [
+                'id' => 26,
+                'name' => 'Tenured Academic',
+                'print_name' => NULL,
+                'skill_category_id' => 3,
+                'description' => 'Some people have spent their whole lives in academia and it shows.',
+                'upkeep' => 0,
+                'cost' => 0,
+                'specialties' => 0,
+                'specialty_type_id' => NULL,
+                'repeatable' => 0,
+                'body' => 0,
+                'vigor' => 0,
+                'display' => 1,
+            ],
         ], 'id', [
             'name',
             'description',
@@ -873,6 +903,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
 
     public function seedBasicSkills()
     {
+        $expertKnowledgeDescription = 'This increases your hand size for a chosen technology skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12. You may **not** use this skill to increase the hand size of a Basic Skill that grants a card.';
         DB::table('skills')->upsert([
             [
                 'id' => 44,
@@ -1108,7 +1139,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'name' => 'Expert Knowledge: Computing',
                 'print_name' => 'EK: Computing',
                 'skill_category_id' => 4,
-                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
+                'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1123,7 +1154,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'name' => 'Expert Knowledge: Cryptography',
                 'print_name' => 'EK: Cryptography',
                 'skill_category_id' => 4,
-                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
+                'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1138,7 +1169,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'name' => 'Expert Knowledge: Electrical Engineering',
                 'print_name' => 'EK: Elec. Eng.',
                 'skill_category_id' => 4,
-                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
+                'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1153,7 +1184,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'name' => 'Expert Knowledge: Explosives Training',
                 'print_name' => 'EK: Demolitions',
                 'skill_category_id' => 4,
-                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
+                'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1168,7 +1199,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'name' => 'Expert Knowledge: Larceny',
                 'print_name' => 'EK: Larceny',
                 'skill_category_id' => 4,
-                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
+                'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1183,7 +1214,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'name' => 'Expert Knowledge: Mechanical Engineering',
                 'print_name' => 'EK: Mech. Eng.',
                 'skill_category_id' => 4,
-                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
+                'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1198,7 +1229,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'name' => 'Expert Knowledge: Paramedic',
                 'print_name' => 'EK: Paramedic',
                 'skill_category_id' => 4,
-                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
+                'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1213,7 +1244,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'name' => 'Expert Knowledge: Signals Intelligence',
                 'print_name' => 'EK: SIGINT',
                 'skill_category_id' => 4,
-                'description' => 'This increases your hand size for a chosen technical skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12.',
+                'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1409,12 +1440,12 @@ Allows use of a Riot Shield (+2 BP).',
                 'skill_category_id' => 5,
                 'description' => 'You gain the following abilities using your hands:
 * Strike (unlimited): You cause damage as per Boxing.
-* Grapple (Costs 1 Vigor) You can keep the target restrained for 10 seconds. The target may still use small weapons (not Unarmed strikes) against you, provided they were holding them when the grapple began.
+* Grapple (Costs 1 Vigor) You can keep the target restrained for 10 seconds. The target may still use small ranged weapons (not Unarmed or Melee strikes) against you, provided they were holding them when the grapple began.
     A grappled target may not use any feats or abilities other than Break Hold.
     You MUST use both hands to grapple, or it ends immediately. ANY unarmed call you make after the grapple begins, (Except Knockout), ends it. If you are incapacitated or rendered unconscious the grapple automatically ends.
+* Killing Blow (Costs 1 Vigor on top of the Grapple): You can, after 10 seconds of grappling an opponent, use the Killing Blow feat to make the Lethal or Sleep calls.
 * Throw (Costs 1 Vigor): You call “Knockback”. The target must role-play being thrown away from you and Knocked Down.
 * Break Hold (Costs 1 Vigor): You call “Break Hold”. The target must release you from a grapple, or you can resist a throw as you’ve broken their hold.
-* Sleep (costs 1 additional Vigor on top of the Grapple) You can, after 10 seconds of grappling an opponent, render a person unconscious immediately.
 * Disarm (Costs 1 Vigor): Your opponent must drop/place what they are holding on the floor, or otherwise release it with both hands.',
                 'upkeep' => 0,
                 'cost' => 12,
@@ -2099,6 +2130,21 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             [
                 'skill_id' => 92,
                 'prereq_id' => 91,
+                'always_required' => 1,
+            ],
+            [
+                'skill_id' => 25,
+                'prereq_id' => 19,
+                'always_required' => 0,
+            ],
+            [
+                'skill_id' => 25,
+                'prereq_id' => 57,
+                'always_required' => 0,
+            ],
+            [
+                'skill_id' => 26,
+                'prereq_id' => 28,
                 'always_required' => 1,
             ],
         ]);

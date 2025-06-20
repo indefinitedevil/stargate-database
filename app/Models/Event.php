@@ -45,7 +45,8 @@ class Event extends Model
         return $this->belongsToMany(User::class)
             ->withPivot('character_id', 'attended', 'role')
             ->where('role', '>', self::ROLE_NONE)
-            ->orderBy('role');
+            ->orderBy('role')
+            ->orderBy('name');
     }
 
     public function characters(): Collection

@@ -42,6 +42,6 @@ class Background extends Model
 
     public function getAdjustedMonthsAttribute(): int
     {
-        return $this->months + CharacterHelper::getLowestTrainedMonths();
+        return $this->months + CharacterHelper::getCatchupXP();
     }
 }
