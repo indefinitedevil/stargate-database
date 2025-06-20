@@ -1,5 +1,4 @@
 @php
-    use App\Helpers\CharacterHelper;
     use App\Models\Event;
 @endphp
 <x-app-layout>
