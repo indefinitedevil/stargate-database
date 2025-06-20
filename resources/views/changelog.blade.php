@@ -12,6 +12,7 @@
                 <h3 class="text-lg font-semibold">Update: 20th June 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Sys Ref: updated catchup XP calculations to be based solely on downtime training, ignoring characters who have not submitted a downtime.</li>
+                    <li>Event Runner: removed dedicated role.</li>
                 </ul>
             </div>
             <div>
