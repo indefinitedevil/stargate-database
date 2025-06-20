@@ -22,7 +22,7 @@
             <strong>{{ __('Highest training months on an active character:') }}</strong> {{ CharacterHelper::getHighestTrainedMonths() }}
         </p>
         <p>
-            <strong>{{ __('Catchup XP:') }}</strong> {{ CharacterHelper::getLowestDowntimeMonths() }}
+            <strong>{{ __('Catchup XP:') }}</strong> {{ CharacterHelper::getCatchupXP() }}
         </p>
     </div>
 

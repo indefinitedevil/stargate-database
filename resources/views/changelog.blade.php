@@ -13,7 +13,9 @@
                 <ul class="list-inside list-disc">
                     <li>Admin: tidied manage roles screen.</li>
                     <li>Secretary: updated attendance lists to show event roles.</li>
+                    <li>Plot Co: updated training/catchup XP display.</li>
                     <li>Sys Ref: updated catchup XP calculations to be based solely on downtime training, ignoring characters who have not submitted a downtime.</li>
+                    <li>Sys Ref: added catchup XP numbers to Skill Check screen.</li>
                     <li>Sys Ref: rules 1.3 update.</li>
                     <li>Event Runner: removed dedicated role.</li>
                     <li>Event runners now have access to the skill breakdown based on their attendance role for future events.</li>

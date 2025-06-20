@@ -45,7 +45,7 @@
                                 @if ($user->pivot->character_id)
                                     <a class="underline"
                                        href="{{ route('characters.view', ['characterId' => $user->pivot->character_id]) }}">
-                                        {{ CharacterHelper::getCharacterById($user->pivot->character_id)->listName }}
+                                        {{ CharacterHelper::getCharacterById($user->pivot->character_id)->listName ?? __('No character') }}
                                     </a>
                                 @else
                                     {{ __('No character') }}
