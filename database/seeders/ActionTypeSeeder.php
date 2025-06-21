@@ -50,6 +50,11 @@ class ActionTypeSeeder extends Seeder
                 'type' => ActionType::MISC,
                 'name' => 'Other'
             ],
+            [
+                'id' => ActionType::EXPERIMENT,
+                'type' => ActionType::RESEARCH_SUBJECT,
+                'name' => 'Research Subject'
+            ],
         ];
 
         DB::table('action_types')->upsert($actionTypes, 'id');
