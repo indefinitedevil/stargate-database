@@ -258,7 +258,7 @@
                         @endphp
                         @foreach ($savedActions as $action)
                             <div>
-                                <p class="text-lg">{{ trans_choice('Miscellaneous Actions|Miscellaneous Action :number', $downtime->other_actions, ['number' => ++$actionCount]) }}</p>
+                                <p class="text-lg">{{ trans_choice('Personal Action|Personal Action :number', $downtime->other_actions, ['number' => ++$actionCount]) }}</p>
                                 <input type="hidden" name="other_action[{{ $actionCount }}][id]"
                                        value="{{ $action->id }}">
                                 <input type="hidden" name="other_action[{{ $actionCount }}][type]"
@@ -267,20 +267,27 @@
                                             name="other_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full"
-                                            :placeholder="__('Any other actions or information you want to pass to the plot coordinator.')">{{ $action->notes }}</x-textarea>
+                                            :placeholder="__('Details regarding a single personal action you want to inform the plot coordinator about.')">{{ $action->notes }}</x-textarea>
                             </div>
                         @endforeach
                         @while($actionCount < $downtime->other_actions)
                             <div>
-                                <p class="text-lg">{{ trans_choice('Miscellaneous Actions|Miscellaneous Action :number', $downtime->other_actions, ['number' => ++$actionCount]) }}</p>
-                                <input type="hidden" name="other_action[{{ $actionCount }}][type]" value="{{ ActionType::OTHER }}"/>
+                                <p class="text-lg">{{ trans_choice('Personal Action|Personal Action :number', $downtime->other_actions, ['number' => ++$actionCount]) }}</p>
+                                <input type="hidden" name="other_action[{{ $actionCount }}][type]" value="{{ ActgionType::OTHER }}"/>
                                 <x-textarea id="other_action_{{ $actionCount }}_notes"
                                             name="other_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full"
-                                            :placeholder="__('Any other actions or information you want to pass to the plot coordinator.')"/>
+                                            :placeholder="__('Details regarding a single personal action you want to inform the plot coordinator about.')"/>
                             </div>
                         @endwhile
+                        <p class="text-sm">
+                            {{ __('This is a space for personal research actions your character is undertaking.') }}
+                            {{ __('This is not a replacement for research projects but is here for queries and actions that you are personally undertaking during downtime.') }}
+                        </p>
+                        <p class="text-sm">
+                            {{ __('An example of this may be "fortifying your laptop firewalls against alien intrusion" or "going to the library to research Welsh myths".') }}
+                        </p>
                     </div>
                 </div>
             @endif
