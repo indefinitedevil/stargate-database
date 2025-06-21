@@ -74,12 +74,11 @@
                     </div>
 
                     <div>
-                        <x-input-label for="other_actions" :value="__('Other Actions')"/>
+                        <x-input-label for="other_actions" :value="__('Personal Actions')"/>
                         <x-text-input id="other_actions" name="other_actions" type="number"
                                       class="mt-1 block w-full"
                                       :value="old('other_actions', $downtime->other_actions ?? 1)" required/>
                         <x-input-error class="mt-2" :messages="$errors->get('other_actions')"/>
-                        <p class="text-sm">{{ __('How many boxes players get for "other things to tell the plot co".') }}</p>
                     </div>
 
                     <div class="col-span-3"></div>
