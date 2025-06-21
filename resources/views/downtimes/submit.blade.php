@@ -110,7 +110,8 @@
                                 <x-select id="ds_{{ $actionCount }}_{{ ActionType::UPKEEP }}"
                                           class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => $action])</x-select>
 
-                                <p id="da_{{ $actionCount }}_teaching" class="{{ ActionType::TEACHING == $action->action_type_id ? '' : 'hidden' }} text-sm mt-1">{{ __('Teaching a training course provides you with +1 maximum Vigor for the next event.') }}</p>
+                                <p id="da_{{ $actionCount }}_teaching"
+                                   class="{{ ActionType::TEACHING == $action->action_type_id ? '' : 'hidden' }} text-sm mt-1">{{ __('Teaching a training course provides you with +1 maximum Vigor for the next event.') }}</p>
                                 <div id="da_{{ $actionCount }}_notes"
                                      class="{{ ActionType::MISSION == $action->action_type_id ? '' : 'hidden' }}">
                                     <x-input-label for="development_action_{{ $actionCount }}_notes" class="mt-1"
@@ -150,7 +151,8 @@
                                 <x-select id="ds_{{ $actionCount }}_{{ ActionType::UPKEEP }}"
                                           class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => null])</x-select>
 
-                                <p id="da_{{ $actionCount }}_teaching" class="hidden text-sm mt-1">{{ __('Teaching a training course provides you with +1 maximum Vigor for the next event.') }}</p>
+                                <p id="da_{{ $actionCount }}_teaching"
+                                   class="hidden text-sm mt-1">{{ __('Teaching a training course provides you with +1 maximum Vigor for the next event.') }}</p>
                                 <div id="da_{{ $actionCount }}_notes" class="hidden">
                                     <x-input-label for="development_action_{{ $actionCount }}_notes" class="mt-1"
                                                    :value="__('Notes')"/>
@@ -168,7 +170,7 @@
 
             @if ($downtime->research_actions > 0)
                 <div
-                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->research_actions }}">
+                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->research_actions + $downtime->experiment_actions }}">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
                         @php
                             $actionTypes = ActionType::where('type', ActionType::RESEARCH)->get();
@@ -242,6 +244,44 @@
                                             :placeholder="__('Notes')"/>
                             </div>
                         @endwhile
+
+                        @if ($downtime->experiment_actions)
+                            @php
+                                $actionTypes = ActionType::where('type', ActionType::EXPERIMENT)->get();
+                                $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
+                                    ->where('action_type_id', ActionType::RESEARCH_SUBJECT)
+                                    ->get();
+                                $actionCount = 0;
+                            @endphp
+                            @foreach ($savedActions as $action)
+                                <div>
+                                    <p class="text-lg">{{ __('Research Subject Action :number', ['number' => ++$actionCount]) }}</p>
+                                    <input type="hidden" name="research_subject_action[{{ $actionCount }}][id]"
+                                           value="{{ $action->id }}">
+                                    <input type="hidden" name="research_subject_action[{{ $actionCount }}][type]"
+                                           value="{{ ActionType::RESEARCH_SUBJECT }}">
+                                    <x-select id="research_project_{{ $actionCount }}"
+                                              name="research_subject_action[{{ $actionCount }}][research_project_id]"
+                                              :disabled="!$downtime->isOpen()"
+                                              class="mt-1 block">@include('downtimes.partials.research', ['action' => $action])</x-select>
+                                    <p class="text-xs">{{ __('You may consent to being the subject of a research project that requires volunteer subjects.') }}</p>
+                                </div>
+                            @endforeach
+                            @if ($downtime->getResearchVolunteerProjects()->count() > 0)
+                                @while($actionCount < $downtime->experiment_actions)
+                                    <div>
+                                        <p class="text-lg">{{ __('Research Subject Action :number', ['number' => ++$actionCount]) }}</p>
+                                        <input type="hidden" name="research_subject_action[{{ $actionCount }}][type]"
+                                               value="{{ ActionType::RESEARCH_SUBJECT }}">
+                                        <x-select id="research_project_{{ $actionCount }}"
+                                                  name="research_subject_action[{{ $actionCount }}][research_project_id]"
+                                                  :disabled="!$downtime->isOpen()"
+                                                  class="mt-1 block">@include('downtimes.partials.research', ['action' => null])</x-select>
+                                        <p class="text-xs">{{ __('You may consent to being the subject of a research project that requires volunteer subjects.') }}</p>
+                                    </div>
+                                @endwhile
+                            @endif
+                        @endif
                     </div>
                 </div>
             @endif
@@ -273,7 +313,8 @@
                         @while($actionCount < $downtime->other_actions)
                             <div>
                                 <p class="text-lg">{{ trans_choice('Personal Action|Personal Action :number', $downtime->other_actions, ['number' => ++$actionCount]) }}</p>
-                                <input type="hidden" name="other_action[{{ $actionCount }}][type]" value="{{ ActgionType::OTHER }}"/>
+                                <input type="hidden" name="other_action[{{ $actionCount }}][type]"
+                                       value="{{ ActgionType::OTHER }}"/>
                                 <x-textarea id="other_action_{{ $actionCount }}_notes"
                                             name="other_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"

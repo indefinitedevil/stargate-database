@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Helpers\CharacterHelper;
 use App\Mail\DowntimeProcessed;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,22 +11,23 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
 
 /**
- * @property int $id
- * @property string $name
- * @property \DateTime $start_time
- * @property \DateTime $end_time
- * @property string $created_at
- * @property string $updated_at
- * @property int $development_actions
- * @property int $research_actions
- * @property int $other_actions
- * @property Collection $actions
- * @property Collection $missions
- * @property Collection $trainingCourses
- * @property Event $event
- * @property int $event_id
- * @property bool $open
- * @property bool $processed
+ * @property int id
+ * @property string name
+ * @property \DateTime start_time
+ * @property \DateTime end_time
+ * @property string created_at
+ * @property string updated_at
+ * @property int development_actions
+ * @property int research_actions
+ * @property int experiment_actions
+ * @property int other_actions
+ * @property Collection actions
+ * @property Collection missions
+ * @property Collection trainingCourses
+ * @property Event event
+ * @property int event_id
+ * @property bool open
+ * @property bool processed
  */
 class Downtime extends Model
 {
@@ -39,6 +39,7 @@ class Downtime extends Model
         'end_time',
         'development_actions',
         'research_actions',
+        'experiment_actions',
         'other_actions',
         'event_id',
     ];
@@ -80,7 +81,22 @@ class Downtime extends Model
 
     public function getResearchProjects(): Collection
     {
-        return ResearchProject::all();
+        static $researchProjects = null;
+        if (is_null($researchProjects)) {
+            $researchProjects = ResearchProject::where('active', true)->get();
+        }
+        return $researchProjects;
+    }
+
+    public function getResearchVolunteerProjects(): Collection
+    {
+        static $researchVolunteerProjects = null;
+        if (is_null($researchVolunteerProjects)) {
+            $researchVolunteerProjects = ResearchProject::where('needs_volunteers', true)
+                ->where('active', true)
+                ->get();
+        }
+        return $researchVolunteerProjects;
     }
 
     public function trainingCourses(): HasMany
