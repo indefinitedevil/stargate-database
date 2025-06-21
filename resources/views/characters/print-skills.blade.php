@@ -13,7 +13,7 @@
                         <h2 class="text-xl font-medium text-gray-900">
                             {{ __('Skills') }}
                         </h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 clear-both">
+                        <div class="space-y-6 clear-both">
                             @if ($character->status_id < Status::APPROVED)
                                 <div>
                                     <ul>
@@ -28,40 +28,35 @@
                                     </ul>
                                 </div>
                             @endif
-                            @foreach($character->displayedTrainedSkills->chunk(4) as $trainedSkills)
+                            @foreach($character->displayedTrainedSkills as $characterSkill)
                                 <div>
-                                    <ul>
-                                        @foreach ($trainedSkills as $characterSkill)
-                                            <li>{{ $characterSkill->print_name }}
-                                                @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
-                                                    *
-                                                    @php $flashOfInsight = true; @endphp
-                                                @endif
-                                                @if($characterSkill->skill->feats->contains(Feat::BOTCH_JOB))
-                                                    †
-                                                    @php $botchJob = true; @endphp
-                                                @endif
-                                                @if($characterSkill->skill->specialties > 1)
-                                                    <ul class="list-disc list-inside">
-                                                        @foreach ($characterSkill->allSpecialties as $specialty)
-                                                            <li>{{ $specialty->name }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                @endif
-                                                <div class="text-sm pl-4 space-y-2">
-                                                    {!! process_markdown($characterSkill->skill->description) !!}
-                                                </div>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                                    {{ $characterSkill->print_name }}
+                                    @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
+                                        *
+                                        @php $flashOfInsight = true; @endphp
+                                    @endif
+                                    @if($characterSkill->skill->feats->contains(Feat::BOTCH_JOB))
+                                        †
+                                        @php $botchJob = true; @endphp
+                                    @endif
+                                    @if($characterSkill->skill->specialties > 1)
+                                        <ul class="list-disc list-inside">
+                                            @foreach ($characterSkill->allSpecialties as $specialty)
+                                                <li>{{ $specialty->name }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                    <div class="text-sm pl-4 space-y-2">
+                                        {!! process_markdown($characterSkill->skill->description) !!}
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
-                        @if(!empty($flashOfInsight))
+                        @if (!empty($flashOfInsight))
                             <p class="mt-1 text-sm">{{ __('* Flash of Insight discount available') }}</p>
                         @endif
-                        @if(!empty($botchJob))
-                            <p class="mt-1">{{ __('† Botch Job available') }}</p>
+                        @if (!empty($botchJob))
+                            <p class="mt-1 text-sm">{{ __('† Botch Job available') }}</p>
                         @endif
                     </div>
                 </div>
@@ -71,7 +66,7 @@
                         <h2 class="text-xl font-medium text-gray-900">
                             {{ __('Feats') }}
                         </h2>
-                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 mt-1">
+                        <ul class="space-y-6 mt-1">
                             @foreach ($character->feats as $feat)
                                 <li>
                                     {{ $feat->name }}

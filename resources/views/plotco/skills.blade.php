@@ -20,7 +20,7 @@
                     <x-link-button href="{{ route('plotco.skills') }}"
                                    :primary="!isset($_GET['event'])" class="mr-3 mt-4"
                     >{{ __('All') }}</x-link-button>
-                    @foreach (Event::all() as $event)
+                    @foreach (Event::where('end_date', '>', date('Y-m-d'))->get() as $event)
                         <x-link-button href="{{ route('plotco.skills', ['event' => $event->id]) }}"
                                        :primary="isset($_GET['event']) && $event->id == $_GET['event']"
                                        class="mr-3 mt-4"

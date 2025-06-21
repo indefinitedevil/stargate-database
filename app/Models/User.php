@@ -23,6 +23,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
 
+    const PLOT_CO_ID = 1;
+
     /**
      * The attributes that are mass assignable.
      *

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @property int character_id
@@ -24,9 +25,13 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property int vigor_change
  * @property int temp_body_change
  * @property int temp_vigor_change
+ * @property bool skill_completed
+ * @property bool skill_removed
  * @property Character character
  * @property int id
  * @property int character_skill_id
+ * @property int user_id
+ * @property User user
  * @property \DateTime created_at
  */
 class CharacterLog extends Model
@@ -46,6 +51,8 @@ class CharacterLog extends Model
         'vigor_change',
         'temp_body_change',
         'temp_vigor_change',
+        'skill_completed',
+        'skill_removed',
     ];
 
     protected $casts = [
@@ -72,6 +79,11 @@ class CharacterLog extends Model
         return $this->belongsTo(Character::class, 'teacher_id');
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function character(): BelongsTo
     {
         return $this->belongsTo(Character::class);
@@ -79,13 +91,25 @@ class CharacterLog extends Model
 
     public function save(array $options = [])
     {
-        if ($this->amount_trained) {
+        if (empty($this->user_id)) {
+            if (LogType::PLOT === $this->log_type_id) {
+                $this->user_id = Auth::user()->id;
+            } else {
+                $this->user_id = $this->character->user_id;
+            }
+        }
+        $exists = $this->exists;
+        $return = parent::save($options);
+        if (!$exists && $this->amount_trained) {
             $characterSkill = CharacterSkill::find($this->character_skill_id);
             if ($characterSkill->trained >= $characterSkill->cost) {
                 $characterSkill->completed = true;
                 $characterSkill->save();
+
+                $this->skill_completed = true;
+                parent::save($options);
             }
         }
-        return parent::save($options);
+        return $return;
     }
 }

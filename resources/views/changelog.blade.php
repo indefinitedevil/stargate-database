@@ -9,6 +9,78 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 19th May 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: allow change of user on characters to allow for NPCs to be assigned to plot co user.</li>
+                    <li>Plot Co: organise user lists by type.</li>
+                    <li>Plot Co: allow direct creation and editing of character logs.</li>
+                    <li>Plot Co: removed ability to add completed skills to characters without creating a log.</li>
+                    <li>Plot Co: added section for "other abilities" to characters.</li>
+                    <li>Track ID of user making changes to characters.</li>
+                    <li>Add plot coordinator user for system use.</li>
+                    <li>Changed Endurance Training additions from E1 to be permanent Body changes instead.</li>
+                    <li>Changed attendance tracking to remove temporary Body/Vigor.</li>
+                    <li>Refactored inline scripts to be shared files.</li>
+                    <li>Had CodeRabbit do a code review and fixed some bugs as a result.</li>
+                    <li>Corrected the parameters for when skill upkeep is required.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Bugfix: 30th April 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Fixed bug with skill completion during downtime processing.</li>
+                    <li>Fixed display bug in downtime processing emails.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Bugfix: 28th April 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: added count of submitted downtimes.</li>
+                    <li>Plot Co: added button for editing downtime submissions.</li>
+                    <li>Fixed bug with setting played status.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Bugfix: 22nd April 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: added ability to delete downtime actions before processing.</li>
+                    <li>Plot Co: show misc actions in downtime view.</li>
+                    <li>Secretary: added labels for accessibility.</li>
+                    <li>Fixed bug which allowed anyone to submit downtime actions regardless of event attendance.</li>
+                    <li>Replaced wording about submitting downtime actions with additional notes.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Update: 20th April 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: add downtime reminder email.</li>
+                    <li>Plot Co: fixed bug with printing characters.</li>
+                    <li>Remove attendance feature from characters.</li>
+                    <li>Fixed Botch Job showing up erroneously on bulk prints.</li>
+                    <li>Changed formatting of print skills.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Bugfix: 17th April 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: fixed event skill breakdown.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Minor updates: 15th April 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: now has event editing permission.</li>
+                    <li>Added CTA to downtime announcements.</li>
+                    <li>Teachers now get the number of trainees when checking their downtime submission.</li>
+                    <li>Empty miscellaneous actions are now removed.</li>
+                    <li>Fixed some issues with training course information display.</li>
+                    <li>Aligned language on preprocess downtime view.</li>
+                    <li>Limited emails when testing to prevent upsetting Mailtrap.</li>
+                    <li>Expert Knowledge skills no longer trained by main skill.</li>
+                    <li>Fixed potential exploit where a character could double their training from a single course.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 13th April 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed bug with skill training seeding.</li>

@@ -10,9 +10,14 @@
                class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
                onclick="return confirm('{{ __('Are you sure you want to process this downtime?') }}')"
             >{{ __('Process') }}</a>
-        @endcan
+        @elseif ($downtime->open)
+            <a href="{{ route('plotco.downtimes.remind', ['downtimeId' => $downtime]) }}"
+               class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
+               onclick="return confirm('{{ __('Are you sure you want to send a reminder?') }}')"
+            ><i class="fa-solid fa-envelope"></i> {{ __('Remind') }}</a>
+        @endif
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __($downtime->event_id ? 'Check Downtime Processing: :name (:event)' : 'Check Downtime Processing: :name', ['name' => $downtime->name, 'event' => $downtime->event->name]) }}
+            {{ __($downtime->event_id ? 'Check Downtime Processing: :name (:event)' : 'Check Downtime Processing: :name', ['name' => $downtime->name, 'event' => $downtime->event->name ?? '']) }}
         </h2>
     </x-slot>
 
@@ -29,18 +34,19 @@
                         if (empty($skills[$skillId])) {
                             $skills[$skillId] = Skill::find($skillId);
                         }
+                        $trainedCharacters = [];
                     @endphp
                     <div>
                         <p class="text-lg font-semibold">{{ $skills[$skillId]->name }}</p>
                         <ul class="list-disc list-inside">
-                            @foreach($teachers as $teacher)
+                            @foreach($teachers as $teacherId => $action)
                                 @php
-                                    if (empty($characters[$teacher])) {
-                                        $characters[$teacher] = Character::find($teacher);
+                                    if (empty($characters[$teacherId])) {
+                                        $characters[$teacherId] = Character::find($teacherId);
                                     }
                                 @endphp
                                 <li>
-                                    {{ __('Taught by :name', ['name' => $characters[$teacher]->listName]) }}
+                                    {{ __('Taught by :name', ['name' => $characters[$teacherId]->listName]) }}
                                     ({{ __('+1 Vigor at next event') }})
                                 </li>
                             @endforeach
@@ -50,6 +56,7 @@
                                         if (empty($characters[$characterId])) {
                                             $characters[$characterId] = Character::find($characterId);
                                         }
+                                        $trainedCharacters[] = $characterId;
                                     @endphp
                                     <li>
                                         {{ trans_choice('Trained by :name (:months month)|Trained by :name (:months months)', count($actions), ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
@@ -70,10 +77,13 @@
                                         @endphp
                                         <li>
                                             {{ trans_choice(':skill trained by :name (:months month)|:skill trained by :name (:months months)', count($actions), ['skill' => $subSkill->name, 'name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
-                                            @if (!in_array($characterId, $teachers))
+                                            @if (!in_array($characterId, $teachers) && !in_array($characterId, $trainedCharacters))
                                                 ({{ __('+1 month from course') }})
                                             @endif
                                         </li>
+                                        @php
+                                            $trainedCharacters[] = $characterId;
+                                        @endphp
                                     @endforeach
                                     @php unset($trainedSkills[$subSkill->id]); @endphp
                                 @endif
@@ -125,7 +135,7 @@
                                         }
                                     @endphp
                                     <li>
-                                        @if (!empty($upkeepMaintenance) && in_array($characterId, $upkeepMaintenance))
+                                        @if (!empty($upkeepMaintenance[$skillId]) && in_array($characterId, $upkeepMaintenance[$skillId]))
                                             {{ __('Maintained by :name', ['name' => $characters[$characterId]->listName]) }}
                                         @else
                                             {{ __('Required by :name - WILL BE LOST', ['name' => $characters[$characterId]->listName]) }}

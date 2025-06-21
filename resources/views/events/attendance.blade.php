@@ -57,13 +57,19 @@
                         </td>
                         @foreach($roles as $role)
                             <td class="{{ $cellClass }}">
-                                <input type="radio" name="attendance[{{ $user->id }}][role]"
-                                       value="{{ $role }}" {{ !empty($eventRoles[$user->id]) && $eventRoles[$user->id] == $role ? 'checked' : '' }}>
+                                <label>
+                                    <input type="radio" name="attendance[{{ $user->id }}][role]"
+                                           value="{{ $role }}" {{ !empty($eventRoles[$user->id]) && $eventRoles[$user->id] == $role ? 'checked' : '' }}>
+                                    {{ Event::roleName($role) }}
+                                </label>
                             </td>
                         @endforeach
                         <td class="{{ $cellClass }}">
-                            <input type="checkbox" name="attendance[{{ $user->id }}][attended]"
-                                {{ !empty($attended[$user->id]) ? 'checked' : '' }}>
+                            <label>
+                                <input type="checkbox" name="attendance[{{ $user->id }}][attended]"
+                                    {{ !empty($attended[$user->id]) ? 'checked' : '' }}>
+                                {{ __('Attended') }}
+                            </label>
                         </td>
                     </tr>
                 @endforeach

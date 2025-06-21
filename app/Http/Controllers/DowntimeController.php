@@ -131,6 +131,9 @@ class DowntimeController extends Controller
         if (empty($validatedData['id'])) {
             foreach (User::all() as $user) {
                 Mail::to($user->email, $user->name)->send(new DowntimeCreated($downtime, $user));
+                if ('local' == env('APP_ENV') || str_contains($_SERVER['HTTP_HOST'], 'herokuapp.com')) {
+                    break;
+                }
             }
         }
         return redirect(route('plotco.downtimes'))

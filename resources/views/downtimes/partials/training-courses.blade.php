@@ -5,11 +5,11 @@
             <div class="space-y-2">
                 <p>{{ __('The following training courses are being run this cycle:') }}</p>
                 <ul class="list-inside list-disc">
-                    @foreach($downtime->trainingCourses->get() as $trainingCourse)
+                    @foreach($downtime->trainingCourses as $trainingCourse)
                         <li>
                             {{ $trainingCourse->characterSkill->name }}
                             @if ($trainingCourse->character_id == $character->id)
-                                ({{ __('You are teaching') }})
+                                ({{ trans_choice('You are teaching :count trainee|You are teaching :count trainees', $downtime->countTrainees($trainingCourse->characterSkill->skill_id), ['count' => $downtime->countTrainees($trainingCourse->characterSkill->skill_id)]) }})
                             @endif
                             @if ($trainingCourse->characterSkill->skill->subSkills->count() > 0)
                                 <ul class="list-inside list-disc ml-4">
@@ -23,7 +23,7 @@
                         </li>
                     @endforeach
                 </ul>
-                <p>{{ __('Training courses provides an additional month of training beyond your own actions. Benefits from training courses will be applied after the downtime is processed.') }}</p>
+                <p>{{ __('Training courses provide an additional month of training beyond your own actions. Benefits from training courses will be applied after the downtime is processed.') }}</p>
             </div>
         </div>
     </div>

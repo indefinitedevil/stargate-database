@@ -54,6 +54,7 @@
                                     </ul>
                                 </div>
                             @endif
+                            @php $botchJob = false; @endphp
                             @foreach($character->displayedTrainedSkills->chunk(5) as $trainedSkills)
                                 <div>
                                     <ul>
@@ -80,11 +81,11 @@
                                 </div>
                             @endforeach
                         </div>
-                        @if(!empty($flashOfInsight))
+                        @if (!empty($flashOfInsight))
                             <p class="mt-1 text-sm">{{ __('* Flash of Insight discount available') }}</p>
                         @endif
-                        @if(!empty($botchJob))
-                            <p class="mt-1">{{ __('† Botch Job available') }}</p>
+                        @if (!empty($botchJob))
+                            <p class="mt-1 text-sm">{{ __('† Botch Job available') }}</p>
                         @endif
                     </div>
                 </div>
@@ -118,6 +119,17 @@
                                     <li>{{ $card->name }} ({{ $card->number }})</li>
                                 @endforeach
                             </ul>
+                        </div>
+                    </div>
+                @endif
+
+                @if (!empty($character->other_abilities))
+                    <div class="py-2 bg-white text-gray-800">
+                        <div class="">
+                            <h2 class="text-xl font-medium text-gray-900">
+                                {{ __('Other Abilities') }}
+                            </h2>
+                            <div class="mt-1">{!! process_markdown($character->other_abilities) !!}</div>
                         </div>
                     </div>
                 @endif

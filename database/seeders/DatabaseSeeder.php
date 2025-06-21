@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             EventSeeder::class,
             ActionTypeSeeder::class,
-            TestSeeder::class,
         ]);
     }
 }

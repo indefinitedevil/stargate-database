@@ -28,7 +28,6 @@
                     @else
                         <x-select id="skill" name="skill_id" class="mt-1 block w-full" required
                                   onchange="showSkillDescription(this.value)">
-                            >
                             @if (!empty($editSkill))
                                 @php
                                     $skills[] = $editSkill->skill;
@@ -94,7 +93,7 @@
                     </div>
                 @endif
 
-                @if (Status::APPROVED > $character->status_id || \Illuminate\Support\Facades\Auth::user()->can('edit all characters'))
+                @if (Status::APPROVED > $character->status_id)
                     <div>
                         <x-input-label for="completed">
                             {{ __('Completed') }}
@@ -178,16 +177,7 @@
                     </div>
                 @endforeach
             </div>
-            <script>
-                function showSkillDescription(skillId) {
-                    let skills = document.querySelectorAll('.skill-description');
-                    skills.forEach(function (skill) {
-                        skill.classList.add('hidden');
-                    });
-                    let skill = document.getElementById('skill-description-' + skillId);
-                    skill.classList.remove('hidden');
-                }
-            </script>
+            <script src="{{ asset('js/characters.js') }}" defer></script>
         </div>
     </form>
 </div>

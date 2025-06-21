@@ -5,6 +5,19 @@
     <x-slot name="title">{{ __('View Downtime') }}</x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            @can ('edit downtimes')
+                @if ($downtime->open)
+                    <div class="sm:float-right sm:grid sm:grid-cols-2 gap-2">
+                        <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
+                           class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
+                        >{{ __('Edit') }}</a>
+                        <a href="{{ route('plotco.downtimes.delete-actions', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
+                           class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
+                           onclick="return confirm('{{ __('Are you sure you want to delete these downtime actions?') }}')"
+                        >{{ __('Delete') }}</a>
+                    </div>
+                @endif
+            @endcan
             {{ __('View Downtime') }}
         </h2>
     </x-slot>
@@ -12,7 +25,12 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <p>
-                <strong>{{ __('Name') }}:</strong> {{ $character->name }}
+                <strong>{{ __('Name') }}:</strong>
+                @can ('view all characters')
+                    <a href="{{ $character->getViewRoute() }}" class="underline">{{ $character->name }}</a>
+                @else
+                    {{ $character->name }}
+                @endcan
             </p>
             <p>
                 <strong>{{ __('Downtime') }}:</strong> {{ $downtime->name }}
@@ -86,7 +104,7 @@
 
         @php
             $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
-                ->whereIn('action_type_id', [ActionType::MISC])
+                ->whereIn('action_type_id', [ActionType::OTHER])
                 ->get();
             $actionCount = 0;
         @endphp

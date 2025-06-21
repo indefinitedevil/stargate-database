@@ -8,6 +8,7 @@ use App\Http\Controllers\PlotcoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SysrefController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,6 +19,11 @@ Route::get('/privacy', function () {
 Route::get('/changelog', function () {
     return view('changelog');
 })->name('changelog');
+Route::get('/roles', function () {
+    return view('roles', [
+        'roles' => Role::with('permissions')->get(),
+    ]);
+})->name('roles');
 
 Route::get('/events/', [EventController::class, 'index'])->name('events.index');
 
@@ -52,6 +58,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/characters/edit/{characterId}/skills', [CharacterController::class, 'editSkills'])->name('characters.edit-skills');
         Route::get('/characters/edit/{characterId}/skills/{skillId}', [CharacterController::class, 'editSkills'])->name('characters.edit-skill');
         Route::get('/characters/create', [CharacterController::class, 'create'])->name('characters.create');
+        Route::get('/characters/edit/{characterId}/delete-skill/{skillId}', [CharacterController::class, 'deleteSkill'])->name('characters.delete-skill');
         Route::get('/characters/edit/{characterId}/remove-skill/{skillId}', [CharacterController::class, 'removeSkill'])->name('characters.remove-skill');
         Route::post('/characters/store', [CharacterController::class, 'store'])->name('characters.store');
         Route::post('/characters/store-skill', [CharacterController::class, 'storeSkill'])->name('characters.store-skill');
@@ -84,6 +91,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/characters/played/{characterId}', [CharacterController::class, 'played'])->name('characters.played');
         Route::get('/characters/inactive/{characterId}', [CharacterController::class, 'inactive'])->name('characters.inactive');
         Route::get('/characters/resuscitate/{characterId}', [CharacterController::class, 'resuscitate'])->name('characters.resuscitate');
+        Route::get('/characters/logs/{characterId}/edit/{logId}', [CharacterController::class, 'logs'])->name('characters.edit-log');
+        Route::post('/characters/store-log', [CharacterController::class, 'storeLog'])->name('characters.store-log');
+        Route::get('/plot-co/logs/', [PlotcoController::class, 'logs'])->name('plotco.logs');
     });
 
     Route::group(['middleware' => 'can:edit downtimes'], function () {
@@ -92,6 +102,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/plot-co/downtimes/edit/{downtimeId}', [DowntimeController::class, 'edit'])->name('plotco.downtimes.edit');
         Route::get('/plot-co/downtimes/preprocess/{downtimeId}', [PlotcoController::class, 'preprocessDowntime'])->name('plotco.downtimes.preprocess');
         Route::get('/plot-co/downtimes/process/{downtimeId}', [PlotcoController::class, 'processDowntime'])->name('plotco.downtimes.process');
+        Route::get('/plot-co/downtimes/remind/{downtimeId}', [PlotcoController::class, 'remindDowntime'])->name('plotco.downtimes.remind');
+        Route::get('/plot-co/downtimes/delete/{downtimeId}/{characterId}', [PlotcoController::class, 'deleteDowntimeActions'])->name('plotco.downtimes.delete-actions');
         Route::post('/plot-co/downtimes/store', [DowntimeController::class, 'store'])->name('plotco.downtimes.store');
     });
 
