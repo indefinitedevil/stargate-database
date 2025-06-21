@@ -23,7 +23,8 @@ return new class extends Migration {
             $table->text('ooc_intent')->after('project_goals');
             $table->text('results')->after('ooc_intent');
             $table->text('plot_notes')->after('results');
-            $table->boolean('approved')->default(false)->after('plot_notes');
+            $table->tinyInteger('months')->default(0)->after('plot_notes');
+            $table->boolean('approved')->default(false)->after('months');
             $table->boolean('active')->default(false)->after('approved');
             $table->boolean('public')->default(false)->after('active');
             $table->boolean('archived')->default(false)->after('public');
