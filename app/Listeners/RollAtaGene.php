@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\CharacterApproved;
+use App\Models\Character;
 use Random\RandomException;
 
 class RollAtaGene
@@ -20,18 +21,23 @@ class RollAtaGene
      */
     public function handle(CharacterApproved $event): void
     {
-        if ($event->character->ata_gene < 0) {
+        self::roll($event->character);
+    }
+
+    public static function roll(Character $character): void
+    {
+        if ($character->ata_gene < 0) {
             try {
                 $roll = random_int(1, 20);
             } catch (RandomException $e) {
                 $roll = rand(1, 20);
             }
             if (20 == $roll) {
-                $event->character->ata_gene = 1;
+                $character->ata_gene = 1;
             } else {
-                $event->character->ata_gene = 0;
+                $character->ata_gene = 0;
             }
-            $event->character->save();
+            $character->save();
         }
     }
 }

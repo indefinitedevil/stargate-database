@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Listeners\RollAtaGene;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -445,8 +446,10 @@ class Character extends Model
 
     public function getGeneticsIndicatorAttribute(): string
     {
-        if ($this->status_id < Status::APPROVED || 0 > $this->ata_gene) {
+        if ($this->status_id < Status::APPROVED) {
             return __('N/A');
+        } else if (0 > $this->ata_gene) {
+            RollAtaGene::roll($this);
         }
         if ($this->ata_revealed) {
             //return $this->ata_gene ? __('Yes') : __('No');
