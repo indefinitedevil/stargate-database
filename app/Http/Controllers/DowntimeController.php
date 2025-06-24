@@ -106,6 +106,7 @@ class DowntimeController extends Controller
             'end_time' => 'required|date',
             'development_actions' => 'required|int',
             'research_actions' => 'required|int',
+            'experiment_actions' => 'required|int',
             'other_actions' => 'required|int',
             'event_id' => 'sometimes|exists:events,id|nullable|int',
         ]);
