@@ -18,11 +18,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string results
  * @property string plot_notes
  * @property int months
- * @property bool approved
- * @property bool active
- * @property bool public
- * @property bool archived
- * @property bool completed
+ * @property int status
+ * @property int visibility
  * @property bool needs_volunteers
  * @property int parent_project_id
  * @property Collection|DowntimeAction[] downtimeActions
@@ -36,6 +33,17 @@ class ResearchProject extends Model
 {
     use HasFactory;
 
+    const STATUS_PENDING = 0;
+    const STATUS_APPROVED = 1;
+    const STATUS_ACTIVE = 2;
+    const STATUS_ON_HOLD = 3;
+    const STATUS_COMPLETED = 4;
+    const STATUS_ABANDONED = 5;
+
+    const VISIBILITY_PRIVATE = 0;
+    const VISIBILITY_PUBLIC = 1;
+    const VISIBILITY_ARCHIVED = 2;
+
     protected $fillable = [
         'name',
         'research_subject',
@@ -44,11 +52,8 @@ class ResearchProject extends Model
         'results',
         'plot_notes',
         'months',
-        'approved',
-        'active',
-        'public',
-        'archived',
-        'completed',
+        'status',
+        'visibility',
         'needs_volunteers',
         'parent_project_id',
     ];

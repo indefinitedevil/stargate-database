@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ResearchProject;
 use Database\Seeders\ActionTypeSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -23,12 +24,9 @@ return new class extends Migration {
             $table->text('results')->after('ooc_intent');
             $table->text('plot_notes')->after('results');
             $table->tinyInteger('months')->default(0)->after('plot_notes');
-            $table->boolean('approved')->default(false)->after('months');
-            $table->boolean('active')->default(false)->after('approved');
-            $table->boolean('public')->default(false)->after('active');
-            $table->boolean('archived')->default(false)->after('public');
-            $table->boolean('completed')->default(false)->after('archived');
-            $table->boolean('needs_volunteers')->default(false)->after('completed');
+            $table->tinyInteger('status')->default(ResearchProject::STATUS_PENDING)->after('months');
+            $table->tinyInteger('visibility')->default(ResearchProject::VISIBILITY_PRIVATE)->after('status');
+            $table->boolean('needs_volunteers')->default(false)->after('visibility');
             $table->foreignId('parent_project_id')->nullable()->after('needs_volunteers')
                 ->constrained('research_projects')->nullOnDelete();
         });
