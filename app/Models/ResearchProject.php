@@ -19,7 +19,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string plot_notes
  * @property int months
  * @property int status
+ * @property string status_name
  * @property int visibility
+ * @property string visibility_name
  * @property bool needs_volunteers
  * @property int parent_project_id
  * @property Collection|DowntimeAction[] downtimeActions
@@ -89,5 +91,28 @@ class ResearchProject extends Model
     {
         return $this->downtimeActions()->where('research_project_id', $this->id)
             ->where('action_type_id', ActionType::RESEARCH_SUBJECT);
+    }
+
+    public function getStatusNameAttribute(): string
+    {
+        return match ($this->status) {
+            self::STATUS_PENDING => 'Pending approval',
+            self::STATUS_APPROVED => 'Approved',
+            self::STATUS_ACTIVE => 'Active',
+            self::STATUS_ON_HOLD => 'On Hold',
+            self::STATUS_COMPLETED => 'Completed',
+            self::STATUS_ABANDONED => 'Abandoned',
+            default => 'Unknown Status',
+        };
+    }
+
+    public function getVisibilityNameAttribute(): string
+    {
+        return match ($this->visibility) {
+            self::VISIBILITY_PRIVATE => 'Private',
+            self::VISIBILITY_PUBLIC => 'Public',
+            self::VISIBILITY_ARCHIVED => 'Archived',
+            default => 'Unknown Visibility',
+        };
     }
 }
