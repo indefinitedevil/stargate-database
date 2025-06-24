@@ -74,18 +74,25 @@
                     </div>
 
                     <div>
+                        <x-input-label for="experiment_actions" :value="__('Experiment Actions')"/>
+                        <x-text-input id="experiment_actions" name="experiment_actions" type="number"
+                                      class="mt-1 block w-full"
+                                      :value="old('experiment_actions', $downtime->experiment_actions ?? 1)"
+                                      required/>
+                        <x-input-error class="mt-2" :messages="$errors->get('experiment_actions')"/>
+                    </div>
+
+                    <div>
                         <x-input-label for="other_actions" :value="__('Personal Actions')"/>
                         <x-text-input id="other_actions" name="other_actions" type="number"
                                       class="mt-1 block w-full"
                                       :value="old('other_actions', $downtime->other_actions ?? 1)" required/>
                         <x-input-error class="mt-2" :messages="$errors->get('other_actions')"/>
                     </div>
+                </div>
 
-                    <div class="col-span-3"></div>
-
-                    <div class="flex items-center gap-4">
-                        <x-primary-button>{{ __('Save') }}</x-primary-button>
-                    </div>
+                <div class="flex items-center gap-4 mt-6">
+                    <x-primary-button>{{ __('Save') }}</x-primary-button>
                 </div>
             </form>
         </div>

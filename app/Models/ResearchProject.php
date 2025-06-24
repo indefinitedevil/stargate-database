@@ -95,7 +95,12 @@ class ResearchProject extends Model
 
     public function getStatusNameAttribute(): string
     {
-        return match ($this->status) {
+        return self::getStatusName($this->status);
+    }
+
+    public static function getStatusName($statusId): string
+    {
+        return match ($statusId) {
             self::STATUS_PENDING => 'Pending approval',
             self::STATUS_APPROVED => 'Approved',
             self::STATUS_ACTIVE => 'Active',
@@ -108,7 +113,12 @@ class ResearchProject extends Model
 
     public function getVisibilityNameAttribute(): string
     {
-        return match ($this->visibility) {
+        return self::getVisibilityName($this->visibility);
+    }
+
+    public static function getVisibilityName($visibilityId): string
+    {
+        return match ($visibilityId) {
             self::VISIBILITY_PRIVATE => 'Private',
             self::VISIBILITY_PUBLIC => 'Public',
             self::VISIBILITY_ARCHIVED => 'Archived',

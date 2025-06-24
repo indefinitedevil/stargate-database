@@ -1,6 +1,6 @@
 @php
-    use App\Models\Event;
-    $title = empty($downtime->id) ? __('Create downtime') : sprintf(__('Edit downtime: %s'), $downtime->name);
+    use App\Models\ResearchProject;
+    $title = empty($project->id) ? __('Create research project') : sprintf(__('Edit research project: %s'), $project->name);
 @endphp
 <x-app-layout>
     <x-slot name="title">{{ $title }}</x-slot>
@@ -12,80 +12,114 @@
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <div class="mt-1">
-            <form method="POST" action="{{ route('plotco.downtimes.store') }}">
+            <form method="POST" action="{{ route('research.store') }}">
                 @csrf
-                @if (!empty($downtime->id))
-                    <input type="hidden" name="id" value="{{ $downtime->id }}">
+                @if (!empty($project->id))
+                    <input type="hidden" name="id" value="{{ $project->id }}">
                 @endif
                 <div class="sm:grid sm:grid-cols-6 gap-6 space-y-2 sm:space-y-0">
-                    <div class="col-span-6">
-                        <x-input-label for="name" :value="__('Downtime Name')"/>
+                    <div class="col-span-3">
+                        <x-input-label for="name" :value="__('Project Name')"/>
                         <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
-                                      :value="old('name', $downtime->name ?? '')" required autofocus/>
+                                      :value="old('name', $project->name ?? '')" required autofocus/>
                         <x-input-error class="mt-2" :messages="$errors->get('name')"/>
                     </div>
 
-                    <div class="col-span-2">
-                        <x-input-label for="start_time" :value="__('Start Time')"/>
-                        <x-text-input id="start_time" name="start_time" type="datetime-local"
+                    <div class="col-span-3">
+                        <x-input-label for="research_subject" :value="__('Subject of Research')"/>
+                        <x-text-input id="research_subject" name="research_subject" type="text"
                                       class="mt-1 block w-full"
-                                      :value="old('start_time', $downtime->start_time ? format_datetime($downtime->start_time, 'Y-m-d H:i:s') : '')"
-                                      required/>
-                        <x-input-error class="mt-2" :messages="$errors->get('start_time')"/>
+                                      :value="old('research_subject', $project->research_subject ?? '')" required/>
+                        <x-input-error class="mt-2" :messages="$errors->get('research_subject')"/>
                     </div>
 
-                    <div class="col-span-2">
-                        <x-input-label for="end_time" :value="__('End Time')"/>
-                        <x-text-input id="end_time" name="end_time" type="datetime-local"
-                                      class="mt-1 block w-full"
-                                      :value="old('end_time', $downtime->end_time ? format_datetime($downtime->end_time, 'Y-m-d H:i:s') : '')"
-                                      required/>
-                        <x-input-error class="mt-2" :messages="$errors->get('end_time')"/>
+                    <div class="col-span-3">
+                        <x-input-label for="project_goals" :value="__('Project Goals')"/>
+                        <x-textarea id="project_goals" name="project_goals" rows="6"
+                                    class="mt-1 block w-full">{{ $character->project_goals ?? '' }}</x-textarea>
+                        <x-input-error class="mt-2" :messages="$errors->get('project_goals')"/>
+                        <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                     </div>
 
-                    <div class="col-span-2">
-                        <x-input-label for="event_id" :value="__('Event (optional)')"/>
-                        <x-select id="event_id" name="event_id" class="mt-1 block w-full">
-                            <option value="">{{ __('Select an event') }}</option>
-                            @foreach(Event::all() as $event)
-                                <option value="{{ $event->id }}"
-                                        @if(old('event_id', $downtime->event_id ?? '') == $event->id) selected @endif>{{ $event->name }}</option>
+                    <div class="col-span-3">
+                        <x-input-label for="ooc_intent" :value="__('OOC Intent')"/>
+                        <x-textarea id="ooc_intent" name="ooc_intent" rows="6"
+                                    class="mt-1 block w-full">{{ $character->ooc_intent ?? '' }}</x-textarea>
+                        <x-input-error class="mt-2" :messages="$errors->get('ooc_intent')"/>
+                        <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                    </div>
+
+                    <div>
+                        <x-input-label for="status" :value="__('Status')"/>
+                        @if (empty($project->id))
+                            <x-text-input id="status" name="status" type="hidden" required
+                                          value="{{ ResearchProject::STATUS_PENDING }}"/>
+                            <x-text-input type="text" class="mt-1 block w-full" :value="__('Pending')" disabled/>
+                        @else
+                            <x-select id="status" name="status" class="mt-1 block w-full" required>
+                                @php
+                                    if (auth()->can('approve research projects')) {
+                                        $statuses = [ResearchProject::STATUS_PENDING, ResearchProject::STATUS_APPROVED];
+                                    } elseif (auth()->can('edit research projects')) {
+                                        $statuses = [ResearchProject::STATUS_APPROVED, ResearchProject::STATUS_ON_HOLD, ResearchProject::STATUS_COMPLETED, ResearchProject::STATUS_ABANDONED];
+                                    }
+                                @endphp
+                                @foreach($statuses as $status)
+                                    <option value="{{ $status }}"
+                                            @if(old('status', $project->status ?? '') == $status) selected @endif>{{ ResearchProject::getStatusName($status) }}</option>
+                                @endforeach
+                            </x-select>
+                            <x-input-error class="mt-2" :messages="$errors->get('status')"/>
+                        @endif
+                    </div>
+
+                    <div>
+                        <x-input-label for="visibility" :value="__('Visibility')"/>
+                        <x-select id="visibility" name="visibility" class="mt-1 block w-full" required>
+                            @foreach ([ResearchProject::VISIBILITY_PRIVATE, ResearchProject::VISIBILITY_PUBLIC, ResearchProject::VISIBILITY_ARCHIVED] as $visibility)
+                                <option value="{{ $visibility }}"
+                                        @if(old('visibility', $project->visibility ?? '') == $visibility) selected @endif>{{ ResearchProject::getVisibilityName($visibility) }}</option>
                             @endforeach
                         </x-select>
-                        <x-input-error class="mt-2" :messages="$errors->get('event_id')"/>
+                        <x-input-error class="mt-2" :messages="$errors->get('visibility')"/>
                     </div>
 
                     <div>
-                        <x-input-label for="development_actions" :value="__('Development Actions')"/>
-                        <x-text-input id="development_actions" name="development_actions" type="number"
+                        <x-input-label for="months" :value="__('Months required')"/>
+                        <x-text-input id="months" name="months" type="number"
                                       class="mt-1 block w-full"
-                                      :value="old('development_actions', $downtime->development_actions ?? 3)"
+                                      :value="old('months', $project->months ?? 3)"
                                       required/>
-                        <x-input-error class="mt-2" :messages="$errors->get('development_actions')"/>
+                        <x-input-error class="mt-2" :messages="$errors->get('months')"/>
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <x-input-label for="parent_project_id" :value="__('Parent Project')"/>
+                        @if ($parentProjects->count() == 0)
+                            <x-text-input type="text" class="mt-1 block w-full" disabled
+                                          value="{{ __('No completed projects') }}"/>
+                        @else
+                            <x-select id="parent_project_id" name="parent_project_id" class="mt-1 block w-full">
+                                <option value="">{{ __('No parent project') }}</option>
+                                @foreach ($parentProjects as $project)
+                                    <option value="{{ $project->id }}"
+                                            @if(old('parent_project_id', $project->parent_project_id ?? '') == $project->id) selected @endif>{{ $project->name }}</option>
+                                @endforeach
+                            </x-select>
+                            <x-input-error class="mt-2" :messages="$errors->get('parent_project_id')"/>
+                        @endif
                     </div>
 
                     <div>
-                        <x-input-label for="research_actions" :value="__('Research Actions')"/>
-                        <x-text-input id="research_actions" name="research_actions" type="number"
-                                      class="mt-1 block w-full"
-                                      :value="old('research_actions', $downtime->research_actions ?? 3)"
-                                      required/>
-                        <x-input-error class="mt-2" :messages="$errors->get('research_actions')"/>
+                        <x-input-label for="needs_volunteers" :value="__('Needs volunteers')"/>
+                        <x-checkbox-input id="needs_volunteers" name="needs_volunteers" type="number"
+                                          :value="old('needs_volunteers', $project->needs_volunteers ?? false)"/>
+                        <x-input-error class="mt-2" :messages="$errors->get('needs_volunteers')"/>
                     </div>
+                </div>
 
-                    <div>
-                        <x-input-label for="other_actions" :value="__('Personal Actions')"/>
-                        <x-text-input id="other_actions" name="other_actions" type="number"
-                                      class="mt-1 block w-full"
-                                      :value="old('other_actions', $downtime->other_actions ?? 1)" required/>
-                        <x-input-error class="mt-2" :messages="$errors->get('other_actions')"/>
-                    </div>
-
-                    <div class="col-span-3"></div>
-
-                    <div class="flex items-center gap-4">
-                        <x-primary-button>{{ __('Save') }}</x-primary-button>
-                    </div>
+                <div class="flex items-center gap-4 mt-6">
+                    <x-primary-button>{{ __('Save') }}</x-primary-button>
                 </div>
             </form>
         </div>

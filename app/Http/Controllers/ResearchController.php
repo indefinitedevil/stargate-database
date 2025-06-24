@@ -32,13 +32,21 @@ class ResearchController extends Controller
 
     public function create()
     {
-        return view('research.edit');
+        $parentProjects = ResearchProject::where('visibility', '!=', ResearchProject::VISIBILITY_PRIVATE)
+            ->where('status', ResearchProject::STATUS_COMPLETED)
+            ->orderBy('name')
+            ->get();
+        return view('research.edit', compact('parentProjects'));
     }
 
     public function edit($projectId)
     {
         $project = ResearchProject::findOrFail($projectId);
-        return view('research.edit', compact('project'));
+        $parentProjects = ResearchProject::where('visibility', '!=', ResearchProject::VISIBILITY_PRIVATE)
+            ->where('status', ResearchProject::STATUS_COMPLETED)
+            ->orderBy('name')
+            ->get();
+        return view('research.edit', compact('project', 'parentProjects'));
     }
 
     public function store()
