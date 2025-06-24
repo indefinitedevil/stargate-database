@@ -2,6 +2,7 @@
 
 use App\Models\ResearchProject;
 use Database\Seeders\ActionTypeSeeder;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -36,6 +37,9 @@ return new class extends Migration {
         });
 
         $seeder = new ActionTypeSeeder();
+        $seeder->run();
+
+        $seeder = new RoleSeeder();
         $seeder->run();
     }
 
