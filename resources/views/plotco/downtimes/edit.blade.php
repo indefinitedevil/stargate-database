@@ -74,7 +74,7 @@
                     </div>
 
                     <div>
-                        <x-input-label for="experiment_actions" :value="__('Experiment Actions')"/>
+                        <x-input-label for="experiment_actions" :value="__('Research Subject Actions')"/>
                         <x-text-input id="experiment_actions" name="experiment_actions" type="number"
                                       class="mt-1 block w-full"
                                       :value="old('experiment_actions', $downtime->experiment_actions ?? 1)"
