@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ResearchProject;
+use Illuminate\Validation\ValidationException;
 
 class ResearchController extends Controller
 {
@@ -27,6 +28,10 @@ class ResearchController extends Controller
     public function view($id)
     {
         $project = ResearchProject::findOrFail($id);
+        if (ResearchProject::VISIBILITY_PRIVATE == $project->visibility && !auth()->user()->can('edit research projects')) {
+            return redirect(route('research.index'))
+                ->with('error', __('You do not have permission to view this research project.'));
+        }
         return view('research.view', compact('project'));
     }
 
@@ -49,16 +54,19 @@ class ResearchController extends Controller
         return view('research.edit', compact('project', 'parentProjects'));
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function store()
     {
         $data = request()->validate([
             'name' => 'required|string|max:255',
             'research_subject' => 'required|string|max:255',
             'project_goals' => 'required|string',
-            'ooc_intent' => 'nullable|string',
-            'results' => 'nullable|string',
-            'plot_notes' => 'nullable|string',
-            'months' => 'required|integer|min:1',
+            'ooc_intent' => 'string',
+            'results' => 'string',
+            'plot_notes' => 'string',
+            'months' => 'integer|min:1',
             'status' => 'required|integer',
             'visibility' => 'required|integer',
             'needs_volunteers' => 'boolean',
@@ -66,9 +74,7 @@ class ResearchController extends Controller
         ]);
 
         if (ResearchProject::STATUS_ACTIVE == $data['status'] && ResearchProject::VISIBILITY_PUBLIC != $data['visibility']) {
-            return redirect()->back()
-                ->withErrors(['visibility' => __('Active research projects must be public.')])
-                ->withInput();
+            throw ValidationException::withMessages(['visibility' => __('Active research projects must be public.')]);
         }
 
         $researchProject = ResearchProject::updateOrCreate(

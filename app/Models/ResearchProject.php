@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 /**
  * @property int id
@@ -62,7 +63,10 @@ class ResearchProject extends Model
 
     public function downtimeActions(): HasMany
     {
-        return $this->hasMany(DowntimeAction::class);
+        return $this->hasMany(DowntimeAction::class)
+            ->with('characters')
+            ->with('actionType')
+            ->with('characterSkills');
     }
 
     public function skills(): BelongsToMany
@@ -124,5 +128,10 @@ class ResearchProject extends Model
             self::VISIBILITY_ARCHIVED => 'Archived',
             default => 'Unknown Visibility',
         };
+    }
+
+    public function getViewRoute(): string
+    {
+        return route('research.view', ['projectId' => $this, 'projectName' => Str::slug($this->name)]);
     }
 }

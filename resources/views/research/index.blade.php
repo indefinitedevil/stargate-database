@@ -29,7 +29,7 @@
                                    class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
                                 >{{ __('Edit') }}</strong></a>
                             @endcan
-                            <strong>{{ $project->name }}</strong>
+                            <a href="{{ $project->getViewRoute() }}" class="underline"><strong>{{ $project->name }}</strong></a>
                         </p>
                         <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('Subject: :subject', ['subject' => $project->research_subject]) }}</p>
                         <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('Status: :status', ['status' => $project->status_name]) }}</p>
