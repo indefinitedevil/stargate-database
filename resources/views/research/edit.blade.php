@@ -49,6 +49,24 @@
                         <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                     </div>
 
+                    @can('approve research projects')
+                        <div class="col-span-3">
+                            <x-input-label for="plot_notes" :value="__('Plot Notes')"/>
+                            <x-textarea id="plot_notes" name="plot_notes" rows="6"
+                                        class="mt-1 block w-full">{{ $character->ooc_intent ?? '' }}</x-textarea>
+                            <x-input-error class="mt-2" :messages="$errors->get('plot_notes')"/>
+                            <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                        </div>
+
+                        <div class="col-span-3">
+                            <x-input-label for="results" :value="__('Results')"/>
+                            <x-textarea id="results" name="results" rows="6"
+                                        class="mt-1 block w-full">{{ $character->ooc_intent ?? '' }}</x-textarea>
+                            <x-input-error class="mt-2" :messages="$errors->get('results')"/>
+                            <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                        </div>
+                    @endcan
+
                     <div>
                         <x-input-label for="status" :value="__('Status')"/>
                         @if (empty($project->id))
@@ -57,13 +75,15 @@
                             <x-text-input type="text" class="mt-1 block w-full" :value="__('Pending')" disabled/>
                         @else
                             <x-select id="status" name="status" class="mt-1 block w-full" required>
-                                @php
-                                    if (auth()->can('approve research projects')) {
+                                @can('approve research projects')
+                                    @php
                                         $statuses = [ResearchProject::STATUS_PENDING, ResearchProject::STATUS_APPROVED];
-                                    } elseif (auth()->can('edit research projects')) {
+                                    @endphp
+                                @elsecan('edit research projects')
+                                    @php
                                         $statuses = [ResearchProject::STATUS_APPROVED, ResearchProject::STATUS_ON_HOLD, ResearchProject::STATUS_COMPLETED, ResearchProject::STATUS_ABANDONED];
-                                    }
-                                @endphp
+                                    @endphp
+                                @endcan
                                 @foreach($statuses as $status)
                                     <option value="{{ $status }}"
                                             @if(old('status', $project->status ?? '') == $status) selected @endif>{{ ResearchProject::getStatusName($status) }}</option>
@@ -84,14 +104,16 @@
                         <x-input-error class="mt-2" :messages="$errors->get('visibility')"/>
                     </div>
 
-                    <div>
-                        <x-input-label for="months" :value="__('Months required')"/>
-                        <x-text-input id="months" name="months" type="number"
-                                      class="mt-1 block w-full"
-                                      :value="old('months', $project->months ?? 3)"
-                                      required/>
-                        <x-input-error class="mt-2" :messages="$errors->get('months')"/>
-                    </div>
+                    @can('approve research projects')
+                        <div>
+                            <x-input-label for="months" :value="__('Months required')"/>
+                            <x-text-input id="months" name="months" type="number"
+                                          class="mt-1 block w-full"
+                                          :value="old('months', $project->months ?? 3)"
+                                          required/>
+                            <x-input-error class="mt-2" :messages="$errors->get('months')"/>
+                        </div>
+                    @endcan
 
                     <div class="sm:col-span-2">
                         <x-input-label for="parent_project_id" :value="__('Parent Project')"/>
@@ -110,12 +132,14 @@
                         @endif
                     </div>
 
-                    <div>
-                        <x-input-label for="needs_volunteers" :value="__('Needs volunteers')"/>
-                        <x-checkbox-input id="needs_volunteers" name="needs_volunteers" type="number"
-                                          :value="old('needs_volunteers', $project->needs_volunteers ?? false)"/>
-                        <x-input-error class="mt-2" :messages="$errors->get('needs_volunteers')"/>
-                    </div>
+                    @can('approve research projects')
+                        <div>
+                            <x-input-label for="needs_volunteers" :value="__('Needs volunteers')"/>
+                            <x-checkbox-input id="needs_volunteers" name="needs_volunteers" type="number"
+                                              :value="old('needs_volunteers', $project->needs_volunteers ?? false)"/>
+                            <x-input-error class="mt-2" :messages="$errors->get('needs_volunteers')"/>
+                        </div>
+                    @endcan
                 </div>
 
                 <div class="flex items-center gap-4 mt-6">
