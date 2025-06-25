@@ -128,6 +128,6 @@ class User extends Authenticatable
 
     public function getViewRoute(): string
     {
-        return route('profile.view-pretty', ['userId' => $this, 'userName' => Str::slug($this->name)]);
+        return route('profile.view', ['userId' => $this, 'userName' => Str::slug($this->name)]);
     }
 }

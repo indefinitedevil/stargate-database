@@ -46,7 +46,7 @@
                                         @php $characterSkill = $characterSkillCollection->first(); @endphp
                                         <li>
                                             <a class="underline"
-                                               href="{{ route('characters.view-pretty', ['characterId' => $characterSkill->character, 'characterName' => Str::slug($characterSkill->character->name)]) }}">
+                                               href="{{ route('characters.view', ['characterId' => $characterSkill->character, 'characterName' => Str::slug($characterSkill->character->name)]) }}">
                                                 {{ $characterSkill->character->listName }}</a>
                                             @if ($characterSkill->skill->repeatable)
                                                 ({{ $characterSkill->level }})

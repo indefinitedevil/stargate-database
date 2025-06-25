@@ -34,8 +34,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::get('/profile/{userId}', [ProfileController::class, 'view'])->name('profile.view');
-    Route::get('/profile/{userId}/{userName}', [ProfileController::class, 'view'])->name('profile.view-pretty');
+    Route::get('/profile/{userId}/{userName?}', [ProfileController::class, 'view'])->name('profile.view');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -43,10 +42,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'can:create character'], function () {
         Route::get('/characters', [CharacterController::class, 'index'])->name('characters.index');
-        Route::get('/characters/view/{characterId}', [CharacterController::class, 'view'])->name('characters.view');
-        Route::get('/characters/view/{characterId}/{characterName}', [CharacterController::class, 'view'])->name('characters.view-pretty');
-        Route::get('/characters/logs/{characterId}', [CharacterController::class, 'logs'])->name('characters.logs');
-        Route::get('/characters/logs/{characterId}/{characterName}', [CharacterController::class, 'logs'])->name('characters.logs-pretty');
+        Route::get('/characters/view/{characterId}/{characterName?}', [CharacterController::class, 'view'])->name('characters.view');
+        Route::get('/characters/logs/{characterId}/{characterName?}', [CharacterController::class, 'logs'])->name('characters.logs');
         Route::get('/characters/print/{characterId}', [CharacterController::class, 'print'])->name('characters.print');
         Route::get('/characters/print-skills/{characterId}', [CharacterController::class, 'printSkills'])->name('characters.print-skills');
         Route::get('/characters/edit/{characterId}', [CharacterController::class, 'edit'])->name('characters.edit');
@@ -127,7 +124,8 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'can:add research projects'], function () {
         Route::get('/research/create', [ResearchController::class, 'create'])->name('research.create');
         Route::get('/research/edit/{projectId}', [ResearchController::class, 'edit'])->name('research.edit');
-        Route::get('/research/store', [ResearchController::class, 'store'])->name('research.store');
+        Route::get('/research/view/{projectId}/{projectName?}', [ResearchController::class, 'view'])->name('research.view');
+        Route::post('/research/store', [ResearchController::class, 'store'])->name('research.store');
     });
 });
 
