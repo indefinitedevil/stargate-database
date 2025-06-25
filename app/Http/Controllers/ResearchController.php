@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ResearchProject;
+use Illuminate\Support\MessageBag;
 use Illuminate\Validation\ValidationException;
 
 class ResearchController extends Controller
@@ -64,25 +65,36 @@ class ResearchController extends Controller
             'research_subject' => 'required|string|max:255',
             'project_goals' => 'required|string',
             'ooc_intent' => 'string',
-            'results' => 'string',
-            'plot_notes' => 'string',
+            'results' => 'string|nullable',
+            'plot_notes' => 'string|nullable',
             'months' => 'integer|min:1',
             'status' => 'required|integer',
             'visibility' => 'required|integer',
             'needs_volunteers' => 'boolean',
             'parent_project_id' => 'nullable|exists:research_projects,id',
+            'skills' => 'array',
+            'skills.*' => 'exists:skills,id',
+        ], [], [
+            'ooc_intent' => 'OOC Intent',
         ]);
 
+        $validationMessages = [];
         if (ResearchProject::STATUS_ACTIVE == $data['status'] && ResearchProject::VISIBILITY_PUBLIC != $data['visibility']) {
-            throw ValidationException::withMessages(['visibility' => __('Active research projects must be public.')]);
+            $validationMessages['visibility'] = __('Active research projects must be public.');
+        }
+
+        if (count($validationMessages)) {
+            throw ValidationException::withMessages($validationMessages);
         }
 
         $researchProject = ResearchProject::updateOrCreate(
             ['id' => request('id')],
             $data
         );
+        if (!empty($data['skills'])) {
+            $researchProject->skills()->sync($data['skills']);
+        }
         $message = request('id') ? 'Research project updated successfully.' : 'Research project created successfully.';
-        return redirect()->route('research.view', ['id' => $researchProject->id])
-            ->with('success', __($message));
+        return redirect($researchProject->getViewRoute())->with('success', new MessageBag([__($message)]));
     }
 }
