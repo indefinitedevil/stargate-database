@@ -51,8 +51,8 @@ class ActionTypeSeeder extends Seeder
                 'name' => 'Other'
             ],
             [
-                'id' => ActionType::EXPERIMENT,
-                'type' => ActionType::RESEARCH_SUBJECT,
+                'id' => ActionType::RESEARCH_SUBJECT,
+                'type' => ActionType::EXPERIMENT,
                 'name' => 'Research Subject'
             ],
         ];
