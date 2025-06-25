@@ -22,8 +22,8 @@ return new class extends Migration {
             $table->string('research_subject')->after('name');
             $table->text('project_goals')->after('research_subject');
             $table->text('ooc_intent')->after('project_goals');
-            $table->text('results')->after('ooc_intent');
-            $table->text('plot_notes')->after('results');
+            $table->text('results')->nullable()->after('ooc_intent');
+            $table->text('plot_notes')->nullable()->after('results');
             $table->tinyInteger('months')->default(0)->after('plot_notes');
             $table->tinyInteger('status')->default(ResearchProject::STATUS_PENDING)->after('months');
             $table->tinyInteger('visibility')->default(ResearchProject::VISIBILITY_PRIVATE)->after('status');
