@@ -9,6 +9,15 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 25th June 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: added editing and approval capacity for research projects.</li>
+                    <li>Researcher: added editing capacity for research projects.</li>
+                    <li>Added research projects.</li>
+                    <li>Cleaned up code to combine view routes.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 20th June 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Admin: tidied manage roles screen.</li>
