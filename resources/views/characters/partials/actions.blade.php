@@ -48,7 +48,7 @@
                         </x-dropdown-link>
                     @endif
                 @endcan
-                @if(!request()->routeIs('characters.view') && !request()->routeIs('characters.view-pretty'))
+                @if(!request()->routeIs('characters.view'))
                     <x-dropdown-link :href="$character->getViewRoute()"
                                      title="{{ __('View') }}"
                     >
@@ -74,7 +74,7 @@
                         </x-dropdown-link>
                     @endif
                 @endcan
-                @if(!request()->routeIs('characters.logs') && !request()->routeIs('characters.logs-pretty') && $character->status_id > Status::READY)
+                @if(!request()->routeIs('characters.logs') && $character->status_id > Status::READY)
                     <x-dropdown-link :href="$character->getLogsRoute()"
                                      title="{{ __('Character Logs') }}"
                     >
