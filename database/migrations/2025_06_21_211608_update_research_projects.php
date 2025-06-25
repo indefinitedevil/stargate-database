@@ -15,6 +15,7 @@ return new class extends Migration {
     {
         Schema::table('research_project_skill', function (Blueprint $table) {
             $table->dropColumn('id');
+            $table->tinyInteger('months')->change()->default(0);
         });
 
         Schema::table('research_projects', function (Blueprint $table) {

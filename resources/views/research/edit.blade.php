@@ -1,5 +1,6 @@
 @php
     use App\Models\ResearchProject;
+    use App\Models\Skill;
     $title = empty($project->id) ? __('Create research project') : sprintf(__('Edit research project: %s'), $project->name);
 @endphp
 <x-app-layout>
@@ -36,7 +37,7 @@
                     <div class="col-span-3">
                         <x-input-label for="project_goals" :value="__('Project Goals')"/>
                         <x-textarea id="project_goals" name="project_goals" rows="6"
-                                    class="mt-1 block w-full">{{ $character->project_goals ?? '' }}</x-textarea>
+                                    class="mt-1 block w-full">{{ $project->project_goals ?? '' }}</x-textarea>
                         <x-input-error class="mt-2" :messages="$errors->get('project_goals')"/>
                         <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                     </div>
@@ -44,7 +45,7 @@
                     <div class="col-span-3">
                         <x-input-label for="ooc_intent" :value="__('OOC Intent')"/>
                         <x-textarea id="ooc_intent" name="ooc_intent" rows="6"
-                                    class="mt-1 block w-full">{{ $character->ooc_intent ?? '' }}</x-textarea>
+                                    class="mt-1 block w-full">{{ $project->ooc_intent ?? '' }}</x-textarea>
                         <x-input-error class="mt-2" :messages="$errors->get('ooc_intent')"/>
                         <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                     </div>
@@ -53,7 +54,7 @@
                         <div class="col-span-3">
                             <x-input-label for="plot_notes" :value="__('Plot Notes')"/>
                             <x-textarea id="plot_notes" name="plot_notes" rows="6"
-                                        class="mt-1 block w-full">{{ $character->ooc_intent ?? '' }}</x-textarea>
+                                        class="mt-1 block w-full">{{ $project->ooc_intent ?? '' }}</x-textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('plot_notes')"/>
                             <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                         </div>
@@ -61,7 +62,7 @@
                         <div class="col-span-3">
                             <x-input-label for="results" :value="__('Results')"/>
                             <x-textarea id="results" name="results" rows="6"
-                                        class="mt-1 block w-full">{{ $character->ooc_intent ?? '' }}</x-textarea>
+                                        class="mt-1 block w-full">{{ $project->ooc_intent ?? '' }}</x-textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('results')"/>
                             <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                         </div>
@@ -139,9 +140,32 @@
                                               :value="old('needs_volunteers', $project->needs_volunteers ?? false)"/>
                             <x-input-error class="mt-2" :messages="$errors->get('needs_volunteers')"/>
                         </div>
-                    @endcan
-                </div>
 
+                        <div class="col-span-2">
+                            <x-input-label for="skills" :value="__('Skills required')"/>
+                            <x-select id="skills" name="skills[]" class="mt-1 block w-full" multiple>
+                                @php $skillIds = $project->skills->pluck('id')->toArray() ?? []; @endphp
+                                @foreach (Skill::where('skill_category_id', '!=', 7)->get() as $skill)
+                                    @if (empty($currentCategory) || $currentCategory != $skill->skill_category_id)
+                                        @if (!empty($currentCategory))
+                                            {!! '</optgroup>' !!}
+                                        @endif
+                                        @php $currentCategory = $skill->skill_category_id; @endphp
+                                        {!! '<optgroup label="' . __(':name Skills', ['name' => $skill->skillCategory->name]) . '">' !!}
+                                    @endif
+                                    <option value="{{ $skill->id }}"
+                                            @if (in_array($skill->id, old('skills', $skillIds))) selected @endif>
+                                        {{ $skill->name }}
+                                    </option>
+                                @endforeach
+                                @if (!empty($currentCategory))
+                                    {!! '</optgroup>' !!}
+                                @endif
+                            </x-select>
+                            <x-input-error class="mt-2" :messages="$errors->get('skills')"/>
+                            @endcan
+                        </div>
+                </div>
                 <div class="flex items-center gap-4 mt-6">
                     <x-primary-button>{{ __('Save') }}</x-primary-button>
                 </div>
