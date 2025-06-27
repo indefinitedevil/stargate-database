@@ -1996,7 +1996,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
     public function seedSkillPrereqs()
     {
         DB::table('skill_prereqs')->truncate();
-        DB::table('skill_prereqs')->insertOrIgnore([
+        DB::table('skill_prereqs')->upsert([
             [
                 'skill_id' => 16,
                 'prereq_id' => 7,
@@ -2147,13 +2147,13 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'prereq_id' => 28,
                 'always_required' => 1,
             ],
-        ]);
+        ], ['skill_id', 'prereq_id']);
     }
 
     public function seedSkillLockouts()
     {
         DB::table('skill_lockouts')->truncate();
-        DB::table('skill_lockouts')->insertOrIgnore([
+        DB::table('skill_lockouts')->upsert([
             [
                 'skill_id' => 16,
                 'lockout_id' => 18,
@@ -2202,13 +2202,13 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'skill_id' => 78,
                 'lockout_id' => 89,
             ],
-        ]);
+        ], ['skill_id', 'lockout_id']);
     }
 
     public function seedSkillDiscounts()
     {
         DB::table('skill_discounts')->truncate();
-        DB::table('skill_discounts')->insertOrIgnore([
+        DB::table('skill_discounts')->upsert([
             [
                 'discounting_skill' => 46,
                 'discounted_skill' => 13,
@@ -2304,7 +2304,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'discounted_skill' => 78,
                 'discount' => 3,
             ],
-        ]);
+        ], ['discounting_skill', 'discounted_skill']);
     }
 
     public function seedCardSkills()
@@ -2520,6 +2520,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
     }
 
     public function seedSkillTraining() {
+        DB::table('skill_training')->truncate();
         DB::table('skill_training')->upsert([
             [
                 'taught_skill_id' => 1,
