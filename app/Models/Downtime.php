@@ -116,7 +116,7 @@ class Downtime extends Model
 
     public function trainingCourses(): HasMany
     {
-        return $this->actions()->where('action_type_id', ActionType::TEACHING)
+        return $this->actions()->where('action_type_id', ActionType::ACTION_TEACHING)
             ->join('character_skills', 'character_skill_id', 'character_skills.id')
             ->join('skills', 'skill_id', 'skills.id')
             ->orderBy('skills.name');
@@ -126,7 +126,7 @@ class Downtime extends Model
     {
         static $trainees = [];
         if (!isset($trainees[$skillId])) {
-            $trainees[$skillId] = $this->actions()->where('action_type_id', ActionType::TRAINING)
+            $trainees[$skillId] = $this->actions()->where('action_type_id', ActionType::ACTION_TRAINING)
                 ->join('character_skills', 'character_skill_id', 'character_skills.id')
                 ->where('skill_id', $skillId)
                 ->selectRaw('DISTINCT downtime_actions.character_id')
@@ -184,21 +184,20 @@ class Downtime extends Model
         $characters = [];
         foreach ($this->actions as $action) {
             $characters[$action->character_id] = $action->character_id;
-            switch ($action->action_type_id) {
-                case ActionType::TEACHING:
+            switch ($action->actionType->action) {
+                case ActionType::ACTION_TEACHING:
                     $taughtSkills[$action->characterSkill->skill_id][$action->character_id] = $action;
                     break;
-                case ActionType::TRAINING:
+                case ActionType::ACTION_TRAINING:
                     $trainedSkills[$action->characterSkill->skill_id][$action->character_id][] = $action;
                     break;
-                case ActionType::MISSION:
+                case ActionType::ACTION_MISSION:
                     $downtimeMissions[$action->downtime_mission_id][] = $action->character_id;
                     break;
-                case ActionType::RESEARCH:
+                case ActionType::TYPE_RESEARCH:
                     $researchProjects[$action->research_project_id][] = $action->character_id;
                     break;
-                case ActionType::UPKEEP:
-                case ActionType::UPKEEP_2:
+                case ActionType::ACTION_UPKEEP:
                     $upkeepMaintenance[$action->characterSkill->skill_id][$action->character_id] = $action;
                     break;
             }
@@ -377,7 +376,7 @@ class Downtime extends Model
     {
         static $miscActions = null;
         if (is_null($miscActions)) {
-            $miscActions = $this->actions()->where('action_type_id', ActionType::OTHER)->get();
+            $miscActions = $this->actions()->where('action_type_id', ActionType::ACTION_OTHER)->get();
         }
         return $miscActions;
     }

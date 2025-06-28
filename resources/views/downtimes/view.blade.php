@@ -44,7 +44,7 @@
     <div class="sm:grid sm:grid-cols-2 sm:gap-6">
         @php
             $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
-                ->whereIn('action_type_id', [ActionType::TRAINING, ActionType::TEACHING, ActionType::UPKEEP, ActionType::MISSION])
+                ->whereIn('action_type_id', [ActionType::ACTION_TRAINING, ActionType::ACTION_TEACHING, ActionType::ACTION_UPKEEP, ActionType::ACTION_MISSION])
                 ->get();
             $actionCount = 0;
         @endphp
@@ -57,12 +57,12 @@
                             <p class="text-lg">{{ __('Development Action :number', ['number' => ++$actionCount]) }}</p>
                             <p><strong>Type:</strong> {{ $action->actionType->name }}</p>
                             @switch($action->action_type_id)
-                                @case(ActionType::TRAINING)
-                                @case(ActionType::TEACHING)
-                                @case(ActionType::UPKEEP)
+                                @case(ActionType::ACTION_TRAINING)
+                                @case(ActionType::ACTION_TEACHING)
+                                @case(ActionType::ACTION_UPKEEP)
                                     <p>{!! __('<strong>Skill:</strong> :skill', ['skill' => $action->characterSkill->name]) !!}</p>
                                     @break
-                                @case(ActionType::MISSION)
+                                @case(ActionType::ACTION_MISSION)
                                     <p>{!! __('<strong>Mission:</strong> :mission', ['mission' => $action->mission->name]) !!}</p>
                                     @break
                             @endswitch
@@ -75,7 +75,7 @@
 
         @php
             $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
-                ->whereIn('action_type_id', [ActionType::RESEARCHING, ActionType::UPKEEP_2])
+                ->whereIn('action_type_id', [ActionType::ACTION_RESEARCHING, ActionType::ACTION_UPKEEP])
                 ->get();
             $actionCount = 0;
         @endphp
@@ -88,10 +88,10 @@
                             <p class="text-lg">{{ __('Research Action :number', ['number' => ++$actionCount]) }}</p>
                             <p><strong>Type:</strong> {{ $action->actionType->name }}</p>
                             @switch($action->action_type_id)
-                                @case(ActionType::UPKEEP_2)
+                                @case(ActionType::ACTION_UPKEEP)
                                     <p>{!! __('<strong>Skill:</strong> :skill', ['skill' => $action->characterSkill->name]) !!}</p>
                                     @break
-                                @case(ActionType::RESEARCHING)
+                                @case(ActionType::ACTION_RESEARCHING)
                                     <p>{!! __('<strong>Project:</strong> :project', ['project' => $action->researchProject->name]) !!}</p>
                                     @break
                             @endswitch
@@ -104,7 +104,7 @@
 
         @php
             $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
-                ->whereIn('action_type_id', [ActionType::OTHER])
+                ->whereIn('action_type_id', [ActionType::ACTION_OTHER])
                 ->get();
             $actionCount = 0;
         @endphp

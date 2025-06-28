@@ -16,47 +16,55 @@ class ActionTypeSeeder extends Seeder
     {
         $actionTypes = [
             [
-                'id' => ActionType::TRAINING,
-                'type' => ActionType::DEVELOPMENT,
+                'id' => 1,
+                'action' => ActionType::ACTION_TRAINING,
+                'type' => ActionType::TYPE_DEVELOPMENT,
                 'name' => 'Training'
             ],
             [
-                'id' => ActionType::TEACHING,
-                'type' => ActionType::DEVELOPMENT,
+                'id' => 2,
+                'action' => ActionType::ACTION_TEACHING,
+                'type' => ActionType::TYPE_DEVELOPMENT,
                 'name' => 'Teaching'
             ],
             [
-                'id' => ActionType::UPKEEP,
-                'type' => ActionType::DEVELOPMENT,
+                'id' => 3,
+                'action' => ActionType::ACTION_UPKEEP,
+                'type' => ActionType::TYPE_DEVELOPMENT,
                 'name' => 'Upkeep'
             ],
             [
-                'id' => ActionType::MISSION,
-                'type' => ActionType::DEVELOPMENT,
+                'id' => 4,
+                'action' => ActionType::ACTION_MISSION,
+                'type' => ActionType::TYPE_DEVELOPMENT,
                 'name' => 'Mission'
             ],
             [
-                'id' => ActionType::RESEARCHING,
-                'type' => ActionType::RESEARCH,
+                'id' => 5,
+                'action' => ActionType::ACTION_RESEARCHING,
+                'type' => ActionType::TYPE_RESEARCH,
                 'name' => 'Researching'
             ],
             [
-                'id' => ActionType::UPKEEP_2,
-                'type' => ActionType::RESEARCH,
+                'id' => 6,
+                'action' => ActionType::ACTION_UPKEEP,
+                'type' => ActionType::TYPE_RESEARCH,
                 'name' => 'Upkeep'
             ],
             [
-                'id' => ActionType::OTHER,
-                'type' => ActionType::MISC,
+                'id' => 7,
+                'action' => ActionType::ACTION_OTHER,
+                'type' => ActionType::TYPE_MISC,
                 'name' => 'Other'
             ],
             [
-                'id' => ActionType::RESEARCH_SUBJECT,
-                'type' => ActionType::EXPERIMENT,
+                'id' => 8,
+                'action' => ActionType::ACTION_RESEARCH_SUBJECT,
+                'type' => ActionType::TYPE_EXPERIMENT,
                 'name' => 'Research Subject'
             ],
         ];
 
-        DB::table('action_types')->upsert($actionTypes, 'id');
+        DB::table('action_types')->upsert($actionTypes, ['id']);
     }
 }
