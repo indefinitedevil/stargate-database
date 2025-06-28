@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int downtime_mission_id
  * @property int research_project_id
  * @property string notes
+ * @property string response
  * @property CharacterSkill characterSkill
  * @property Character character
  * @property Downtime downtime
@@ -33,6 +34,7 @@ class DowntimeAction extends Model
         'downtime_mission_id',
         'research_project_id',
         'notes',
+        'response',
     ];
 
     public function downtime(): BelongsTo

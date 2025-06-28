@@ -358,13 +358,43 @@ class Downtime extends Model
             }
         }
 
+        foreach ($this->personalActions() as $action) {
+            if (!empty($action->notes) || !empty($action->response)) {
+                $allResults[$action->character_id][] = [
+                    'notes' => $action->notes,
+                    'response' => $action->response,
+                ];
+            }
+        }
+
+        $researchResults = [];
+        foreach ($this->researchProjects as $project) {
+            $researchResults[$project->id] = [
+                'project' => $project,
+                'contributors' => [],
+                'volunteers' => [],
+            ];
+        }
+        foreach ($this->researchActions() as $action) {
+            if (!isset($researchResults[$action->research_project_id])) {
+                continue;
+            }
+            $researchResults[$action->research_project_id]['contributors'][$action->character_id][] = $action->character->listName;
+        }
+        foreach ($this->researchSubjectActions() as $action) {
+            if (!isset($researchResults[$action->research_project_id])) {
+                continue;
+            }
+            $researchResults[$action->research_project_id]['volunteers'][] = $action->character->listName;
+        }
+
         foreach ($allResults as $characterId => $results) {
             $character = Character::find($characterId);
             if (in_array($character->status_id, [Status::APPROVED, Status::INACTIVE])) {
                 $character->status_id = Status::PLAYED;
                 $character->save();
             }
-            Mail::to($character->user->email, $character->user->name)->send(new DowntimeProcessed($this, $character, $results));
+            Mail::to($character->user->email, $character->user->name)->send(new DowntimeProcessed($this, $character, $results, $researchResults));
             if ('local' == env('APP_ENV')) {
                 break;
             }
@@ -373,12 +403,32 @@ class Downtime extends Model
         $this->save();
     }
 
-    public function miscActions(): Collection
+    public function personalActions(): Collection
     {
-        static $miscActions = null;
-        if (is_null($miscActions)) {
-            $miscActions = $this->actions()->where('action_type_id', ActionType::ACTION_OTHER)->get();
+        static $personalActions = null;
+        if (is_null($personalActions)) {
+            $personalActions = $this->actions()->where('action_type_id', ActionType::ACTION_OTHER)->get();
         }
-        return $miscActions;
+        return $personalActions;
+    }
+
+    public function researchActions(): Collection
+    {
+        static $researchActions = null;
+        if (is_null($researchActions)) {
+            $researchActions = $this->actions()->with('research_project')
+                ->where('action_type_id', ActionType::ACTION_RESEARCHING)->get();
+        }
+        return $researchActions;
+    }
+
+    public function researchSubjectActions(): Collection
+    {
+        static $researchActions = null;
+        if (is_null($researchActions)) {
+            $researchActions = $this->actions()->with('research_project')
+                ->where('action_type_id', ActionType::ACTION_RESEARCH_SUBJECT)->get();
+        }
+        return $researchActions;
     }
 }
