@@ -18,7 +18,7 @@
                 </ul>
             </div>
             <div>
-                <h3 class="text-lg font-semibold">Update: 20th June 2025</h3>
+                <h3 class="text-lg font-semibold">Update: 23rd June 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Admin: tidied manage roles screen.</li>
                     <li>Secretary: updated attendance lists to show event roles.</li>
@@ -32,6 +32,7 @@
                     <li>Updated feat display to be clearer regarding uses per day/event and Vigor costs.</li>
                     <li>Added a banner to make it clear when on a test site.</li>
                     <li>Changed "miscellaneous actions" to "personal actions" in downtime and added explanatory text.</li>
+                    <li>Fixed bug which blocked character deletions.</li>
                 </ul>
             </div>
             <div>

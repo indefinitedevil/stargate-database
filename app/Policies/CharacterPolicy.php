@@ -98,9 +98,9 @@ class CharacterPolicy
      */
     public function delete(User $user, Character $character): Response
     {
-        if ($character->status_id > Status::APPROVED) {
+        if ($character->status_id >= Status::PLAYED) {
             return Response::deny('Characters which have been played cannot be deleted.');
-        } else if (!$character->canBeReset()) {
+        } else if ($character->status_id >= Status::APPROVED && !$character->canBeReset()) {
             return Response::deny('Characters which have been played cannot be deleted.');
         }
         $delete = false;
