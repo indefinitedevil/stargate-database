@@ -129,9 +129,9 @@
                         @else
                             <x-select id="parent_project_id" name="parent_project_id" class="mt-1 block w-full">
                                 <option value="">{{ __('No parent project') }}</option>
-                                @foreach ($parentProjects as $project)
-                                    <option value="{{ $project->id }}"
-                                            @if(old('parent_project_id', $project->parent_project_id ?? '') == $project->id) selected @endif>{{ $project->name }}</option>
+                                @foreach ($parentProjects as $parentProject)
+                                    <option value="{{ $parentProject->id }}"
+                                            @if(old('parent_project_id', $project->parent_project_id ?? '') == $parentProject->id) selected @endif>{{ $parentProject->name }}</option>
                                 @endforeach
                             </x-select>
                             <x-input-error class="mt-2" :messages="$errors->get('parent_project_id')"/>
@@ -141,8 +141,7 @@
                     @can('approve research projects')
                         <div>
                             <x-input-label for="needs_volunteers" :value="__('Needs test subjects')"/>
-                            <x-checkbox-input id="needs_volunteers" name="needs_volunteers" type="number"
-                                              :value="1"/>
+                            <x-checkbox-input id="needs_volunteers" name="needs_volunteers" :value="1"/>
                             <x-input-error class="mt-2" :messages="$errors->get('needs_volunteers')"/>
                         </div>
 
@@ -168,8 +167,8 @@
                                 @endif
                             </x-select>
                             <x-input-error class="mt-2" :messages="$errors->get('skills')"/>
-                            @endcan
                         </div>
+                    @endcan
                 </div>
                 <div class="flex items-center gap-4 mt-6">
                     <x-primary-button>{{ __('Save') }}</x-primary-button>
