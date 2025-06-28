@@ -24,6 +24,7 @@
                         <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                       :value="old('name', $project->name ?? '')" required autofocus/>
                         <x-input-error class="mt-2" :messages="$errors->get('name')"/>
+                        <p class="text-xs mt-1">{!! __('Try using <a href=":link" class="underline">a code name generator</a> if stuck.', ['link' => 'https://www.fantasynamegenerators.com/military-operation-names.php']) !!}</p>
                     </div>
 
                     <div class="col-span-3">
@@ -39,7 +40,7 @@
                         <x-textarea id="project_goals" name="project_goals" rows="6"
                                     class="mt-1 block w-full">{{ $project->project_goals ?? '' }}</x-textarea>
                         <x-input-error class="mt-2" :messages="$errors->get('project_goals')"/>
-                        <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                        <p class="text-xs mt-1">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                     </div>
 
                     <div class="col-span-3">
@@ -47,8 +48,8 @@
                         <x-textarea id="ooc_intent" name="ooc_intent" rows="6"
                                     class="mt-1 block w-full">{{ $project->ooc_intent ?? '' }}</x-textarea>
                         <x-input-error class="mt-2" :messages="$errors->get('ooc_intent')"/>
-                        <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
-                        <p class="text-xs">{{ __('This field is intended to be used to explain in OOC terms what you\'re trying to achieve, and what you expect to get.') }}</p>
+                        <p class="text-xs mt-1">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                        <p class="text-xs mt-1">{{ __('This field is intended to be used to explain in OOC terms what you\'re trying to achieve, and what you expect to get. It is not visible to players.') }}</p>
                     </div>
 
                     @can('approve research projects')
@@ -57,7 +58,8 @@
                             <x-textarea id="plot_notes" name="plot_notes" rows="6"
                                         class="mt-1 block w-full">{{ $project->ooc_intent ?? '' }}</x-textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('plot_notes')"/>
-                            <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                            <p class="text-xs mt-1">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                            <p class="text-xs mt-1">{{ __('This field is not visible to players.') }}</p>
                         </div>
 
                         <div class="col-span-3">
@@ -65,7 +67,8 @@
                             <x-textarea id="results" name="results" rows="6"
                                         class="mt-1 block w-full">{{ $project->ooc_intent ?? '' }}</x-textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('results')"/>
-                            <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                            <p class="text-xs mt-1">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                            <p class="text-xs mt-1">{{ __('This field is not visible to players until the project status reaches Completed.') }}</p>
                         </div>
                     @endcan
 
@@ -137,7 +140,7 @@
 
                     @can('approve research projects')
                         <div>
-                            <x-input-label for="needs_volunteers" :value="__('Needs volunteers')"/>
+                            <x-input-label for="needs_volunteers" :value="__('Needs test subjects')"/>
                             <x-checkbox-input id="needs_volunteers" name="needs_volunteers" type="number"
                                               :value="old('needs_volunteers', $project->needs_volunteers ?? false)"/>
                             <x-input-error class="mt-2" :messages="$errors->get('needs_volunteers')"/>
