@@ -181,10 +181,10 @@ class DowntimeController extends Controller
     {
         foreach ($actions as $key => $actionData) {
             switch ($actionData['type']) {
-                case ActionType::TRAINING:
-                case ActionType::TEACHING:
-                case ActionType::UPKEEP:
-                case ActionType::UPKEEP_2:
+                case ActionType::ACTION_TRAINING:
+                case ActionType::ACTION_TEACHING:
+                case ActionType::ACTION_UPKEEP:
+                case ActionType::ACTION_UPKEEP_2:
                     if (empty($actionData['skill_id'])) {
                         $errors[] = __(':type Action :index: Skill is required.', ['type' => $type, 'index' => $key]);
                     } else {
@@ -216,7 +216,7 @@ class DowntimeController extends Controller
                         }
                     }
                     break;
-                case ActionType::OTHER:
+                case ActionType::ACTION_OTHER:
                     if (!empty($actionData['notes']) && strlen($actionData['notes']) > 65535) {
                         $errors[] = __(':type Action :index: Notes are limited to 65000 characters.', ['type' => $type, 'index' => $key]);
                     } elseif (!empty(strlen($actionData['notes']))) {
@@ -240,8 +240,8 @@ class DowntimeController extends Controller
                         $action->delete();
                     }
                     break;
-                case ActionType::RESEARCHING:
-                case ActionType::RESEARCH_SUBJECT:
+                case ActionType::ACTION_RESEARCHING:
+                case ActionType::ACTION_RESEARCH_SUBJECT:
                     $researchProject = ResearchProject::find($actionData['research_project_id'] ?? 0);
                     if (empty($researchProject)) {
                         $errors[] = __(':type Action :index: Research Project not found.', ['type' => $type, 'index' => $key]);
@@ -266,7 +266,7 @@ class DowntimeController extends Controller
                     ]);
                     $action->save();
                     break;
-                case ActionType::MISSION:
+                case ActionType::ACTION_MISSION:
                     $mission = DowntimeMission::find($actionData['mission_id'] ?? 0);
                     if (empty($mission)) {
                         $errors[] = __(':type Action :index: Mission not found.', ['type' => $type, 'index' => $key]);
