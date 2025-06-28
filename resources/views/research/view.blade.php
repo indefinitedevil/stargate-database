@@ -85,15 +85,38 @@
         @if (ResearchProject::STATUS_ACTIVE <= $project->status && $project->downtimeActions->count())
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-                    <h3 class="text-xl">{{ __('Contributions') }}</h3>
-                    <ul class="list-disc list-inside">
-                        @foreach($project->downtimeActions as $downtimeAction)
-                            <li>
-                                {{ $downtimeAction->character->listName }}
-                                @if($downtimeAction->downtime->isOpen()) <em>{{ __('(Pending)') }}</em> @endif
-                            </li>
-                        @endforeach
-                    </ul>
+                    <h3 class="text-xl">{{ __('Researchers') }}</h3>
+                    @if ($project->researchActions->count())
+                        <ul class="list-disc list-inside">
+                            @foreach($project->researchActions as $downtimeAction)
+                                <li>
+                                    {{ $downtimeAction->character->listName }}
+                                    @if($downtimeAction->downtime->isOpen())
+                                        <em>{{ __('(Pending)') }}</em>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p>{{ __('No researchers have been registered for this project yet.') }}</p>
+                    @endif
+                    @if ($project->needs_volunteers)
+                        <h3 class="text-xl">{{ __('Volunteer Subjects') }}</h3>
+                        @if ($project->subjectActions->count())
+                            <ul class="list-disc list-inside">
+                                @foreach($project->subjectActions as $subjectAction)
+                                    <li>
+                                        {{ $subjectAction->character->listName }}
+                                        @if($subjectAction->downtime->isOpen())
+                                            <em>{{ __('(Pending)') }}</em>
+                                        @endif
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <p>{{ __('No volunteer subjects have been registered for this project yet.') }}</p>
+                        @endif
+                    @endif
                 </div>
             </div>
         @endif
