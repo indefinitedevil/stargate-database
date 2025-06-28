@@ -23,6 +23,7 @@ class DowntimeProcessed extends Mailable
         public Downtime $downtime,
         public Character $character,
         public array $results,
+        public array $researchResults,
     )
     {
         //

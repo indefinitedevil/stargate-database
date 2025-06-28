@@ -210,6 +210,7 @@ class DowntimeController extends Controller
                                     'action_type_id' => $actionData['type'],
                                     'character_skill_id' => $characterSkill->id,
                                     'notes' => $actionData['notes'] ?? '',
+                                    'response' => $actionData['response'] ?? '',
                                 ]);
                                 $action->save();
                             }
@@ -233,6 +234,7 @@ class DowntimeController extends Controller
                             'downtime_id' => $downtime->id,
                             'action_type_id' => $actionData['type'],
                             'notes' => $actionData['notes'] ?? '',
+                            'response' => $actionData['response'] ?? '',
                         ]);
                         $action->save();
                     } elseif (!empty($actionData['id'])) {
@@ -263,6 +265,7 @@ class DowntimeController extends Controller
                         'action_type_id' => $actionData['type'],
                         'research_project_id' => $researchProject->id,
                         'notes' => $actionData['notes'] ?? '',
+                        'response' => $actionData['response'] ?? '',
                     ]);
                     $action->save();
                     break;
