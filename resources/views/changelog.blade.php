@@ -12,10 +12,13 @@
                 <h3 class="text-lg font-semibold">Update: 28th June 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: added editing and approval capacity for research projects.</li>
+                    <li>Plot Co: added facility for personal responses to downtimes.</li>
                     <li>Researcher: added editing capacity for research projects.</li>
                     <li>Added research projects.</li>
                     <li>Added research subject action.</li>
                     <li>Added research projects to downtime submissions.</li>
+                    <li>Added research projects to downtime email.</li>
+                    <li>Added personal action responses to downtime email.</li>
                     <li>Cleaned up code to combine view routes.</li>
                     <li>Fixed bugs with database duplication.</li>
                 </ul>
