@@ -309,6 +309,15 @@
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full"
                                             :placeholder="__('Details regarding a single personal action you want to inform the plot coordinator about.')">{{ $action->notes }}</x-textarea>
+                                @if (auth()->user()->can('view hidden notes') || !$downtime->isOpen() && $action->response)
+                                    <x-input-label for="other_action_{{ $actionCount }}_response"
+                                                   class="mt-1" :value="__('Response')"/>
+                                    <x-textarea id="other_action_{{ $actionCount }}_response"
+                                                name="other_action[{{ $actionCount }}][response]"
+                                                :disabled="!$downtime->isOpen()"
+                                                class="mt-1 block w-full"
+                                                :placeholder="__('Plot co response to above.')">{{ $action->response }}</x-textarea>
+                                @endif
                             </div>
                         @endforeach
                         @while($actionCount < $downtime->other_actions)
@@ -321,6 +330,15 @@
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full"
                                             :placeholder="__('Details regarding a single personal action you want to inform the plot coordinator about.')"/>
+                                @if (auth()->user()->can('view hidden notes'))
+                                    <x-input-label for="other_action_{{ $actionCount }}_response"
+                                                   class="mt-1" :value="__('Response')"/>
+                                    <x-textarea id="other_action_{{ $actionCount }}_response"
+                                                name="other_action[{{ $actionCount }}][response]"
+                                                :disabled="!$downtime->isOpen()"
+                                                class="mt-1 block w-full"
+                                                :placeholder="__('Plot co response to above.')">{{ $action->response }}</x-textarea>
+                                @endif
                             </div>
                         @endwhile
                         <p class="text-sm">
