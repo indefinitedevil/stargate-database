@@ -127,6 +127,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/research/view/{projectId}/{projectName?}', [ResearchController::class, 'view'])->name('research.view');
         Route::post('/research/store', [ResearchController::class, 'store'])->name('research.store');
     });
+
+    Route::group(['middleware' => 'can:delete research projects'], function () {
+        Route::post('/research/delete', [ResearchController::class, 'delete'])->name('research.delete');
+    });
 });
 
 require __DIR__ . '/auth.php';

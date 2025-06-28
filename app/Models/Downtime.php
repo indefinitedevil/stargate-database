@@ -92,15 +92,15 @@ class Downtime extends Model
 
     public function getResearchProjectsForCharacter($characterId): Collection
     {
-        static $researchProjects = null;
-        if (is_null($researchProjects)) {
-            $researchProjects = ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)
+        static $researchProjects = [];
+        if (empty($researchProjects[$characterId])) {
+            $researchProjects[$characterId] = ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)
                 ->join('research_project_skill', 'research_project_skill.research_project_id', 'research_projects.id')
                 ->join('character_skills', 'character_skills.skill_id', 'research_project_skill.skill_id')
                 ->where('character_skills.character_id', $characterId)
                 ->select('research_projects.*')->get();
         }
-        return $researchProjects;
+        return $researchProjects[$characterId];
     }
 
     public function getResearchVolunteerProjectsAttribute(): Collection
