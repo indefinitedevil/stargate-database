@@ -162,12 +162,10 @@ class DowntimeController extends Controller
             $errors[] = __('Downtime is not open.');
         }
         if (empty($errors)) {
-            $developmentActions = $request->get('development_action');
-            $this->validateActions($developmentActions ?? [], $errors, $character, $downtime, 'Development');
-            $researchActions = $request->get('research_action');
-            $this->validateActions($researchActions ?? [], $errors, $character, $downtime, 'Research');
-            $otherActions = $request->get('other_action');
-            $this->validateActions($otherActions ?? [], $errors, $character, $downtime, 'Miscellaneous');
+            $this->validateActions($request->get('development_action', []), $errors, $character, $downtime, 'Development');
+            $this->validateActions($request->get('research_action', []), $errors, $character, $downtime, 'Research');
+            $this->validateActions($request->get('research_subject_action', []), $errors, $character, $downtime, 'Research Subject');
+            $this->validateActions($request->get('other_action', []), $errors, $character, $downtime, 'Miscellaneous');
         }
         if (!empty($errors)) {
             throw ValidationException::withMessages($errors);
