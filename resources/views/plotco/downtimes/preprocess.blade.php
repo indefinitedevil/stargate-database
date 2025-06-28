@@ -161,26 +161,50 @@
         </div>
     @endif
 
-    @if (false)
+    @if ($downtime->researchActions()->count())
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <h3 class="text-xl font-semibold">{{ __('Research Projects') }}</h3>
                 <div class="sm:grid sm:grid-cols-3 gap-6">
+                    @foreach ($downtime->researchProjects as $project)
+                        <div>
+                            <p class="text-lg font-semibold">{{ $project->name }}</p>
+                            <ul class="list-disc list-inside">
+                                @if ($project->researchActions()->where('downtime_id', $downtime->id)->count())
+                                    @foreach($project->researchActions()->where('downtime_id', $downtime->id)->get() as $action)
+                                        <li>
+                                            {{ __('Researcher: :name', ['name' => $action->character->listName]) }}
+                                        </li>
+                                    @endforeach
+                                @endif
+                                @if ($project->subjectActions()->where('downtime_id', $downtime->id)->count())
+                                    @foreach($project->subjectActions()->where('downtime_id', $downtime->id)->get() as $action)
+                                        <li>
+                                            {{ __('Subject: :name', ['name' => $action->character->listName]) }}
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     @endif
 
-    @if ($downtime->miscActions()->count())
+    @if ($downtime->personalActions()->count())
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <h3 class="text-xl font-semibold">{{ __('Personal Actions') }}</h3>
                 <div class="sm:grid sm:grid-cols-3 gap-6">
-                    @foreach($downtime->miscActions() as $action)
+                    @foreach($downtime->personalActions() as $action)
                         <div>
                             <p class="text-lg font-semibold">{{ $action->character->listName }}</p>
                             <ul class="list-disc list-inside">
                                 <li>{{ $action->notes }}</li>
+                                @if (!empty($action->response))
+                                    <li>{{ __('Response: :response', ['response' => $action->response]) }}</li>
+                                @endif
                             </ul>
                         </div>
                     @endforeach

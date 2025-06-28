@@ -416,7 +416,7 @@ class Downtime extends Model
     {
         static $researchActions = null;
         if (is_null($researchActions)) {
-            $researchActions = $this->actions()->with('research_project')
+            $researchActions = $this->actions()->with('researchProject')
                 ->where('action_type_id', ActionType::ACTION_RESEARCHING)->get();
         }
         return $researchActions;
@@ -426,7 +426,7 @@ class Downtime extends Model
     {
         static $researchActions = null;
         if (is_null($researchActions)) {
-            $researchActions = $this->actions()->with('research_project')
+            $researchActions = $this->actions()->with('researchProject')
                 ->where('action_type_id', ActionType::ACTION_RESEARCH_SUBJECT)->get();
         }
         return $researchActions;
