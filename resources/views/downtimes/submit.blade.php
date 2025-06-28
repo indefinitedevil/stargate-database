@@ -45,21 +45,21 @@
             </div>
         </div>
 
-        @include('downtimes.partials.training-courses')
-
-        @if ($downtime->isOpen() && $character->requiredUpkeepSkills->count())
-            <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-5 shadow">
-                <p class="font-bold">{{ __('Upkeep Skills') }}</p>
-                <p>{{ __('The following skills require actions to be spent on upkeep or a level of the skill will be lost:') }}</p>
-                <ul class="list-disc list-inside">
-                    @foreach($character->requiredUpkeepSkills as $skill)
-                        <li>{{ $skill->name }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <div class="sm:grid sm:grid-cols-2 sm:gap-6">
+            @include('downtimes.partials.training-courses')
+
+            @if ($downtime->isOpen() && $character->requiredUpkeepSkills->count())
+                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-5 shadow">
+                    <p class="font-bold">{{ __('Upkeep Skills') }}</p>
+                    <p>{{ __('The following skills require actions to be spent on upkeep or a level of the skill will be lost:') }}</p>
+                    <ul class="list-disc list-inside">
+                        @foreach($character->requiredUpkeepSkills as $skill)
+                            <li>{{ $skill->name }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             @if ($downtime->development_actions > 0)
                 <div
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->development_actions }}">
@@ -168,6 +168,8 @@
                 </div>
             @endif
 
+            @include('downtimes.partials.research-info')
+
             @if ($downtime->research_actions > 0)
                 <div
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->research_actions + $downtime->experiment_actions }}">
@@ -204,14 +206,13 @@
                                 <x-select id="research_project_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][research_project_id]"
                                           :disabled="!$downtime->isOpen()"
-                                          class="mt-1 block {{ ActionType::RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research', ['action' => $action])</x-select>
+                                          class="mt-1 block {{ ActionType::RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research-projects', ['action' => $action])</x-select>
 
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
-                                            :value="$action->notes"
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full {{ ActionType::RESEARCHING == $action->action_type_id ? '' : 'hidden' }}"
-                                            :placeholder="__('Notes')"/>
+                                            :placeholder="__('Notes')">{{ $action->notes }}</x-textarea>
                             </div>
                         @endforeach
                         @while($actionCount < $downtime->research_actions)
@@ -235,7 +236,7 @@
                                 <x-select id="research_project_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][research_project_id]"
                                           :disabled="!$downtime->isOpen()"
-                                          class="mt-1 block hidden">@include('downtimes.partials.research', ['action' => null])</x-select>
+                                          class="mt-1 block hidden">@include('downtimes.partials.research-projects', ['action' => null])</x-select>
 
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
@@ -263,11 +264,11 @@
                                     <x-select id="research_project_{{ $actionCount }}"
                                               name="research_subject_action[{{ $actionCount }}][research_project_id]"
                                               :disabled="!$downtime->isOpen()"
-                                              class="mt-1 block">@include('downtimes.partials.research', ['action' => $action])</x-select>
+                                              class="mt-1 block">@include('downtimes.partials.research-projects', ['action' => $action])</x-select>
                                     <p class="text-xs">{{ __('You may consent to being the subject of a research project that requires volunteer subjects.') }}</p>
                                 </div>
                             @endforeach
-                            @if ($downtime->getResearchVolunteerProjects()->count() > 0)
+                            @if ($downtime->researchVolunteerProjects->count() > 0)
                                 @while($actionCount < $downtime->experiment_actions)
                                     <div>
                                         <p class="text-lg">{{ __('Research Subject Action :number', ['number' => ++$actionCount]) }}</p>
@@ -276,7 +277,7 @@
                                         <x-select id="research_project_{{ $actionCount }}"
                                                   name="research_subject_action[{{ $actionCount }}][research_project_id]"
                                                   :disabled="!$downtime->isOpen()"
-                                                  class="mt-1 block">@include('downtimes.partials.research', ['action' => null])</x-select>
+                                                  class="mt-1 block">@include('downtimes.partials.research-projects', ['action' => null])</x-select>
                                         <p class="text-xs">{{ __('You may consent to being the subject of a research project that requires volunteer subjects.') }}</p>
                                     </div>
                                 @endwhile
@@ -314,7 +315,7 @@
                             <div>
                                 <p class="text-lg">{{ trans_choice('Personal Action|Personal Action :number', $downtime->other_actions, ['number' => ++$actionCount]) }}</p>
                                 <input type="hidden" name="other_action[{{ $actionCount }}][type]"
-                                       value="{{ ActgionType::OTHER }}"/>
+                                       value="{{ ActionType::OTHER }}"/>
                                 <x-textarea id="other_action_{{ $actionCount }}_notes"
                                             name="other_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"

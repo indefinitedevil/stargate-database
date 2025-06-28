@@ -1,5 +1,5 @@
 @if($downtime->isOpen() && $downtime->trainingCourses->count() > 0)
-    <div class="p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300 row-span-{{ $downtime->development_actions }}">
         <div>
             <h3 class="text-lg font-semibold">{{ __('Training Courses') }}</h3>
             <div class="space-y-2">

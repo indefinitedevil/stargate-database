@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Mail;
  * @property Collection actions
  * @property Collection missions
  * @property Collection trainingCourses
+ * @property Collection researchProjects
+ * @property Collection researchVolunteerProjects
  * @property Event event
  * @property int event_id
  * @property bool open
@@ -79,21 +81,34 @@ class Downtime extends Model
         return $this->open;
     }
 
-    public function getResearchProjects(): Collection
+    public function getResearchProjectsAttribute(): Collection
     {
         static $researchProjects = null;
         if (is_null($researchProjects)) {
-            $researchProjects = ResearchProject::where('active', true)->get();
+            $researchProjects = ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)->get();
         }
         return $researchProjects;
     }
 
-    public function getResearchVolunteerProjects(): Collection
+    public function getResearchProjectsForCharacter($characterId): Collection
+    {
+        static $researchProjects = null;
+        if (is_null($researchProjects)) {
+            $researchProjects = ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)
+                ->join('research_project_skill', 'research_project_skill.research_project_id', 'research_projects.id')
+                ->join('character_skills', 'character_skills.skill_id', 'research_project_skill.skill_id')
+                ->where('character_skills.character_id', $characterId)
+                ->select('research_projects.*')->get();
+        }
+        return $researchProjects;
+    }
+
+    public function getResearchVolunteerProjectsAttribute(): Collection
     {
         static $researchVolunteerProjects = null;
         if (is_null($researchVolunteerProjects)) {
             $researchVolunteerProjects = ResearchProject::where('needs_volunteers', true)
-                ->where('active', true)
+                ->where('status', ResearchProject::STATUS_ACTIVE)
                 ->get();
         }
         return $researchVolunteerProjects;
