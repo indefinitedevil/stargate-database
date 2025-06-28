@@ -77,7 +77,7 @@
                         @endphp
                         @foreach ($savedActions as $action)
                             <div>
-                                <p class="text-lg">{{ __('Development Action :number', ['number' => ++$actionCount]) }}</p>
+                                <p class="text-lg">{{ trans_choice('Development Action|Development Action :number', $downtime->development_actions, ['number' => ++$actionCount]) }}</p>
                                 <input type="hidden" name="development_action[{{ $actionCount }}][id]"
                                        value="{{ $action->id }}">
                                 <x-select id="development_action_{{ $actionCount }}"
@@ -127,7 +127,7 @@
                         @endforeach
                         @while($actionCount < $downtime->development_actions)
                             <div>
-                                <p class="text-lg">{{ __('Development Action :number', ['number' => ++$actionCount]) }}</p>
+                                <p class="text-lg">{{ trans_choice('Development Action|Development Action :number', $downtime->development_actions, ['number' => ++$actionCount]) }}</p>
                                 <x-select id="development_action_{{ $actionCount }}"
                                           name="development_action[{{ $actionCount }}][type]"
                                           :disabled="!$downtime->isOpen()"
@@ -183,7 +183,7 @@
                         @endphp
                         @foreach ($savedActions as $action)
                             <div>
-                                <p class="text-lg">{{ __('Research Action :number', ['number' => ++$actionCount]) }}</p>
+                                <p class="text-lg">{{ trans_choice('Research Action|Research Action :number', $downtime->research_actions, ['number' => ++$actionCount]) }}</p>
                                 <input type="hidden" name="research_action[{{ $actionCount }}][id]"
                                        value="{{ $action->id }}">
                                 <x-select id="research_action_{{ $actionCount }}"
@@ -217,7 +217,7 @@
                         @endforeach
                         @while($actionCount < $downtime->research_actions)
                             <div>
-                                <p class="text-lg">{{ __('Research Action :number', ['number' => ++$actionCount]) }}</p>
+                                <p class="text-lg">{{ trans_choice('Research Action|Research Action :number', $downtime->research_actions, ['number' => ++$actionCount]) }}</p>
                                 <x-select id="research_action_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][type]"
                                           :disabled="!$downtime->isOpen()"
@@ -256,7 +256,7 @@
                             @endphp
                             @foreach ($savedActions as $action)
                                 <div>
-                                    <p class="text-lg">{{ __('Research Subject Action :number', ['number' => ++$actionCount]) }}</p>
+                                    <p class="text-lg">{{ trans_choice('Research Subject Action|Research Subject Action :number', $downtime->experiment_actions, ['number' => ++$actionCount]) }}</p>
                                     <input type="hidden" name="research_subject_action[{{ $actionCount }}][id]"
                                            value="{{ $action->id }}">
                                     <input type="hidden" name="research_subject_action[{{ $actionCount }}][type]"
@@ -265,20 +265,20 @@
                                               name="research_subject_action[{{ $actionCount }}][research_project_id]"
                                               :disabled="!$downtime->isOpen()"
                                               class="mt-1 block">@include('downtimes.partials.research-projects', ['action' => $action])</x-select>
-                                    <p class="text-xs">{{ __('You may consent to being the subject of a research project that requires volunteer subjects.') }}</p>
+                                    <p class="text-xs mt-1">{{ __('You may consent to being the subject of a research project that requires volunteer subjects. This will not prevent you from taking other actions.') }}</p>
                                 </div>
                             @endforeach
                             @if ($downtime->researchVolunteerProjects->count() > 0)
                                 @while($actionCount < $downtime->experiment_actions)
                                     <div>
-                                        <p class="text-lg">{{ __('Research Subject Action :number', ['number' => ++$actionCount]) }}</p>
+                                        <p class="text-lg">{{ trans_choice('Research Subject Action|Research Subject Action :number', $downtime->experiment_actions, ['number' => ++$actionCount]) }}</p>
                                         <input type="hidden" name="research_subject_action[{{ $actionCount }}][type]"
                                                value="{{ ActionType::RESEARCH_SUBJECT }}">
                                         <x-select id="research_project_{{ $actionCount }}"
                                                   name="research_subject_action[{{ $actionCount }}][research_project_id]"
                                                   :disabled="!$downtime->isOpen()"
                                                   class="mt-1 block">@include('downtimes.partials.research-projects', ['action' => null])</x-select>
-                                        <p class="text-xs">{{ __('You may consent to being the subject of a research project that requires volunteer subjects.') }}</p>
+                                        <p class="text-xs mt-1">{{ __('You may consent to being the subject of a research project that requires volunteer subjects. This will not prevent you from taking other actions.') }}</p>
                                     </div>
                                 @endwhile
                             @endif

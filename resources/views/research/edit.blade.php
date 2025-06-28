@@ -142,7 +142,7 @@
                         <div>
                             <x-input-label for="needs_volunteers" :value="__('Needs test subjects')"/>
                             <x-checkbox-input id="needs_volunteers" name="needs_volunteers" type="number"
-                                              :value="old('needs_volunteers', $project->needs_volunteers ?? false)"/>
+                                              :value="1"/>
                             <x-input-error class="mt-2" :messages="$errors->get('needs_volunteers')"/>
                         </div>
 
