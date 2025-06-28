@@ -64,9 +64,7 @@ class ResearchProject extends Model
     public function downtimeActions(): HasMany
     {
         return $this->hasMany(DowntimeAction::class)
-            ->with('characters')
-            ->with('actionType')
-            ->with('characterSkills');
+            ->with(['character', 'actionType', 'downtime']);
     }
 
     public function skills(): BelongsToMany
@@ -88,13 +86,15 @@ class ResearchProject extends Model
     public function researchActions(): HasMany
     {
         return $this->downtimeActions()->where('research_project_id', $this->id)
-            ->where('action_type_id', ActionType::RESEARCHING);
+            ->where('action_type_id', ActionType::RESEARCHING)
+            ->with('character');
     }
 
     public function subjectActions(): HasMany
     {
         return $this->downtimeActions()->where('research_project_id', $this->id)
-            ->where('action_type_id', ActionType::RESEARCH_SUBJECT);
+            ->where('action_type_id', ActionType::RESEARCH_SUBJECT)
+            ->with('character');
     }
 
     public function getStatusNameAttribute(): string

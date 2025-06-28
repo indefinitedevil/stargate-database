@@ -243,6 +243,7 @@ class DowntimeController extends Controller
                     }
                     break;
                 case ActionType::RESEARCHING:
+                case ActionType::RESEARCH_SUBJECT:
                     $researchProject = ResearchProject::find($actionData['research_project_id'] ?? 0);
                     if (empty($researchProject)) {
                         $errors[] = __(':type Action :index: Research Project not found.', ['type' => $type, 'index' => $key]);
@@ -250,6 +251,22 @@ class DowntimeController extends Controller
                     if (!empty($actionData['notes']) && strlen($actionData['notes']) > 65535) {
                         $errors[] = __(':type Action :index: Notes are limited to 65000 characters.', ['type' => $type, 'index' => $key]);
                     }
+                    if (!empty($actionData['id'])) {
+                        $action = DowntimeAction::find($actionData['id']);
+                        if (empty($action)) {
+                            $errors[] = __(':type Action :index: Action not found.', ['type' => $type, 'index' => $key]);
+                        }
+                    } else {
+                        $action = new DowntimeAction();
+                    }
+                    $action->fill([
+                        'character_id' => $character->id,
+                        'downtime_id' => $downtime->id,
+                        'action_type_id' => $actionData['type'],
+                        'research_project_id' => $researchProject->id,
+                        'notes' => $actionData['notes'] ?? '',
+                    ]);
+                    $action->save();
                     break;
                 case ActionType::MISSION:
                     $mission = DowntimeMission::find($actionData['mission_id'] ?? 0);

@@ -43,11 +43,12 @@
                     </div>
 
                     <div class="col-span-3">
-                        <x-input-label for="ooc_intent" :value="__('OOC Intent')"/>
+                        <x-input-label for="ooc_intent" :value="__('OOC Intent and Explanatory Notes')"/>
                         <x-textarea id="ooc_intent" name="ooc_intent" rows="6"
                                     class="mt-1 block w-full">{{ $project->ooc_intent ?? '' }}</x-textarea>
                         <x-input-error class="mt-2" :messages="$errors->get('ooc_intent')"/>
                         <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                        <p class="text-xs">{{ __('This field is intended to be used to explain in OOC terms what you\'re trying to achieve, and what you expect to get.') }}</p>
                     </div>
 
                     @can('approve research projects')
@@ -78,11 +79,12 @@
                             <x-select id="status" name="status" class="mt-1 block w-full" required>
                                 @can('approve research projects')
                                     @php
-                                        $statuses = [ResearchProject::STATUS_PENDING, ResearchProject::STATUS_APPROVED];
+                                        $statuses = [ResearchProject::STATUS_PENDING, ResearchProject::STATUS_APPROVED, ResearchProject::STATUS_COMPLETED];
                                     @endphp
-                                @elsecan('edit research projects')
+                                @endcan
+                                @can('edit research projects')
                                     @php
-                                        $statuses = [ResearchProject::STATUS_APPROVED, ResearchProject::STATUS_ON_HOLD, ResearchProject::STATUS_COMPLETED, ResearchProject::STATUS_ABANDONED];
+                                        $statuses = [ResearchProject::STATUS_APPROVED, ResearchProject::STATUS_ACTIVE, ResearchProject::STATUS_ON_HOLD, ResearchProject::STATUS_ABANDONED];
                                     @endphp
                                 @endcan
                                 @foreach($statuses as $status)

@@ -60,6 +60,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                     <h3 class="text-xl">{{ __('OOC Intent') }}</h3>
                     {!! process_markdown($project->ooc_intent) !!}
+                    <em class="text-xs">{{ __('This field is intended to be used to explain in OOC terms what you\'re trying to achieve, and what you expect to get.') }}</em>
                 </div>
             </div>
         @endcan
@@ -87,7 +88,10 @@
                     <h3 class="text-xl">{{ __('Contributions') }}</h3>
                     <ul class="list-disc list-inside">
                         @foreach($project->downtimeActions as $downtimeAction)
-                            <li>{{ $skill->name }}</li>
+                            <li>
+                                {{ $downtimeAction->character->listName }}
+                                @if($downtimeAction->downtime->isOpen()) <em>{{ __('(Pending)') }}</em> @endif
+                            </li>
                         @endforeach
                     </ul>
                 </div>

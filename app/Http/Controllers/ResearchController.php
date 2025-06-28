@@ -26,9 +26,9 @@ class ResearchController extends Controller
         return view('research.index', compact('projects'));
     }
 
-    public function view($id)
+    public function view($projectId)
     {
-        $project = ResearchProject::findOrFail($id);
+        $project = ResearchProject::findOrFail($projectId);
         if (ResearchProject::VISIBILITY_PRIVATE == $project->visibility && !auth()->user()->can('edit research projects')) {
             return redirect(route('research.index'))
                 ->with('error', __('You do not have permission to view this research project.'));
