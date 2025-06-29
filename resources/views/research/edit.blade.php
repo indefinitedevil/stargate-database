@@ -148,7 +148,7 @@
                         <div class="col-span-2">
                             <x-input-label for="skills" :value="__('Skills required')"/>
                             <x-select id="skills" name="skills[]" class="mt-1 block w-full" multiple>
-                                @php $skillIds = $project->skills->pluck('id')->toArray() ?? []; @endphp
+                                @php $skillIds = !empty($project) ? $project->skills->pluck('id')->toArray() : []; @endphp
                                 @foreach (Skill::where('skill_category_id', '!=', 7)->get() as $skill)
                                     @if (empty($currentCategory) || $currentCategory != $skill->skill_category_id)
                                         @if (!empty($currentCategory))
