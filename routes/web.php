@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/downtimes/store-submission', [DowntimeController::class, 'storeSubmission'])->name('downtimes.store-submission');
 
         Route::get('/research', [ResearchController::class, 'index'])->name('research.index');
+        Route::get('/research/view/{projectId}/{projectName?}', [ResearchController::class, 'view'])->name('research.view');
     });
 
     Route::get('/plot-co/skills', [PlotcoController::class, 'skills'])->name('plotco.skills')
@@ -124,7 +125,6 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'can:add research projects'], function () {
         Route::get('/research/create', [ResearchController::class, 'create'])->name('research.create');
         Route::get('/research/edit/{projectId}', [ResearchController::class, 'edit'])->name('research.edit');
-        Route::get('/research/view/{projectId}/{projectName?}', [ResearchController::class, 'view'])->name('research.view');
         Route::post('/research/store', [ResearchController::class, 'store'])->name('research.store');
     });
 
