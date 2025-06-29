@@ -27,3 +27,12 @@ jQuery('[id^="research_action_"]').on('change', function () {
         }
     }
 });
+
+function toggleVisibility(id) {
+    let element = document.getElementById(id);
+    if (element.classList.contains('hidden')) {
+        element.classList.remove('hidden');
+    } else {
+        element.classList.add('hidden');
+    }
+}
