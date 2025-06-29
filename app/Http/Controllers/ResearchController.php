@@ -15,13 +15,26 @@ class ResearchController extends Controller
         } else {
             $baseProjects = ResearchProject::where('visibility', ResearchProject::VISIBILITY_PUBLIC);
         }
-        $activeProjects = (clone $baseProjects)->where('status', ResearchProject::STATUS_ACTIVE)
+        $publicProjects = ResearchProject::where('visibility', ResearchProject::VISIBILITY_PUBLIC);
+        $privateProjects = ResearchProject::where('visibility', ResearchProject::VISIBILITY_PRIVATE);
+        $archivedProjects = ResearchProject::where('visibility', ResearchProject::VISIBILITY_ARCHIVED);
+        $activeProjects = (clone $publicProjects)->where('status', ResearchProject::STATUS_ACTIVE)
             ->orderBy('name');
-        $approvedProjects = (clone $baseProjects)->where('status', ResearchProject::STATUS_APPROVED)
+        $approvedProjects = (clone $publicProjects)->where('status', ResearchProject::STATUS_APPROVED)
             ->orderBy('name');
-        $otherProjects = (clone $baseProjects)->whereNotIn('status', [ResearchProject::STATUS_ACTIVE, ResearchProject::STATUS_APPROVED])
+        $otherProjects = (clone $publicProjects)->whereNotIn('status', [ResearchProject::STATUS_ACTIVE, ResearchProject::STATUS_APPROVED])
             ->orderBy('status')
             ->orderBy('name');
+        if (auth()->user()->can('edit research projects')) {
+            $approvedProjects = $approvedProjects->union((clone $privateProjects)->where('status', ResearchProject::STATUS_APPROVED)->orderBy('name'));
+            $approvedProjects = $approvedProjects->union((clone $archivedProjects)->where('status', ResearchProject::STATUS_APPROVED)->orderBy('name'));
+            $otherProjects = $otherProjects->union((clone $privateProjects)->whereNotIn('status', [ResearchProject::STATUS_ACTIVE, ResearchProject::STATUS_APPROVED])
+                ->orderBy('status')
+                ->orderBy('name'));
+            $otherProjects = $otherProjects->union((clone $archivedProjects)->whereNotIn('status', [ResearchProject::STATUS_ACTIVE, ResearchProject::STATUS_APPROVED])
+                ->orderBy('status')
+                ->orderBy('name'));
+        }
         $projects = $activeProjects->union($approvedProjects)->union($otherProjects)->paginate(12);
         return view('research.index', compact('projects'));
     }
@@ -48,6 +61,10 @@ class ResearchController extends Controller
     public function edit($projectId)
     {
         $project = ResearchProject::findOrFail($projectId);
+        if (ResearchProject::STATUS_COMPLETED == $project->status && !auth()->user()->can('approve research projects')) {
+            return redirect($project->getViewRoute())
+                ->with('error', __('Completed projects cannot be edited.'));
+        }
         $parentProjects = ResearchProject::where('visibility', '!=', ResearchProject::VISIBILITY_PRIVATE)
             ->where('status', ResearchProject::STATUS_COMPLETED)
             ->orderBy('name')
