@@ -277,7 +277,7 @@
                                         <x-select id="research_project_{{ $actionCount }}"
                                                   name="research_subject_action[{{ $actionCount }}][research_project_id]"
                                                   :disabled="!$downtime->isOpen()"
-                                                  class="mt-1 block">@include('downtimes.partials.research-projects', ['action' => null])</x-select>
+                                                  class="mt-1 block">@include('downtimes.partials.research-volunteers', ['action' => null])</x-select>
                                         <p class="text-xs mt-1">{{ __('You may consent to being the subject of a research project that requires volunteer subjects. This will not prevent you from taking other actions.') }}</p>
                                     </div>
                                 @endwhile

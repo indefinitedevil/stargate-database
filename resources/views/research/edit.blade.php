@@ -145,7 +145,7 @@
                     @can('approve research projects')
                         <div>
                             <x-input-label for="needs_volunteers" :value="__('Needs test subjects')"/>
-                            <x-checkbox-input id="needs_volunteers" name="needs_volunteers" :value="1"/>
+                            <x-checkbox-input id="needs_volunteers" name="needs_volunteers" :value="1" checked="old('needs_volunteers', $project->needs_volunteers ?? 0)"/>
                             <x-input-error class="mt-2" :messages="$errors->get('needs_volunteers')"/>
                         </div>
 
