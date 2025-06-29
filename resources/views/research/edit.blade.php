@@ -1,6 +1,7 @@
 @php
     use App\Models\ResearchProject;
     use App\Models\Skill;
+    use App\Models\SkillCategory;
     $title = empty($project->id) ? __('Create research project') : sprintf(__('Edit research project: %s'), $project->name);
 @endphp
 <x-app-layout>
@@ -149,7 +150,7 @@
                             <x-input-label for="skills" :value="__('Skills required')"/>
                             <x-select id="skills" name="skills[]" class="mt-1 block w-full" multiple>
                                 @php $skillIds = !empty($project) ? $project->skills->pluck('id')->toArray() : []; @endphp
-                                @foreach (Skill::where('skill_category_id', '!=', 7)->get() as $skill)
+                                @foreach (Skill::where('skill_category_id', '!=', SkillCategory::SYSTEM)->get() as $skill)
                                     @if (empty($currentCategory) || $currentCategory != $skill->skill_category_id)
                                         @if (!empty($currentCategory))
                                             {!! '</optgroup>' !!}

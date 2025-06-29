@@ -16,6 +16,14 @@ class SkillCategory extends Model
 {
     use HasFactory;
 
+    const TECHNOLOGY = 1;
+    const SCIENCE_SOCIAL = 2;
+    const COMPLEX = 3;
+    const BASIC = 4;
+    const COMBAT = 5;
+    const ALIEN = 6;
+    const SYSTEM = 7;
+
     public function skills(): HasMany
     {
         return $this->hasMany(Skill::class);
