@@ -150,7 +150,7 @@
                             <x-input-label for="skills" :value="__('Skills required')"/>
                             <x-select id="skills" name="skills[]" class="mt-1 block w-full" multiple>
                                 @php $skillIds = !empty($project) ? $project->skills->pluck('id')->toArray() : []; @endphp
-                                @foreach (Skill::where('skill_category_id', '!=', SkillCategory::SYSTEM)->get() as $skill)
+                                @foreach (Skill::where('skill_category_id', '!=', SkillCategory::SYSTEM)->orderBy('skill_category_id')->orderBy('name')->get() as $skill)
                                     @if (empty($currentCategory) || $currentCategory != $skill->skill_category_id)
                                         @if (!empty($currentCategory))
                                             {!! '</optgroup>' !!}
@@ -168,6 +168,7 @@
                                 @endif
                             </x-select>
                             <x-input-error class="mt-2" :messages="$errors->get('skills')"/>
+                            <p class="text-xs">{{ __('Press Ctrl to select/de-select additional specialties.') }}</p>
                         </div>
                     @endcan
                 </div>
