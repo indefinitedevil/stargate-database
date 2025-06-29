@@ -52,14 +52,14 @@
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <h3 class="text-xl">{{ __('Project Goals') }}</h3>
-                {!! process_markdown($project->project_goals) !!}
+                {!! process_markdown($project->project_goals ?? '') !!}
             </div>
         </div>
         @can('edit research projects')
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                     <h3 class="text-xl">{{ __('OOC Intent') }}</h3>
-                    {!! process_markdown($project->ooc_intent) !!}
+                    {!! process_markdown($project->ooc_intent ?? '') !!}
                     <em class="text-xs">{{ __('This field is intended to be used to explain in OOC terms what you\'re trying to achieve, and what you expect to get.') }}</em>
                 </div>
             </div>
@@ -68,7 +68,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                     <h3 class="text-xl">{{ __('Results') }}</h3>
-                    {!! process_markdown($project->results) !!}
+                    {!! process_markdown($project->results ?? '') !!}
                 </div>
             </div>
         @endif
@@ -124,7 +124,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                     <h3 class="text-xl">{{ __('Plot Notes') }}</h3>
-                    {!! process_markdown($project->plot_notes) !!}
+                    {!! process_markdown($project->plot_notes ?? '') !!}
                 </div>
             </div>
         @endcan
