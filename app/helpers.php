@@ -2,23 +2,34 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 
-function add_positive_modifier(int $int): string {
+function add_positive_modifier(int $int): string
+{
     return $int > 0 ? "+$int" : "$int";
 }
 
-function process_markdown(string $text): string {
+function process_markdown(string $text): Stringable
+{
     return Str::of($text)->markdown()->replace('<ul>', '<ul class="list-disc list-inside">');
 }
 
-function format_datetime($date, $format = 'j F Y H:i'): string {
+function process_inline_markdown(string $text): Stringable
+{
+    return process_markdown($text)->replace('<p>', '')
+        ->replace('</p>', '');
+}
+
+function format_datetime($date, $format = 'j F Y H:i'): string
+{
     if (!($date instanceof Carbon)) {
         $date = (new Carbon(strtotime($date)))->shiftTimezone('UTC');
     }
     return $date->timezone('Europe/London')->format($format);
 }
 
-function utc_datetime($date, $format = 'Y-m-d H:i:s'): string {
+function utc_datetime($date, $format = 'Y-m-d H:i:s'): string
+{
     if (!($date instanceof Carbon)) {
         $date = (new Carbon(strtotime($date)))->shiftTimezone('Europe/London');
     }
