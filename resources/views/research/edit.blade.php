@@ -88,7 +88,11 @@
                                 @endcan
                                 @can('edit research projects')
                                     @php
-                                        $statuses = [ResearchProject::STATUS_APPROVED, ResearchProject::STATUS_ACTIVE, ResearchProject::STATUS_ON_HOLD, ResearchProject::STATUS_ABANDONED];
+                                        if (ResearchProject::STATUS_APPROVED) {
+                                            $statuses = [ResearchProject::STATUS_APPROVED, ResearchProject::STATUS_ACTIVE, ResearchProject::STATUS_ON_HOLD, ResearchProject::STATUS_ABANDONED];
+                                        } else {
+                                            $statuses = [ResearchProject::STATUS_PENDING];
+                                        }
                                     @endphp
                                 @endcan
                                 @foreach($statuses as $status)
