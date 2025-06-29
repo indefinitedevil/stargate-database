@@ -8,7 +8,7 @@
                 <ul class="list-inside list-disc">
                     @foreach($downtime->researchProjects as $researchProject)
                         <li>
-                            <a href="{{ $researchProject->getViewRoute() }}"
+                            <a href="{{ $researchProject->getViewRoute() }}" target="_blank"
                                class="underline"><strong>{!! process_inline_markdown($researchProject->name) !!}</strong></a>
                             {{ __('(:done / :total months)', ['done' => $researchProject->researchActions()->count(), 'total' => $researchProject->months]) }}
                             (<a class="cursor-pointer underline decoration-dashed underline-offset-4" onclick="toggleVisibility('research-skills-{{ $researchProject->id }}')">{{ __('Show skills') }}</a>)
