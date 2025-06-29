@@ -104,9 +104,15 @@
                     <x-input-error class="mt-2" :messages="$errors->get('notes')"/>
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <x-primary-button>{{ __(!empty($editLog) ? 'Save Log' : 'Add Log') }}</x-primary-button>
+                <div class="col-span-3">
+                    <x-input-label for="plot_notes" :value="__('Plot notes')"/>
+                    <x-textarea id="plot_notes" name="plot_notes" class="mt-1 block w-full" required>{{ empty($editLog) ? '' : $editLog->plot_notes }}</x-textarea>
+                    <x-input-error class="mt-2" :messages="$errors->get('plot_notes')"/>
                 </div>
+            </div>
+
+            <div class="flex items-center mt-4">
+                <x-primary-button>{{ __(!empty($editLog) ? 'Save Log' : 'Add Log') }}</x-primary-button>
             </div>
         </form>
     </div>
