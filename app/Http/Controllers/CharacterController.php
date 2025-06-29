@@ -672,6 +672,7 @@ class CharacterController extends Controller
             'vigor_change' => 'integer',
             'temp_vigor_change' => 'integer',
             'notes' => 'string|nullable',
+            'plot_notes' => 'string|nullable',
         ]);
 
         if (!empty($validatedData['character_id']) && $request->user()->cannot('edit', Character::find($validatedData['character_id']))) {
@@ -733,6 +734,7 @@ class CharacterController extends Controller
             'vigor_change' => $validatedData['vigor_change'] ?? 0,
             'temp_vigor_change' => $validatedData['temp_vigor_change'] ?? 0,
             'notes' => $validatedData['notes'] ?? '',
+            'plot_notes' => $validatedData['plot_notes'] ?? '',
             'log_type_id' => LogType::PLOT,
             'teacher_id' => null,
             'skill_completed' => $validatedData['completed'],
