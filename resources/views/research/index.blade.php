@@ -31,8 +31,8 @@
                             @endcan
                             <a href="{{ $project->getViewRoute() }}" class="underline"><strong>{{ $project->name }}</strong></a>
                         </p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('Subject: :subject', ['subject' => $project->research_subject]) }}</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('Status: :status', ['status' => $project->status_name]) }}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">{!! process_markdown(__('Subject: :subject', ['subject' => $project->research_subject])) !!}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">{!! process_markdown(__('Status: :status', ['status' => $project->status_name])) !!}</p>
 
                         @can ('edit research projects')
                             <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('Visibility: :visibility', ['visibility' => $project->visibility_name]) }}</p>
