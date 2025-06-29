@@ -28,10 +28,10 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 sm:grid sm:grid-cols-4 gap-x-6 gap-y-2">
             <p class="col-span-2">
-                <strong>{{ __('Project name') }}:</strong> {{ $project->name }}
+                <strong>{{ __('Project name') }}:</strong> {!! process_markdown($project->name ?? '') !!}
             </p>
             <p class="col-span-2">
-                <strong>{{ __('Subject of research') }}:</strong> {{ $project->research_subject }}
+                <strong>{{ __('Subject of research') }}:</strong> {!! process_markdown($project->research_subject ?? '') !!}
             </p>
             <p>
                 <strong>{{ __('Status') }}:</strong> {{ $project->status_name }}
