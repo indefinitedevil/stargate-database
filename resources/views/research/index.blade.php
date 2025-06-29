@@ -35,7 +35,7 @@
                         <p class="text-sm text-gray-600 dark:text-gray-400">{!! process_inline_markdown(__('**Status:** :status', ['status' => $project->status_name])) !!}</p>
 
                         @can ('edit research projects')
-                            <p class="text-sm text-gray-600 dark:text-gray-400">{{ process_inline_markdown(__('**Visibility:** :visibility', ['visibility' => $project->visibility_name])) }}</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">{!! process_inline_markdown(__('**Visibility:** :visibility', ['visibility' => $project->visibility_name])) !!}</p>
                         @endcan
                     </div>
                 </div>
