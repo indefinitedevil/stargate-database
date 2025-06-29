@@ -51,6 +51,9 @@
                         <p>{{ __('Temp Vigor: :amount', ['amount' => add_positive_modifier($log->temp_vigor_change)]) }}</p>
                     @endif
                     <p>{{ __('Notes: :notes', ['notes' => $log->notes]) }}</p>
+                    @can('view hidden notes')
+                        <p>{{ __('Plot notes: :notes', ['notes' => $log->plot_notes]) }}</p>
+                    @endcan
                 </div>
             @endforeach
         </div>
