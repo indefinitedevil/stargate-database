@@ -83,12 +83,11 @@
                             <x-select id="status" name="status" class="mt-1 block w-full" required>
                                 @can('approve research projects')
                                     @php
-                                        $statuses = [ResearchProject::STATUS_PENDING, ResearchProject::STATUS_APPROVED, ResearchProject::STATUS_COMPLETED];
+                                        $statuses = [ResearchProject::STATUS_PENDING, ResearchProject::STATUS_APPROVED, ResearchProject::STATUS_ACTIVE, ResearchProject::STATUS_COMPLETED, ResearchProject::STATUS_ON_HOLD, ResearchProject::STATUS_ABANDONED];
                                     @endphp
-                                @endcan
-                                @can('edit research projects')
+                                @elsecan('edit research projects')
                                     @php
-                                        if (ResearchProject::STATUS_APPROVED) {
+                                        if (!empty($project->id) && ResearchProject::STATUS_APPROVED == $project->status) {
                                             $statuses = [ResearchProject::STATUS_APPROVED, ResearchProject::STATUS_ACTIVE, ResearchProject::STATUS_ON_HOLD, ResearchProject::STATUS_ABANDONED];
                                         } else {
                                             $statuses = [ResearchProject::STATUS_PENDING];
