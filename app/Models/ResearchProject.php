@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
@@ -95,6 +95,28 @@ class ResearchProject extends Model
         return $this->downtimeActions()->where('research_project_id', $this->id)
             ->where('action_type_id', ActionType::ACTION_RESEARCH_SUBJECT)
             ->with('character');
+    }
+
+    public function researchCharacters($downtimeId = 0): Collection
+    {
+        static $researchCharacters = [];
+        if (empty($researchCharacters[$downtimeId])) {
+            $researchActions = $this->researchActions();
+            if ($downtimeId) {
+                $researchActions = $researchActions->where('downtime_id', $downtimeId);
+            }
+            $researchActions = $researchActions->get();
+            foreach ($researchActions as $researchAction) {
+                if (empty($researchCharacters[$downtimeId][$researchAction->character_id])) {
+                    $researchCharacters[$downtimeId][$researchAction->character_id] = [
+                        'character' => $researchAction->character,
+                        'actions' => [],
+                    ];
+                }
+                $researchCharacters[$downtimeId][$researchAction->character_id]['actions'][] = $researchAction;
+            }
+        }
+        return collect($researchCharacters[$downtimeId]);
     }
 
     public function getStatusNameAttribute(): string

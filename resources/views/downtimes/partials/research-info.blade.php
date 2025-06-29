@@ -23,12 +23,12 @@
                                     {{ __('None specified') }}
                                 @endif
                             </p>
-                            @php $researchActions = $researchProject->researchActions()->where('downtime_id', $downtime->id)->get(); @endphp
-                            @if ($researchActions->count() > 0)
+                            @php $researchCharacters = $researchProject->researchCharacters($downtime->id); @endphp
+                            @if ($researchCharacters->count() > 0)
                                 <ul class="list-inside list-disc ml-4">
-                                    @foreach($researchActions as $researchAction)
+                                    @foreach($researchCharacters as $researchAction)
                                         <li>
-                                            {{ __('Researching: :researcher', ['researcher' => $researchAction->character->listName]) }}
+                                            {{ __('Researching: :researcher (:months months)', ['researcher' => $researchAction['character']->listName, 'months' => count($researchAction['actions'])]) }}
                                         </li>
                                     @endforeach
                                 </ul>
