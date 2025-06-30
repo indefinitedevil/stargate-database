@@ -51,7 +51,7 @@ class CharacterController extends Controller
         return view('characters.view', ['character' => $character]);
     }
 
-    public function logs(Request $request, $characterId)
+    public function logs(Request $request, $characterId, $logId = null)
     {
         $character = Character::find($characterId);
         if ($request->user()->cannot('view', $character)) {
@@ -62,7 +62,10 @@ class CharacterController extends Controller
             return redirect($character->getViewRoute())
                 ->with('errors', new MessageBag([__('Character must be approved to view logs.')]));
         }
-        return view('characters.logs', ['character' => $character]);
+        return view('characters.logs', [
+            'character' => $character,
+            'editLog' => $logId ? CharacterLog::find($logId) : null,
+        ]);
     }
 
     public function print(Request $request, $characterId)
@@ -91,7 +94,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('edit', $character)) {
             if ($character) {
                 return redirect($character->getViewRoute())
-                    ->with('errors', new MessageBag([__('You cannot edit :character.', ['character' => $character->name])]));
+                    ->with('errors', new MessageBag([__('You cannot edit :character.', ['character' => $character->listName])]));
             } else {
                 return redirect(route('characters.index'))
                     ->with('errors', new MessageBag([__('Character not found.')]));
@@ -112,7 +115,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('approve', $character)) {
             if ($character) {
                 return redirect($character->getViewRoute())
-                    ->with('errors', new MessageBag([__('You cannot mark :character as approved.', ['character' => $character->name])]));
+                    ->with('errors', new MessageBag([__('You cannot mark :character as approved.', ['character' => $character->listName])]));
             } else {
                 return redirect(route('plotco.characters'))
                     ->with('errors', new MessageBag([__('Character not found.')]));
@@ -217,7 +220,7 @@ class CharacterController extends Controller
         Mail::to($character->user->email)->send(new CharacterApproved($character, $notes));
 
         return redirect(route('plotco.characters'))
-            ->with('success', new MessageBag([__('Character :character approved.', ['character' => $character->name])]));
+            ->with('success', new MessageBag([__('Character :character approved.', ['character' => $character->listName])]));
     }
 
     /**
@@ -229,7 +232,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('approve', $character)) {
             if ($character) {
                 return redirect($character->getViewRoute())
-                    ->with('errors', new MessageBag([__('You cannot mark :character as denied.', ['character' => $character->name])]));
+                    ->with('errors', new MessageBag([__('You cannot mark :character as denied.', ['character' => $character->listName])]));
             } else {
                 return redirect(route('plotco.characters'))
                     ->with('errors', new MessageBag([__('Character not found.')]));
@@ -242,7 +245,7 @@ class CharacterController extends Controller
         Mail::to($character->user->email)->send(new CharacterDenied($character, $notes));
 
         return redirect(route('characters.index'))
-            ->with('success', new MessageBag([__('Character :character denied.', ['character' => $character->name])]));
+            ->with('success', new MessageBag([__('Character :character denied.', ['character' => $character->listName])]));
     }
 
     /**
@@ -254,7 +257,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('edit', $character)) {
             if ($character) {
                 return redirect($character->getViewRoute())
-                    ->with('errors', new MessageBag([__('You cannot mark :character as primary.', ['character' => $character->name])]));
+                    ->with('errors', new MessageBag([__('You cannot mark :character as primary.', ['character' => $character->listName])]));
             } else {
                 return redirect(route('characters.index'))
                     ->with('errors', new MessageBag([__('Character not found.')]));
@@ -272,7 +275,7 @@ class CharacterController extends Controller
         $character->save();
 
         return redirect($character->getViewRoute())
-            ->with('success', new MessageBag([__('Character :character marked as primary.', ['character' => $character->name])]));
+            ->with('success', new MessageBag([__('Character :character marked as primary.', ['character' => $character->listName])]));
     }
 
     /**
@@ -284,7 +287,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('edit', $character)) {
             if ($character) {
                 return redirect($character->getViewRoute())
-                    ->with('errors', new MessageBag([__('You cannot mark :character as ready.', ['character' => $character->name])]));
+                    ->with('errors', new MessageBag([__('You cannot mark :character as ready.', ['character' => $character->listName])]));
             } else {
                 return redirect(route('characters.index'))
                     ->with('errors', new MessageBag([__('Character not found.')]));
@@ -336,7 +339,7 @@ class CharacterController extends Controller
         Mail::to(config('mail.plot_coordinator.address'))->send(new CharacterReady($character));
 
         return redirect($character->getViewRoute())
-            ->with('success', new MessageBag([__('Character :character marked as ready.', ['character' => $character->name])]));
+            ->with('success', new MessageBag([__('Character :character marked as ready.', ['character' => $character->listName])]));
     }
 
     /**
@@ -348,7 +351,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('edit', $character)) {
             if ($character) {
                 return redirect($character->getViewRoute())
-                    ->with('errors', new MessageBag([__('You cannot reset :character.', ['character' => $character->name])]));
+                    ->with('errors', new MessageBag([__('You cannot reset :character.', ['character' => $character->listName])]));
             } else {
                 return redirect(route('characters.index'))
                     ->with('errors', new MessageBag([__('Character not found.')]));
@@ -362,7 +365,7 @@ class CharacterController extends Controller
         $character->reset();
 
         return redirect($character->getViewRoute())
-            ->with('success', new MessageBag([__('Character :character reset to pre-approval state.', ['character' => $character->name])]));
+            ->with('success', new MessageBag([__('Character :character reset to pre-approval state.', ['character' => $character->listName])]));
     }
 
     public function delete(Request $request, $characterId)
@@ -371,7 +374,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('delete', $character)) {
             if ($character) {
                 return redirect($character->getViewRoute())
-                    ->with('errors', new MessageBag([__('You cannot mark :character as deleted.', ['character' => $character->name])]));
+                    ->with('errors', new MessageBag([__('You cannot mark :character as deleted.', ['character' => $character->listName])]));
             } else {
                 return redirect(route('characters.index'))
                     ->with('errors', new MessageBag([__('Character not found.')]));
@@ -388,7 +391,7 @@ class CharacterController extends Controller
         $character->events()->sync([]);
         $character->delete();
         return redirect(route('characters.index'))
-            ->with('success', new MessageBag([__('Character :character deleted.', ['character' => $character->name])]));
+            ->with('success', new MessageBag([__('Character :character deleted.', ['character' => $character->listName])]));
     }
 
     public function retire(Request $request, $characterId)
@@ -397,7 +400,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('edit', $character)) {
             if ($character) {
                 return redirect($character->getViewRoute())
-                    ->with('success', new MessageBag([__('You cannot mark :character as retired.', ['character' => $character->name])]));
+                    ->with('success', new MessageBag([__('You cannot mark :character as retired.', ['character' => $character->listName])]));
             } else {
                 return redirect(route('characters.index'))
                     ->with('errors', new MessageBag([__('Character not found.')]));
@@ -406,7 +409,7 @@ class CharacterController extends Controller
         $character->status_id = Status::RETIRED;
         $character->save();
         return redirect($character->getViewRoute())
-            ->with('success', new MessageBag([__('Character :character marked as retired.', ['character' => $character->name])]));
+            ->with('success', new MessageBag([__('Character :character marked as retired.', ['character' => $character->listName])]));
     }
 
     public function kill(Request $request, $characterId)
@@ -415,7 +418,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('edit', $character)) {
             if ($character) {
                 return redirect($character->getViewRoute())
-                    ->with('success', new MessageBag([__('You cannot mark :character as deceased.', ['character' => $character->name])]));
+                    ->with('success', new MessageBag([__('You cannot mark :character as deceased.', ['character' => $character->listName])]));
             } else {
                 return redirect(route('characters.index'))
                     ->with('success', new MessageBag([__('Character not found.')]));
@@ -424,7 +427,7 @@ class CharacterController extends Controller
         $character->status_id = Status::DEAD;
         $character->save();
         return redirect($character->getViewRoute())
-            ->with('success', new MessageBag([__('Character :character marked as deceased.', ['character' => $character->name])]));
+            ->with('success', new MessageBag([__('Character :character marked as deceased.', ['character' => $character->listName])]));
     }
 
     public function inactive(Request $request, $characterId)
@@ -433,7 +436,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('inactive', $character)) {
             if ($character) {
                 return redirect($character->getViewRoute())
-                    ->with('success', new MessageBag([__('You cannot mark :character as inactive.', ['character' => $character->name])]));
+                    ->with('success', new MessageBag([__('You cannot mark :character as inactive.', ['character' => $character->listName])]));
             } else {
                 return redirect(route('characters.index'))
                     ->with('success', new MessageBag([__('Character not found.')]));
@@ -442,7 +445,7 @@ class CharacterController extends Controller
         $character->status_id = Status::INACTIVE;
         $character->save();
         return redirect($character->getViewRoute())
-            ->with('success', new MessageBag([__('Character :character marked as inactive.', ['character' => $character->name])]));
+            ->with('success', new MessageBag([__('Character :character marked as inactive.', ['character' => $character->listName])]));
     }
 
     public function played(Request $request, $characterId)
@@ -451,7 +454,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('played', $character)) {
             if ($character) {
                 return redirect($character->getViewRoute())
-                    ->with('success', new MessageBag([__('You cannot be mark :character as played.', ['character' => $character->name])]));
+                    ->with('success', new MessageBag([__('You cannot be mark :character as played.', ['character' => $character->listName])]));
             } else {
                 return redirect(route('characters.index'))
                     ->with('success', new MessageBag([__('Character not found.')]));
@@ -460,7 +463,7 @@ class CharacterController extends Controller
         $character->status_id = Status::PLAYED;
         $character->save();
         return redirect($character->getViewRoute())
-            ->with('success', new MessageBag([__('Character :character marked as played.', ['character' => $character->name])]));
+            ->with('success', new MessageBag([__('Character :character marked as played.', ['character' => $character->listName])]));
     }
 
     public function resuscitate(Request $request, $characterId)
@@ -469,7 +472,7 @@ class CharacterController extends Controller
         if ($request->user()->cannot('resuscitate', $character)) {
             if ($character) {
                 return redirect($character->getViewRoute())
-                    ->with('success', new MessageBag([__('You cannot resuscitate :character.', ['character' => $character->name])]));
+                    ->with('success', new MessageBag([__('You cannot resuscitate :character.', ['character' => $character->listName])]));
             } else {
                 return redirect(route('characters.index'))
                     ->with('success', new MessageBag([__('Character not found.')]));
@@ -493,7 +496,7 @@ class CharacterController extends Controller
         ]);
         $log->save();
         return redirect($character->getViewRoute())
-            ->with('success', new MessageBag([__('Character :character resuscitated.', ['character' => $character->name])]));
+            ->with('success', new MessageBag([__('Character :character resuscitated.', ['character' => $character->listName])]));
     }
 
     public function editSkills(Request $request, $characterId, $skillId = null)
@@ -532,6 +535,7 @@ class CharacterController extends Controller
             'history' => 'sometimes|string|max:65535|nullable',
             'character_links' => 'sometimes|string|max:65535|nullable',
             'plot_notes' => 'sometimes|string|max:65535|nullable',
+            'other_abilities' => 'sometimes|string|max:65535|nullable',
             'events' => 'sometimes|array|exists:events,id',
             'hero_scoundrel' => 'sometimes|int',
         ]);
@@ -555,13 +559,14 @@ class CharacterController extends Controller
         $validatedData['history'] = $validatedData['history'] ?? '';
         $validatedData['character_links'] = $validatedData['character_links'] ?? '';
         $validatedData['plot_notes'] = $validatedData['plot_notes'] ?? '';
+        $validatedData['other_abilities'] = $validatedData['other_abilities'] ?? '';
         $validatedData['former_rank'] = $validatedData['former_rank'] ?? '';
         $validatedData['rank'] = $validatedData['rank'] ?? '';
         $character->fill($validatedData);
         $character->save();
 
         return redirect($character->getViewRoute())
-            ->with('success', new MessageBag([__('Character :character saved.', ['character' => $character->name])]));
+            ->with('success', new MessageBag([__('Character :character saved.', ['character' => $character->listName])]));
     }
 
     /**
@@ -648,13 +653,142 @@ class CharacterController extends Controller
         }
 
         return redirect()->back()
-            ->with('success', new MessageBag([__('Character :character skill saved.', ['character' => $characterSkill->character->name])]));
+            ->with('success', new MessageBag([__('Character :character skill saved.', ['character' => $characterSkill->character->listName])]));
     }
 
     /**
      * @throws ValidationException
      */
-    public function removeSkill(Request $request, $characterId, $skillId)
+    public function storeLog(Request $request)
+    {
+        $validatedData = $request->validate([
+            'log_id' => 'integer|exists:character_logs,id',
+            'character_id' => 'integer|exists:characters,id',
+            'character_skill_id' => 'integer|exists:character_skills,id',
+            'skill_id' => 'integer|exists:skills,id',
+            'specialty_id' => 'array|exists:skill_specialties,id',
+            'completed' => 'boolean',
+            'amount_trained' => 'integer',
+            'body_change' => 'integer',
+            'temp_body_change' => 'integer',
+            'vigor_change' => 'integer',
+            'temp_vigor_change' => 'integer',
+            'notes' => 'string|nullable',
+            'plot_notes' => 'string|nullable',
+        ]);
+
+        if (!empty($validatedData['character_id']) && $request->user()->cannot('edit', Character::find($validatedData['character_id']))) {
+            return redirect(route('characters.view', ['characterId' => $validatedData['character_id']]))
+                ->with('errors', new MessageBag([__('You cannot edit this character.')]));
+        }
+
+        $skill = Skill::find($validatedData['skill_id']);
+
+        if (!empty($validatedData['character_skill_id'])) {
+            $characterSkill = CharacterSkill::find($validatedData['character_skill_id']);
+            if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
+                return redirect(route('characters.view', ['characterId' => $validatedData['character_id']]))
+                    ->with('errors', new MessageBag([__('You cannot modify this character.')]));
+            }
+        } else {
+            $existing = CharacterSkill::where('character_id', $validatedData['character_id'])
+                ->where('skill_id', $validatedData['skill_id'])
+                ->count();
+            if ($existing) {
+                if (!$skill->repeatable || $skill->repeatable <= $existing) {
+                    throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
+                } elseif (PlotHelper::SKILL_RESUSCITATION_BUYBACK == $skill->id) {
+                    $resuscitations = CharacterSkill::where('character_id', $validatedData['character_id'])
+                        ->where('skill_id', PlotHelper::SKILL_RESUSCITATION)
+                        ->count();
+                    if ($resuscitations <= $existing) {
+                        throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
+                    }
+                }
+            }
+            $characterSkill = new CharacterSkill();
+        }
+        $validatedData['completed'] = $validatedData['completed'] ?? false;
+
+        if (!$validatedData['completed'] && !$validatedData['amount_trained'] && $skill->cost() > 0) {
+            throw ValidationException::withMessages([__('Log must apply training or a completed skill.')]);
+        }
+
+        $characterSkill->fill([
+            'completed' => $validatedData['completed'],
+            'character_id' => $validatedData['character_id'],
+            'skill_id' => $validatedData['skill_id'],
+        ]);
+        $characterSkill->save();
+
+        if (!empty($validatedData['log_id'])) {
+            $log = CharacterLog::find($validatedData['log_id']);
+        } else {
+            $log = new CharacterLog();
+        }
+        $log->fill([
+            'character_id' => $characterSkill->character->id,
+            'character_skill_id' => $characterSkill->id,
+            'locked' => true,
+            'amount_trained' => $validatedData['amount_trained'] ?? 0,
+            'body_change' => $validatedData['body_change'] ?? 0,
+            'temp_body_change' => $validatedData['temp_body_change'] ?? 0,
+            'vigor_change' => $validatedData['vigor_change'] ?? 0,
+            'temp_vigor_change' => $validatedData['temp_vigor_change'] ?? 0,
+            'notes' => $validatedData['notes'] ?? '',
+            'plot_notes' => $validatedData['plot_notes'] ?? '',
+            'log_type_id' => LogType::PLOT,
+            'teacher_id' => null,
+            'skill_completed' => $validatedData['completed'],
+        ]);
+        $log->save();
+
+        if (!empty($validatedData['specialty_id'])) {
+            if ($characterSkill->skill->specialties != count($validatedData['specialty_id'])) {
+                throw ValidationException::withMessages([__('You must select correct specialty count for :name.', [$characterSkill->skill->name])]);
+            }
+            $characterSkill->skillSpecialties()->sync($validatedData['specialty_id']);
+        }
+
+        return redirect()->back()
+            ->with('success', new MessageBag([__('Character log for :character saved.', ['character' => $characterSkill->character->listName])]));
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function deleteLog(Request $request, $logId)
+    {
+        $log = CharacterLog::findOrFail($logId);
+        if ($request->user()->cannot('edit all characters')) {
+            return redirect()->back()
+                ->with('errors', new MessageBag([__('You cannot delete this log.')]));
+        }
+        $characterName = $log->character->listName;
+
+        $skillLogs = CharacterLog::where('character_skill_id', $log->character_skill_id)
+            ->get();
+        if (1 == $skillLogs->count()) {
+            $log->characterSkill->delete();
+        } else {
+            if ($log->skill_completed) {
+                $log->characterSkill->completed = false;
+                $log->characterSkill->save();
+            } elseif ($log->skill_removed) {
+                $log->characterSkill->removed = false;
+                $log->characterSkill->save();
+            }
+        }
+        $log->delete();
+
+        return redirect()->back()
+            ->with('success', new MessageBag([__('Character log for :character removed.', ['character' => $characterName])]));
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function deleteSkill(Request $request, $characterId, $skillId)
     {
         if ($request->user()->cannot('edit', Character::find($characterId))) {
             return redirect(route('dashboard'));
@@ -666,6 +800,9 @@ class CharacterController extends Controller
         if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
             throw ValidationException::withMessages([__('Character can no longer be modified.')]);
         }
+        if ($characterSkill->locked) {
+            throw ValidationException::withMessages([__('Skill cannot be deleted.')]);
+        }
         if ($characterSkill->discountedBy->count()) {
             foreach ($characterSkill->discountedBy as $discountedBy) {
                 $discountedBy->discount_used = false;
@@ -674,6 +811,49 @@ class CharacterController extends Controller
             }
         }
         $characterSkill->delete();
+
+        return redirect(route('characters.edit-skills', ['characterId' => $characterSkill->character->id]));
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function removeSkill(Request $request, $characterId, $skillId)
+    {
+        if ($request->user()->cannot('edit all characters')) {
+            return redirect(route('dashboard'));
+        }
+        $characterSkill = CharacterSkill::find($skillId);
+        if (empty($characterSkill)) {
+            throw ValidationException::withMessages([__('Skill not found.')]);
+        }
+        if ($characterId != $characterSkill->character_id) {
+            throw ValidationException::withMessages([__('Character doesn\'t match skill.')]);
+        }
+        if (in_array($characterSkill->character->status_id, [Status::DEAD, Status::RETIRED])) {
+            throw ValidationException::withMessages([__('Character can no longer be modified.')]);
+        }
+        if ($characterSkill->discountedBy->count()) {
+            foreach ($characterSkill->discountedBy as $discountedBy) {
+                $discountedBy->discount_used = false;
+                $discountedBy->discount_used_by = null;
+                $discountedBy->save();
+            }
+        }
+        $characterSkill->removed = true;
+        $characterSkill->save();
+
+        $log = new CharacterLog();
+        $log->fill([
+            'character_id' => $characterSkill->character->id,
+            'character_skill_id' => $characterSkill->id,
+            'locked' => true,
+            'amount_trained' => 0,
+            'log_type_id' => LogType::PLOT,
+            'notes' => 'Skill removed.',
+            'skill_removed' => true,
+        ]);
+        $log->save();
 
         return redirect(route('characters.edit-skills', ['characterId' => $characterSkill->character->id]));
     }

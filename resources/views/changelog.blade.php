@@ -9,6 +9,54 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Bugfix: 29th June 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: allow for hidden log notes.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Update: 23rd June 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Admin: tidied manage roles screen.</li>
+                    <li>Secretary: updated attendance lists to show event roles.</li>
+                    <li>Plot Co: updated training/catchup XP display.</li>
+                    <li>Plot Co: fixed bug in viewing downtime actions.</li>
+                    <li>Sys Ref: updated catchup XP calculations to be based solely on downtime training, ignoring characters who have not submitted a downtime.</li>
+                    <li>Sys Ref: added catchup XP numbers to Skill Check screen.</li>
+                    <li>Sys Ref: rules 1.3 update.</li>
+                    <li>Event Runner: removed dedicated role.</li>
+                    <li>Event runners now have access to the skill breakdown based on their attendance role for future events.</li>
+                    <li>Updated feat display to be clearer regarding uses per day/event and Vigor costs.</li>
+                    <li>Added a banner to make it clear when on a test site.</li>
+                    <li>Changed "miscellaneous actions" to "personal actions" in downtime and added explanatory text.</li>
+                    <li>Fixed bug which blocked character deletions.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Bugfix: 16th June 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Secretary: fixed bug with access to executive screen.</li>
+                    <li>Added <a href="/roles" class="underline">roles page</a> to show the different available roles.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Update: 19th May 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: allow change of user on characters to allow for NPCs to be assigned to plot co user.</li>
+                    <li>Plot Co: organise user lists by type.</li>
+                    <li>Plot Co: allow direct creation and editing of character logs.</li>
+                    <li>Plot Co: removed ability to add completed skills to characters without creating a log.</li>
+                    <li>Plot Co: added section for "other abilities" to characters.</li>
+                    <li>Track ID of user making changes to characters.</li>
+                    <li>Add plot coordinator user for system use.</li>
+                    <li>Changed Endurance Training additions from E1 to be permanent Body changes instead.</li>
+                    <li>Changed attendance tracking to remove temporary Body/Vigor.</li>
+                    <li>Refactored inline scripts to be shared files.</li>
+                    <li>Had CodeRabbit do a code review and fixed some bugs as a result.</li>
+                    <li>Corrected the parameters for when skill upkeep is required.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 30th April 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed bug with skill completion during downtime processing.</li>

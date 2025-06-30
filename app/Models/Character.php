@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Listeners\RollAtaGene;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -29,7 +29,9 @@ use Illuminate\Support\Str;
  * @property Collection displayedSkills
  * @property Collection displayedTrainedSkills
  * @property Collection hiddenTrainedSkills
- * @property Collection trainingSkill
+ * @property Collection trainingSkills
+ * @property Collection upkeepSkills
+ * @property Collection requiredUpkeepSkills
  * @property Collection logs
  * @property Status status
  * @property Feat[] feats
@@ -44,6 +46,7 @@ use Illuminate\Support\Str;
  * @property string history
  * @property string character_links
  * @property string plot_notes
+ * @property string other_abilities
  * @property Object[] cards
  * @property int completedTrainingMonths
  * @property int trainingMonths
@@ -61,6 +64,7 @@ class Character extends Model
 {
     use HasFactory;
 
+    const UNKNOWN = 0;
     const HERO = 1;
     const SCOUNDREL = 2;
 
@@ -93,6 +97,7 @@ class Character extends Model
         'status_id',
         'history',
         'plot_notes',
+        'other_abilities',
         'rank',
         'former_rank',
         'character_links',
@@ -226,6 +231,23 @@ class Character extends Model
     {
         return $this->skills()->where('completed', true)
             ->where('upkeep', true);
+    }
+
+    public function requiredUpkeepSkills(): Collection
+    {
+        $upkeepSkills = $this->upkeepSkills;
+        $requiredUpkeepSkills = [];
+        foreach ($upkeepSkills as $upkeepSkill) {
+            if (1 < $upkeepSkill->level) {
+                $requiredUpkeepSkills[$upkeepSkill->skill_id] = $upkeepSkill;
+            }
+        }
+        return collect($requiredUpkeepSkills);
+    }
+
+    public function getRequiredUpkeepSkillsAttribute(): Collection
+    {
+        return $this->requiredUpkeepSkills();
     }
 
     public function displayedTrainedSkills(): HasMany

@@ -155,10 +155,10 @@ class Downtime extends Model
             $characters[$action->character_id] = $action->character_id;
             switch ($action->action_type_id) {
                 case ActionType::TEACHING:
-                    $taughtSkills[$action->characterSkill->skill_id][$action->id] = $action->character_id;
+                    $taughtSkills[$action->characterSkill->skill_id][$action->character_id] = $action;
                     break;
                 case ActionType::TRAINING:
-                    $trainedSkills[$action->characterSkill->skill_id][$action->character_id][] = $action->id;
+                    $trainedSkills[$action->characterSkill->skill_id][$action->character_id][] = $action;
                     break;
                 case ActionType::MISSION:
                     $downtimeMissions[$action->downtime_mission_id][] = $action->character_id;
@@ -168,7 +168,7 @@ class Downtime extends Model
                     break;
                 case ActionType::UPKEEP:
                 case ActionType::UPKEEP_2:
-                    $upkeepMaintenance[$action->characterSkill->skill_id][$action->id] = $action->character_id;
+                    $upkeepMaintenance[$action->characterSkill->skill_id][$action->character_id] = $action;
                     break;
             }
         }
@@ -178,9 +178,15 @@ class Downtime extends Model
             $relevantCharacters = [];
             $relevantCharacterSkills = $skill->characterSkills()->whereIn('character_id', $characters)->get();
             foreach ($relevantCharacterSkills as $characterSkill) {
-                $relevantCharacters[$characterSkill->character_id] = $characterSkill->character_id;
+                $relevantCharacters[$characterSkill->character_id][] = $characterSkill->id;
             }
-            $requiredUpkeepSkills[$skill->id] = $relevantCharacters;
+            $requiredCharacters = [];
+            foreach ($relevantCharacters as $characterId => $skills) {
+                if (count($skills) > 1) {
+                    $requiredCharacters[$characterId] = $characterId;
+                }
+            }
+            $requiredUpkeepSkills[$skill->id] = $requiredCharacters;
         }
         return [
             'taughtSkills' => $taughtSkills,
@@ -195,16 +201,16 @@ class Downtime extends Model
     public function process()
     {
         extract($this->preprocess());
+        $this->actions->keyBy('id');
         $skillChanges = [];
         $skills = [];
         foreach ($trainedSkills as $skillId => $characters) {
             $skill = Skill::find($skillId);
             $skills[$skillId] = $skill;
             foreach ($characters as $characterId => $actions) {
-                $action = DowntimeAction::find(current($actions));
                 $skillChanges[$skillId][] = [
                     'character_id' => $characterId,
-                    'character_skill_id' => $action->character_skill_id,
+                    'character_skill_id' => current($actions)->character_skill_id,
                     'log_type_id' => LogType::DOWNTIME,
                     'amount_trained' => count($actions),
                     'locked' => true,
@@ -218,8 +224,7 @@ class Downtime extends Model
                 $skill = Skill::find($skillId);
                 $skills[$skillId] = $skill;
             }
-            foreach ($characters as $actionId => $characterId) {
-                $action = DowntimeAction::find($actionId);
+            foreach ($characters as $characterId => $actions) {
                 $skillChanges[$skillId][] = [
                     'character_id' => $characterId,
                     'character_skill_id' => $action->character_skill_id,
@@ -274,8 +279,7 @@ class Downtime extends Model
                     $characterSkill->removed = true;
                     $characterSkill->save();
                 } else {
-                    $actionId = current($upkeepMaintenance[$skillId]);
-                    $action = DowntimeAction::find($actionId);
+                    $action = $upkeepMaintenance[$skillId][$characterId];
                     $skillChanges[$skillId][] = [
                         'character_id' => $characterId,
                         'character_skill_id' => $action->character_skill_id,

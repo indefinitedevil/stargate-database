@@ -16,9 +16,7 @@
 
     @include('plotco.partials.approval')
     @include('characters.partials.reset')
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-        @include('characters.partials.details')
-    </div>
+    @include('characters.partials.details')
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         @can('edit', $character)
@@ -140,14 +138,14 @@
         <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
             {{ __('History') }}
         </h2>
-        <p class="mt-1">{!! nl2br($character->history) !!}</p>
+        <div class="mt-1 space-y-6">{!! process_markdown($character->history) !!}</div>
     </div>
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
             {{ __('Pre-Existing Character Links') }}
         </h2>
-        <p class="mt-1">{!! nl2br($character->character_links) !!}</p>
+        <div class="mt-1 space-y-6">{!! process_markdown($character->character_links) !!}</div>
     </div>
 
     @can('view hidden notes')
@@ -155,7 +153,17 @@
             <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
                 {{ __('Plot notes') }}
             </h2>
-            <p class="mt-1">{!! nl2br($character->plot_notes) !!}</p>
+            <div class="mt-1 space-y-6">{!! process_markdown($character->plot_notes) !!}</div>
         </div>
+        @if (!empty($character->other_abilities))
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+                <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
+                    {{ __('Other abilities') }}
+                </h2>
+                <div class="mt-1 space-y-6">{!! process_markdown($character->other_abilities) !!}</div>
+            </div>
+        @endif
     @endcan
+    @include('characters.partials.add-log')
+    <script src="{{ asset('js/characters.js') }}" defer></script>
 </x-app-layout>

@@ -35,18 +35,19 @@
                             $skills[$skillId] = Skill::find($skillId);
                         }
                         $trainedCharacters = [];
+                        $teacherIds = array_keys($teachers);
                     @endphp
                     <div>
                         <p class="text-lg font-semibold">{{ $skills[$skillId]->name }}</p>
                         <ul class="list-disc list-inside">
-                            @foreach($teachers as $teacher)
+                            @foreach($teachers as $teacherId => $action)
                                 @php
-                                    if (empty($characters[$teacher])) {
-                                        $characters[$teacher] = Character::find($teacher);
+                                    if (empty($characters[$teacherId])) {
+                                        $characters[$teacherId] = Character::find($teacherId);
                                     }
                                 @endphp
                                 <li>
-                                    {{ __('Taught by :name', ['name' => $characters[$teacher]->listName]) }}
+                                    {{ __('Taught by :name', ['name' => $characters[$teacherId]->listName]) }}
                                     ({{ __('+1 Vigor at next event') }})
                                 </li>
                             @endforeach
@@ -60,7 +61,7 @@
                                     @endphp
                                     <li>
                                         {{ trans_choice('Trained by :name (:months month)|Trained by :name (:months months)', count($actions), ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
-                                        @if (!in_array($characterId, $teachers))
+                                        @if (!in_array($characterId, $teacherIds))
                                             ({{ __('+1 month from course') }})
                                         @endif
                                     </li>
@@ -77,7 +78,7 @@
                                         @endphp
                                         <li>
                                             {{ trans_choice(':skill trained by :name (:months month)|:skill trained by :name (:months months)', count($actions), ['skill' => $subSkill->name, 'name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
-                                            @if (!in_array($characterId, $teachers) && !in_array($characterId, $trainedCharacters))
+                                            @if (!in_array($characterId, $teacherIds) && !in_array($characterId, $trainedCharacters))
                                                 ({{ __('+1 month from course') }})
                                             @endif
                                         </li>
@@ -135,7 +136,7 @@
                                         }
                                     @endphp
                                     <li>
-                                        @if (!empty($upkeepMaintenance) && in_array($characterId, $upkeepMaintenance))
+                                        @if (!empty($upkeepMaintenance[$skillId]) && in_array($characterId, $upkeepMaintenance[$skillId]))
                                             {{ __('Maintained by :name', ['name' => $characters[$characterId]->listName]) }}
                                         @else
                                             {{ __('Required by :name - WILL BE LOST', ['name' => $characters[$characterId]->listName]) }}
@@ -173,7 +174,7 @@
     @if ($downtime->miscActions()->count())
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-                <h3 class="text-xl font-semibold">{{ __('Miscellaneous Actions') }}</h3>
+                <h3 class="text-xl font-semibold">{{ __('Personal Actions') }}</h3>
                 <div class="sm:grid sm:grid-cols-3 gap-6">
                     @foreach($downtime->miscActions() as $action)
                         <div>

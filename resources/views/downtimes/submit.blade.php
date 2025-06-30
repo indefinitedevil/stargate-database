@@ -47,12 +47,12 @@
 
         @include('downtimes.partials.training-courses')
 
-        @if ($downtime->isOpen() && $character->upkeepSkills->count())
+        @if ($downtime->isOpen() && $character->requiredUpkeepSkills->count())
             <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-5 shadow">
                 <p class="font-bold">{{ __('Upkeep Skills') }}</p>
-                <p>{{ __('The following skills require actions to be spent on upkeep or the skill will be lost:') }}</p>
+                <p>{{ __('The following skills require actions to be spent on upkeep or a level of the skill will be lost:') }}</p>
                 <ul class="list-disc list-inside">
-                    @foreach($character->upkeepSkills as $skill)
+                    @foreach($character->requiredUpkeepSkills as $skill)
                         <li>{{ $skill->name }}</li>
                     @endforeach
                 </ul>
@@ -204,13 +204,11 @@
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block {{ ActionType::RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research', ['action' => $action])</x-select>
 
-                                <x-input-label for="research_action_{{ $actionCount }}_notes" class="mt-1"
-                                               :value="__('Notes')"/>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
                                             :value="$action->notes"
                                             :disabled="!$downtime->isOpen()"
-                                            class="mt-1 block w-full"
+                                            class="mt-1 block w-full {{ ActionType::RESEARCHING == $action->action_type_id ? '' : 'hidden' }}"
                                             :placeholder="__('Notes')"/>
                             </div>
                         @endforeach
@@ -237,12 +235,10 @@
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block hidden">@include('downtimes.partials.research', ['action' => null])</x-select>
 
-                                <x-input-label for="research_action_{{ $actionCount }}_notes" class="mt-1"
-                                               :value="__('Notes')"/>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
-                                            class="mt-1 block w-full"
+                                            class="mt-1 block w-full hidden"
                                             :placeholder="__('Notes')"/>
                             </div>
                         @endwhile
@@ -262,7 +258,7 @@
                         @endphp
                         @foreach ($savedActions as $action)
                             <div>
-                                <p class="text-lg">{{ trans_choice('Miscellaneous Actions|Miscellaneous Action :number', $downtime->other_actions, ['number' => ++$actionCount]) }}</p>
+                                <p class="text-lg">{{ trans_choice('Personal Action|Personal Action :number', $downtime->other_actions, ['number' => ++$actionCount]) }}</p>
                                 <input type="hidden" name="other_action[{{ $actionCount }}][id]"
                                        value="{{ $action->id }}">
                                 <input type="hidden" name="other_action[{{ $actionCount }}][type]"
@@ -271,20 +267,27 @@
                                             name="other_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full"
-                                            :placeholder="__('Any other actions or information you want to pass to the plot coordinator.')">{{ $action->notes }}</x-textarea>
+                                            :placeholder="__('Details regarding a single personal action you want to inform the plot coordinator about.')">{{ $action->notes }}</x-textarea>
                             </div>
                         @endforeach
                         @while($actionCount < $downtime->other_actions)
                             <div>
-                                <p class="text-lg">{{ trans_choice('Miscellaneous Actions|Miscellaneous Action :number', $downtime->other_actions, ['number' => ++$actionCount]) }}</p>
-                                <input type="hidden" name="other_action[{{ $actionCount }}][type]" value="{{ ActionType::OTHER }}"/>
+                                <p class="text-lg">{{ trans_choice('Personal Action|Personal Action :number', $downtime->other_actions, ['number' => ++$actionCount]) }}</p>
+                                <input type="hidden" name="other_action[{{ $actionCount }}][type]" value="{{ ActgionType::OTHER }}"/>
                                 <x-textarea id="other_action_{{ $actionCount }}_notes"
                                             name="other_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full"
-                                            :placeholder="__('Any other actions or information you want to pass to the plot coordinator.')"/>
+                                            :placeholder="__('Details regarding a single personal action you want to inform the plot coordinator about.')"/>
                             </div>
                         @endwhile
+                        <p class="text-sm">
+                            {{ __('This is a space for personal research actions your character is undertaking.') }}
+                            {{ __('This is not a replacement for research projects but is here for queries and actions that you are personally undertaking during downtime.') }}
+                        </p>
+                        <p class="text-sm">
+                            {{ __('An example of this may be "fortifying your laptop firewalls against alien intrusion" or "going to the library to research Welsh myths".') }}
+                        </p>
                     </div>
                 </div>
             @endif
@@ -303,34 +306,7 @@
             @endif
         </div>
     </form>
-    <script>
-        window.onload = function () {
-            jQuery('[id^="development_action_"]').on('change', function () {
-                let id = jQuery(this).attr('id').split('_').pop();
-                jQuery('[id^="development_skill_' + id).html(jQuery('#ds_' + id + '_' + jQuery(this).val()).html());
-                if (jQuery(this).val() == {{ ActionType::MISSION }}) {
-                    jQuery('#da_' + id + '_notes').removeClass('hidden');
-                } else {
-                    jQuery('#da_' + id + '_notes').addClass('hidden');
-                }
-                if (jQuery(this).val() == {{ ActionType::TEACHING }}) {
-                    jQuery('#da_' + id + '_teaching').removeClass('hidden');
-                } else {
-                    jQuery('#da_' + id + '_teaching').addClass('hidden');
-                }
-            });
-            jQuery('[id^="research_action_"]').on('change', function () {
-                let id = jQuery(this).attr('id').split('_').pop();
-                if (jQuery(this).val() == {{ ActionType::UPKEEP_2 }}) {
-                    jQuery('#upkeep_skill_' + id).removeClass('hidden');
-                    jQuery('#research_project_' + id).addClass('hidden');
-                } else if (jQuery(this).val() == {{ ActionType::RESEARCHING }}) {
-                    jQuery('#upkeep_skill_' + id).addClass('hidden');
-                    jQuery('#research_project_' + id).removeClass('hidden');
-                }
-            });
-        }
-    </script>
 
     @include('characters.partials.add-skill')
+    <script src="{{ asset('js/downtimes.js') }}" defer></script>
 </x-app-layout>

@@ -101,9 +101,13 @@
                         <ul class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 mt-1">
                             @foreach ($character->feats as $feat)
                                 <li>
-                                    {{ $feat->name }}
+                                    {{ $feat->print_name ?: $feat->name }}
+                                    {{ '' != $feat->cost ? '(' . $feat->cost . ' Vigor)' : '' }}
                                     @if ($feat->per_event)
-                                        ({{ $feat->getPerEvent($character) }})
+                                        ({{ __(':count per event', ['count' => $feat->getPerEvent($character)]) }})
+                                    @endif
+                                    @if ($feat->per_day)
+                                        ({{ __(':count per day', ['count' => $feat->getPerDay($character)]) }})
                                     @endif
                                 </li>
                             @endforeach
@@ -122,6 +126,17 @@
                                     <li>{{ $card->name }} ({{ $card->number }})</li>
                                 @endforeach
                             </ul>
+                        </div>
+                    </div>
+                @endif
+
+                @if (!empty($character->other_abilities))
+                    <div class="py-2 bg-white text-gray-800">
+                        <div class="">
+                            <h2 class="text-xl font-medium text-gray-900">
+                                {{ __('Other Abilities') }}
+                            </h2>
+                            <div class="mt-1">{!! process_markdown($character->other_abilities) !!}</div>
                         </div>
                     </div>
                 @endif

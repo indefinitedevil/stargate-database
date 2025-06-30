@@ -1,7 +1,6 @@
 @php
     use App\Models\Feat;
     use App\Models\Status;
-    use Illuminate\Support\Str;
 @endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Edit character skills') }}</x-slot>
@@ -17,9 +16,7 @@
 
     @include('plotco.partials.approval')
     @include('characters.partials.reset')
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-        @include('characters.partials.details')
-    </div>
+    @include('characters.partials.details')
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <div class="grid grid-cols-1 sm:grid-cols-4 clear-both gap-6">
@@ -68,6 +65,12 @@
                             @if ($characterSkill->locked)
                                 <i class="fa-solid fa-lock inline-block ml-4 sm:ml-0"
                                    title="Expenditure is locked"></i>
+                                @can ('edit all characters')
+                                    <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"
+                                       class="inline-block ml-4 sm:ml-0"
+                                    ><i class="fa-solid fa-trash" title="Remove skill"></i><span
+                                            class="sm:hidden"> {{ __('Remove') }}</span></a>
+                                @endcan
                             @elseif ($characterSkill->discount_used)
                                 <i class="fa-solid fa-user-lock inline-block ml-4 sm:ml-0"
                                    title="{{ __('Discounting :skill', ['skill' => $characterSkill->discountUsedBy->skill->name]) }}"></i>
@@ -81,10 +84,10 @@
                                    class="inline-block ml-4 sm:ml-0"
                                 ><i class="fa-solid fa-pencil" title="Edit skill"></i><span
                                         class="sm:hidden"> {{ __('Edit') }}</span></a>
-                                <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"
+                                <a href="{{ route('characters.delete-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"
                                    class="inline-block ml-4 sm:ml-0"
-                                ><i class="fa-solid fa-trash" title="Remove skill"></i><span
-                                        class="sm:hidden"> {{ __('Remove') }}</span></a>
+                                ><i class="fa-solid fa-trash" title="Delete skill"></i><span
+                                        class="sm:hidden"> {{ __('Delete') }}</span></a>
                             @endif
                             @if($characterSkill->skill->specialties > 1)
                                 <ul class="list-disc list-inside">
@@ -138,10 +141,10 @@
                                     <i class="fa-solid fa-lock inline-block ml-4 sm:ml-0"
                                        title="{{ __('Expenditure is locked') }}"></i>
                                 @else
-                                    <a href="{{ route('characters.remove-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"
+                                    <a href="{{ route('characters.delete-skill', ['characterId' => $character->id, 'skillId' => $characterSkill->id]) }}"
                                        class="inline-block ml-4 sm:ml-0"
-                                    ><i class="fa-solid fa-trash" title="{{ __('Remove skill') }}"></i><span
-                                            class="sm:hidden"> {{ __('Remove') }}</span></a>
+                                    ><i class="fa-solid fa-trash" title="{{ __('Delete skill') }}"></i><span
+                                            class="sm:hidden"> {{ __('Delete') }}</span></a>
                                 @endif
                                 @if($characterSkill->skill->specialties > 1)
                                     <ul>

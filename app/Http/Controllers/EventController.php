@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Character;
+use App\Models\CharacterLog;
+use App\Models\CharacterSkill;
 use App\Models\Event;
+use App\Models\LogType;
+use App\Models\Skill;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -66,6 +70,32 @@ class EventController extends Controller
                 if (Status::APPROVED == $character->status_id) {
                     $character->status_id = Status::PLAYED;
                     $character->save();
+                }
+                if (Event::ROLE_PLAYER == $data['role']) {
+                    $tempBody = $character->temp_body;
+                    $tempVigor = $character->temp_vigor;
+                    if ($tempBody > 0 || $tempVigor > 0) {
+                        $skill = new CharacterSkill();
+                        $skill->fill([
+                            'character_id' => $character->id,
+                            'skill_id' => Skill::SYSTEM_CHANGE,
+                            'cost' => 0,
+                            'completed' => true,
+                        ]);
+                        $skill->save();
+                        $log = new CharacterLog();
+                        $log->fill([
+                            'character_id' => $character->id,
+                            'character_skill_id' => $skill->id,
+                            'log_type_id' => LogType::SYSTEM,
+                            'amount_trained' => 0,
+                            'temp_body_change' => -1 * $tempBody,
+                            'temp_vigor_change' => -1 * $tempVigor,
+                            'locked' => 1,
+                            'notes' => 'Resetting temporary stats after event attendance.',
+                        ]);
+                        $log->save();
+                    }
                 }
             }
         }

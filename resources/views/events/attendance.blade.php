@@ -3,10 +3,10 @@
     use App\Models\User;
 @endphp
 <x-app-layout>
-    <x-slot name="title">{{ __('Attendance: :event', ['event' => $event->name]) }}</x-slot>
+    <x-slot name="title">{{ __('Record attendance: :event', ['event' => $event->name]) }}</x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Attendance: :event', ['event' => $event->name]) }}
+            {{ __('Record attendance: :event', ['event' => $event->name]) }}
         </h2>
     </x-slot>
 
