@@ -121,5 +121,14 @@
                 </div>
             </div>
         @endif
+
+        @if ($downtime->response && $downtime->processed)
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+                    <h3 class="text-xl font-semibold">{{ __('Downtime Response') }}</h3>
+                    {!! process_markdown($downtime->response) !!}
+                </div>
+            </div>
+        @endif
     </div>
 </x-app-layout>

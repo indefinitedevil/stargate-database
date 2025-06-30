@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Mail;
  * @property int event_id
  * @property bool open
  * @property bool processed
+ * @property string response
  */
 class Downtime extends Model
 {
@@ -44,6 +45,7 @@ class Downtime extends Model
         'experiment_actions',
         'other_actions',
         'event_id',
+        'response',
     ];
 
     protected $casts = [

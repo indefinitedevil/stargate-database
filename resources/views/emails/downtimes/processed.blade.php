@@ -34,7 +34,7 @@ The downtime has been processed, and here are your results:
     <ul>
         @foreach ($researchResults as $projectResult)
             <li>
-                <strong>{{ $projectResult['project']->name }}</strong>:
+                <strong>{!! process_inline_markdown($projectResult['project']->name) !!}</strong>:
                 {{ __('(:done / :total months)', ['done' => $projectResult['project']->researchActions()->count(), 'total' => $projectResult['project']->months]) }}
                 @if (!empty($projectResult['contributors']))
                     <ul>
@@ -53,6 +53,12 @@ The downtime has been processed, and here are your results:
             </li>
         @endforeach
     </ul>
+    <x-mail::button :url="route('research.index')">{{ __('See research status') }}</x-mail::button>
+@endif
+
+@if (!empty($downtime->response))
+    <h3>{{ __('Updates') }}</h3>
+    {!! process_markdown($downtime->response) !!}
 @endif
 
 Regards,

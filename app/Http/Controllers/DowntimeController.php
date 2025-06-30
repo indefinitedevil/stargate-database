@@ -109,6 +109,7 @@ class DowntimeController extends Controller
             'experiment_actions' => 'required|int',
             'other_actions' => 'required|int',
             'event_id' => 'sometimes|exists:events,id|nullable|int',
+            'response' => 'sometimes|nullable|string|max:65535',
         ]);
         if (!empty($validatedData['event_id'])) {
             $event = Event::find($validatedData['event_id']);

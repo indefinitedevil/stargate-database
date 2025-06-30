@@ -89,6 +89,15 @@
                                       :value="old('other_actions', $downtime->other_actions ?? 1)" required/>
                         <x-input-error class="mt-2" :messages="$errors->get('other_actions')"/>
                     </div>
+
+                    <div class="col-span-3">
+                        <x-input-label for="response" :value="__('Response')"/>
+                        <x-textarea id="response" name="response" rows="6"
+                                    class="mt-1 block w-full">{{ $downtime->response ?? '' }}</x-textarea>
+                        <x-input-error class="mt-2" :messages="$errors->get('response')"/>
+                        <p class="text-xs mt-1">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                        <p class="text-xs mt-1">{{ __('This field is not visible to players until the downtime is processed.') }}</p>
+                    </div>
                 </div>
 
                 <div class="flex items-center gap-4 mt-6">
