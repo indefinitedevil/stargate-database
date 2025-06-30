@@ -7,18 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property int $id
- * @property int $downtime_id
- * @property int $action_type_id
- * @property int $character_id
- * @property int $character_skill_id
- * @property int $downtime_mission_id
- * @property int $research_project_id
- * @property string $notes
- * @property CharacterSkill $characterSkill
- * @property Character $character
- * @property Downtime $downtime
- * @property ActionType $actionType
+ * @property int id
+ * @property int downtime_id
+ * @property int action_type_id
+ * @property int character_id
+ * @property int character_skill_id
+ * @property int downtime_mission_id
+ * @property int research_project_id
+ * @property string notes
+ * @property string response
+ * @property CharacterSkill characterSkill
+ * @property Character character
+ * @property Downtime downtime
+ * @property ActionType actionType
+ * @property ResearchProject researchProject
  */
 class DowntimeAction extends Model
 {
@@ -32,6 +34,7 @@ class DowntimeAction extends Model
         'downtime_mission_id',
         'research_project_id',
         'notes',
+        'response',
     ];
 
     public function downtime(): BelongsTo

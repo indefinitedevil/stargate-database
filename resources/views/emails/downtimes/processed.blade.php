@@ -29,6 +29,38 @@ The downtime has been processed, and here are your results:
 @endforeach
 </ul>
 
+@if (!empty($researchResults))
+    <h3>{{ __('Research Projects') }}</h3>
+    <ul>
+        @foreach ($researchResults as $projectResult)
+            <li>
+                <strong>{!! process_inline_markdown($projectResult['project']->name) !!}</strong>:
+                {{ __('(:done / :total months)', ['done' => $projectResult['project']->researchActions()->count(), 'total' => $projectResult['project']->months]) }}
+                @if (!empty($projectResult['contributors']))
+                    <ul>
+                        @foreach ($projectResult['contributors'] as $contributorId => $contributor)
+                            <li>{{ __('Researcher: :name (:months months)', ['name' => current($contributor), 'months' => count($contributor)] }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+                @if (!empty($projectResult['volunteers']))
+                    <ul>
+                        @foreach ($projectResult['volunteers'] as $volunteer)
+                            <li>{{ __('Volunteer: :name', ['name' => $volunteer]) }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+            </li>
+        @endforeach
+    </ul>
+    <x-mail::button :url="route('research.index')">{{ __('See research status') }}</x-mail::button>
+@endif
+
+@if (!empty($downtime->response))
+    <h3>{{ __('Updates') }}</h3>
+    {!! process_markdown($downtime->response) !!}
+@endif
+
 Regards,
 
 Plot Coordinator

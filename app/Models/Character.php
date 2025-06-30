@@ -452,13 +452,13 @@ class Character extends Model
     public function getViewRoute(): string
     {
         $name = $this->short_name ?: $this->name;
-        return route('characters.view-pretty', ['characterId' => $this, 'characterName' => Str::slug($name)]);
+        return route('characters.view', ['characterId' => $this, 'characterName' => Str::slug($name)]);
     }
 
     public function getLogsRoute(): string
     {
         $name = $this->short_name ?: $this->name;
-        return route('characters.logs-pretty', ['characterId' => $this, 'characterName' => Str::slug($name)]);
+        return route('characters.logs', ['characterId' => $this, 'characterName' => Str::slug($name)]);
     }
 
     public function getListNameAttribute(): string

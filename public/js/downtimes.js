@@ -12,17 +12,27 @@ jQuery('[id^="development_action_"]').on('change', function () {
         jQuery('#da_' + id + '_teaching').addClass('hidden');
     }
 });
+
 jQuery('[id^="research_action_"]').on('change', function () {
     let id = jQuery(this).attr('id').split('_').pop();
     if (jQuery(this).val() == 6) { // Upkeep 2
         jQuery('#upkeep_skill_' + id).removeClass('hidden');
         jQuery('#research_project_' + id).addClass('hidden');
-        jQuery('#research_project_' + id + '_notes').addClass('hidden');
+        jQuery('#research_action_' + id + '_notes').addClass('hidden');
     } else if (jQuery(this).val() == 5) { // Research
         jQuery('#upkeep_skill_' + id).addClass('hidden');
         jQuery('#research_project_' + id).removeClass('hidden');
-        if (jQuery('#research_project_' + id).length > 1) {
-            jQuery('#research_project_' + id + '_notes').removeClass('hidden');
+        if (jQuery('#research_project_' + id + ' option').length > 1) {
+            jQuery('#research_action_' + id + '_notes').removeClass('hidden');
         }
     }
 });
+
+function toggleVisibility(id) {
+    let element = document.getElementById(id);
+    if (element.classList.contains('hidden')) {
+        element.classList.remove('hidden');
+    } else {
+        element.classList.add('hidden');
+    }
+}

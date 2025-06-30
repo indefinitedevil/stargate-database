@@ -52,6 +52,7 @@ class RoleSeeder extends Seeder
         $addResearchProjects = Permission::findOrCreate('add research projects');
         $editResearchProjects = Permission::findOrCreate('edit research projects');
         $deleteResearchProjects = Permission::findOrCreate('delete research projects');
+        $approveResearchProjects = Permission::findOrCreate('approve research projects');
         $viewSkillBreakdown = Permission::findOrCreate('view skill breakdown');
         $editDowntimes = Permission::findOrCreate('edit downtimes');
         $accessExecutiveMenu = Permission::findOrCreate('access executive menu');
@@ -92,6 +93,7 @@ class RoleSeeder extends Seeder
             $addResearchProjects,
             $editResearchProjects,
             $deleteResearchProjects,
+            $approveResearchProjects,
             $viewSkillBreakdown,
             $editDowntimes,
             $accessExecutiveMenu,
@@ -122,6 +124,7 @@ class RoleSeeder extends Seeder
 
         $researcher->syncPermissions([
             $addResearchProjects,
+            $editResearchProjects,
         ]);
 
         $player->syncPermissions([

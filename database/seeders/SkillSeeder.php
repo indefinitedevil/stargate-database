@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Skill;
+use App\Models\SkillCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -29,43 +30,43 @@ class SkillSeeder extends Seeder
     {
         DB::table('skill_categories')->upsert([
             [
-                'id' => 1,
+                'id' => SkillCategory::TECHNOLOGY,
                 'name' => 'Technology',
                 'cost' => 12,
                 'scaling' => 1,
             ],
             [
-                'id' => 2,
+                'id' => SkillCategory::SCIENCE_SOCIAL,
                 'name' => 'Science &amp; Social',
                 'cost' => 9,
                 'scaling' => 1,
             ],
             [
-                'id' => 3,
+                'id' => SkillCategory::COMPLEX,
                 'name' => 'Complex',
                 'cost' => 6,
                 'scaling' => 0,
             ],
             [
-                'id' => 4,
+                'id' => SkillCategory::BASIC,
                 'name' => 'Basic',
                 'cost' => 3,
                 'scaling' => 0,
             ],
             [
-                'id' => 5,
+                'id' => SkillCategory::COMBAT,
                 'name' => 'Combat',
                 'cost' => -1,
                 'scaling' => 0,
             ],
             [
-                'id' => 6,
+                'id' => SkillCategory::ALIEN,
                 'name' => 'Alien',
                 'cost' => -1,
                 'scaling' => 0,
             ],
             [
-                'id' => 7,
+                'id' => SkillCategory::SYSTEM,
                 'name' => 'System',
                 'cost' => 0,
                 'scaling' => 0,
@@ -91,7 +92,7 @@ class SkillSeeder extends Seeder
                 'id' => 1,
                 'name' => 'Computing',
                 'print_name' => NULL,
-                'skill_category_id' => 1,
+                'skill_category_id' => SkillCategory::TECHNOLOGY,
                 'description' => 'The study of computer systems. This skill allows you to hack into other operating systems and develop new systems yourself as well as countermeasures towards hackers.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -106,7 +107,7 @@ class SkillSeeder extends Seeder
                 'id' => 2,
                 'name' => 'Cryptography',
                 'print_name' => NULL,
-                'skill_category_id' => 1,
+                'skill_category_id' => SkillCategory::TECHNOLOGY,
                 'description' => 'Cryptography is the study of codes, ciphers, and hidden meanings, used for code breaking.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -121,7 +122,7 @@ class SkillSeeder extends Seeder
                 'id' => 3,
                 'name' => 'Electrical Engineering',
                 'print_name' => NULL,
-                'skill_category_id' => 1,
+                'skill_category_id' => SkillCategory::TECHNOLOGY,
                 'description' => 'This deals with the study and applications of electricity, electromagnetic forces, and electronics. Also deals with power, control systems, integrated circuits, and circuit boards.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -136,7 +137,7 @@ class SkillSeeder extends Seeder
                 'id' => 4,
                 'name' => 'Explosives Training',
                 'print_name' => NULL,
-                'skill_category_id' => 1,
+                'skill_category_id' => SkillCategory::TECHNOLOGY,
                 'description' => 'Expertise in making and disposing a variety of devices aimed at blowing things up. Grants the knowledge of where to place a device for maximum effect. This is sometimes used in conjunction with other skills to make elaborate devices that may have more damaging effects than listed in the Explosives Table - speak to an event ref if you wish to attempt this.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -151,7 +152,7 @@ class SkillSeeder extends Seeder
                 'id' => 5,
                 'name' => 'Larceny',
                 'print_name' => NULL,
-                'skill_category_id' => 1,
+                'skill_category_id' => SkillCategory::TECHNOLOGY,
                 'description' => 'Larceny is the ability to breach physical security measures. You can pick locks, bypass security measures, hotwire cars, open locked doors etc.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -166,7 +167,7 @@ class SkillSeeder extends Seeder
                 'id' => 6,
                 'name' => 'Mechanical Engineering',
                 'print_name' => NULL,
-                'skill_category_id' => 1,
+                'skill_category_id' => SkillCategory::TECHNOLOGY,
                 'description' => 'This deals with Thermodynamics and Kinematics. This skill is fundamental in the design, manufacture, and maintenance of mechanical systems, vehicles, industrial equipment & robotics.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -181,7 +182,7 @@ class SkillSeeder extends Seeder
                 'id' => 7,
                 'name' => 'Paramedic',
                 'print_name' => NULL,
-                'skill_category_id' => 1,
+                'skill_category_id' => SkillCategory::TECHNOLOGY,
                 'description' => 'You are a trained paramedic. You can treat and assist in the treatment of medical injuries.
 
 * **Medical Abilities:** Stabilise Casualty, Read All Wound Cards, Prep for Movement
@@ -200,7 +201,7 @@ class SkillSeeder extends Seeder
                 'id' => 8,
                 'name' => 'Signals Intelligence (SIGINT)',
                 'print_name' => NULL,
-                'skill_category_id' => 1,
+                'skill_category_id' => SkillCategory::TECHNOLOGY,
                 'description' => 'The study, use and maintenance of telecommunications, monitoring & satellite technology. This also grants the knowledge required for the development of new signalling devices.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -211,19 +212,7 @@ class SkillSeeder extends Seeder
                 'vigor' => 0,
                 'display' => 1,
             ],
-        ], 'id', [
-            'name',
-            'description',
-            'skill_category_id',
-            'upkeep',
-            'cost',
-            'specialties',
-            'specialty_type_id',
-            'repeatable',
-            'body',
-            'vigor',
-            'display',
-        ]);
+        ], 'id');
     }
 
     public function seedSocialScienceSkills()
@@ -233,7 +222,7 @@ class SkillSeeder extends Seeder
                 'id' => Skill::ARCHEO_ANTHROPOLOGY,
                 'name' => 'Archeo-Anthropology',
                 'print_name' => NULL,
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'You hold a qualification in Archaeology or Anthropology. You understand:
 * The development of human societies across Earth.
 * How to identify and recognise the artefacts, myths, and cultures of our ancestors.
@@ -254,7 +243,7 @@ Characters with Archaeo-Anthropology must also select two specialist cultures. A
                 'id' => 11,
                 'name' => 'Astrophysics',
                 'print_name' => NULL,
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'This incorporates astronomy, the calculation of stellar distances and the exploration of other worlds. It also includes stellar navigation and stellar matter.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -269,7 +258,7 @@ Characters with Archaeo-Anthropology must also select two specialist cultures. A
                 'id' => 12,
                 'name' => 'Botany',
                 'print_name' => NULL,
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'Botany is the study of plant life. Botany covers a wide range of scientific disciplines that study plants, algae, and fungi including structure, growth, reproduction, metabolism, development, diseases, and chemical properties and evolutionary relationships between the different groups.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -284,7 +273,7 @@ Characters with Archaeo-Anthropology must also select two specialist cultures. A
                 'id' => 13,
                 'name' => 'Genetics & Evolutionary Biology',
                 'print_name' => NULL,
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'Evolutionary Biology is the study of how living things have developed in response to their native environments. In addition to the study of Genetics, this field can be applied to determine how a living organism came to be and what sort of environments shaped it.
 
 Conversely, it can also be used to theorise how an organism would adapt in response to a given environment.
@@ -303,7 +292,7 @@ This Skill reduces the time on all Medical Card problems by 10%. This stacks wit
                 'id' => 14,
                 'name' => 'Linguistics',
                 'print_name' => NULL,
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'The linguistics skill is the study and application of language. With this skill you can communicate effectively in any Earth language both spoken and written. Alien languages may become available to be gained in play at a future time.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -318,7 +307,7 @@ This Skill reduces the time on all Medical Card problems by 10%. This stacks wit
                 'id' => 15,
                 'name' => 'Material Science',
                 'print_name' => NULL,
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'The study of materials & their properties and uses. This includes Chemistry and Physics.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -333,7 +322,7 @@ This Skill reduces the time on all Medical Card problems by 10%. This stacks wit
                 'id' => 16,
                 'name' => 'Medical Doctor',
                 'print_name' => NULL,
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'You are a trained medical doctor. You can treat and assist in the treatment of medical injuries, using the RED times on the Medical Skill Game card.
 
 * **Medical Abilities:** Stabilise Casualty, Read All Wound Tokens, Prep for Movement
@@ -354,7 +343,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'id' => 17,
                 'name' => 'Pathology',
                 'print_name' => NULL,
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'Pathology is the study and diagnosis of disease; this is done through the examination of organs, tissues, bodily fluids, and autopsies. It also encompasses the related scientific study of disease processes.
 
 This Skill reduces the time on all Medical Card problems by 10%. This stacks with Genetics and Evolutionary Biology for a 20% total reduction.',
@@ -371,7 +360,7 @@ This Skill reduces the time on all Medical Card problems by 10%. This stacks wit
                 'id' => 18,
                 'name' => 'Physiology',
                 'print_name' => NULL,
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'Physiology is the study of the mechanical, physical, and biochemical functions of animals, the study of anatomy and the interaction of cells. This skill combines both human and animal physiology.
 
 This skill reduces the training time of Medical Doctor to 3 months, regardless of how many other Science and Social skills you have.',
@@ -388,7 +377,7 @@ This skill reduces the training time of Medical Doctor to 3 months, regardless o
                 'id' => 19,
                 'name' => 'Psychology',
                 'print_name' => NULL,
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'You have spent time learning about human psychology, enabling you to both lie convincingly and detect when others are doing so. You can understand and anticipate actions and analyse the dysfunctional.
 
 After role-playing with someone for at least five minutes you may spend 1 Vigor to do any and all of the following:
@@ -416,7 +405,7 @@ You may spend additional points of Vigor to reduce the time needed to use these 
                 'id' => 20,
                 'name' => 'Psychotherapy',
                 'print_name' => NULL,
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'You are able to provide comfort and support when your fellows need it most. After roleplaying with someone for at least five minutes outside of combat, you may Spend 1 Vigor to do either or both of the following.
 * Refresh your target’s Vigor to full, regardless of their maximum Vigor. (This does not affect others with the Psychotherapy skill)
 * Detect their current emotional state.
@@ -440,7 +429,7 @@ Note: The requirement is time spent roleplaying with your target. The form of th
                 'id' => 21,
                 'name' => 'Pure Mathematics',
                 'print_name' => NULL,
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'The study of numbers, algebra, geometry, statistics, and the flow of how numbers affect the world.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -455,7 +444,7 @@ Note: The requirement is time spent roleplaying with your target. The form of th
                 'id' => 86,
                 'name' => 'Physiology (discounted)',
                 'print_name' => 'Physiology',
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'Physiology is the study of the mechanical, physical, and biochemical functions of animals, the study of anatomy and the interaction of cells. This skill combines both human and animal physiology.
 
 This skill reduces the training time of Medical Doctor to 3 months, regardless of how many other Science and Social skills you have.',
@@ -472,7 +461,7 @@ This skill reduces the training time of Medical Doctor to 3 months, regardless o
                 'id' => 87,
                 'name' => 'Medical Doctor (discounted)',
                 'print_name' => 'Medical Doctor',
-                'skill_category_id' => 2,
+                'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'You are a trained medical doctor. You can treat and assist in the treatment of medical injuries, using the RED times on the Medical Skill Game card.
 
 * **Medical Abilities:** Stabilise Casualty, Read All Wound Tokens, Prep for Movement
@@ -489,19 +478,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'vigor' => 0,
                 'display' => 1,
             ],
-        ], 'id', [
-            'name',
-            'description',
-            'skill_category_id',
-            'upkeep',
-            'cost',
-            'specialties',
-            'specialty_type_id',
-            'repeatable',
-            'body',
-            'vigor',
-            'display',
-        ]);
+        ], 'id');
     }
 
     public function seedComplexSkills()
@@ -511,7 +488,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'id' => Skill::ADDITIONAL_AA_SPEC,
                 'name' => 'Additional Archeo-Anthrology Speciality',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'Having this skill may aid you with assimilating into an Alien culture similar to one of your specialties, as if you were truly a native.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -526,7 +503,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'id' => 22,
                 'name' => 'Armorer',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You can repair damaged weapons and equipment. It is also possible for you to make weapons or ammunition if you have the required tools and supplies. (See an event referee).
 * It takes 5 minutes to repair Primitive Weapons, or weapons with the Robust Trait.
 * It takes 10 minutes to repair any weapon except Heavy Weapons
@@ -544,7 +521,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'id' => 23,
                 'name' => 'Astronaut',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You are adept at using spacesuits and manoeuvring in Zero-Gravity environments. When combined with Pilot, this grants the ability to pilot Earth Spacecraft such as the Space Shuttle. When Combined with Technology Skills, they may allow you to ignore relevant environmental penalties to skill games at Event Ref discretion.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -559,7 +536,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'id' => 24,
                 'name' => 'CasEvac Specialist',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'This Skill grants the ability ‘Prep For Movement’ if you do not already possess it.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -574,7 +551,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'id' => 27,
                 'name' => 'Close Protection',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You are a trained Bodyguard or have received other High Value Target (HVT) protection training.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -589,7 +566,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'id' => 28,
                 'name' => 'Dreaming Spires',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You have access to the best research establishments in the world, and the library card to prove it. You are a very well-known academic and during downtime you tend to learn pieces of information from the world of academia. Information gained in this way can refer to new technology discoveries and procedures, or academic rumours which may be helpful to your character.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -604,7 +581,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'id' => 29,
                 'name' => 'Forensic Science',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You understand the basics of forensic science.
 
 You can also use forensics in conjunction with other skills you have to enable you to interpret information according to your skills.',
@@ -621,7 +598,7 @@ You can also use forensics in conjunction with other skills you have to enable y
                 'id' => 30,
                 'name' => 'History and Philosophy',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You have a grasp of History and have a basic knowledge of the main events that have occurred throughout recorded history.
 
 You have studied the art of thought, from the Greek philosophers to modern ethicists.',
@@ -638,7 +615,7 @@ You have studied the art of thought, from the Greek philosophers to modern ethic
                 'id' => 31,
                 'name' => 'Hypnosis',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You are knowledgeable in Hypnosis as a subset of psychology. If the subject is willing, you may:
 * After 5 minutes of roleplay, detect the subject’s emotional state once every 15 minutes.
 * After 20 minutes of roleplay, detect the subject’s psychological flaws or hidden information in their mind.',
@@ -655,7 +632,7 @@ You have studied the art of thought, from the Greek philosophers to modern ethic
                 'id' => 32,
                 'name' => 'Insider Information',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You have access to the best covert skills training in the world. You are highly connected among the intelligence community, during downtime you tend to learn pieces of information from the world of covert intelligence,
 
 This can be information around new technology discoveries or procedures or can be intel rumours which may be helpful to your character.',
@@ -672,7 +649,7 @@ This can be information around new technology discoveries or procedures or can b
                 'id' => 33,
                 'name' => 'Interrogation/Investigation',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You are knowledgeable in interrogation, and the psychology of investigation.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -687,7 +664,7 @@ This can be information around new technology discoveries or procedures or can b
                 'id' => 34,
                 'name' => 'Law',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You are an expert in both military and civilian law. You are qualified for and experienced in representing both civilian and military personnel in court. If you spend time with alien cultures, you may be able to also take their own legal systems as a skill.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -702,7 +679,7 @@ This can be information around new technology discoveries or procedures or can b
                 'id' => 35,
                 'name' => 'Leadership',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'Once per Scene, you can take one other character under your wing.
 
 If you are actively leading them or protecting them and you are within 50 feet with line of sight, both you and they gain +2 Body.
@@ -723,7 +700,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'id' => 36,
                 'name' => 'Medical Specialism',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'The following skills improve the range of medical knowledge, allowing characters to excel in a particular field. Learning specialties will allow you to speed up treatments when they relate to your specialist area and may allow other effects to occur.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -738,7 +715,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'id' => 37,
                 'name' => 'Micro-Expressions',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'This Skill allows the use of Psychology or Psychotherapy skills through observation rather than direct interaction with the Subject. This includes Audio and Visual Recordings.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -753,7 +730,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'id' => 38,
                 'name' => 'Negotiation',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You are a trained negotiator, skilled in conflict resolution without violence.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -768,7 +745,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'id' => 39,
                 'name' => 'Piloting',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You are an accomplished pilot of Human Aircraft. If you have Astronaut, this applies to the Space Shuttle and similar Earth level spacecraft.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -783,7 +760,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'id' => 40,
                 'name' => 'Politics and Bureaucracy',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You understand the basics of the political system and the back-office politics that occur behind the scenes. You also understand how to navigate and manipulate the red tape of systems such as the civil service or military requisitions. If you spend time with alien cultures, you may be able to apply this skill to those cultures as well.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -798,7 +775,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'id' => 41,
                 'name' => 'Quantum Physics',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'The study of radioactivity & the fundamental principles of the universe. This includes Nuclear Physics.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -813,7 +790,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'id' => 42,
                 'name' => 'Religion and Occult',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You are knowledgeable in the major Earth religions, their beliefs, and practices.
 
 You are also knowledgeable in a variety of occult practices and their beliefs.',
@@ -830,7 +807,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 43,
                 'name' => 'SERE Training',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You have completed a military SERE (Survival, Evasion, Resistance and Escape) course, the Intelligence community equivalent, or perhaps you are simply a very skilled liar. For whatever reason, you are able to resist interrogation.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -845,7 +822,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 88,
                 'name' => 'Subject Matter Expert',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You are particularly knowledgeable in a given area, and in managing projects relating to it.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -860,7 +837,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 25,
                 'name' => 'Poker Face',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You are particularly difficult to get a read on, psychologically speaking. This skill reduces the cost of falsifying psychological responses by one.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -875,7 +852,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 26,
                 'name' => 'Tenured Academic',
                 'print_name' => NULL,
-                'skill_category_id' => 3,
+                'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'Some people have spent their whole lives in academia and it shows.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -886,19 +863,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'vigor' => 0,
                 'display' => 1,
             ],
-        ], 'id', [
-            'name',
-            'description',
-            'skill_category_id',
-            'upkeep',
-            'cost',
-            'specialties',
-            'specialty_type_id',
-            'repeatable',
-            'body',
-            'vigor',
-            'display',
-        ]);
+        ], 'id');
     }
 
     public function seedBasicSkills()
@@ -909,7 +874,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 44,
                 'name' => 'Test Pilot',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You are an accomplished pilot of experimental craft.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -924,7 +889,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 45,
                 'name' => 'Leadership Extra Person',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You can take one extra person under your wing.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -939,7 +904,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 46,
                 'name' => 'Basic Biology',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have learnt the basic techniques of biology.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -954,7 +919,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 47,
                 'name' => 'Basic Botany',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have learnt the basic techniques of botany.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -969,7 +934,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 48,
                 'name' => 'Basic Chemistry',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have learnt the basic techniques of chemistry.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -984,7 +949,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 49,
                 'name' => 'Basic Computers',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have learnt the basic techniques of computer science. You gain the ability to use one card from Computing and one card from Communications when preparing for a skill game.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -999,7 +964,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 50,
                 'name' => 'Basic Engineering',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have learnt the basic techniques of engineering. You gain the ability to use one card from Mechanical Engineering and one card from Electrical Engineering when preparing for a skill game.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1014,7 +979,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 51,
                 'name' => 'Basic Explosives Training',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have learnt the basic techniques of Explosives & Demolitions. You can only use C4 & Claymores. You gain the ability to use one card from Explosives Training when preparing for a skill game.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1029,7 +994,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 52,
                 'name' => 'Basic Geology',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have a good understanding of rocks, minerals, and landscapes.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1044,7 +1009,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 53,
                 'name' => 'Basic Language',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have learnt to speak/read/write one specific Language. This skill may be bought repeatedly for extra languages with each reducing the cost of Linguistics skill. The cost of the Linguistics skill may be reduced to zero months through multiple purchases of this skill.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1059,7 +1024,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 54,
                 'name' => 'Basic Larceny',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have learnt the basic techniques of Larceny. You gain the ability to use one card from Larceny when preparing for a skill game.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1074,7 +1039,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 55,
                 'name' => 'Basic Mathematics',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have learnt the basic techniques of mathematics. You gain the ability to use one card from Cryptography when preparing for a skill game.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1089,7 +1054,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 56,
                 'name' => 'Basic Physics',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have learnt the basic techniques of physics.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1104,7 +1069,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 57,
                 'name' => 'Basic Psychology',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You may spend 3 Vigor to falsify the response to a psychological challenge.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1119,7 +1084,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 60,
                 'name' => 'Endurance Training',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have spent a long time in the gymnasium and have honed your Body. This comes with a price, and you must maintain your endurance.
 
 You gain 1 Body Hit. You must spend 1 Month of Training or Research time every downtime maintaining this skill or it is lost. (You only begin maintaining this skill once you have it.) This Skill can be repeatedly trained, granting +1 Body each time to a max of +5. Maintaining this skill only takes 1 month regardless of level. If you have more than one level of this skill, failure to maintain loses one level per DT in which maintenance is not completed.
@@ -1138,7 +1103,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'id' => 61,
                 'name' => 'Expert Knowledge: Computing',
                 'print_name' => 'EK: Computing',
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1153,7 +1118,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'id' => 62,
                 'name' => 'Expert Knowledge: Cryptography',
                 'print_name' => 'EK: Cryptography',
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1168,7 +1133,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'id' => 63,
                 'name' => 'Expert Knowledge: Electrical Engineering',
                 'print_name' => 'EK: Elec. Eng.',
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1183,7 +1148,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'id' => 64,
                 'name' => 'Expert Knowledge: Explosives Training',
                 'print_name' => 'EK: Demolitions',
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1198,7 +1163,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'id' => 65,
                 'name' => 'Expert Knowledge: Larceny',
                 'print_name' => 'EK: Larceny',
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1213,7 +1178,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'id' => 66,
                 'name' => 'Expert Knowledge: Mechanical Engineering',
                 'print_name' => 'EK: Mech. Eng.',
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1228,7 +1193,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'id' => 67,
                 'name' => 'Expert Knowledge: Paramedic',
                 'print_name' => 'EK: Paramedic',
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1243,7 +1208,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'id' => 68,
                 'name' => 'Expert Knowledge: Signals Intelligence',
                 'print_name' => 'EK: SIGINT',
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => $expertKnowledgeDescription,
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1258,7 +1223,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'id' => 69,
                 'name' => 'Fish and Game',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You are an expert hunter. You can find food, water, and shelter while you\'re in the wilderness. You\'re also good at capturing small animals and fishing.
 
 This Skill allows the use of ‘Negotiator’ feats on animal targets if you also have the Negotiator Skill.',
@@ -1275,7 +1240,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'id' => 70,
                 'name' => 'Heroic Vigor',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'This increases your Heroic Vigor by 1. This Skill can be repeatedly trained, granting +1 Vigor each time to a max of +5. This may be lost if you undertake actions deemed non-heroic.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1290,7 +1255,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'id' => 71,
                 'name' => 'Medic',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'Stabilise - with 10 Seconds of appropriate Roleplay, you may negate a Bleed effect on yourself or another player. **This ability does not cost Vigor.**',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1305,7 +1270,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'id' => 72,
                 'name' => 'Mythology',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have knowledge of one specific area of Religion/occult knowledge – For example, Judeo-Christian dogma, or Yoga Positions.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1320,7 +1285,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'id' => 89,
                 'name' => 'Self-Defense',
                 'print_name' => NULL,
-                'skill_category_id' => 4,
+                'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'This skill grants access to the following ability.
 * Break Hold (Costs 1 Vigor): You call "Break Hold". The target must release you from a grapple, or you can resist a throw as you’ve broken their hold.',
                 'upkeep' => 0,
@@ -1332,19 +1297,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'vigor' => 0,
                 'display' => 1,
             ],
-        ], 'id', [
-            'name',
-            'description',
-            'skill_category_id',
-            'upkeep',
-            'cost',
-            'specialties',
-            'specialty_type_id',
-            'repeatable',
-            'body',
-            'vigor',
-            'display',
-        ]);
+        ], 'id');
     }
 
     public function seedCombatSkills()
@@ -1354,7 +1307,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'id' => 73,
                 'name' => 'Accuracy Training',
                 'print_name' => NULL,
-                'skill_category_id' => 5,
+                'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'You gain access to the Lethal call for any non-melee weapon with the accurate trait capable of using it.',
                 'upkeep' => 0,
                 'cost' => 12,
@@ -1369,7 +1322,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'id' => 74,
                 'name' => 'Boxing',
                 'print_name' => NULL,
-                'skill_category_id' => 5,
+                'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'You gain the following ability:
 * Strike (unlimited): You may call damage with fists.
 Unarmed Combat Strikes should be represented by an open palm aimed at the target’s shoulder area, but should not make actual contact.',
@@ -1386,7 +1339,7 @@ Unarmed Combat Strikes should be represented by an open palm aimed at the target
                 'id' => 75,
                 'name' => 'Breacher',
                 'print_name' => NULL,
-                'skill_category_id' => 5,
+                'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'Allows the use of Future Warrior armour (+8 BP).
 
 Allows use of a Riot Shield (+2 BP).',
@@ -1403,7 +1356,7 @@ Allows use of a Riot Shield (+2 BP).',
                 'id' => 76,
                 'name' => 'Gunnery Training',
                 'print_name' => NULL,
-                'skill_category_id' => 5,
+                'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'You gain access to the Covering Fire and Spray Fire calls for any weapon capable of using them that you have access to.',
                 'upkeep' => 0,
                 'cost' => 6,
@@ -1418,7 +1371,7 @@ Allows use of a Riot Shield (+2 BP).',
                 'id' => 77,
                 'name' => 'Heavy Weapons',
                 'print_name' => NULL,
-                'skill_category_id' => 5,
+                'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'You can use all weapons in the Heavy Weapons Table. Any calls you already had access to can now be applied to Heavy Weapons capable of using them.
 
 * You gain access to the Explosive call for any weapon capable of using it.
@@ -1437,7 +1390,7 @@ Allows use of a Riot Shield (+2 BP).',
                 'id' => 78,
                 'name' => 'Martial Arts',
                 'print_name' => NULL,
-                'skill_category_id' => 5,
+                'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'You gain the following abilities using your hands:
 * Strike (unlimited): You cause damage as per Boxing.
 * Grapple (Costs 1 Vigor) You can keep the target restrained for 10 seconds. The target may still use small ranged weapons (not Unarmed or Melee strikes) against you, provided they were holding them when the grapple began.
@@ -1460,7 +1413,7 @@ Allows use of a Riot Shield (+2 BP).',
                 'id' => 79,
                 'name' => 'Melee',
                 'print_name' => NULL,
-                'skill_category_id' => 5,
+                'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'You gain the following ability:
 * Strike (unlimited): You may call damage with melee weapons.',
                 'upkeep' => 0,
@@ -1476,7 +1429,7 @@ Allows use of a Riot Shield (+2 BP).',
                 'id' => 80,
                 'name' => 'Pistols',
                 'print_name' => NULL,
-                'skill_category_id' => 5,
+                'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'You can use all weapons in the Pistols Table.
 * Ranged (unlimited): You may call damage with a pistol.
 You gain access to the Stun call for any weapon in the Pistols table capable of using it',
@@ -1493,7 +1446,7 @@ You gain access to the Stun call for any weapon in the Pistols table capable of 
                 'id' => 81,
                 'name' => 'Point Man',
                 'print_name' => NULL,
-                'skill_category_id' => 5,
+                'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'Allows the use of Ablative Hardweave (+6 BP).
 
 Allows the use of a Public Order Shield. (+1BP).',
@@ -1510,7 +1463,7 @@ Allows the use of a Public Order Shield. (+1BP).',
                 'id' => 82,
                 'name' => 'Primitive Weaponry',
                 'print_name' => NULL,
-                'skill_category_id' => 5,
+                'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'You can use all weapons in the Primitive Weapons Table. Additionally, if you have the Armorer Skill, you may create weapons using primitive materials.
 
 You gain access to the Bleed Call for any Primitive Weapon capable of making it.
@@ -1530,7 +1483,7 @@ You gain the following abilities using Primitive Weapons:
                 'id' => 83,
                 'name' => 'Tactical Training',
                 'print_name' => NULL,
-                'skill_category_id' => 5,
+                'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'You can use all weapons in the Personal Weapon Systems Table.
 
 You gain access to the Bleed and Knockback calls for any weapon in the Personal Weapon Systems table capable of using them.
@@ -1545,19 +1498,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'vigor' => 0,
                 'display' => 1,
             ],
-        ], 'id', [
-            'name',
-            'description',
-            'skill_category_id',
-            'upkeep',
-            'cost',
-            'specialties',
-            'specialty_type_id',
-            'repeatable',
-            'body',
-            'vigor',
-            'display',
-        ]);
+        ], 'id');
     }
 
     public function seedAlienSkills()
@@ -1996,7 +1937,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
     public function seedSkillPrereqs()
     {
         DB::table('skill_prereqs')->truncate();
-        DB::table('skill_prereqs')->insertOrIgnore([
+        DB::table('skill_prereqs')->upsert([
             [
                 'skill_id' => 16,
                 'prereq_id' => 7,
@@ -2147,13 +2088,13 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'prereq_id' => 28,
                 'always_required' => 1,
             ],
-        ]);
+        ], ['skill_id', 'prereq_id']);
     }
 
     public function seedSkillLockouts()
     {
         DB::table('skill_lockouts')->truncate();
-        DB::table('skill_lockouts')->insertOrIgnore([
+        DB::table('skill_lockouts')->upsert([
             [
                 'skill_id' => 16,
                 'lockout_id' => 18,
@@ -2202,13 +2143,13 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'skill_id' => 78,
                 'lockout_id' => 89,
             ],
-        ]);
+        ], ['skill_id', 'lockout_id']);
     }
 
     public function seedSkillDiscounts()
     {
         DB::table('skill_discounts')->truncate();
-        DB::table('skill_discounts')->insertOrIgnore([
+        DB::table('skill_discounts')->upsert([
             [
                 'discounting_skill' => 46,
                 'discounted_skill' => 13,
@@ -2304,7 +2245,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'discounted_skill' => 78,
                 'discount' => 3,
             ],
-        ]);
+        ], ['discounting_skill', 'discounted_skill']);
     }
 
     public function seedCardSkills()
@@ -2519,7 +2460,9 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
         ]);
     }
 
-    public function seedSkillTraining() {
+    public function seedSkillTraining()
+    {
+        DB::table('skill_training')->truncate();
         DB::table('skill_training')->upsert([
             [
                 'taught_skill_id' => 1,
@@ -2597,7 +2540,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'taught_skill_id' => 78,
                 'trained_skill_id' => 89,
             ],
-        ],[
+        ], [
             'taught_skill_id',
             'trained_skill_id',
         ]);
@@ -2610,7 +2553,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'id' => 90,
                 'name' => 'Plot Changes',
                 'print_name' => NULL,
-                'skill_category_id' => 7,
+                'skill_category_id' => SkillCategory::SYSTEM,
                 'description' => 'See related character log for details.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -2625,7 +2568,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'id' => 91,
                 'name' => 'Resuscitation',
                 'print_name' => NULL,
-                'skill_category_id' => 7,
+                'skill_category_id' => SkillCategory::SYSTEM,
                 'description' => 'The consequence of being brought back to life.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -2640,7 +2583,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'id' => 92,
                 'name' => 'Resuscitation Vigor Buyback',
                 'print_name' => NULL,
-                'skill_category_id' => 7,
+                'skill_category_id' => SkillCategory::SYSTEM,
                 'description' => 'Getting your lost Vigor back.',
                 'upkeep' => 0,
                 'cost' => 3,
@@ -2655,7 +2598,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'id' => 94,
                 'name' => 'System Changes',
                 'print_name' => NULL,
-                'skill_category_id' => 7,
+                'skill_category_id' => SkillCategory::SYSTEM,
                 'description' => 'See related character log for details.',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -2666,18 +2609,6 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'vigor' => 0,
                 'display' => 0,
             ],
-        ], 'id', [
-            'name',
-            'description',
-            'skill_category_id',
-            'upkeep',
-            'cost',
-            'specialties',
-            'specialty_type_id',
-            'repeatable',
-            'body',
-            'vigor',
-            'display',
-        ]);
+        ], 'id');
     }
 }

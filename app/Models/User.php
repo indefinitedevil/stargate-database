@@ -111,12 +111,6 @@ class User extends Authenticatable
         return $uniqueName;
     }
 
-    public function downtimes()
-    {
-        return $this->throughCharacters()->hasDowntimeActions()->get()
-            ->groupBy('downtime_id');
-    }
-
     public function getCharacter($characterId): ?Character
     {
         static $characters = [];
@@ -128,6 +122,6 @@ class User extends Authenticatable
 
     public function getViewRoute(): string
     {
-        return route('profile.view-pretty', ['userId' => $this, 'userName' => Str::slug($this->name)]);
+        return route('profile.view', ['userId' => $this, 'userName' => Str::slug($this->name)]);
     }
 }

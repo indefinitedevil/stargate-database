@@ -6,6 +6,7 @@ use App\Http\Controllers\DowntimeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PlotcoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\SysrefController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
@@ -25,7 +26,7 @@ Route::get('/roles', function () {
     ]);
 })->name('roles');
 
-Route::get('/events/', [EventController::class, 'index'])->name('events.index');
+Route::get('/events', [EventController::class, 'index'])->name('events.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -33,8 +34,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::get('/profile/{userId}', [ProfileController::class, 'view'])->name('profile.view');
-    Route::get('/profile/{userId}/{userName}', [ProfileController::class, 'view'])->name('profile.view-pretty');
+    Route::get('/profile/{userId}/{userName?}', [ProfileController::class, 'view'])->name('profile.view');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -42,10 +42,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'can:create character'], function () {
         Route::get('/characters', [CharacterController::class, 'index'])->name('characters.index');
-        Route::get('/characters/view/{characterId}', [CharacterController::class, 'view'])->name('characters.view');
-        Route::get('/characters/view/{characterId}/{characterName}', [CharacterController::class, 'view'])->name('characters.view-pretty');
-        Route::get('/characters/logs/{characterId}', [CharacterController::class, 'logs'])->name('characters.logs');
-        Route::get('/characters/logs/{characterId}/{characterName}', [CharacterController::class, 'logs'])->name('characters.logs-pretty');
+        Route::get('/characters/view/{characterId}/{characterName?}', [CharacterController::class, 'view'])->name('characters.view');
+        Route::get('/characters/logs/{characterId}/{characterName?}', [CharacterController::class, 'logs'])->name('characters.logs');
         Route::get('/characters/print/{characterId}', [CharacterController::class, 'print'])->name('characters.print');
         Route::get('/characters/print-skills/{characterId}', [CharacterController::class, 'printSkills'])->name('characters.print-skills');
         Route::get('/characters/edit/{characterId}', [CharacterController::class, 'edit'])->name('characters.edit');
@@ -67,22 +65,25 @@ Route::middleware('auth')->group(function () {
         Route::get('/downtimes/submit/{downtimeId}/character/{characterId}', [DowntimeController::class, 'submit'])->name('downtimes.submit');
         Route::get('/downtimes/view/{downtimeId}/character/{characterId}', [DowntimeController::class, 'viewSubmission'])->name('downtimes.view');
         Route::post('/downtimes/store-submission', [DowntimeController::class, 'storeSubmission'])->name('downtimes.store-submission');
+
+        Route::get('/research', [ResearchController::class, 'index'])->name('research.index');
+        Route::get('/research/view/{projectId}/{projectName?}', [ResearchController::class, 'view'])->name('research.view');
     });
 
-    Route::get('/plot-co/skills/', [PlotcoController::class, 'skills'])->name('plotco.skills')
+    Route::get('/plot-co/skills', [PlotcoController::class, 'skills'])->name('plotco.skills')
         ->middleware('can:viewSkills,App\Models\Character');
 
     Route::group(['middleware' => 'can:view attendance'], function () {
-        Route::get('/events/attendance/', [PlotcoController::class, 'attendance'])->name('events.all-attendance');
+        Route::get('/events/attendance', [PlotcoController::class, 'attendance'])->name('events.all-attendance');
     });
 
     Route::group(['middleware' => 'can:record attendance'], function () {
         Route::get('/events/attendance/{eventId}', [EventController::class, 'attendance'])->name('events.attendance');
-        Route::post('/events/store-attendance/', [EventController::class, 'storeAttendance'])->name('events.store-attendance');
+        Route::post('/events/store-attendance', [EventController::class, 'storeAttendance'])->name('events.store-attendance');
     });
 
     Route::group(['middleware' => 'can:edit all characters'], function () {
-        Route::get('/plot-co/characters/', [PlotcoController::class, 'characters'])->name('plotco.characters');
+        Route::get('/plot-co/characters', [PlotcoController::class, 'characters'])->name('plotco.characters');
         Route::get('/plot-co/characters/print-all', [PlotcoController::class, 'printAll'])->name('plotco.print-all');
         Route::get('/plot-co/characters/print-some', [PlotcoController::class, 'printSome'])->name('plotco.print-some');
         Route::post('/characters/approve/{characterId}', [CharacterController::class, 'approve'])->name('characters.approve');
@@ -92,7 +93,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/characters/resuscitate/{characterId}', [CharacterController::class, 'resuscitate'])->name('characters.resuscitate');
         Route::get('/characters/logs/{characterId}/edit/{logId}', [CharacterController::class, 'logs'])->name('characters.edit-log');
         Route::post('/characters/store-log', [CharacterController::class, 'storeLog'])->name('characters.store-log');
-        Route::get('/plot-co/logs/', [PlotcoController::class, 'logs'])->name('plotco.logs');
+        Route::get('/plot-co/logs', [PlotcoController::class, 'logs'])->name('plotco.logs');
     });
 
     Route::group(['middleware' => 'can:edit downtimes'], function () {
@@ -107,18 +108,28 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['middleware' => 'can:edit skill'], function () {
-        Route::get('/sys-ref/skill-check/', [SysrefController::class, 'skillCheck'])->name('sysref.skill-check');
+        Route::get('/sys-ref/skill-check', [SysrefController::class, 'skillCheck'])->name('sysref.skill-check');
     });
 
     Route::group(['middleware' => 'can:modify roles'], function () {
-        Route::get('/admin/manage-roles/', [AdminController::class, 'manageRoles'])->name('admin.manage-roles');
-        Route::post('/admin/store-roles/', [AdminController::class, 'storeRoles'])->name('admin.store-roles');
+        Route::get('/admin/manage-roles', [AdminController::class, 'manageRoles'])->name('admin.manage-roles');
+        Route::post('/admin/store-roles', [AdminController::class, 'storeRoles'])->name('admin.store-roles');
     });
 
     Route::group(['middleware' => 'can:edit events'], function () {
         Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
         Route::get('/events/edit/{eventId}', [EventController::class, 'edit'])->name('events.edit');
         Route::post('/events/store', [EventController::class, 'store'])->name('events.store');
+    });
+
+    Route::group(['middleware' => 'can:add research projects'], function () {
+        Route::get('/research/create', [ResearchController::class, 'create'])->name('research.create');
+        Route::get('/research/edit/{projectId}', [ResearchController::class, 'edit'])->name('research.edit');
+        Route::post('/research/store', [ResearchController::class, 'store'])->name('research.store');
+    });
+
+    Route::group(['middleware' => 'can:delete research projects'], function () {
+        Route::post('/research/delete', [ResearchController::class, 'delete'])->name('research.delete');
     });
 });
 

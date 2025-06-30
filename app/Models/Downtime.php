@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Helpers\CharacterHelper;
 use App\Mail\DowntimeProcessed;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,22 +11,26 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
 
 /**
- * @property int $id
- * @property string $name
- * @property \DateTime $start_time
- * @property \DateTime $end_time
- * @property string $created_at
- * @property string $updated_at
- * @property int $development_actions
- * @property int $research_actions
- * @property int $other_actions
- * @property Collection $actions
- * @property Collection $missions
- * @property Collection $trainingCourses
- * @property Event $event
- * @property int $event_id
- * @property bool $open
- * @property bool $processed
+ * @property int id
+ * @property string name
+ * @property \DateTime start_time
+ * @property \DateTime end_time
+ * @property string created_at
+ * @property string updated_at
+ * @property int development_actions
+ * @property int research_actions
+ * @property int experiment_actions
+ * @property int other_actions
+ * @property Collection actions
+ * @property Collection missions
+ * @property Collection trainingCourses
+ * @property Collection researchProjects
+ * @property Collection researchVolunteerProjects
+ * @property Event event
+ * @property int event_id
+ * @property bool open
+ * @property bool processed
+ * @property string response
  */
 class Downtime extends Model
 {
@@ -39,8 +42,10 @@ class Downtime extends Model
         'end_time',
         'development_actions',
         'research_actions',
+        'experiment_actions',
         'other_actions',
         'event_id',
+        'response',
     ];
 
     protected $casts = [
@@ -78,14 +83,42 @@ class Downtime extends Model
         return $this->open;
     }
 
-    public function getResearchProjects(): Collection
+    public function getResearchProjectsAttribute(): Collection
     {
-        return ResearchProject::all();
+        static $researchProjects = null;
+        if (is_null($researchProjects)) {
+            $researchProjects = ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)->get();
+        }
+        return $researchProjects;
+    }
+
+    public function getResearchProjectsForCharacter($characterId): Collection
+    {
+        static $researchProjects = [];
+        if (empty($researchProjects[$characterId])) {
+            $researchProjects[$characterId] = ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)
+                ->join('research_project_skill', 'research_project_skill.research_project_id', 'research_projects.id')
+                ->join('character_skills', 'character_skills.skill_id', 'research_project_skill.skill_id')
+                ->where('character_skills.character_id', $characterId)
+                ->select('research_projects.*')->get();
+        }
+        return $researchProjects[$characterId];
+    }
+
+    public function getResearchVolunteerProjectsAttribute(): Collection
+    {
+        static $researchVolunteerProjects = null;
+        if (is_null($researchVolunteerProjects)) {
+            $researchVolunteerProjects = ResearchProject::where('needs_volunteers', true)
+                ->where('status', ResearchProject::STATUS_ACTIVE)
+                ->get();
+        }
+        return $researchVolunteerProjects;
     }
 
     public function trainingCourses(): HasMany
     {
-        return $this->actions()->where('action_type_id', ActionType::TEACHING)
+        return $this->actions()->where('action_type_id', ActionType::ACTION_TEACHING)
             ->join('character_skills', 'character_skill_id', 'character_skills.id')
             ->join('skills', 'skill_id', 'skills.id')
             ->orderBy('skills.name');
@@ -95,7 +128,7 @@ class Downtime extends Model
     {
         static $trainees = [];
         if (!isset($trainees[$skillId])) {
-            $trainees[$skillId] = $this->actions()->where('action_type_id', ActionType::TRAINING)
+            $trainees[$skillId] = $this->actions()->where('action_type_id', ActionType::ACTION_TRAINING)
                 ->join('character_skills', 'character_skill_id', 'character_skills.id')
                 ->where('skill_id', $skillId)
                 ->selectRaw('DISTINCT downtime_actions.character_id')
@@ -154,20 +187,20 @@ class Downtime extends Model
         foreach ($this->actions as $action) {
             $characters[$action->character_id] = $action->character_id;
             switch ($action->action_type_id) {
-                case ActionType::TEACHING:
+                case ActionType::ACTION_TEACHING:
                     $taughtSkills[$action->characterSkill->skill_id][$action->character_id] = $action;
                     break;
-                case ActionType::TRAINING:
+                case ActionType::ACTION_TRAINING:
                     $trainedSkills[$action->characterSkill->skill_id][$action->character_id][] = $action;
                     break;
-                case ActionType::MISSION:
+                case ActionType::ACTION_MISSION:
                     $downtimeMissions[$action->downtime_mission_id][] = $action->character_id;
                     break;
-                case ActionType::RESEARCH:
+                case ActionType::TYPE_RESEARCH:
                     $researchProjects[$action->research_project_id][] = $action->character_id;
                     break;
-                case ActionType::UPKEEP:
-                case ActionType::UPKEEP_2:
+                case ActionType::ACTION_UPKEEP:
+                case ActionType::ACTION_UPKEEP_2:
                     $upkeepMaintenance[$action->characterSkill->skill_id][$action->character_id] = $action;
                     break;
             }
@@ -327,13 +360,43 @@ class Downtime extends Model
             }
         }
 
+        foreach ($this->personalActions() as $action) {
+            if (!empty($action->notes) || !empty($action->response)) {
+                $allResults[$action->character_id][] = [
+                    'notes' => $action->notes,
+                    'response' => $action->response,
+                ];
+            }
+        }
+
+        $researchResults = [];
+        foreach ($this->researchProjects as $project) {
+            $researchResults[$project->id] = [
+                'project' => $project,
+                'contributors' => [],
+                'volunteers' => [],
+            ];
+        }
+        foreach ($this->researchActions() as $action) {
+            if (!isset($researchResults[$action->research_project_id])) {
+                continue;
+            }
+            $researchResults[$action->research_project_id]['contributors'][$action->character_id][] = $action->character->listName;
+        }
+        foreach ($this->researchSubjectActions() as $action) {
+            if (!isset($researchResults[$action->research_project_id])) {
+                continue;
+            }
+            $researchResults[$action->research_project_id]['volunteers'][] = $action->character->listName;
+        }
+
         foreach ($allResults as $characterId => $results) {
             $character = Character::find($characterId);
             if (in_array($character->status_id, [Status::APPROVED, Status::INACTIVE])) {
                 $character->status_id = Status::PLAYED;
                 $character->save();
             }
-            Mail::to($character->user->email, $character->user->name)->send(new DowntimeProcessed($this, $character, $results));
+            Mail::to($character->user->email, $character->user->name)->send(new DowntimeProcessed($this, $character, $results, $researchResults));
             if ('local' == env('APP_ENV')) {
                 break;
             }
@@ -342,12 +405,32 @@ class Downtime extends Model
         $this->save();
     }
 
-    public function miscActions(): Collection
+    public function personalActions(): Collection
     {
-        static $miscActions = null;
-        if (is_null($miscActions)) {
-            $miscActions = $this->actions()->where('action_type_id', ActionType::OTHER)->get();
+        static $personalActions = null;
+        if (is_null($personalActions)) {
+            $personalActions = $this->actions()->where('action_type_id', ActionType::ACTION_OTHER)->get();
         }
-        return $miscActions;
+        return $personalActions;
+    }
+
+    public function researchActions(): Collection
+    {
+        static $researchActions = null;
+        if (is_null($researchActions)) {
+            $researchActions = $this->actions()->with('researchProject')
+                ->where('action_type_id', ActionType::ACTION_RESEARCHING)->get();
+        }
+        return $researchActions;
+    }
+
+    public function researchSubjectActions(): Collection
+    {
+        static $researchActions = null;
+        if (is_null($researchActions)) {
+            $researchActions = $this->actions()->with('researchProject')
+                ->where('action_type_id', ActionType::ACTION_RESEARCH_SUBJECT)->get();
+        }
+        return $researchActions;
     }
 }

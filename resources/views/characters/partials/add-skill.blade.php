@@ -59,9 +59,7 @@
                             @endforeach
                         </x-select>
                         @if ($editSkill->skill->specialties > 1)
-                            <p class="text-xs">
-                                {{ __('Press Ctrl to select/de-select additional specialties.') }}
-                            </p>
+                            <p class="text-xs">{{ __('Press Ctrl to select/de-select additional specialties.') }}</p>
                         @endif
                     </div>
                 @endif
