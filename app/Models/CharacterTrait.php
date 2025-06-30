@@ -22,6 +22,27 @@ class CharacterTrait extends Model
         'revealed' => 'boolean',
     ];
 
+    const TRAIT_MASKS = [
+        'fa-atom-simple',
+        'fa-shield-halved',
+        'fa-puzzle-piece',
+        'fa-sword',
+        'fa-crown',
+        'fa-eye-evil',
+        'fa-dice-three',
+        'fa-moon',
+        'fa-balloon',
+        'fa-ghost',
+        'fa-duck',
+        'fa-cupcake',
+        'fa-tree',
+        'fa-bell',
+        'fa-star',
+        'fa-heart',
+        'fa-bolt',
+        'fa-sparkles',
+    ];
+
     public function characters(): BelongsToMany
     {
         return $this->belongsToMany(Character::class, 'character_character_traits');

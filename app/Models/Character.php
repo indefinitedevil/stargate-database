@@ -67,27 +67,6 @@ class Character extends Model
     const HERO = 1;
     const SCOUNDREL = 2;
 
-    const TRAIT_MASKS = [
-        'fa-atom-simple',
-        'fa-shield-halved',
-        'fa-puzzle-piece',
-        'fa-sword',
-        'fa-crown',
-        'fa-eye-evil',
-        'fa-dice-three',
-        'fa-moon',
-        'fa-balloon',
-        'fa-ghost',
-        'fa-duck',
-        'fa-cupcake',
-        'fa-tree',
-        'fa-fire',
-        'fa-star',
-        'fa-heart',
-        'fa-bolt',
-        'fa-leaf',
-    ];
-
     protected $fillable = [
         'user_id',
         'name',
@@ -495,17 +474,12 @@ class Character extends Model
                 $indicators[] = $characterTrait->icon;
             }
         }
-        $keys = array_rand(self::TRAIT_MASKS, $this->characterTraits->count() + 2 - count($indicators));
+        $keys = array_rand(CharacterTrait::TRAIT_MASKS, $this->characterTraits->count() + 2 - count($indicators));
         foreach ($keys as $key) {
-            $indicators[] = self::TRAIT_MASKS[$key];
+            $indicators[] = CharacterTrait::TRAIT_MASKS[$key];
         }
         shuffle($indicators);
         $this->attributes['traits_indicator'] = json_encode($indicators);
         return $this->saveQuietly();
-    }
-
-    public function getTraitMasks(): array
-    {
-        return self::TRAIT_MASKS;
     }
 }

@@ -91,7 +91,7 @@ class PlotcoController extends Controller
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         return view('plotco.downtimes.index', [
-            'downtimes' => Downtime::orderBy('start_time', 'desc')->get(),
+            'downtimes' => Downtime::orderBy('start_time', 'desc')->paginate(4),
         ]);
     }
 

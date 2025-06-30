@@ -8,6 +8,7 @@ use App\Http\Controllers\PlotcoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\SysrefController;
+use App\Http\Controllers\TraitsController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
 
@@ -94,6 +95,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/characters/logs/{characterId}/edit/{logId}', [CharacterController::class, 'logs'])->name('characters.edit-log');
         Route::post('/characters/store-log', [CharacterController::class, 'storeLog'])->name('characters.store-log');
         Route::get('/plot-co/logs', [PlotcoController::class, 'logs'])->name('plotco.logs');
+        Route::get('/plot-co/traits', [TraitsController::class, 'index'])->name('plotco.traits');
+        Route::get('/plot-co/traits/create', [TraitsController::class, 'create'])->name('plotco.traits.create');
+        Route::get('/plot-co/traits/edit/{traitId}', [TraitsController::class, 'edit'])->name('plotco.traits.edit');
+        Route::post('/plot-co/traits/store', [TraitsController::class, 'store'])->name('plotco.traits.store');
+        Route::get('/plot-co/traits/delete/{traitId}', [TraitsController::class, 'delete'])->name('plotco.traits.delete');
     });
 
     Route::group(['middleware' => 'can:edit downtimes'], function () {
@@ -129,7 +135,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['middleware' => 'can:delete research projects'], function () {
-        Route::post('/research/delete', [ResearchController::class, 'delete'])->name('research.delete');
+        Route::get('/research/delete/{traitId}', [ResearchController::class, 'delete'])->name('research.delete');
     });
 });
 

@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('character_traits', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32);
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('icon', 32);
             $table->tinyInteger('chance')->default(0);
             $table->boolean('revealed')->default(false);
