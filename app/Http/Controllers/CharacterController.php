@@ -9,6 +9,7 @@ use App\Mail\CharacterReady;
 use App\Models\Character;
 use App\Models\CharacterLog;
 use App\Models\CharacterSkill;
+use App\Models\CharacterTrait;
 use App\Models\Event;
 use App\Models\LogType;
 use App\Models\Skill;
@@ -538,6 +539,7 @@ class CharacterController extends Controller
             'other_abilities' => 'sometimes|string|max:65535|nullable',
             'events' => 'sometimes|array|exists:events,id',
             'hero_scoundrel' => 'sometimes|int',
+            'traits' => 'sometimes|array',
         ]);
 
         if ($request->user()->cannot('create', Character::class)) {
@@ -564,6 +566,22 @@ class CharacterController extends Controller
         $validatedData['rank'] = $validatedData['rank'] ?? '';
         $character->fill($validatedData);
         $character->save();
+
+        if (!empty($validatedData['traits'])) {
+            $traits = CharacterTrait::all();
+            foreach ($traits as $trait) {
+                if (empty($validatedData['traits'][$trait->id])) {
+                    $validatedData['traits'][$trait->id]['status'] = false;
+                }
+            }
+            $changes = $character->characterTraits()->sync($validatedData['traits']);
+            foreach ($changes as $changeType) {
+                if (!empty($changeType)) {
+                    $character->resetIndicators();
+                    break;
+                }
+            }
+        }
 
         return redirect($character->getViewRoute())
             ->with('success', new MessageBag([__('Character :character saved.', ['character' => $character->listName])]));

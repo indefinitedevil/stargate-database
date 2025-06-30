@@ -1,6 +1,7 @@
 @php
     use App\Models\Background;
     use App\Models\Character;
+    use App\Models\CharacterTrait;
     use App\Models\Status;
     use App\Models\User;
     $title = empty($character) ? __('Create character') : sprintf(__('Edit character: %s'), $character->name);
@@ -109,6 +110,29 @@
                     </x-input-label>
                     <x-input-error class="mt-2" :messages="$errors->get('hero_scoundrel')"/>
                 </div>
+                @can ('edit all characters')
+                    <div>
+                        <p class="text-xl">{{ __('Traits') }}</p>
+                        <div class="flex gap-4">
+                            @foreach (CharacterTrait::all() as $trait)
+                                @php
+                                $traitStatus = false;
+                                if (!empty($character)) {
+                                    $characterTrait = $character->characterTraits->where('id', $trait->id)->first();
+                                    $traitStatus = (bool) ($characterTrait ? $characterTrait->pivot->status : false);
+                                }
+                                @endphp
+                                <x-input-label for="trait-{{ $trait->id }}" class="text-lg">
+                                    <x-checkbox-input id="trait-{{ $trait->id }}" name="traits[{{ $trait->id }}][status]"
+                                                value="1"
+                                                :checked="$traitStatus"
+                                                :disabled="!empty($character) && Status::READY > $character->status_id"/>
+                                    <i class="fa-solid {{ $trait->icon }}"></i> {{ $trait->name }}
+                                </x-input-label>
+                            @endforeach
+                        </div>
+                    </div>
+                @endcan
 
                 <div>
                     <x-input-label for="background" :value="__('Background')"/>

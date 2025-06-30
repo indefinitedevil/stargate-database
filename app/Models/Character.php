@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Listeners\RollAtaGene;
+use App\Listeners\RollTraits;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,15 +24,15 @@ use Illuminate\Support\Str;
  * @property int background_id
  * @property int status_id
  * @property Background background
- * @property Collection skills
- * @property Collection trainedSkills
- * @property Collection displayedSkills
- * @property Collection displayedTrainedSkills
- * @property Collection hiddenTrainedSkills
- * @property Collection trainingSkills
- * @property Collection upkeepSkills
- * @property Collection requiredUpkeepSkills
- * @property Collection logs
+ * @property CharacterSkill[]|Collection skills
+ * @property CharacterSkill[]|Collection trainedSkills
+ * @property CharacterSkill[]|Collection displayedSkills
+ * @property CharacterSkill[]|Collection displayedTrainedSkills
+ * @property CharacterSkill[]|Collection hiddenTrainedSkills
+ * @property CharacterSkill[]|Collection trainingSkills
+ * @property CharacterSkill[]|Collection upkeepSkills
+ * @property CharacterSkill[]|Collection requiredUpkeepSkills
+ * @property CharacterLog[]|Collection logs
  * @property Status status
  * @property Feat[] feats
  * @property User player
@@ -55,10 +55,9 @@ use Illuminate\Support\Str;
  * @property Event[] events
  * @property int hero_scoundrel
  * @property string type
- * @property Collection downtimeActions
- * @property int ata_gene
- * @property bool ata_revealed
- * @property string genetics_indicator
+ * @property DowntimeAction[]|Collection downtimeActions
+ * @property CharacterTrait[]|Collection characterTraits
+ * @property string traits_indicator
  */
 class Character extends Model
 {
@@ -68,8 +67,8 @@ class Character extends Model
     const HERO = 1;
     const SCOUNDREL = 2;
 
-    const ATA_SYMBOL = 'fa-atom-simple';
-    const GENETICS_MASKS = [
+    const TRAIT_MASKS = [
+        'fa-atom-simple',
         'fa-shield-halved',
         'fa-puzzle-piece',
         'fa-sword',
@@ -466,33 +465,47 @@ class Character extends Model
         return $this->short_name ?: $this->name;
     }
 
-    public function getGeneticsIndicatorAttribute(): string
+    public function characterTraits(): BelongsToMany
+    {
+        return $this->belongsToMany(CharacterTrait::class)
+            ->withPivot('status');
+    }
+
+    public function getTraitsIndicatorAttribute(): string
     {
         if ($this->status_id < Status::APPROVED) {
             return __('N/A');
-        } else if (0 > $this->ata_gene) {
-            RollAtaGene::roll($this);
         }
-        if ($this->ata_revealed) {
-            //return $this->ata_gene ? __('Yes') : __('No');
-        }
-        if (empty($this->attributes['genetics_indicator'])) {
-            $indicators = [];
-            if ($this->ata_gene > 0) {
-                $indicators[] = self::ATA_SYMBOL;
-            }
-            $keys = array_rand(self::GENETICS_MASKS, 3 - count($indicators));
-            foreach ($keys as $key) {
-                $indicators[] = self::GENETICS_MASKS[$key];
-            }
-            shuffle($indicators);
-            $this->attributes['genetics_indicator'] = json_encode($indicators);
-            $this->saveQuietly();
+        RollTraits::roll($this);
+        if (empty($this->attributes['traits_indicator'])) {
+            $this->resetIndicators();
         }
         $return = '';
-        foreach (json_decode($this->attributes['genetics_indicator']) as $indicator) {
+        foreach (json_decode($this->attributes['traits_indicator']) as $indicator) {
             $return .= '<i class="fa-solid ' . $indicator . '"></i> ';
         }
         return $return;
+    }
+
+    public function resetIndicators(): bool
+    {
+        $indicators = [];
+        foreach ($this->characterTraits as $characterTrait) {
+            if ($characterTrait->pivot->status) {
+                $indicators[] = $characterTrait->icon;
+            }
+        }
+        $keys = array_rand(self::TRAIT_MASKS, $this->characterTraits->count() + 2 - count($indicators));
+        foreach ($keys as $key) {
+            $indicators[] = self::TRAIT_MASKS[$key];
+        }
+        shuffle($indicators);
+        $this->attributes['traits_indicator'] = json_encode($indicators);
+        return $this->saveQuietly();
+    }
+
+    public function getTraitMasks(): array
+    {
+        return self::TRAIT_MASKS;
     }
 }

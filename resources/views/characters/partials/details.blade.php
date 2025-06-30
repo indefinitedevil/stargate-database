@@ -37,7 +37,7 @@
             @endif
         </p>
         <p class="mt-1">
-            <strong>{{ __('Genetics') }}:</strong> {!! $character->genetics_indicator !!}
+            <strong>{{ __('Traits') }}:</strong> {!! $character->traits_indicator !!}
         </p>
     </div>
 </div>
