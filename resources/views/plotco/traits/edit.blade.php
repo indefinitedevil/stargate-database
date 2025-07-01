@@ -91,7 +91,7 @@
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <h3 class="text-2xl">{{ __('Characters') }}</h3>
-                <ul class="list-disc list-inside space-y-2 sm:grid grid-cols-3 gap-2">
+                <ul class="list-disc list-inside space-y-2 sm:space-y-0 sm:grid grid-cols-3 gap-2">
                     @if ($trait->characters->isEmpty())
                         <li>{{ __('No characters have this trait') }}</li>
                     @else
