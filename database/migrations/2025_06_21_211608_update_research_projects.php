@@ -49,6 +49,27 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        //
+        Schema::table('research_project_skill', function (Blueprint $table) {
+            $table->id();
+            $table->tinyInteger('months')->change()->default(1);
+        });
+
+        Schema::table('research_projects', function (Blueprint $table) {
+            $table->dropColumn('research_subject');
+            $table->dropColumn('project_goals');
+            $table->dropColumn('ooc_intent');
+            $table->dropColumn('results');
+            $table->dropColumn('plot_notes');
+            $table->dropColumn('months');
+            $table->dropColumn('status');
+            $table->dropColumn('visibility');
+            $table->dropColumn('needs_volunteers');
+            $table->dropForeign(['parent_project_id']);
+            $table->dropColumn('parent_project_id');
+        });
+
+        Schema::table('downtimes', function (Blueprint $table) {
+            $table->dropColumn('experiment_actions');
+        });
     }
 };

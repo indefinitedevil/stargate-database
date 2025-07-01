@@ -28,9 +28,10 @@ class TraitsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'id' => 'nullable|integer|exists:character_traits,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'icon' => 'string',
+            'icon' => 'required|string',
             'chance' => 'required|integer|min:0|max:100',
             'revealed' => 'boolean',
         ]);
@@ -52,6 +53,6 @@ class TraitsController extends Controller
         $trait = CharacterTrait::findOrFail($traitId);
         $trait->delete();
 
-        return redirect()->route('traits.index')->with('success', __('Trait deleted successfully.'));
+        return redirect()->route('plotco.traits')->with('success', __('Trait deleted successfully.'));
     }
 }

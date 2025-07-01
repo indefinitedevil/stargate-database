@@ -10,11 +10,6 @@ class ResearchController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->can('edit research projects')) {
-            $baseProjects = ResearchProject::query();
-        } else {
-            $baseProjects = ResearchProject::where('visibility', ResearchProject::VISIBILITY_PUBLIC);
-        }
         $publicProjects = ResearchProject::where('visibility', ResearchProject::VISIBILITY_PUBLIC);
         $privateProjects = ResearchProject::where('visibility', ResearchProject::VISIBILITY_PRIVATE);
         $archivedProjects = ResearchProject::where('visibility', ResearchProject::VISIBILITY_ARCHIVED);
@@ -81,7 +76,7 @@ class ResearchController extends Controller
             'name' => 'required|string|max:255',
             'research_subject' => 'required|string|max:255',
             'project_goals' => 'required|string',
-            'ooc_intent' => 'string',
+            'ooc_intent' => 'required|string',
             'results' => 'string|nullable',
             'plot_notes' => 'string|nullable',
             'months' => 'integer|min:1',

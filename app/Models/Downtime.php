@@ -85,11 +85,9 @@ class Downtime extends Model
 
     public function getResearchProjectsAttribute(): Collection
     {
-        static $researchProjects = null;
-        if (is_null($researchProjects)) {
-            $researchProjects = ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)->get();
-        }
-        return $researchProjects;
+        return once(function () {
+            return ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)->get();
+        });
     }
 
     public function getResearchProjectsForCharacter($characterId): Collection

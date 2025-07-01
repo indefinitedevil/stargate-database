@@ -261,7 +261,7 @@
                                            value="{{ $action->id }}">
                                     <input type="hidden" name="research_subject_action[{{ $actionCount }}][type]"
                                            value="{{ ActionType::ACTION_RESEARCH_SUBJECT }}">
-                                    <x-select id="research_project_{{ $actionCount }}"
+                                    <x-select id="research_subject_project_{{ $actionCount }}"
                                               name="research_subject_action[{{ $actionCount }}][research_project_id]"
                                               :disabled="!$downtime->isOpen()"
                                               class="mt-1 block">@include('downtimes.partials.research-volunteers', ['action' => $action])</x-select>
@@ -274,7 +274,7 @@
                                         <p class="text-lg">{{ trans_choice('Research Subject Action|Research Subject Action :number', $downtime->experiment_actions, ['number' => ++$actionCount]) }}</p>
                                         <input type="hidden" name="research_subject_action[{{ $actionCount }}][type]"
                                                value="{{ ActionType::ACTION_RESEARCH_SUBJECT }}">
-                                        <x-select id="research_project_{{ $actionCount }}"
+                                        <x-select id="research_subject_project_{{ $actionCount }}"
                                                   name="research_subject_action[{{ $actionCount }}][research_project_id]"
                                                   :disabled="!$downtime->isOpen()"
                                                   class="mt-1 block">@include('downtimes.partials.research-volunteers', ['action' => null])</x-select>
@@ -337,7 +337,7 @@
                                                 name="other_action[{{ $actionCount }}][response]"
                                                 :disabled="!$downtime->isOpen()"
                                                 class="mt-1 block w-full"
-                                                :placeholder="__('Plot co response to above.')">{{ $action->response }}</x-textarea>
+                                                :placeholder="__('Plot co response to above.')"></x-textarea>
                                 @endif
                             </div>
                         @endwhile
