@@ -588,7 +588,7 @@ class CharacterController extends Controller
                 }
             }
             $newTraits = [];
-            foreach ($character->characterTraits as $trait) {
+            foreach ($character->characterTraits()->get() as $trait) {
                 if ($trait->pivot->status) {
                     $newTraits[] = $trait->name;
                 }
