@@ -67,14 +67,12 @@ class CharacterController extends Controller
         if (auth()->user()->cannot('view hidden notes')) {
             $logs->where(function ($query) {
                 $query->where('notes', '!=', '')
-                    ->orWhere('log_type_id', LogType::PLOT);
+                    ->orWhere('log_type_id', '!=', LogType::PLOT);
             });
         }
-        $logs = $logs
-            ->orderBy('created_at', 'desc')->paginate(20);
         return view('characters.logs', [
             'character' => $character,
-            'logs' => $logs,
+            'logs' => $logs->orderBy('created_at', 'desc')->paginate(20),
             'editLog' => $logId ? CharacterLog::find($logId) : null,
         ]);
     }
