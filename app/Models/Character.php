@@ -470,7 +470,7 @@ class Character extends Model
     public function resetIndicators(): bool
     {
         $indicators = [];
-        foreach ($this->characterTraits as $characterTrait) {
+        foreach ($this->characterTraits()->get() as $characterTrait) {
             if ($characterTrait->pivot->status) {
                 $indicators[] = $characterTrait->icon;
             }
