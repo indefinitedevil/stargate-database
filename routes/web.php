@@ -135,7 +135,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['middleware' => 'can:delete research projects'], function () {
-        Route::get('/research/delete/{traitId}', [ResearchController::class, 'delete'])->name('research.delete');
+        Route::get('/research/delete/{projectId}', [ResearchController::class, 'delete'])->name('research.delete');
     });
 });
 

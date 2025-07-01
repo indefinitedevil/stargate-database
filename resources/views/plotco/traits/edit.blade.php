@@ -50,7 +50,7 @@
                         <x-input-label for="revealed" :value="__('Revealed')"/>
                         <x-checkbox-input id="revealed" name="revealed"
                                           :value="1"
-                                          :checked="(bool) ($project->revealed ?? false)"/>
+                                          :checked="(bool) ($trait->revealed ?? false)"/>
                         <x-input-error class="mt-2" :messages="$errors->get('revealed')"/>
                         <p class="text-xs mt-1">{{ __('This currently does nothing.') }}</p>
                     </div>
