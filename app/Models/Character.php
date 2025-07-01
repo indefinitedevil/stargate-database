@@ -456,7 +456,8 @@ class Character extends Model
             return __('N/A');
         }
         RollTraits::roll($this);
-        if (empty($this->attributes['traits_indicator'])) {
+        $indicators = json_decode($this->attributes['traits_indicator']);
+        if (empty($indicators) || count($indicators) < CharacterTrait::indicatorCount()) {
             $this->resetIndicators();
         }
         $return = '';
@@ -474,7 +475,7 @@ class Character extends Model
                 $indicators[] = $characterTrait->icon;
             }
         }
-        $keys = array_rand(CharacterTrait::TRAIT_MASKS, $this->characterTraits->count() + 2 - count($indicators));
+        $keys = array_rand(CharacterTrait::TRAIT_MASKS, CharacterTrait::indicatorCount() - count($indicators));
         foreach ($keys as $key) {
             $indicators[] = CharacterTrait::TRAIT_MASKS[$key];
         }

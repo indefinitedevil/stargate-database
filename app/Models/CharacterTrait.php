@@ -47,4 +47,11 @@ class CharacterTrait extends Model
     {
         return $this->belongsToMany(Character::class)->wherePivot('status', true);
     }
+
+    public static function indicatorCount(): int
+    {
+        return once(function () {
+            return self::all()->count() + 2;
+        });
+    }
 }
