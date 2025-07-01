@@ -608,7 +608,7 @@ class CharacterController extends Controller
                 'character_skill_id' => $characterSkill->id,
                 'locked' => true,
                 'log_type_id' => LogType::PLOT,
-                'notes' => __('Traits changed from :old to :new.', [
+                'plot_notes' => __('Traits changed from :old to :new.', [
                     'old' => implode(', ', $oldTraits),
                     'new' => implode(', ', $newTraits),
                 ]),
