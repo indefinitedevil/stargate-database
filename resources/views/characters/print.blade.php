@@ -34,7 +34,7 @@
                             @endif
                         </p>
                         <p class="mt-1">
-                            <strong>{{ __('Genetics') }}:</strong> {!! $character->genetics_indicator !!}
+                            <strong>{{ __('Traits') }}:</strong> {!! $character->traits_indicator !!}
                         </p>
                         <p class="mt-1">
                             <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor) {{ __('(+:temp for this event)', ['temp' => $character->temp_vigor]) }} @endif
