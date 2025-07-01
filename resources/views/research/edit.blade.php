@@ -13,7 +13,7 @@
     </x-slot>
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-        <div class="mt-1">
+        <div>
             <form method="POST" action="{{ route('research.store') }}">
                 @csrf
                 @if (!empty($project->id))

@@ -11,7 +11,7 @@
     </x-slot>
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-        <div class="mt-1">
+        <div>
             <form method="POST" action="{{ route('plotco.traits.store') }}">
                 @csrf
                 @if (!empty($trait->id))
@@ -81,4 +81,24 @@
             </form>
         </div>
     </div>
+
+    @if (!empty($trait->id))
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+                <h3 class="text-2xl">{{ __('Characters') }}</h3>
+                <ul class="list-disc list-inside space-y-2 sm:grid grid-cols-3 gap-2">
+                    @if ($trait->characters->isEmpty())
+                        <li>{{ __('No characters have this trait') }}</li>
+                    @else
+                        @foreach($trait->characters as $character)
+                            <li>
+                                <a href="{{ route('characters.view', ['characterId' => $character->id]) }}"
+                                   class="underline">{{ $character->listName }}</a>
+                            </li>
+                        @endforeach
+                    @endif
+                </ul>
+            </div>
+        </div>
+    @endif
 </x-app-layout>

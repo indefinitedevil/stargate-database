@@ -58,6 +58,12 @@
                                                     {{ __('Downtimes') }}
                                                 </x-dropdown-link>
                                             @endcan
+                                            @can('edit all characters')
+                                                <x-dropdown-link :href="route('plotco.traits')"
+                                                                 :active="request()->routeIs('plotco.traits*')">
+                                                    {{ __('Traits') }}
+                                                </x-dropdown-link>
+                                            @endcan
                                         </div>
                                     @endif
                                     @can('view attendance')
@@ -209,6 +215,12 @@
                             <x-responsive-nav-link :href="route('plotco.downtimes')"
                                                    :active="request()->routeIs('plotco.downtimes')">
                                 {{ __('Downtimes') }}
+                            </x-responsive-nav-link>
+                        @endcan
+                        @can('edit all characters')
+                            <x-responsive-nav-link :href="route('plotco.traits')"
+                                             :active="request()->routeIs('plotco.traits*')">
+                                {{ __('Traits') }}
                             </x-responsive-nav-link>
                         @endcan
                     </div>

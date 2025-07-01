@@ -45,6 +45,6 @@ class CharacterTrait extends Model
 
     public function characters(): BelongsToMany
     {
-        return $this->belongsToMany(Character::class, 'character_character_traits');
+        return $this->belongsToMany(Character::class)->wherePivot('status', true);
     }
 }
