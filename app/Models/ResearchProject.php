@@ -116,7 +116,7 @@ class ResearchProject extends Model
                 $researchCharacters[$downtimeId][$researchAction->character_id]['actions'][] = $researchAction;
             }
         }
-        return collect($researchCharacters[$downtimeId]);
+        return collect($researchCharacters[$downtimeId] ?? []);
     }
 
     public function getStatusNameAttribute(): string
