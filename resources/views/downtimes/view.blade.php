@@ -114,8 +114,12 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
                     @foreach ($savedActions as $action)
                         <div>
-                            <p class="text-lg">{{ __('Miscellaneous Action :number', ['number' => ++$actionCount]) }}</p>
-                            <p>{!! __('<strong>Notes:</strong> :notes', ['notes' => $action->notes]) !!}</p>
+                            <p class="text-lg">{{ trans_choice('Personal Action|Personal Action :number', count($savedActions), ['number' => ++$actionCount]) }}</p>
+                            {!! process_markdown($action->notes) !!}
+                            @if ($action->response && $downtime->processed)
+                                <p><strong>{{ __('Response') }}:</strong></p>
+                                {!! process_markdown($action->response) !!}
+                            @endif
                         </div>
                     @endforeach
                 </div>
