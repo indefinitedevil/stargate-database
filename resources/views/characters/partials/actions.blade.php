@@ -4,8 +4,7 @@
 <div class="float-right mb-6">
     <x-dropdown align="right" contentClasses="py-1 mt-2 bg-white dark:bg-gray-700 divide-y divide-gray-100">
         <x-slot name="trigger">
-            <button type="button"
-                    class="inline-flex items-center p-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1">
+            <x-primary-button type="button">
                 {{ __('Actions') }}
 
                 <span class="ms-1 -mr-1">
@@ -16,7 +15,7 @@
                               clip-rule="evenodd"/>
                     </svg>
                 </span>
-            </button>
+            </x-primary-button>
         </x-slot>
 
         <x-slot name="content">

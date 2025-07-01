@@ -58,6 +58,18 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        //
+        Schema::table('skill_training', function (Blueprint $table) {
+            $table->dropForeign(['taught_skill_id']);
+            $table->dropForeign(['trained_skill_id']);
+            $table->dropUnique(['taught_skill_id', 'trained_skill_id']);
+        });
+        Schema::table('skill_prereqs', function (Blueprint $table) {
+            $table->dropForeign(['skill_id']);
+            $table->dropForeign(['prereq_id']);
+        });
+        Schema::table('skill_lockouts', function (Blueprint $table) {
+            $table->dropForeign(['skill_id']);
+            $table->dropForeign(['lockout_id']);
+        });
     }
 };

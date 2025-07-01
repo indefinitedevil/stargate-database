@@ -23,6 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('characters', function (Blueprint $table) {
+            $table->dropColumn('ata_gene');
+            $table->dropColumn('ata_revealed');
+            $table->dropColumn('genetics_indicator');
+        });
     }
 };
