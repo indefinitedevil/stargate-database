@@ -63,8 +63,18 @@ class CharacterController extends Controller
             return redirect($character->getViewRoute())
                 ->with('errors', new MessageBag([__('Character must be approved to view logs.')]));
         }
+        $logs = $character->logs()->with(['characterSkill.skill', 'logType']);
+        if (auth()->user()->cannot('view hidden notes')) {
+            $logs->where(function ($query) {
+                $query->where('notes', '!=', '')
+                    ->orWhere('log_type_id', LogType::PLOT);
+            });
+        }
+        $logs = $logs
+            ->orderBy('created_at', 'desc')->paginate(20);
         return view('characters.logs', [
             'character' => $character,
+            'logs' => $logs,
             'editLog' => $logId ? CharacterLog::find($logId) : null,
         ]);
     }

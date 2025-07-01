@@ -23,7 +23,7 @@
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <div class="grid grid-cols-1 sm:grid-cols-4 clear-both gap-6">
-            @foreach ($character->logs as $log)
+            @foreach ($logs as $log)
                 <div>
                     @can ('edit all characters')
                         <a href="{{ route('characters.edit-log', ['characterId' => $character, 'logId' => $log]) }}#add-log"
@@ -58,5 +58,10 @@
             @endforeach
         </div>
     </div>
+
+    <div class="mt-6">
+        {{ $logs->links() }}
+    </div>
+
     @include('characters.partials.add-log')
 </x-app-layout>
