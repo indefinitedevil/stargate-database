@@ -27,7 +27,7 @@ return new class extends Migration {
             $table->foreignId('character_id')->constrained()->onDelete('cascade');
             $table->foreignId('character_trait_id')->constrained()->onDelete('cascade');
             $table->boolean('status')->default(false);
-            $table->primary(['character_id', 'trait_id']);
+            $table->primary(['character_id', 'character_trait_id']);
         });
 
         Schema::table('characters', function (Blueprint $table) {
