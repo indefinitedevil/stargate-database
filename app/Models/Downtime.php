@@ -105,13 +105,9 @@ class Downtime extends Model
 
     public function getResearchVolunteerProjectsAttribute(): Collection
     {
-        static $researchVolunteerProjects = null;
-        if (is_null($researchVolunteerProjects)) {
-            $researchVolunteerProjects = ResearchProject::where('needs_volunteers', true)
-                ->where('status', ResearchProject::STATUS_ACTIVE)
-                ->get();
-        }
-        return $researchVolunteerProjects;
+        return once(fn() => ResearchProject::where('needs_volunteers', true)
+            ->where('status', ResearchProject::STATUS_ACTIVE)
+            ->get());
     }
 
     public function trainingCourses(): HasMany
@@ -405,30 +401,18 @@ class Downtime extends Model
 
     public function personalActions(): Collection
     {
-        static $personalActions = null;
-        if (is_null($personalActions)) {
-            $personalActions = $this->actions()->where('action_type_id', ActionType::ACTION_OTHER)->get();
-        }
-        return $personalActions;
+        return once(fn() => $this->actions()->where('action_type_id', ActionType::ACTION_OTHER)->get());
     }
 
     public function researchActions(): Collection
     {
-        static $researchActions = null;
-        if (is_null($researchActions)) {
-            $researchActions = $this->actions()->with('researchProject')
-                ->where('action_type_id', ActionType::ACTION_RESEARCHING)->get();
-        }
-        return $researchActions;
+        return once(fn() => $this->actions()->with('researchProject')
+            ->where('action_type_id', ActionType::ACTION_RESEARCHING)->get());
     }
 
     public function researchSubjectActions(): Collection
     {
-        static $researchActions = null;
-        if (is_null($researchActions)) {
-            $researchActions = $this->actions()->with('researchProject')
-                ->where('action_type_id', ActionType::ACTION_RESEARCH_SUBJECT)->get();
-        }
-        return $researchActions;
+        return once(fn() => $this->actions()->with('researchProject')
+            ->where('action_type_id', ActionType::ACTION_RESEARCH_SUBJECT)->get());
     }
 }

@@ -461,7 +461,7 @@ class Character extends Model
         }
         $return = '';
         foreach (json_decode($this->attributes['traits_indicator']) as $indicator) {
-            $return .= '<i class="fa-solid ' . $indicator . '"></i> ';
+            $return .= '<i class="fa-solid ' . e($indicator) . '"></i> ';
         }
         return $return;
     }
