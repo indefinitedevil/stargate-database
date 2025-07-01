@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * @property int id
@@ -44,6 +44,7 @@ class Skill extends Model
     const LEADERSHIP = 35;
     const LEADERSHIP_EXTRA_PERSON = 45;
 
+    const PLOT_CHANGE = 90;
     const SYSTEM_CHANGE = 94;
 
     public function cards(): BelongsToMany

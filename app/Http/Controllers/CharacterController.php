@@ -574,6 +574,12 @@ class CharacterController extends Controller
                     $validatedData['traits'][$trait->id]['status'] = false;
                 }
             }
+            $oldTraits = [];
+            foreach ($character->characterTraits as $trait) {
+                if ($trait->pivot->status) {
+                    $oldTraits[] = $trait->name;
+                }
+            }
             $changes = $character->characterTraits()->sync($validatedData['traits']);
             foreach ($changes as $changeType) {
                 if (!empty($changeType)) {
@@ -581,6 +587,33 @@ class CharacterController extends Controller
                     break;
                 }
             }
+            $newTraits = [];
+            foreach ($character->characterTraits as $trait) {
+                if ($trait->pivot->status) {
+                    $newTraits[] = $trait->name;
+                }
+            }
+            $characterSkill = $character->skills()->where('skill_id', Skill::PLOT_CHANGE)->first();
+            if (!$characterSkill) {
+                $characterSkill = new CharacterSkill();
+                $characterSkill->fill([
+                    'character_id' => $character->id,
+                    'skill_id' => Skill::PLOT_CHANGE,
+                ]);
+                $characterSkill->save();
+            }
+            $log = new CharacterLog();
+            $log->fill([
+                'character_id' => $character->id,
+                'character_skill_id' => $characterSkill->id,
+                'locked' => true,
+                'log_type_id' => LogType::PLOT,
+                'notes' => __('Traits changed from :old to :new.', [
+                    'old' => implode(', ', $oldTraits),
+                    'new' => implode(', ', $newTraits),
+                ]),
+            ]);
+            $log->save();
         }
 
         return redirect($character->getViewRoute())

@@ -2550,7 +2550,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
     {
         DB::table('skills')->upsert([
             [
-                'id' => 90,
+                'id' => Skill::PLOT_CHANGE,
                 'name' => 'Plot Changes',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::SYSTEM,
@@ -2595,7 +2595,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'display' => 0,
             ],
             [
-                'id' => 94,
+                'id' => Skill::SYSTEM_CHANGE,
                 'name' => 'System Changes',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::SYSTEM,
