@@ -85,21 +85,22 @@ class ResearchProject extends Model
 
     public function researchActions(): HasMany
     {
-        return $this->downtimeActions()->where('research_project_id', $this->id)
+        return $this->downtimeActions()
             ->where('action_type_id', ActionType::ACTION_RESEARCHING)
             ->with('character');
     }
 
     public function subjectActions(): HasMany
     {
-        return $this->downtimeActions()->where('research_project_id', $this->id)
+        return $this->downtimeActions()
             ->where('action_type_id', ActionType::ACTION_RESEARCH_SUBJECT)
             ->with('character');
     }
 
     public function researchCharacters($downtimeId = 0): Collection
     {
-        return once(function () use ($downtimeId) {
+        $cacheKey = "research_characters_{$this->id}_{$downtimeId}";
+        return cache()->remember($cacheKey, 300, function () use ($downtimeId) {
             $researchCharacters = [];
             $researchActions = $this->researchActions();
             if ($downtimeId) {

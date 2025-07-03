@@ -92,7 +92,8 @@ class Downtime extends Model
 
     public function getResearchProjectsForCharacter($characterId): Collection
     {
-        return once(function () use ($characterId) {
+        $cacheKey = "research_projects_{$this->id}_{$characterId}";
+        return cache()->remember($cacheKey, 300, function () use ($characterId) {
             return ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)
                 ->join('research_project_skill', 'research_project_skill.research_project_id', 'research_projects.id')
                 ->join('character_skills', 'character_skills.skill_id', 'research_project_skill.skill_id')
@@ -118,7 +119,8 @@ class Downtime extends Model
 
     public function getTrainees($skillId): Collection
     {
-        return once(function () use ($skillId) {
+        $cacheKey = "trainees_{$this->id}_{$skillId}";
+        return cache()->remember($cacheKey, 300, function () use ($skillId) {
             return $this->actions()->where('action_type_id', ActionType::ACTION_TRAINING)
                 ->join('character_skills', 'character_skill_id', 'character_skills.id')
                 ->where('skill_id', $skillId)
