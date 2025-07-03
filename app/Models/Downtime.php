@@ -92,15 +92,13 @@ class Downtime extends Model
 
     public function getResearchProjectsForCharacter($characterId): Collection
     {
-        static $researchProjects = [];
-        if (empty($researchProjects[$characterId])) {
-            $researchProjects[$characterId] = ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)
+        return once(function () use ($characterId) {
+            return ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)
                 ->join('research_project_skill', 'research_project_skill.research_project_id', 'research_projects.id')
                 ->join('character_skills', 'character_skills.skill_id', 'research_project_skill.skill_id')
                 ->where('character_skills.character_id', $characterId)
                 ->select('research_projects.*')->get();
-        }
-        return $researchProjects[$characterId];
+        });
     }
 
     public function getResearchVolunteerProjectsAttribute(): Collection
@@ -120,15 +118,13 @@ class Downtime extends Model
 
     public function getTrainees($skillId): Collection
     {
-        static $trainees = [];
-        if (!isset($trainees[$skillId])) {
-            $trainees[$skillId] = $this->actions()->where('action_type_id', ActionType::ACTION_TRAINING)
+        return once(function () use ($skillId) {
+            return $this->actions()->where('action_type_id', ActionType::ACTION_TRAINING)
                 ->join('character_skills', 'character_skill_id', 'character_skills.id')
                 ->where('skill_id', $skillId)
                 ->selectRaw('DISTINCT downtime_actions.character_id')
                 ->get();
-        }
-        return $trainees[$skillId];
+        });
     }
 
     public function countTrainees($skillId): int
@@ -190,8 +186,9 @@ class Downtime extends Model
                 case ActionType::ACTION_MISSION:
                     $downtimeMissions[$action->downtime_mission_id][] = $action->character_id;
                     break;
-                case ActionType::TYPE_RESEARCH:
-                    $researchProjects[$action->research_project_id][] = $action->character_id;
+                case ActionType::ACTION_RESEARCHING:
+                case ActionType::ACTION_RESEARCH_SUBJECT:
+                    $researchProjects[$action->research_project_id][] = $action;
                     break;
                 case ActionType::ACTION_UPKEEP:
                 case ActionType::ACTION_UPKEEP_2:

@@ -99,8 +99,7 @@ class ResearchProject extends Model
 
     public function researchCharacters($downtimeId = 0): Collection
     {
-        static $researchCharacters = [];
-        if (empty($researchCharacters[$downtimeId])) {
+        return once(function () use ($downtimeId) {
             $researchActions = $this->researchActions();
             if ($downtimeId) {
                 $researchActions = $researchActions->where('downtime_id', $downtimeId);
@@ -115,8 +114,7 @@ class ResearchProject extends Model
                 }
                 $researchCharacters[$downtimeId][$researchAction->character_id]['actions'][] = $researchAction;
             }
-        }
-        return collect($researchCharacters[$downtimeId] ?? []);
+        });
     }
 
     public function getStatusNameAttribute(): string

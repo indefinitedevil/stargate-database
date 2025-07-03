@@ -18,8 +18,7 @@ return new class extends Migration
         $seeder = new FeatSeeder();
         $seeder->run();
 
-        $feat = Feat::find(44);
-        $feat->delete();
+        Feat::destroy(44);
     }
 
     /**
