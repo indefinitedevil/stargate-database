@@ -78,9 +78,14 @@
                 <div class="flex items-center gap-4 mt-6">
                     <x-primary-button>{{ __('Save') }}</x-primary-button>
                     @if (!empty($trait->id))
-                        <x-link-button :primary="false"
-                                       onclick="return confirm('{{ __('Are you sure you want to delete this trait?') }}')"
-                                       href="{{ route('plotco.traits.delete', $trait) }}">{{ __('Delete') }}</x-link-button>
+                        <form method="POST" action="{{ route('plotco.traits.delete', $trait) }}"
+                              onsubmit="return confirm('{{ __('Are you sure you want to delete this trait?') }}')">
+                            @csrf
+                            @method('DELETE')
+                            <x-secondary-button>
+                                {{ __('Delete') }}
+                            </x-secondary-button>
+                        </form>
                     @endif
                 </div>
             </form>

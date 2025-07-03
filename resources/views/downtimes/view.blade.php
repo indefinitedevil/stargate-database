@@ -11,10 +11,14 @@
                         <x-link-button
                             href="{{ route('downtimes.submit', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
                         >{{ __('Edit') }}</x-link-button>
-                        <x-link-button
-                            href="{{ route('plotco.downtimes.delete-actions', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
-                            onclick="return confirm('{{ __('Are you sure you want to delete these downtime actions?') }}')"
-                        >{{ __('Delete') }}</x-link-button>
+                        <form method="POST" action="{{ route('plotco.downtimes.delete-actions', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
+                              onsubmit="return confirm('{{ __('Are you sure you want to delete these downtime actions?') }}')">
+                            @csrf
+                            @method('DELETE')
+                            <x-primary-button>
+                                {{ __('Delete') }}
+                            </x-primary-button>
+                        </form>
                     </div>
                 @endif
             @endcan

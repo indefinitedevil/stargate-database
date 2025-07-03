@@ -13,9 +13,14 @@
                 @endcan
                 @can ('delete research projects')
                     @if (ResearchProject::STATUS_PENDING == $project->status)
-                        <x-link-button href="{{ route('research.delete', ['projectId' => $project]) }}"
-                                       onclick="return confirm('{{ __('Are you sure you want to delete this research project?') }}')"
-                        >{{ __('Delete') }}</x-link-button>
+                        <form method="POST" action="{{ route('research.delete', ['projectId' => $project]) }}"
+                              onsubmit="return confirm('{{ __('Are you sure you want to delete this research project?') }}')">
+                            @csrf
+                            @method('DELETE')
+                            <x-primary-button>
+                                {{ __('Delete') }}
+                            </x-primary-button>
+                        </form>
                     @endif
                 @endcan
             </div>

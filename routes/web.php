@@ -99,7 +99,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/plot-co/traits/create', [TraitsController::class, 'create'])->name('plotco.traits.create');
         Route::get('/plot-co/traits/edit/{traitId}', [TraitsController::class, 'edit'])->name('plotco.traits.edit');
         Route::post('/plot-co/traits/store', [TraitsController::class, 'store'])->name('plotco.traits.store');
-        Route::get('/plot-co/traits/delete/{traitId}', [TraitsController::class, 'delete'])->name('plotco.traits.delete');
+        Route::delete('/plot-co/traits/delete/{traitId}', [TraitsController::class, 'delete'])->name('plotco.traits.delete');
     });
 
     Route::group(['middleware' => 'can:edit downtimes'], function () {
@@ -109,7 +109,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/plot-co/downtimes/preprocess/{downtimeId}', [PlotcoController::class, 'preprocessDowntime'])->name('plotco.downtimes.preprocess');
         Route::get('/plot-co/downtimes/process/{downtimeId}', [PlotcoController::class, 'processDowntime'])->name('plotco.downtimes.process');
         Route::get('/plot-co/downtimes/remind/{downtimeId}', [PlotcoController::class, 'remindDowntime'])->name('plotco.downtimes.remind');
-        Route::get('/plot-co/downtimes/delete/{downtimeId}/{characterId}', [PlotcoController::class, 'deleteDowntimeActions'])->name('plotco.downtimes.delete-actions');
+        Route::delete('/plot-co/downtimes/delete/{downtimeId}/{characterId}', [PlotcoController::class, 'deleteDowntimeActions'])->name('plotco.downtimes.delete-actions');
         Route::post('/plot-co/downtimes/store', [DowntimeController::class, 'store'])->name('plotco.downtimes.store');
     });
 
@@ -135,7 +135,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['middleware' => 'can:delete research projects'], function () {
-        Route::get('/research/delete/{projectId}', [ResearchController::class, 'delete'])->name('research.delete');
+        Route::delete('/research/delete/{projectId}', [ResearchController::class, 'delete'])->name('research.delete');
     });
 });
 
