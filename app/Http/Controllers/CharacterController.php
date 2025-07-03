@@ -137,21 +137,23 @@ class CharacterController extends Controller
         $usedMonths = 0;
         $logs = [];
         foreach ($character->trainedSkills->sortBy('name') as $skill) {
-            if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
-                $errors[] = __('Character must select specialty for :name.', ['name' => $skill->skill->name]);
+            if (!CharacterLog::where('character_skill_id', $skill->id)->where('log_type_id', LogType::PLOT)->exists()) {
+                if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
+                    $errors[] = __('Character must select specialty for :name.', ['name' => $skill->skill->name]);
+                }
+                $log = new CharacterLog();
+                $logData = [
+                    'character_id' => $character->id,
+                    'character_skill_id' => $skill->id,
+                    'locked' => true,
+                    'amount_trained' => $skill->cost,
+                    'log_type_id' => LogType::CHARACTER_CREATION,
+                    'teacher_id' => null,
+                ];
+                $log->fill($logData);
+                $logs[] = $log;
+                $usedMonths += $skill->cost;
             }
-            $log = new CharacterLog();
-            $logData = [
-                'character_id' => $character->id,
-                'character_skill_id' => $skill->id,
-                'locked' => true,
-                'amount_trained' => $skill->cost,
-                'log_type_id' => LogType::CHARACTER_CREATION,
-                'teacher_id' => null,
-            ];
-            $log->fill($logData);
-            $logs[] = $log;
-            $usedMonths += $skill->cost;
         }
         $remainingMonths = $character->background->adjustedMonths - $usedMonths;
         if ($remainingMonths < 0) {

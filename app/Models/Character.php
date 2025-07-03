@@ -413,7 +413,9 @@ class Character extends Model
         $this->status_id = Status::NEW;
         $this->save();
 
-        $logs = CharacterLog::where('character_id', $this->id)->get();
+        $logs = CharacterLog::where('character_id', $this->id)
+            ->where('log_type_id', LogType::CHARACTER_CREATION)
+            ->get();
         foreach ($logs as $log) {
             $log->delete();
         }
