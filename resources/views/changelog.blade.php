@@ -17,6 +17,7 @@
                     <li>Added percentage time discount note for cards.</li>
                     <li>Removed unnecessary code.</li>
                     <li>Changed reset code to allow for plot updates to remain after reset.</li>
+                    <li>Made changes as per suggestions from AI code review.</li>
                 </ul>
             </div>
             <div>
@@ -37,6 +38,7 @@
                     <li>Fixed bugs with database duplication.</li>
                     <li>Cleaned up button displays.</li>
                     <li>Paginated log displays.</li>
+                    <li>Made changes as per suggestions from AI code review.</li>
                 </ul>
             </div>
             <div>
@@ -61,6 +63,7 @@
                     <li>Added a banner to make it clear when on a test site.</li>
                     <li>Changed "miscellaneous actions" to "personal actions" in downtime and added explanatory text.</li>
                     <li>Fixed bug which blocked character deletions.</li>
+                    <li>Made changes as per suggestions from AI code review.</li>
                 </ul>
             </div>
             <div>
