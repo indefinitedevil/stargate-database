@@ -391,17 +391,6 @@ This feat may be used by proxy through another character translating at a cost o
                 'description' => 'You may act as though you have a non-Alien, non-Combat skill you don\'t have for the solution of one particular problem. This does not confer any cards, feats, or special abilities. You need to roleplay where the knowledge of this skill has come from.
 
 *This feat is limited to one use per day, unless you possess the Tenured Academic skill.*',
-                'per_event' => 0,
-                'per_day' => 1,
-                'print_name' => 'Old College Prof.',
-                'cost' => '',
-            ],
-            [
-                'id' => 44,
-                'name' => 'Old College Professor (Tenured Academic)',
-                'description' => 'You may act as though you have a non-Alien, non-Combat skill you don\'t have for the solution of one particular problem. This does not confer any cards, feats, or special abilities. You need to roleplay where the knowledge of this skill has come from.
-
-*This feat is limited to one use per event, as it is from the Tenured Academic skill.*',
                 'per_event' => 1,
                 'per_day' => 0,
                 'print_name' => 'Old College Prof.',
@@ -843,7 +832,7 @@ Once affected by this feat (from anyone), you cannot be affected by another "We 
             ],
             [
                 'skill_id' => 26,
-                'feat_id' => 44
+                'feat_id' => 33
             ],
         ]);
     }
