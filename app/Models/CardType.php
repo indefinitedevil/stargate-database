@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class CardType extends Model
 {
     use HasFactory;
+
+    const PARAMEDIC = 7;
 }

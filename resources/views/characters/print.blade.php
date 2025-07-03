@@ -1,5 +1,7 @@
 @php
+    use App\Models\CardType;
     use App\Models\Feat;
+    use App\Models\Skill;
     use App\Models\Status;
 @endphp
 <x-print-layout>
@@ -51,6 +53,9 @@
                         <h2 class="text-xl font-medium text-gray-900">
                             {{ __('Skills') }}
                         </h2>
+                        @php
+                            $genetics = $pathology = $mathematics = false;
+                        @endphp
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 clear-both">
                             @if ($character->status_id < Status::APPROVED)
                                 <div>
@@ -66,6 +71,19 @@
                                 <div>
                                     <ul>
                                         @foreach ($trainedSkills as $characterSkill)
+                                            @php
+                                                switch ($characterSkill->skill_id) {
+                                                    case Skill::GENETICS:
+                                                        $genetics = true;
+                                                        break;
+                                                    case Skill::PATHOLOGY:
+                                                        $pathology = true;
+                                                        break;
+                                                    case Skill::MATHEMATICS:
+                                                        $mathematics = true;
+                                                        break;
+                                                }
+                                            @endphp
                                             <li>{{ $characterSkill->print_name }}
                                                 @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
                                                     *
@@ -162,10 +180,22 @@
                                 {{ __('Cards') }}
                             </h2>
                             <ul class="grid grid-cols-2 sm:grid-cols-4 gap-x-4 mt-1">
+                                @php $medic = false; @endphp
                                 @foreach ($character->cards as $card)
+                                    @php if (CardType::PARAMEDIC == $card->id) $medic = true; @endphp
                                     <li>{{ $card->name }} ({{ $card->number }})</li>
                                 @endforeach
                             </ul>
+                            @if ($medic && ($genetics || $pathology) || $mathematics)
+                                <p class="mt-1 text-sm">
+                                    @if ($medic && ($genetics || $pathology))
+                                        {{ __('Reduce all Paramedic card times by :pct%.', ['pct' => ($genetics + $pathology) * 10]) }}
+                                    @endif
+                                    @if ($mathematics)
+                                        {{ __('Reduce card times by 10% with the Numb3rs feat.') }}
+                                    @endif
+                                </p>
+                            @endif
                         </div>
                     </div>
                 @endif

@@ -44,6 +44,10 @@ class Skill extends Model
     const LEADERSHIP = 35;
     const LEADERSHIP_EXTRA_PERSON = 45;
 
+    const GENETICS = 13;
+    const PATHOLOGY = 17;
+    const MATHEMATICS = 21;
+
     const PLOT_CHANGE = 90;
     const SYSTEM_CHANGE = 94;
 

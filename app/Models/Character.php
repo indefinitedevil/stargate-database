@@ -335,6 +335,7 @@ class Character extends Model
                 foreach ($skillCards as $skillCard) {
                     if (!isset($unsortedCards[$skillCard->id][$skillCard->pivot->total])) {
                         $card = new \stdClass;
+                        $card->id = $skillCard->id;
                         $card->name = $skillCard->name;
                         $card->number = $skillCard->pivot->number;
                         $unsortedCards[$skillCard->id][$skillCard->pivot->total] = $card;
