@@ -25,7 +25,9 @@
                             <strong>{{ __('Type') }}:</strong> {{ $character->type }}
                         </p>
                         <p class="mt-1">
-                            <strong>{{ __('Body') }}:</strong> {{ $character->body }} @if ($character->temp_body) {{ __('(+:temp for this event)', ['temp' => $character->temp_body]) }} @endif
+                            <strong>{{ __('Body') }}:</strong> {{ $character->body }} @if ($character->temp_body)
+                                {{ __('(+:temp for this event)', ['temp' => $character->temp_body]) }}
+                            @endif
                         </p>
                         <p class="mt-1">
                             <strong>{{ __('Rank') }}:</strong> {!! $character->rank ?: __('To Be Determined') !!}
@@ -37,7 +39,9 @@
                             <strong>{{ __('Traits') }}:</strong> {!! $character->traits_indicator !!}
                         </p>
                         <p class="mt-1">
-                            <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor) {{ __('(+:temp for this event)', ['temp' => $character->temp_vigor]) }} @endif
+                            <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor)
+                                {{ __('(+:temp for this event)', ['temp' => $character->temp_vigor]) }}
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -98,6 +102,7 @@
                         <h2 class="text-xl font-medium text-gray-900">
                             {{ __('Feats') }}
                         </h2>
+                        @php $trackers = ['per_day' => [], 'per_event' => []]; @endphp
                         <ul class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 mt-1">
                             @foreach ($character->feats as $feat)
                                 <li>
@@ -105,13 +110,48 @@
                                     {{ '' != $feat->cost ? '(' . $feat->cost . ' Vigor)' : '' }}
                                     @if ($feat->per_event)
                                         ({{ __(':count per event', ['count' => $feat->getPerEvent($character)]) }})
+                                        @php $trackers['per_event'][$feat->print_name ?: $feat->name] = $feat->getPerEvent($character); @endphp
                                     @endif
                                     @if ($feat->per_day)
                                         ({{ __(':count per day', ['count' => $feat->getPerDay($character)]) }})
+                                        @php $trackers['per_day'][$feat->print_name ?: $feat->name] = $feat->getPerDay($character); @endphp
                                     @endif
                                 </li>
                             @endforeach
                         </ul>
+                        <div class="mt-2 sm:grid grid-cols-2 gap-2 space-y-2 sm:space-y-0">
+                            @foreach($trackers['per_day'] as $feat => $count)
+                                <p>
+                                    {{ __(':feat:', ['feat' => $feat]) }}
+                                    <span>
+                                        @foreach (['Fri', 'Sat', 'Sun'] as $day)
+                                            <span class="ml-2">{{ $day }}
+                                                @for ($i = 0; $i < $count; $i++)
+                                                    @if ($i % 5 == 0 && $i > 0)
+                                                        <i class="fa-light fa-pipe"></i>
+                                                    @endif
+                                                    <i class="fa-light fa-square"></i>
+                                                @endfor
+                                            </span>
+                                        @endforeach
+                                    </span>
+                                </p>
+                            @endforeach
+                            @foreach($trackers['per_event'] as $feat => $count)
+                                <p>
+                                    {{ __(':feat:', ['feat' => $feat]) }}
+                                    <span class="ml-2">
+                                    @for ($i = 0; $i < $count; $i++)
+                                            @if ($i % 5 == 0 && $i > 0)
+                                                <i class="fa-light fa-pipe"></i>
+                                            @endif
+                                            <i class="fa-light fa-square"></i>
+                                        @endfor
+                                    </span>
+                                    {{ __('per event') }}
+                                </p>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
 

@@ -393,7 +393,7 @@ This feat may be used by proxy through another character translating at a cost o
 *This feat is limited to one use per day, unless you possess the Tenured Academic skill.*',
                 'per_event' => 0,
                 'per_day' => 1,
-                'print_name' => NULL,
+                'print_name' => 'Old College Prof.',
                 'cost' => '',
             ],
             [
@@ -404,7 +404,7 @@ This feat may be used by proxy through another character translating at a cost o
 *This feat is limited to one use per event, as it is from the Tenured Academic skill.*',
                 'per_event' => 1,
                 'per_day' => 0,
-                'print_name' => 'Old College Professor',
+                'print_name' => 'Old College Prof.',
                 'cost' => '',
             ],
             [
