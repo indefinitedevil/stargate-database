@@ -199,7 +199,7 @@
                 <div class="sm:grid sm:grid-cols-3 gap-6">
                     @foreach($downtime->personalActions() as $action)
                         <div>
-                            <p class="text-lg font-semibold">{!! __('<a href=":url" class="underline" target="_blank">:name</a>', ['name' => $action->character->listName, 'url' => route('downtimes.submit', ['downtimeId' => $downtime->id, 'characterId', $action->character_id])]) !!}</p>
+                            <p class="text-lg font-semibold">{!! __('<a href=":url" class="underline" target="_blank">:name</a>', ['name' => $action->character->listName, 'url' => route('downtimes.submit', ['downtimeId' => $downtime->id, 'characterId' => $action->character_id])]) !!}</p>
                             <ul class="list-disc list-inside">
                                 <li>{{ $action->notes }}</li>
                                 @if (!empty($action->response))
