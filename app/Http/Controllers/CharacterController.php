@@ -818,37 +818,6 @@ class CharacterController extends Controller
     /**
      * @throws ValidationException
      */
-    public function deleteLog(Request $request, $logId)
-    {
-        $log = CharacterLog::findOrFail($logId);
-        if ($request->user()->cannot('edit all characters')) {
-            return redirect()->back()
-                ->with('errors', new MessageBag([__('You cannot delete this log.')]));
-        }
-        $characterName = $log->character->listName;
-
-        $skillLogs = CharacterLog::where('character_skill_id', $log->character_skill_id)
-            ->get();
-        if (1 == $skillLogs->count()) {
-            $log->characterSkill->delete();
-        } else {
-            if ($log->skill_completed) {
-                $log->characterSkill->completed = false;
-                $log->characterSkill->save();
-            } elseif ($log->skill_removed) {
-                $log->characterSkill->removed = false;
-                $log->characterSkill->save();
-            }
-        }
-        $log->delete();
-
-        return redirect()->back()
-            ->with('success', new MessageBag([__('Character log for :character removed.', ['character' => $characterName])]));
-    }
-
-    /**
-     * @throws ValidationException
-     */
     public function deleteSkill(Request $request, $characterId, $skillId)
     {
         if ($request->user()->cannot('edit', Character::find($characterId))) {
