@@ -100,20 +100,23 @@ class ResearchProject extends Model
     public function researchCharacters($downtimeId = 0): Collection
     {
         return once(function () use ($downtimeId) {
+            $researchCharacters = [];
             $researchActions = $this->researchActions();
             if ($downtimeId) {
                 $researchActions = $researchActions->where('downtime_id', $downtimeId);
             }
             $researchActions = $researchActions->get();
+            /** @var DowntimeAction $researchAction */
             foreach ($researchActions as $researchAction) {
-                if (empty($researchCharacters[$downtimeId][$researchAction->character_id])) {
-                    $researchCharacters[$downtimeId][$researchAction->character_id] = [
+                if (empty($researchCharacters[$researchAction->character_id])) {
+                    $researchCharacters[$researchAction->character_id] = [
                         'character' => $researchAction->character,
                         'actions' => [],
                     ];
                 }
-                $researchCharacters[$downtimeId][$researchAction->character_id]['actions'][] = $researchAction;
+                $researchCharacters[$researchAction->character_id]['actions'][] = $researchAction;
             }
+            return collect($researchCharacters);
         });
     }
 
