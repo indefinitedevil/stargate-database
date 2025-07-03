@@ -9,12 +9,24 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 3rd July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Sys Ref: rules 1.3.1 update.</li>
+                    <li>Added explanation to help text about catchup XP calculations.</li>
+                    <li>Added per-event trackers for feats.</li>
+                    <li>Added percentage time discount note for cards.</li>
+                    <li>Removed unnecessary code.</li>
+                    <li>Changed reset code to allow for plot updates to remain after reset.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 1st July 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: added editing and approval capacity for research projects.</li>
                     <li>Plot Co: added facility for personal responses to downtimes.</li>
                     <li>Plot Co: added character traits.</li>
                     <li>Plot Co: added general response field to downtimes.</li>
+                    <li>Plot Co: track changes to character traits.</li>
                     <li>Researcher: added editing capacity for research projects.</li>
                     <li>Added research projects.</li>
                     <li>Added research subject action.</li>
@@ -24,6 +36,7 @@
                     <li>Cleaned up code to combine view routes.</li>
                     <li>Fixed bugs with database duplication.</li>
                     <li>Cleaned up button displays.</li>
+                    <li>Paginated log displays.</li>
                 </ul>
             </div>
             <div>
