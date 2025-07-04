@@ -409,7 +409,7 @@ After role-playing with someone for at least twenty minutes you may spend 2 Vigo
 * Detect someone’s psychological flaws.
 
 You may spend additional points of Vigor to reduce the time needed to use these abilities, at a rate of 1 Vigor per five minutes, to a minimum of 1 minute.',
-                'abilities' => 'Lie Detection (1V),Concealment Detection (1V),Goal Detection (1V),Emotional State Detection (1V),Detect Psychological Flaws (2V),Falsify Psychological Challenge (2V)',
+                'abilities' => 'Detect Lie (1V),Detect Concealment (1V),Detect Goal (1V),Detect Emotional State (1V),Detect Psych Flaws (2V),Falsify Psych Response (2V)',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -434,7 +434,7 @@ After role-playing with someone for at least twenty minutes you may spend 1 Vigo
 You may spend additional points of Vigor to reduce the time needed to use these abilities, at a rate of 1 Vigor per five minutes, to a minimum of 1 minute.
 
 Note: The requirement is time spent roleplaying with your target. The form of that roleplay could be a cup of tea with the padre, a chat with your best mate about how this is all a bit shit and you\'re knackered, going for a jog around the camp because the Sgt Major thinks exercise endorphins are the cure for all - while the skill is called psychotherapy because it interacts with the psychology wound tokens, the use in play can be tailored to your character type.',
-                'abilities' => 'Refresh Vigor (1V),Detect Emotional State (1V), Treat Psych Wound (1V)',
+                'abilities' => 'Refresh Vigor (1V),Detect Emotional State (1V),Treat Psych Wound (1V)',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -649,7 +649,7 @@ You have studied the art of thought, from the Greek philosophers to modern ethic
                 'description' => 'You are knowledgeable in Hypnosis as a subset of psychology. If the subject is willing, you may:
 * After 5 minutes of roleplay, detect the subject’s emotional state once every 15 minutes.
 * After 20 minutes of roleplay, detect the subject’s psychological flaws or hidden information in their mind.',
-                'abilities' => 'Emotional State Detection (5m),Psychological Flaw Detection (20m)',
+                'abilities' => 'Detect Emotional State (5m),Detect Psych Flaw (20m)',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -883,7 +883,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You are particularly difficult to get a read on, psychologically speaking. This skill reduces the cost of falsifying psychological responses by one.',
-                'abilities' => 'Falsify Psychological Responses (1V)',
+                'abilities' => 'Falsify Psych Response (1V)',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -1114,7 +1114,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You may spend 3 Vigor to falsify the response to a psychological challenge.',
-                'abilities' => 'Falsify Psychological Responses (3V)',
+                'abilities' => 'Falsify Psych Response (3V)',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
