@@ -486,4 +486,16 @@ class Character extends Model
         $this->attributes['traits_indicator'] = json_encode($indicators);
         return $this->saveQuietly();
     }
+
+    public function abilities(): array
+    {
+        return once(function () {
+            $abilities = [];
+            foreach ($this->trainedSkills as $characterSkill) {
+                $abilities = array_merge($abilities, $characterSkill->skill->abilities());
+            }
+            sort($abilities);
+            return array_unique($abilities);
+        });
+    }
 }

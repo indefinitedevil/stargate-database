@@ -67,6 +67,16 @@
                                     </ul>
                                 </li>
                             @endif
+                            @if (count($skill->abilities()) > 0)
+                                <li>
+                                    <strong>{{ __('Abilities') }}</strong>
+                                    <ul class="list-inside list-disc">
+                                        @foreach($skill->abilities() as $ability)
+                                            <li>{{ $ability }}</li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endif
                             @if ($skill->prereqs->count() > 0)
                                 <li>
                                     <strong>{{ __('Pre-requisites') }}</strong>

@@ -172,4 +172,13 @@ class Skill extends Model
     {
         return $this->hasManyThrough(Skill::class, SkillTraining::class, 'trained_skill_id', 'id', 'id', 'taught_skill_id');
     }
+
+    public function abilities(): array
+    {
+        if (!empty($this->abilities)) {
+            $abilities = explode(',', $this->abilities);
+            return array_map('trim', $abilities);
+        }
+        return [];
+    }
 }

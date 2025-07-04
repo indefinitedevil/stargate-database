@@ -9,12 +9,14 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Update: 3rd July 2025</h3>
+                <h3 class="text-lg font-semibold">Update: 4th July 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Sys Ref: rules 1.3.1 update.</li>
+                    <li>Sys Ref: added abilities to skill check view.</li>
                     <li>Added explanation to help text about catchup XP calculations.</li>
                     <li>Added per-event trackers for feats.</li>
                     <li>Added percentage time discount note for cards.</li>
+                    <li>Added list of abilities to character sheets.</li>
                     <li>Removed unnecessary code.</li>
                     <li>Changed reset code to allow for plot updates to remain after reset.</li>
                     <li>Made changes as per suggestions from AI code review.</li>

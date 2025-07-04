@@ -200,6 +200,23 @@
                     </div>
                 @endif
 
+                @if (!empty($character->abilities()))
+                    <div class="py-2 bg-white text-gray-800">
+                        <div class="">
+                            <h2 class="text-xl font-medium text-gray-900">
+                                {{ __('Abilities') }}
+                            </h2>
+                            <div class="mt-1">
+                                <ul class="sm:grid sm:grid-cols-3">
+                                    @foreach ($character->abilities() as $ability)
+                                        <li>{{ $ability }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 @if (!empty($character->other_abilities))
                     <div class="py-2 bg-white text-gray-800">
                         <div class="">
