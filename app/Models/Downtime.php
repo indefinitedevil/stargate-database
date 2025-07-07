@@ -256,17 +256,19 @@ class Downtime extends Model
                 $skills[$skillId] = $skill;
             }
             foreach ($characters as $characterId => $actions) {
-                $skillChanges[$skillId][] = [
-                    'character_id' => $characterId,
-                    'character_skill_id' => $action->character_skill_id,
-                    'log_type_id' => LogType::DOWNTIME,
-                    'amount_trained' => 0,
-                    'teacher_id' => $characterId,
-                    'locked' => true,
-                    'downtime_id' => $this->id,
-                    'notes' => __('Taught :skill', ['skill' => $skills[$skillId]->name]),
-                    'temp_vigor_change' => 1,
-                ];
+                foreach ($actions as $action) {
+                    $skillChanges[$skillId][] = [
+                        'character_id' => $characterId,
+                        'character_skill_id' => $action->character_skill_id,
+                        'log_type_id' => LogType::DOWNTIME,
+                        'amount_trained' => 0,
+                        'teacher_id' => $characterId,
+                        'locked' => true,
+                        'downtime_id' => $this->id,
+                        'notes' => __('Taught :skill', ['skill' => $skills[$skillId]->name]),
+                        'temp_vigor_change' => 1,
+                    ];
+                }
             }
             if (!empty($skillChanges[$skillId])) {
                 $trainedCharacters = [];
