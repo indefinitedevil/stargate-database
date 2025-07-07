@@ -12,9 +12,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $seeder = new SkillSeeder();
-        $seeder->run();
-
         $seeder = new FeatSeeder();
         $seeder->run();
 

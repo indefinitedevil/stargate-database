@@ -11,9 +11,6 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        $seeder = new SkillSeeder();
-        $seeder->run();
-
         Schema::table('skill_training', function (Blueprint $table) {
             $table->unique(['taught_skill_id', 'trained_skill_id']);
             $table->dropForeign(['taught_skill_id']);
