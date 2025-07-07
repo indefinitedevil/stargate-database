@@ -13,6 +13,7 @@
                 <ul class="list-inside list-disc">
                     <li>Fixed downtime processing errors.</li>
                     <li>Refined downtime processed email.</li>
+                    <li>Fixed Coderabbit nitpicks.</li>
                 </ul>
             </div>
             <div>

@@ -86,12 +86,10 @@ class Downtime extends Model
     public function getResearchProjectsAttribute(): Collection
     {
         return once(function () {
-            $projectIds = $this->actions()
-                ->where('action_type_id', ActionType::ACTION_RESEARCHING)
-                ->pluck('research_project_id')
-                ->unique()
-                ->toArray();
-            return ResearchProject::whereIn('id', $projectIds)->get();
+            return ResearchProject::whereHas('downtimeActions', function ($query) {
+                $query->where('downtime_id', $this->id)
+                    ->where('action_type_id', ActionType::ACTION_RESEARCHING);
+            })->get();
         });
     }
 
@@ -146,28 +144,22 @@ class Downtime extends Model
 
     public function getCharacters(): Collection
     {
-        static $characters = [];
-        if (empty($characters)) {
-            foreach ($this->actions as $action) {
-                $characters[$action->character_id] = $action->character;
-            }
-            $characters = collect($characters);
-        }
-        return $characters;
+        return once(function () {
+            return $this->actions()->with('character')->get()->pluck('character')->unique('id');
+        });
     }
 
     public function getEligibleUsers(): Collection
     {
-        static $users = null;
-        if (empty($users)) {
+        return once(function () {
             if ($this->event_id) {
                 $event = Event::find($this->event_id);
                 $users = $event->users;
             } else {
                 $users = User::all();
             }
-        }
-        return $users;
+            return $users;
+        });
     }
 
     public static function getOpenDowntime(): ?Downtime
@@ -411,13 +403,13 @@ class Downtime extends Model
 
     public function researchActions(): Collection
     {
-        return once(fn() => $this->actions()->with('researchProject')
+        return once(fn() => $this->actions()->with(['researchProject', 'character'])
             ->where('action_type_id', ActionType::ACTION_RESEARCHING)->get());
     }
 
     public function researchSubjectActions(): Collection
     {
-        return once(fn() => $this->actions()->with('researchProject')
+        return once(fn() => $this->actions()->with(['researchProject', 'character'])
             ->where('action_type_id', ActionType::ACTION_RESEARCH_SUBJECT)->get());
     }
 }
