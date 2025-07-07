@@ -86,7 +86,12 @@ class Downtime extends Model
     public function getResearchProjectsAttribute(): Collection
     {
         return once(function () {
-            return ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)->get();
+            $projectIds = $this->actions()
+                ->where('action_type_id', ActionType::ACTION_RESEARCHING)
+                ->pluck('research_project_id')
+                ->unique()
+                ->toArray();
+            return ResearchProject::whereIn('id', $projectIds)->get();
         });
     }
 
