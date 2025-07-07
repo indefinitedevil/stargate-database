@@ -50,6 +50,7 @@
                     <li>Paginated log displays.</li>
                     <li>Made changes as per suggestions from AI code review.</li>
                 </ul>
+                <p class="text-sm">Tested by Kath, Debi, James, and others</p>
             </div>
             <div>
                 <h3 class="text-lg font-semibold">Bugfix: 29th June 2025</h3>
