@@ -7,8 +7,8 @@ The downtime has been processed, and here are your results:
 @foreach ($results as $result)
     <li>
         {{ $result['notes'] }}
-        @if (!empty($results['response']))
-            Response: {{ $results['response'] }}
+        @if (!empty($result['response']))
+            Response: {{ $result['response'] }}
         @endif
         @if (!empty($result['amount_trained']))
             ({{ __('Trained :amount months', ['amount' => $result['amount_trained']]) }})
