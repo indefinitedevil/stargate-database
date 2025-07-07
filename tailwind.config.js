@@ -24,5 +24,13 @@ export default {
         'row-span-2',
         'row-span-3',
         'row-span-4',
+        'row-span-5',
+        'border-l-4',
+        'border-gray-300',
+        'bg-gray-50',
+        'dark:border-gray-500',
+        'dark:bg-gray-800',
+        'text-gray-900',
+        'dark:text-white',
     ],
 };
