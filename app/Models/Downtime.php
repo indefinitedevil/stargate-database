@@ -368,6 +368,7 @@ class Downtime extends Model
                 'project' => $project,
                 'contributors' => [],
                 'volunteers' => [],
+                'results' => ResearchProject::STATUS_COMPLETED == $project->status ? $project->results : null,
             ];
         }
         foreach ($this->researchActions() as $action) {

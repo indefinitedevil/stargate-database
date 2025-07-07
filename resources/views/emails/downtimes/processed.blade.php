@@ -50,6 +50,9 @@ The downtime has been processed, and here are your results:
                         @endforeach
                     </ul>
                 @endif
+                @if (!empty($projectResult['results']))
+                    <p>{{ __('Results: :results', ['results' => $projectResult['results']]) }}</p>
+                @endif
             </li>
         @endforeach
     </ul>
