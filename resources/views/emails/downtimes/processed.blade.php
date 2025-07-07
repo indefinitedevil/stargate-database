@@ -39,7 +39,7 @@ The downtime has been processed, and here are your results:
                 @if (!empty($projectResult['contributors']))
                     <ul>
                         @foreach ($projectResult['contributors'] as $contributorId => $contributor)
-                            <li>{{ __('Researcher: :name (:months months)', ['name' => current($contributor), 'months' => count($contributor)] }}</li>
+                            <li>{{ __('Researcher: :name (:months months)', ['name' => current($contributor), 'months' => count($contributor)]) }}</li>
                         @endforeach
                     </ul>
                 @endif
