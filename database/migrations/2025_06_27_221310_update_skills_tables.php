@@ -3,6 +3,7 @@
 use Database\Seeders\SkillSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -11,6 +12,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
+        DB::table('skill_training')->truncate();
         Schema::table('skill_training', function (Blueprint $table) {
             $table->unique(['taught_skill_id', 'trained_skill_id']);
             $table->dropForeign(['taught_skill_id']);
@@ -24,6 +26,8 @@ return new class extends Migration {
                 ->on('skills')
                 ->onDelete('cascade');
         });
+
+        DB::table('skill_prereqs')->truncate();
         Schema::table('skill_prereqs', function (Blueprint $table) {
             $table->dropForeign(['skill_id']);
             $table->foreign('skill_id')
@@ -36,6 +40,8 @@ return new class extends Migration {
                 ->on('skills')
                 ->onDelete('cascade');
         });
+
+        DB::table('skill_lockouts')->truncate();
         Schema::table('skill_lockouts', function (Blueprint $table) {
             $table->dropForeign(['skill_id']);
             $table->foreign('skill_id')
