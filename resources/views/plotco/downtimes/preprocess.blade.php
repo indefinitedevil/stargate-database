@@ -168,7 +168,7 @@
                 <div class="sm:grid sm:grid-cols-3 gap-6">
                     @foreach ($downtime->researchProjects as $project)
                         <div>
-                            <p class="text-lg font-semibold">{{ $project->name }}</p>
+                            <p class="text-lg font-semibold"><a href="{{ $project->getViewRoute() }}" class="underline">{{ $project->name }}</a></p>
                             <ul class="list-disc list-inside">
                                 @if ($project->researchActions()->where('downtime_id', $downtime->id)->count())
                                     @foreach($project->researchActions()->where('downtime_id', $downtime->id)->get() as $action)
