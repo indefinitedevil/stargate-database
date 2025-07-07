@@ -6,9 +6,11 @@ The downtime has been processed, and here are your results:
 <ul>
 @foreach ($results as $result)
     <li>
-        {{ $result['notes'] }}
+        @if (!empty($result['notes']))
+            {!! process_markdown($result['notes']) !!}
+        @endif
         @if (!empty($result['response']))
-            Response: {{ $result['response'] }}
+            {!! process_markdown(__('Response: :response', ['response' => $result['response']])) !!}
         @endif
         @if (!empty($result['amount_trained']))
             ({{ __('Trained :amount months', ['amount' => $result['amount_trained']]) }})
@@ -54,7 +56,7 @@ The downtime has been processed, and here are your results:
                 </ul>
             @endif
             @if (!empty($projectResult['results']))
-                <p>{!!   __('Results: :results', ['results' => $projectResult['results']]) !!}</p>
+                {!! process_markdown(__('Results: :results', ['results' => $projectResult['results']])) !!}
             @endif
         </li>
     @endforeach
