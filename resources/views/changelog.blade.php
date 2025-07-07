@@ -12,6 +12,7 @@
                 <h3 class="text-lg font-semibold">Bugfix: 7th July 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed downtime processing errors.</li>
+                    <li>Refined downtime processed email.</li>
                 </ul>
             </div>
             <div>
