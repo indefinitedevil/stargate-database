@@ -190,13 +190,11 @@ class ResearchProject extends Model
     public function specialtyCheck($specialtyId): bool
     {
         $characters = $this->researchCharacters();
-        foreach ($characters as $character) {
-            foreach ($character['character']->trainedSkills->pluck('skillSpecialties') as $specialties) {
-                if ($specialties->contains('id', $specialtyId)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        $allSpecialties = $characters->flatMap(function ($character) {
+            return $character['character']->trainedSkills->flatMap(function ($skill) {
+                return $skill->skillSpecialties;
+            });
+        });
+        return $allSpecialties->contains('id', $specialtyId);
     }
 }

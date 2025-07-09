@@ -96,7 +96,7 @@ class ResearchController extends Controller
         if (ResearchProject::STATUS_ACTIVE == $data['status'] && ResearchProject::VISIBILITY_PUBLIC != $data['visibility']) {
             $validationMessages['visibility'] = __('Active research projects must be public.');
         }
-        if (!empty($validatedData['skills']) && !empty($validatedData['months']) && count($validatedData['skills']) > $validatedData['months']) {
+        if (!empty($data['skills']) && !empty($data['months']) && count($data['skills']) > $data['months']) {
             $validationMessages['months'] = __('Research projects must be long enough to cover all skills required.');
         }
 

@@ -129,9 +129,8 @@ class Downtime extends Model
                 ->where('character_skills.character_id', $characterId)
                 ->select('research_projects.*');
             if ($skillMatches->count() > 0) {
-                $projects = $skillMatches->get();
                 $skillIds = [];
-                foreach ($projects as $project) {
+                foreach ($skillMatches->get() as $project) {
                     foreach ($project->skillSpecialties as $specialty) {
                         $skillIds = array_merge($specialty->specialtyType->skills->pluck('id')->toArray(), $skillIds);
                     }
