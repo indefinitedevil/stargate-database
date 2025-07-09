@@ -81,7 +81,15 @@
                 <h3 class="text-xl">{{ __('Skills required') }}</h3>
                 <ul class="list-disc list-inside">
                     @foreach($project->skills as $skill)
-                        <li>{{ $skill->name }}</li>
+                        <li>{{ $skill->name }}
+                            @if (!empty($skill->specialty_type_id) && !empty($project->specialties[$skill->specialty_type_id]))
+                                <ul class="ml-4 list-disc list-inside">
+                                    @foreach($project->specialties[$skill->specialty_type_id] as $specialty)
+                                        <li>{{ $specialty->name }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </li>
                     @endforeach
                 </ul>
             </div>

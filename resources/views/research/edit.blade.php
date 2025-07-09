@@ -2,6 +2,7 @@
     use App\Models\ResearchProject;
     use App\Models\Skill;
     use App\Models\SkillCategory;
+    use App\Models\SpecialtyType;
     $title = empty($project->id) ? __('Create research project') : sprintf(__('Edit research project: %s'), $project->name);
 @endphp
 <x-app-layout>
@@ -174,6 +175,27 @@
                             </x-select>
                             <x-input-error class="mt-2" :messages="$errors->get('skills')"/>
                             <p class="text-xs">{{ __('Press Ctrl to select/de-select additional skills.') }}</p>
+                        </div>
+
+                        <div class="col-span-2">
+                            <x-input-label for="specialty">{{ __('Specialty') }}</x-input-label>
+                            <x-select id="specialty" name="specialty_id[]" class="mt-1 block w-full"
+                                      :multiple="true">
+                                @foreach (SpecialtyType::all() as $specialtyType)
+                                    <optgroup label="{{ $specialtyType->name }}">
+                                        @foreach ($specialtyType->skillSpecialties->sortBy('name') as $specialty)
+                                            <option value="{{ $specialty->id }}"
+                                                    @if(!empty($editLog) && $editLog->characterSkill->skillSpecialties->contains($specialty)) selected @endif
+                                            >
+                                                {{ $specialty->name }}
+                                            </option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </x-select>
+                            <p class="text-xs">
+                                {{ __('Press Ctrl to select/de-select additional specialties.') }}
+                            </p>
                         </div>
                     @endcan
                 </div>

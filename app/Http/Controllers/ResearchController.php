@@ -86,6 +86,8 @@ class ResearchController extends Controller
             'parent_project_id' => 'nullable|exists:research_projects,id',
             'skills' => 'array',
             'skills.*' => 'exists:skills,id',
+            'specialty_id' => 'array',
+            'specialty_id.*' => 'exists:skill_specialties,id',
         ], [], [
             'ooc_intent' => 'OOC Intent',
         ]);
@@ -105,6 +107,9 @@ class ResearchController extends Controller
         );
         if (!empty($data['skills'])) {
             $researchProject->skills()->sync($data['skills']);
+        }
+        if (!empty($data['specialty_id'])) {
+            $researchProject->skillSpecialties()->sync($data['specialty_id']);
         }
         $message = request('id') ? 'Research project updated successfully.' : 'Research project created successfully.';
         return redirect($researchProject->getViewRoute())->with('success', new MessageBag([__($message)]));

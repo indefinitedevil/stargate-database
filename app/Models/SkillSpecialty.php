@@ -11,11 +11,6 @@ class SkillSpecialty extends Model
 {
     use HasFactory;
 
-    public function skill(): BelongsTo
-    {
-        return $this->belongsTo(Skill::class);
-    }
-
     public function characterSkills(): BelongsToMany
     {
         return $this->belongsToMany(CharacterSkill::class);
@@ -24,5 +19,10 @@ class SkillSpecialty extends Model
     public function specialtyType(): BelongsTo
     {
         return $this->belongsTo(SpecialtyType::class);
+    }
+
+    public function researchProjects(): BelongsToMany
+    {
+        return $this->belongsToMany(ResearchProject::class);
     }
 }

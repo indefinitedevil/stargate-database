@@ -26,11 +26,13 @@ use Illuminate\Support\Str;
  * @property bool needs_volunteers
  * @property int parent_project_id
  * @property Collection|DowntimeAction[] downtimeActions
- * @property Collection|Skill[] skills
- * @property ResearchProject parentProject
- * @property Collection|ResearchProject[] childProjects
  * @property Collection|DowntimeAction[] researchActions
  * @property Collection|DowntimeAction[] subjectActions
+ * @property Collection|Skill[] skills
+ * @property Collection|SkillSpecialty[] skillSpecialties
+ * @property SkillSpecialty[][] specialties
+ * @property ResearchProject parentProject
+ * @property Collection|ResearchProject[] childProjects
  */
 class ResearchProject extends Model
 {
@@ -71,6 +73,22 @@ class ResearchProject extends Model
     {
         return $this->belongsToMany(Skill::class)
             ->withPivot('months');
+    }
+
+    public function skillSpecialties(): BelongsToMany
+    {
+        return $this->belongsToMany(SkillSpecialty::class);
+    }
+
+    public function getSpecialtiesAttribute(): array
+    {
+        return once(function () {
+            $specialties = [];
+            foreach ($this->skillSpecialties as $specialty) {
+                $specialties[$specialty->specialty_type_id][] = $specialty;
+            }
+            return $specialties;
+        });
     }
 
     public function parentProject(): BelongsTo

@@ -17,7 +17,9 @@
                                 <strong>{{ __('Skills:') }}</strong>
                                 @if ($researchProject->skills->count() > 0)
                                     @foreach($researchProject->skills as $skill)
-                                        {{ $skill->name }}{{ $loop->last ? '' : ', ' }}
+                                        {{ $skill->name }}@if (!empty($skill->specialty_type_id) && !empty($researchProject->specialties[$skill->specialty_type_id]))
+                                            (@foreach($researchProject->specialties[$skill->specialty_type_id] as $specialty){{ $specialty->name }}{{ $loop->last ? ')' : ', ' }}@endforeach
+                                        @endif{{ $loop->last ? '' : ', ' }}
                                     @endforeach
                                 @else
                                     {{ __('None specified') }}
