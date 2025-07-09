@@ -88,7 +88,7 @@ class Downtime extends Model
         if ($this->isOpen()) {
             return __('Open');
         }
-        if (now()->before($this->start_time)) {
+        if (now()->isBefore($this->start_time)) {
             return __('Upcoming');
         }
         if (auth()->user()->can('edit downtimes') && $this->processed) {
