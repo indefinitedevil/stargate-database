@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
 
 /**
@@ -75,6 +76,11 @@ class Skill extends Model
     public function specialtyType(): BelongsTo
     {
         return $this->belongsTo(SpecialtyType::class);
+    }
+
+    public function skillSpecialties(): HasManyThrough
+    {
+        return $this->hasManyThrough(SkillSpecialty::class, SpecialtyType::class, 'id', 'specialty_type_id', 'specialty_type_id', 'id');
     }
 
     public function getSpecialtyListAttribute(): Collection

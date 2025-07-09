@@ -100,22 +100,47 @@ class Downtime extends Model
     public function getResearchProjectsAttribute(): Collection
     {
         return once(function () {
-            return ResearchProject::whereHas('downtimeActions', function ($query) {
+            $projects = ResearchProject::whereHas('downtimeActions', function ($query) {
                 $query->where('downtime_id', $this->id)
                     ->where('action_type_id', ActionType::ACTION_RESEARCHING);
             })->get();
+            if ($projects->isEmpty()) {
+                $projects = ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)
+                    ->where('visibility', ResearchProject::VISIBILITY_PUBLIC)
+                    ->get();
+            }
+            return $projects;
         });
     }
 
     public function getResearchProjectsForCharacter($characterId): Collection
     {
         $cacheKey = "research_projects_{$this->id}_{$characterId}";
-        return cache()->remember($cacheKey, 300, function () use ($characterId) {
-            return ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)
+        return cache()->remember($cacheKey, 1, function () use ($characterId) {
+            $skillMatches = ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)
                 ->join('research_project_skill', 'research_project_skill.research_project_id', 'research_projects.id')
                 ->join('character_skills', 'character_skills.skill_id', 'research_project_skill.skill_id')
                 ->where('character_skills.character_id', $characterId)
-                ->select('research_projects.*')->get();
+                ->select('research_projects.*');
+            $specialtyMatches = ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)
+                ->join('research_project_skill_specialty', 'research_project_skill_specialty.research_project_id', 'research_projects.id')
+                ->join('character_skill_skill_specialty', 'character_skill_skill_specialty.skill_specialty_id', 'research_project_skill_specialty.skill_specialty_id')
+                ->join('character_skills', 'character_skills.id', 'character_skill_skill_specialty.character_skill_id')
+                ->where('character_skills.character_id', $characterId)
+                ->select('research_projects.*');
+            if ($skillMatches->count() > 0) {
+                $projects = $skillMatches->get();
+                $skillIds = [];
+                foreach ($projects as $project) {
+                    foreach ($project->skillSpecialties as $specialty) {
+                        $skillIds = array_merge($specialty->specialtyType->skills->pluck('id')->toArray(), $skillIds);
+                    }
+                }
+                if (count($skillIds) > 0) {
+                    $skillMatches = $skillMatches->whereNotIn('research_project_skill.skill_id', array_unique($skillIds));
+                }
+            }
+            return $skillMatches->union($specialtyMatches)->get();
         });
     }
 

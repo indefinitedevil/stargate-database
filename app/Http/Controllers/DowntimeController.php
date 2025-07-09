@@ -256,6 +256,9 @@ class DowntimeController extends Controller
                         }
                         continue 2;
                     }
+                    if (empty($researchProjectId) && ActionType::ACTION_RESEARCH_SUBJECT == $actionData['type']) {
+                        continue 2; // Skip if no research project is set for research subject action
+                    }
                     if (empty($researchProjectId)) {
                         $errors[] = __(':type Action :index: Research Project is required.', ['type' => $type, 'index' => $key]);
                         continue 2;
@@ -301,6 +304,14 @@ class DowntimeController extends Controller
                     }
                     break;
                 case 0:
+                    if (!empty($actionData['id'])) {
+                        $action = DowntimeAction::find($actionData['id']);
+                        if (empty($action)) {
+                            $errors[] = __(':type Action :index: Action not found.', ['type' => $type, 'index' => $key]);
+                        } else {
+                            $action->delete();
+                        }
+                    }
                     break;
                 default:
                     $errors[] = __(':type Action :index: Invalid action type.', ['type' => $type, 'index' => $key]);

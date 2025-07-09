@@ -82,10 +82,17 @@
                 <ul class="list-disc list-inside">
                     @foreach($project->skills as $skill)
                         <li>{{ $skill->name }}
+                            @if ($project->skillCheck($skill->id))
+                                <i class="fa-solid fa-check"></i>
+                            @endif
                             @if (!empty($skill->specialty_type_id) && !empty($project->specialties[$skill->specialty_type_id]))
                                 <ul class="ml-4 list-disc list-inside">
                                     @foreach($project->specialties[$skill->specialty_type_id] as $specialty)
-                                        <li>{{ $specialty->name }}</li>
+                                        <li>{{ $specialty->name }}
+                                            @if ($project->specialtyCheck($specialty->id))
+                                                <i class="fa-solid fa-check"></i>
+                                            @endif
+                                        </li>
                                     @endforeach
                                 </ul>
                             @endif

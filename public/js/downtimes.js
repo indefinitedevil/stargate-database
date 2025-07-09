@@ -2,8 +2,8 @@ const ACTION_TRAINING = '1';
 const ACTION_TEACHING = '2';
 const ACTION_UPKEEP = '3';
 const ACTION_MISSION = '4';
-const ACTION_UPKEEP_2 = '5';
-const ACTION_RESEARCH = '6';
+const ACTION_RESEARCH = '5';
+const ACTION_UPKEEP_2 = '6';
 
 jQuery('[id^="development_action_"]').on('change', function () {
     let id = jQuery(this).attr('id').split('_').pop();

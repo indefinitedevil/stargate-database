@@ -118,7 +118,7 @@ class ResearchProject extends Model
     public function researchCharacters($downtimeId = 0): Collection
     {
         $cacheKey = "research_characters_{$this->id}_{$downtimeId}";
-        return cache()->remember($cacheKey, 300, function () use ($downtimeId) {
+        return cache()->remember($cacheKey, 1, function () use ($downtimeId) {
             $researchCharacters = [];
             $researchActions = $this->researchActions();
             if ($downtimeId) {
@@ -175,5 +175,28 @@ class ResearchProject extends Model
     public function getViewRoute(): string
     {
         return route('research.view', ['projectId' => $this, 'projectName' => Str::slug($this->name)]);
+    }
+
+    public function skillCheck($skillId): bool
+    {
+        $characters = $this->researchCharacters();
+        foreach ($characters as $character) {
+            if ($character['character']->trainedSkills->contains('skill_id', $skillId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public function specialtyCheck($specialtyId): bool
+    {
+        $characters = $this->researchCharacters();
+        foreach ($characters as $character) {
+            foreach ($character['character']->trainedSkills->pluck('skillSpecialties') as $specialties) {
+                if ($specialties->contains('id', $specialtyId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
