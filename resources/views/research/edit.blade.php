@@ -185,7 +185,7 @@
                                     <optgroup label="{{ $specialtyType->name }}">
                                         @foreach ($specialtyType->skillSpecialties->sortBy('name') as $specialty)
                                             <option value="{{ $specialty->id }}"
-                                                    @if(!empty($editLog) && $editLog->characterSkill->skillSpecialties->contains($specialty)) selected @endif
+                                                    @if(!empty($project) && $project->skillSpecialties->contains($specialty)) selected @endif
                                             >
                                                 {{ $specialty->name }}
                                             </option>
