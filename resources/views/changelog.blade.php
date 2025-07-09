@@ -17,6 +17,14 @@
                 </ul>
             </div>
             <div>
+                <h3 class="text-lg font-semibold">Bugfix: 9th July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Added skill specialties to research projects.</li>
+                    <li>Made downtime open/closed language better for downtimes in the future.</li>
+                    <li>Fixed Coderabbit nitpicks.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 4th July 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Sys Ref: rules 1.3.1 update.</li>
