@@ -83,6 +83,20 @@ class Downtime extends Model
         return $this->open;
     }
 
+    public function getStatusLabel(): string
+    {
+        if ($this->isOpen()) {
+            return __('Open');
+        }
+        if (now()->before($this->start_time)) {
+            return __('Upcoming');
+        }
+        if (auth()->user()->can('edit downtimes') && $this->processed) {
+            return __('Processed');
+        }
+        return __('Closed');
+    }
+
     public function getResearchProjectsAttribute(): Collection
     {
         return once(function () {

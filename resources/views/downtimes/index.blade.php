@@ -32,7 +32,7 @@
                                         - {{ current($eventCharacters)->listName }}</a>
                                     ({{ format_datetime($downtime->start_time, 'd/m/Y H:i') }}
                                     - {{ format_datetime($downtime->end_time, 'd/m/Y H:i') }})
-                                    - {{ $downtime->isOpen() ? __('Open') : (now()->isBefore($downtime->start_time) ? __('Upcoming') : __('Closed')) }}
+                                    - {{ $downtime->getStatusLabel() }}
                                 </li>
                             @else
                                 <li>
