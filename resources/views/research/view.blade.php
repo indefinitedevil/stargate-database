@@ -111,10 +111,15 @@
                         <ul class="list-disc list-inside">
                             @foreach ($project->researchers as $researcher)
                                 <li>
-                                    {{ $researcher['character']->listName }}
-                                    ({{ __(':months months', ['months' => count($researcher['actions'])]) }})
+                                    @can ('edit downtimes')
+                                        <a href="{{ $researcher['character']->getViewRoute() }}"
+                                           class="underline">{{ $researcher['character']->listName }}</a>
+                                    @else
+                                        {{ $researcher['character']->listName }}
+                                    @endcan
+                                    {{ __('(:months months)', ['months' => count($researcher['actions'])]) }}
                                     @if (count($researcher['pending_actions']))
-                                        <em>({{ __(':months months pending', ['months' => count($researcher['pending_actions'])]) }})</em>
+                                        <em>{{ __('(:months months pending)', ['months' => count($researcher['pending_actions'])]) }}</em>
                                     @endif
                                 </li>
                             @endforeach
