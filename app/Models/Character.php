@@ -213,14 +213,7 @@ class Character extends Model
 
     public function requiredUpkeepSkills(): Collection
     {
-        $upkeepSkills = $this->upkeepSkills;
-        $requiredUpkeepSkills = [];
-        foreach ($upkeepSkills as $upkeepSkill) {
-            if (1 < $upkeepSkill->level) {
-                $requiredUpkeepSkills[$upkeepSkill->skill_id] = $upkeepSkill;
-            }
-        }
-        return collect($requiredUpkeepSkills);
+        return $this->upkeepSkills;
     }
 
     public function getRequiredUpkeepSkillsAttribute(): Collection

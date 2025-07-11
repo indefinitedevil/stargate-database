@@ -243,9 +243,7 @@ class Downtime extends Model
             }
             $requiredCharacters = [];
             foreach ($relevantCharacters as $characterId => $skills) {
-                if (count($skills) > 1) {
-                    $requiredCharacters[$characterId] = $characterId;
-                }
+                $requiredCharacters[$characterId] = $characterId;
             }
             $requiredUpkeepSkills[$skill->id] = $requiredCharacters;
         }
