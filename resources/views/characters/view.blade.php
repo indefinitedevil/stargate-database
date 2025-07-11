@@ -174,14 +174,16 @@
         <div class="mt-1 space-y-6">{!! process_markdown($character->character_links) !!}</div>
     </div>
 
-    @can('view hidden notes')
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-            <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
-                {{ __('Plot notes') }}
-            </h2>
-            <div class="mt-1 space-y-6">{!! process_markdown($character->plot_notes) !!}</div>
-        </div>
-    @endcan
-    @include('characters.partials.add-log')
+    @if (empty(request()->input('as_player')))
+        @can('view hidden notes')
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+                <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
+                    {{ __('Plot notes') }}
+                </h2>
+                <div class="mt-1 space-y-6">{!! process_markdown($character->plot_notes) !!}</div>
+            </div>
+        @endcan
+        @include('characters.partials.add-log')
+    @endif
     <script src="{{ asset('js/characters.js') }}" defer></script>
 </x-app-layout>

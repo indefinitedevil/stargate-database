@@ -59,15 +59,17 @@
                 {!! process_markdown($project->project_goals ?? '') !!}
             </div>
         </div>
-        @can('edit research projects')
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-                    <h3 class="text-xl">{{ __('OOC Intent') }}</h3>
-                    <em class="text-xs">{{ __('This field is intended to be used to explain in OOC terms what you\'re trying to achieve, and what you expect to get.') }}</em>
-                    {!! process_markdown($project->ooc_intent ?? '') !!}
+        @if (empty(request()->input('as_player')))
+            @can('edit research projects')
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+                        <h3 class="text-xl">{{ __('OOC Intent') }}</h3>
+                        <em class="text-xs">{{ __('This field is intended to be used to explain in OOC terms what you\'re trying to achieve, and what you expect to get.') }}</em>
+                        {!! process_markdown($project->ooc_intent ?? '') !!}
+                    </div>
                 </div>
-            </div>
-        @endcan
+            @endcan
+        @endif
         @if (ResearchProject::STATUS_COMPLETED == $project->status)
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
@@ -139,13 +141,15 @@
                 </div>
             </div>
         @endif
-        @can('view hidden notes')
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-                    <h3 class="text-xl">{{ __('Plot Notes') }}</h3>
-                    {!! process_markdown($project->plot_notes ?? '') !!}
+        @if (empty(request()->input('as_player')))
+            @can('view hidden notes')
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+                        <h3 class="text-xl">{{ __('Plot Notes') }}</h3>
+                        {!! process_markdown($project->plot_notes ?? '') !!}
+                    </div>
                 </div>
-            </div>
-        @endcan
+            @endcan
+        @endif
     </div>
 </x-app-layout>

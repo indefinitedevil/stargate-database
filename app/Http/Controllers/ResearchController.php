@@ -20,7 +20,7 @@ class ResearchController extends Controller
         $otherProjects = (clone $publicProjects)->whereNotIn('status', [ResearchProject::STATUS_ACTIVE, ResearchProject::STATUS_APPROVED])
             ->orderBy('status')
             ->orderBy('name');
-        if (auth()->user()->can('edit research projects')) {
+        if (empty(request()->input('as_player')) && auth()->user()->can('edit research projects')) {
             $approvedProjects = $approvedProjects->union((clone $privateProjects)->where('status', ResearchProject::STATUS_APPROVED)->orderBy('name'));
             $approvedProjects = $approvedProjects->union((clone $archivedProjects)->where('status', ResearchProject::STATUS_APPROVED)->orderBy('name'));
             $otherProjects = $otherProjects->union((clone $privateProjects)->whereNotIn('status', [ResearchProject::STATUS_ACTIVE, ResearchProject::STATUS_APPROVED])

@@ -63,6 +63,10 @@
                                                                  :active="request()->routeIs('plotco.traits*')">
                                                     {{ __('Traits') }}
                                                 </x-dropdown-link>
+                                                <x-dropdown-link :href="request()->fullUrlWithQuery(['as_player' => 1])"
+                                                                 :active="request()->input('as_player')">
+                                                    {{ __('View as player') }}
+                                                </x-dropdown-link>
                                             @endcan
                                         </div>
                                     @endif
@@ -219,8 +223,12 @@
                         @endcan
                         @can('edit all characters')
                             <x-responsive-nav-link :href="route('plotco.traits')"
-                                             :active="request()->routeIs('plotco.traits*')">
+                                                   :active="request()->routeIs('plotco.traits*')">
                                 {{ __('Traits') }}
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link :href="request()->fullUrlWithQuery(['as_player' => 1])"
+                                             :active="request()->input('as_player')">
+                                {{ __('View as player') }}
                             </x-responsive-nav-link>
                         @endcan
                     </div>
