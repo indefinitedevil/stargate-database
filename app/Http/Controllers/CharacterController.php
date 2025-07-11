@@ -609,6 +609,7 @@ class CharacterController extends Controller
                 $characterSkill->fill([
                     'character_id' => $character->id,
                     'skill_id' => Skill::PLOT_CHANGE,
+                    'completed' => true,
                 ]);
                 $characterSkill->save();
             }
@@ -616,6 +617,7 @@ class CharacterController extends Controller
             $log->fill([
                 'character_id' => $character->id,
                 'character_skill_id' => $characterSkill->id,
+                'skill_completed' => true,
                 'locked' => true,
                 'log_type_id' => LogType::PLOT,
                 'plot_notes' => __('Traits changed from :old to :new.', [
@@ -786,6 +788,9 @@ class CharacterController extends Controller
             $log = CharacterLog::find($validatedData['log_id']);
         } else {
             $log = new CharacterLog();
+            $log->fill([
+                'log_type_id' => LogType::PLOT,
+            ]);
         }
         $log->fill([
             'character_id' => $characterSkill->character->id,
@@ -798,8 +803,6 @@ class CharacterController extends Controller
             'temp_vigor_change' => $validatedData['temp_vigor_change'] ?? 0,
             'notes' => $validatedData['notes'] ?? '',
             'plot_notes' => $validatedData['plot_notes'] ?? '',
-            'log_type_id' => LogType::PLOT,
-            'teacher_id' => null,
             'skill_completed' => $validatedData['completed'],
         ]);
         $log->save();
