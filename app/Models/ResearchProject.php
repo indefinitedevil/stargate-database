@@ -33,6 +33,7 @@ use Illuminate\Support\Str;
  * @property SkillSpecialty[][] specialties
  * @property ResearchProject parentProject
  * @property Collection|ResearchProject[] childProjects
+ * @property Collection researchers
  */
 class ResearchProject extends Model
 {
@@ -139,6 +140,29 @@ class ResearchProject extends Model
         });
     }
 
+    public function getResearchersAttribute(): Collection
+    {
+        return once(function () {
+            $researchers = [];
+            foreach ($this->researchActions as $researchAction) {
+                $character = $researchAction->character;
+                if (!isset($researchers[$character->id])) {
+                    $researchers[$character->id] = [
+                        'character' => $character,
+                        'actions' => [],
+                        'pending_actions' => [],
+                    ];
+                }
+                if ($researchAction->downtime->isOpen()) {
+                    $researchers[$character->id]['pending_actions'][] = $researchAction;
+                } else {
+                    $researchers[$character->id]['actions'][] = $researchAction;
+                }
+            }
+            return collect($researchers);
+        });
+    }
+
     public function getStatusNameAttribute(): string
     {
         return self::getStatusName($this->status);
@@ -179,19 +203,20 @@ class ResearchProject extends Model
 
     public function skillCheck($skillId): bool
     {
-        $characters = $this->researchCharacters();
-        foreach ($characters as $character) {
-            if ($character['character']->trainedSkills->contains('skill_id', $skillId)) {
+        $researchers = $this->researchers;
+        foreach ($researchers as $researcher) {
+            if ($researcher['character']->trainedSkills->contains('skill_id', $skillId)) {
                 return true;
             }
         }
         return false;
     }
+
     public function specialtyCheck($specialtyId): bool
     {
-        $characters = $this->researchCharacters();
-        $allSpecialties = $characters->flatMap(function ($character) {
-            return $character['character']->trainedSkills->flatMap(function ($skill) {
+        $researchers = $this->researchers;
+        $allSpecialties = $researchers->flatMap(function ($researcher) {
+            return $researcher['character']->trainedSkills->flatMap(function ($skill) {
                 return $skill->skillSpecialties;
             });
         });

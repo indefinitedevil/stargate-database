@@ -13,6 +13,8 @@
                 <ul class="list-inside list-disc">
                     <li>Plot Co: added view as player option.</li>
                     <li>Fixed skill upkeep processing errors.</li>
+                    <li>Made research projects only available for <em>completed</em> skills.</li>
+                    <li>Changed view of project researchers.</li>
                 </ul>
             </div>
             <div>

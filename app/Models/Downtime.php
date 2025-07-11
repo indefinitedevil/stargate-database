@@ -121,12 +121,14 @@ class Downtime extends Model
                 ->join('research_project_skill', 'research_project_skill.research_project_id', 'research_projects.id')
                 ->join('character_skills', 'character_skills.skill_id', 'research_project_skill.skill_id')
                 ->where('character_skills.character_id', $characterId)
+                ->where('character_skills.completed', true)
                 ->select('research_projects.*');
             $specialtyMatches = ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)
                 ->join('research_project_skill_specialty', 'research_project_skill_specialty.research_project_id', 'research_projects.id')
                 ->join('character_skill_skill_specialty', 'character_skill_skill_specialty.skill_specialty_id', 'research_project_skill_specialty.skill_specialty_id')
                 ->join('character_skills', 'character_skills.id', 'character_skill_skill_specialty.character_skill_id')
                 ->where('character_skills.character_id', $characterId)
+                ->where('character_skills.completed', true)
                 ->select('research_projects.*');
             if ($skillMatches->count() > 0) {
                 $skillIds = [];

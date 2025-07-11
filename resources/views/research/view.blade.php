@@ -107,13 +107,14 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                     <h3 class="text-xl">{{ __('Researchers') }}</h3>
-                    @if ($project->researchActions->count())
+                    @if ($project->researchers->count())
                         <ul class="list-disc list-inside">
-                            @foreach($project->researchActions as $downtimeAction)
+                            @foreach ($project->researchers as $researcher)
                                 <li>
-                                    {{ $downtimeAction->character->listName }}
-                                    @if($downtimeAction->downtime->isOpen())
-                                        <em>{{ __('(Pending)') }}</em>
+                                    {{ $researcher['character']->listName }}
+                                    ({{ __(':months months', ['months' => count($researcher['actions'])]) }})
+                                    @if (count($researcher['pending_actions']))
+                                        <em>({{ __(':months months pending', ['months' => count($researcher['pending_actions'])]) }})</em>
                                     @endif
                                 </li>
                             @endforeach
