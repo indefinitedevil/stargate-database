@@ -9,6 +9,13 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Bugfix: 11th July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: added view as player option.</li>
+                    <li>Fixed skill upkeep processing errors.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 7th July 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed downtime processing errors.</li>
