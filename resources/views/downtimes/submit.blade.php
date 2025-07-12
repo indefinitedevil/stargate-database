@@ -109,6 +109,7 @@
                                           class="hidden">@include('downtimes.partials.teaching-skills', ['action' => $action])</x-select>
                                 <x-select id="ds_{{ $actionCount }}_{{ ActionType::ACTION_UPKEEP }}"
                                           class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => $action])</x-select>
+                                <x-input-error class="mt-2" :messages="$errors->get('development_action_'.$actionCount)" />
 
                                 <p id="da_{{ $actionCount }}_teaching"
                                    class="{{ ActionType::ACTION_TEACHING == $action->action_type_id ? '' : 'hidden' }} text-sm mt-1">{{ __('Teaching a training course provides you with +1 maximum Vigor for the next event.') }}</p>
@@ -121,7 +122,7 @@
                                                 :value="$action->notes"
                                                 :disabled="!$downtime->isOpen()"
                                                 class="mt-1 block w-full"
-                                                :placeholder="__('Notes')"/>
+                                                :placeholder="__('Relevant notes regarding your mission')"/>
                                 </div>
                             </div>
                         @endforeach
@@ -150,6 +151,7 @@
                                           class="hidden">@include('downtimes.partials.teaching-skills', ['action' => null])</x-select>
                                 <x-select id="ds_{{ $actionCount }}_{{ ActionType::ACTION_UPKEEP }}"
                                           class="hidden">@include('downtimes.partials.upkeep-skills', ['action' => null])</x-select>
+                                <x-input-error class="mt-2" :messages="$errors->get('development_action_'.$actionCount)" />
 
                                 <p id="da_{{ $actionCount }}_teaching"
                                    class="hidden text-sm mt-1">{{ __('Teaching a training course provides you with +1 maximum Vigor for the next event.') }}</p>
@@ -160,7 +162,7 @@
                                                 name="development_action[{{ $actionCount }}][notes]"
                                                 :disabled="!$downtime->isOpen()"
                                                 class="mt-1 block w-full"
-                                                :placeholder="__('Notes')"/>
+                                                :placeholder="__('Relevant notes regarding your mission')"/>
                                 </div>
                             </div>
                         @endwhile
@@ -207,12 +209,15 @@
                                           name="research_action[{{ $actionCount }}][research_project_id]"
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research-projects', ['action' => $action])</x-select>
-
+                                <x-select id="research_skill_{{ $actionCount }}"
+                                          name="research_action[{{ $actionCount }}][skill_id]"
+                                          class="mt-1 block {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research-skills', ['action' => $action])</x-select>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}"
-                                            :placeholder="__('Notes')">{{ $action->notes }}</x-textarea>
+                                            :placeholder="__('Relevant notes regarding your research')">{{ $action->notes }}</x-textarea>
+                                <x-input-error class="mt-2" :messages="$errors->get('research_action_'.$actionCount)" />
                             </div>
                         @endforeach
                         @while($actionCount < $downtime->research_actions)
@@ -237,12 +242,15 @@
                                           name="research_action[{{ $actionCount }}][research_project_id]"
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block hidden">@include('downtimes.partials.research-projects', ['action' => null])</x-select>
-
+                                <x-select id="research_skill_{{ $actionCount }}"
+                                          name="research_action[{{ $actionCount }}][skill_id]"
+                                          class="mt-1 block hidden">@include('downtimes.partials.research-skills', ['action' => null])</x-select>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full hidden"
-                                            :placeholder="__('Notes')"/>
+                                            :placeholder="__('Relevant notes regarding your research')"/>
+                                <x-input-error class="mt-2" :messages="$errors->get('research_action_'.$actionCount)" />
                             </div>
                         @endwhile
 
@@ -265,6 +273,7 @@
                                               name="research_subject_action[{{ $actionCount }}][research_project_id]"
                                               :disabled="!$downtime->isOpen()"
                                               class="mt-1 block">@include('downtimes.partials.research-volunteers', ['action' => $action])</x-select>
+                                    <x-input-error class="mt-2" :messages="$errors->get('research_subject_action_'.$actionCount)" />
                                     <p class="text-xs mt-1">{{ __('You may consent to being the subject of a research project that requires volunteer subjects. This will not prevent you from taking other actions.') }}</p>
                                 </div>
                             @endforeach
@@ -278,6 +287,7 @@
                                                   name="research_subject_action[{{ $actionCount }}][research_project_id]"
                                                   :disabled="!$downtime->isOpen()"
                                                   class="mt-1 block">@include('downtimes.partials.research-volunteers', ['action' => null])</x-select>
+                                        <x-input-error class="mt-2" :messages="$errors->get('research_subject_action_'.$actionCount)" />
                                         <p class="text-xs mt-1">{{ __('You may consent to being the subject of a research project that requires volunteer subjects. This will not prevent you from taking other actions.') }}</p>
                                     </div>
                                 @endwhile
@@ -318,6 +328,7 @@
                                                 class="mt-1 block w-full"
                                                 :placeholder="__('Plot co response to above.')">{{ $action->response }}</x-textarea>
                                 @endif
+                                <x-input-error class="mt-2" :messages="$errors->get('personal_action_'.$actionCount)" />
                             </div>
                         @endforeach
                         @while($actionCount < $downtime->other_actions)
@@ -339,6 +350,7 @@
                                                 class="mt-1 block w-full"
                                                 :placeholder="__('Plot co response to above.')"></x-textarea>
                                 @endif
+                                <x-input-error class="mt-2" :messages="$errors->get('personal_action_'.$actionCount)" />
                             </div>
                         @endwhile
                         <p class="text-sm">

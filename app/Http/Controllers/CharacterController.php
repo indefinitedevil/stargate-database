@@ -759,13 +759,13 @@ class CharacterController extends Controller
                 ->count();
             if ($existing) {
                 if (!$skill->repeatable || $skill->repeatable <= $existing) {
-                    throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
+                    throw ValidationException::withMessages(['skill_id' => __('Skill has already been taken the maximum number of times.')]);
                 } elseif (PlotHelper::SKILL_RESUSCITATION_BUYBACK == $skill->id) {
                     $resuscitations = CharacterSkill::where('character_id', $validatedData['character_id'])
                         ->where('skill_id', PlotHelper::SKILL_RESUSCITATION)
                         ->count();
                     if ($resuscitations <= $existing) {
-                        throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
+                        throw ValidationException::withMessages(['skill_id' => __('Skill has already been taken the maximum number of times.')]);
                     }
                 }
             }
@@ -774,7 +774,7 @@ class CharacterController extends Controller
         $validatedData['completed'] = $validatedData['completed'] ?? false;
 
         if (!$validatedData['completed'] && !$validatedData['amount_trained'] && $skill->cost() > 0) {
-            throw ValidationException::withMessages([__('Log must apply training or a completed skill.')]);
+            throw ValidationException::withMessages(['log' => __('Log must apply training or a completed skill.')]);
         }
 
         $characterSkill->fill([
@@ -809,13 +809,13 @@ class CharacterController extends Controller
 
         if (!empty($validatedData['specialty_id'])) {
             if ($characterSkill->skill->specialties != count($validatedData['specialty_id'])) {
-                throw ValidationException::withMessages([__('You must select correct specialty count for :name.', [$characterSkill->skill->name])]);
+                throw ValidationException::withMessages(['specialty_id' => __('You must select correct specialty count for :name.', [$characterSkill->skill->name])]);
             }
             $characterSkill->skillSpecialties()->sync($validatedData['specialty_id']);
         }
 
         return redirect()->back()
-            ->with('success', new MessageBag([__('Character log for :character saved.', ['character' => $characterSkill->character->listName])]));
+            ->with('success', new MessageBag(['log' => __('Character log for :character saved.', ['character' => $characterSkill->character->listName])]));
     }
 
     /**

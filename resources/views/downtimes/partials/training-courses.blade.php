@@ -7,7 +7,7 @@
                 <ul class="list-inside list-disc">
                     @foreach($downtime->trainingCourses as $trainingCourse)
                         <li>
-                            {{ $trainingCourse->characterSkill->name }}
+                            {{ $trainingCourse->characterSkill->skill->name }}
                             @if ($trainingCourse->character_id == $character->id)
                                 ({{ trans_choice('You are teaching :count trainee|You are teaching :count trainees', $downtime->countTrainees($trainingCourse->characterSkill->skill_id), ['count' => $downtime->countTrainees($trainingCourse->characterSkill->skill_id)]) }})
                             @endif

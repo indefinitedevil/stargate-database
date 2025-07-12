@@ -1,5 +1,5 @@
 @if ($character->trainedSkillsWithoutSystem->count())
-    <option value="">{{ __('Select a skill to teach') }}</option>
+    <option value="">{{ __('Select a skill for your research') }}</option>
     @foreach ($character->trainedSkillsWithoutSystem as $skill)
         <option value="{{$skill->id}}"
                 @if (!empty($action->character_skill_id) && $skill->id == $action->character_skill_id) selected @endif
@@ -8,5 +8,5 @@
         </option>
     @endforeach
 @else
-    <option value="" disabled>{{ __('You must learn skills before you can teach them') }}</option>
+    <option value="" disabled>{{ __('You must learn skills before researching') }}</option>
 @endif

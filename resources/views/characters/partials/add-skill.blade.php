@@ -130,7 +130,7 @@
                             <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                 @foreach ($skill->feats as $feat)
                                     <li>
-                                        <span class="underline decoration-dashed"
+                                        <span class="underline decoration-dashed underline-offset-4"
                                               onclick="toggleVisibility('feat-{{$skill->id}}-{{ $feat->id }}')">
                                         {{ $feat->name }}
                                         <i class="fa-regular fa-circle-question"
