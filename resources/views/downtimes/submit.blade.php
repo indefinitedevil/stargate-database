@@ -122,7 +122,7 @@
                                                 :value="$action->notes"
                                                 :disabled="!$downtime->isOpen()"
                                                 class="mt-1 block w-full"
-                                                :placeholder="__('Notes')"/>
+                                                :placeholder="__('Relevant notes regarding your mission')"/>
                                 </div>
                             </div>
                         @endforeach
@@ -162,7 +162,7 @@
                                                 name="development_action[{{ $actionCount }}][notes]"
                                                 :disabled="!$downtime->isOpen()"
                                                 class="mt-1 block w-full"
-                                                :placeholder="__('Notes')"/>
+                                                :placeholder="__('Relevant notes regarding your mission')"/>
                                 </div>
                             </div>
                         @endwhile
@@ -216,7 +216,7 @@
                                             name="research_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}"
-                                            :placeholder="__('Notes')">{{ $action->notes }}</x-textarea>
+                                            :placeholder="__('Relevant notes regarding your research')">{{ $action->notes }}</x-textarea>
                                 <x-input-error class="mt-2" :messages="$errors->get('research_action_'.$actionCount)" />
                             </div>
                         @endforeach
@@ -249,7 +249,7 @@
                                             name="research_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full hidden"
-                                            :placeholder="__('Notes')"/>
+                                            :placeholder="__('Relevant notes regarding your research')"/>
                                 <x-input-error class="mt-2" :messages="$errors->get('research_action_'.$actionCount)" />
                             </div>
                         @endwhile
