@@ -67,6 +67,7 @@ class Character extends Model
     const UNKNOWN = 0;
     const HERO = 1;
     const SCOUNDREL = 2;
+    const VILLAIN = 3;
 
     protected $fillable = [
         'user_id',
@@ -389,6 +390,8 @@ class Character extends Model
             return __('Hero');
         } elseif ($this->hero_scoundrel === self::SCOUNDREL) {
             return __('Scoundrel');
+        } elseif ($this->hero_scoundrel === self::VILLAIN) {
+            return __('Villain');
         } else {
             return __('Unknown');
         }

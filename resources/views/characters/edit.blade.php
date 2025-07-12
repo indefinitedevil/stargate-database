@@ -98,16 +98,25 @@
                         <x-radio-input id="hero" name="hero_scoundrel" class=""
                                        value="{{ Character::HERO }}"
                                        :checked="old('hero_scoundrel', $character->hero_scoundrel ?? 0) === Character::HERO"
-                                       :disabled="!empty($character) && Status::READY < $character->status_id"/>
+                                       :disabled="!empty($character) && Status::READY < $character->status_id && auth()->user()->cannot('edit all characters')"/>
                         {{ __('Hero') }}
                     </x-input-label>
                     <x-input-label for="scoundrel" class="text-lg">
                         <x-radio-input id="scoundrel" name="hero_scoundrel" class=""
                                        value="{{ Character::SCOUNDREL }}"
                                        :checked="old('hero_scoundrel', $character->hero_scoundrel ?? 0) === Character::SCOUNDREL"
-                                       :disabled="!empty($character) && Status::READY < $character->status_id"/>
+                                       :disabled="!empty($character) && Status::READY < $character->status_id && auth()->user()->cannot('edit all characters')"/>
                         {{ __('Scoundrel') }}
                     </x-input-label>
+                    @can ('edit all characters')
+                        <x-input-label for="villain" class="text-lg">
+                            <x-radio-input id="villain" name="hero_scoundrel" class=""
+                                           value="{{ Character::VILLAIN }}"
+                                           :checked="old('hero_scoundrel', $character->hero_scoundrel ?? 0) === Character::VILLAIN"
+                                           :disabled="!empty($character) && Status::READY < $character->status_id && auth()->user()->cannot('edit all characters')"/>
+                            {{ __('Villain') }}
+                        </x-input-label>
+                    @endcan
                     <x-input-error class="mt-2" :messages="$errors->get('hero_scoundrel')"/>
                 </div>
                 @can ('edit all characters')
@@ -116,17 +125,18 @@
                         <div class="flex gap-4">
                             @foreach (CharacterTrait::all() as $trait)
                                 @php
-                                $traitStatus = false;
-                                if (!empty($character)) {
-                                    $characterTrait = $character->characterTraits->where('id', $trait->id)->first();
-                                    $traitStatus = (bool) ($characterTrait ? $characterTrait->pivot->status : false);
-                                }
+                                    $traitStatus = false;
+                                    if (!empty($character)) {
+                                        $characterTrait = $character->characterTraits->where('id', $trait->id)->first();
+                                        $traitStatus = (bool) ($characterTrait ? $characterTrait->pivot->status : false);
+                                    }
                                 @endphp
                                 <x-input-label for="trait-{{ $trait->id }}" class="text-lg">
-                                    <x-checkbox-input id="trait-{{ $trait->id }}" name="traits[{{ $trait->id }}][status]"
-                                                value="1"
-                                                :checked="$traitStatus"
-                                                :disabled="!empty($character) && Status::READY > $character->status_id"/>
+                                    <x-checkbox-input id="trait-{{ $trait->id }}"
+                                                      name="traits[{{ $trait->id }}][status]"
+                                                      value="1"
+                                                      :checked="$traitStatus"
+                                                      :disabled="!empty($character) && Status::READY > $character->status_id"/>
                                     <i class="fa-solid {{ $trait->icon }}"></i> {{ $trait->name }}
                                 </x-input-label>
                             @endforeach

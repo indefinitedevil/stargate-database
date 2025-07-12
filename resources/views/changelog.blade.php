@@ -11,6 +11,7 @@
             <div>
                 <h3 class="text-lg font-semibold">Update: 12th July 2025</h3>
                 <ul class="list-inside list-disc">
+                    <li>Plot Co: make character archetype editable after approval.</li>
                     <li>Added skill selection to research actions.</li>
                     <li>Hid System skills from list of skills for teaching/researching.</li>
                     <li>Updated error appearance on downtime submissions.</li>
