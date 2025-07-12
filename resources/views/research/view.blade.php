@@ -34,8 +34,8 @@
                 <strong>{{ __('Project name') }}:</strong> {!! process_inline_markdown($project->name ?? '') !!}
             </p>
             <p class="col-span-2">
-                <strong>{{ __('Subject of research') }}
-                    :</strong> {!! process_inline_markdown($project->research_subject ?? '') !!}
+                <strong>{{ __('Subject of research') }}:</strong>
+                {!! process_inline_markdown($project->research_subject ?? '') !!}
             </p>
             <p>
                 <strong>{{ __('Status') }}:</strong> {{ $project->status_name }}
