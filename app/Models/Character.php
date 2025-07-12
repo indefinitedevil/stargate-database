@@ -26,6 +26,7 @@ use Illuminate\Support\Str;
  * @property Background background
  * @property CharacterSkill[]|Collection skills
  * @property CharacterSkill[]|Collection trainedSkills
+ * @property CharacterSkill[]|Collection trainedSkillsWithoutSystem
  * @property CharacterSkill[]|Collection displayedSkills
  * @property CharacterSkill[]|Collection displayedTrainedSkills
  * @property CharacterSkill[]|Collection hiddenTrainedSkills
@@ -227,6 +228,12 @@ class Character extends Model
             ->where('skills.display', true);
     }
 
+    public function trainedSkillsWithoutSystem(): HasMany
+    {
+        return $this->trainedSkills()
+            ->where('skill_category_id', '!=', SkillCategory::SYSTEM);
+    }
+
     public function hiddenTrainedSkills(): HasMany
     {
         return $this->trainedSkills()->where('skills.display', false);
@@ -234,7 +241,8 @@ class Character extends Model
 
     public function trainingSkills(): HasMany
     {
-        return $this->skills()->where('completed', false);
+        return $this->skills()->where('completed', false)
+            ->where('skill_category_id', '!=', SkillCategory::SYSTEM);
     }
 
     public function status(): BelongsTo
