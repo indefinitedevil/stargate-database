@@ -25,6 +25,7 @@
                         @endif
                         @include('characters.partials.available-skills')
                     </x-select>
+                    <x-input-error class="mt-2" :messages="$errors->get('skill_id')" />
                 </div>
 
                 <div class="col-span-3">
@@ -46,6 +47,7 @@
                     <p class="text-xs">
                         {{ __('Press Ctrl to select/de-select additional specialties.') }}
                     </p>
+                    <x-input-error class="mt-2" :messages="$errors->get('specialty_id')" />
                 </div>
 
                 <div>
