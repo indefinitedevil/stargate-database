@@ -203,9 +203,8 @@ class ResearchProject extends Model
 
     public function skillCheck($skillId): bool
     {
-        $researchers = $this->researchers;
-        foreach ($researchers as $researcher) {
-            if ($researcher['character']->trainedSkills->contains('skill_id', $skillId)) {
+        foreach ($this->researchActions as $researchAction) {
+            if (!empty($researchAction->character_skill_id) && $researchAction->characterSkill->skill_id === $skillId) {
                 return true;
             }
         }
@@ -214,12 +213,11 @@ class ResearchProject extends Model
 
     public function specialtyCheck($specialtyId): bool
     {
-        $researchers = $this->researchers;
-        $allSpecialties = $researchers->flatMap(function ($researcher) {
-            return $researcher['character']->trainedSkills->flatMap(function ($skill) {
-                return $skill->allSpecialties;
-            });
-        });
-        return $allSpecialties->contains('id', $specialtyId);
+        foreach ($this->researchActions as $researchAction) {
+            if (!empty($researchAction->character_skill_id)  && $researchAction->characterSkill->allSpecialties->where('id', $specialtyId)->count() > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

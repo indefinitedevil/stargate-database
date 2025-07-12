@@ -247,6 +247,7 @@ class DowntimeController extends Controller
                 case ActionType::ACTION_RESEARCHING:
                 case ActionType::ACTION_RESEARCH_SUBJECT:
                     $researchProjectId = $actionData['research_project_id'] ?? 0;
+                    $characterSkillId = $actionData['skill_id'] ?? null;
                     if (empty($researchProjectId) && !empty($actionData['id'])) {
                         $action = DowntimeAction::find($actionData['id']);
                         if (empty($action)) {
@@ -273,27 +274,29 @@ class DowntimeController extends Controller
                         $errors[strtolower($type) . '_action_' . $key] = __(':type Action :index: Notes are limited to 65000 characters.', ['type' => $type, 'index' => $key]);
                         continue 2;
                     }
-                    if (empty($actionData['skill_id'])) {
-                        $errors[strtolower($type) . '_action_' . $key] = __(':type Action :index: Skill is required.', ['type' => $type, 'index' => $key]);
-                        continue 2;
-                    } else {
-                        $characterSkill = CharacterSkill::find($actionData['skill_id']);
-                        if (empty($characterSkill)) {
-                            $errors[strtolower($type) . '_action_' . $key] = __(':type Action :index: Skill not found.', ['type' => $type, 'index' => $key]);
+                    if (ActionType::ACTION_RESEARCHING == $actionData['type']) {
+                        if (empty($actionData['skill_id'])) {
+                            $errors[strtolower($type) . '_action_' . $key] = __(':type Action :index: Skill is required.', ['type' => $type, 'index' => $key]);
                             continue 2;
-                        }
-                        $researchSkills = $researchProject->skills;
-                        $researchSpecialties = $researchProject->skillSpecialties;
-                        if ($characterSkill->skill->specialty_type_id) {
-                            $characterSpecialties = $characterSkill->allSpecialties;
-                            if ($researchSpecialties->intersect($characterSpecialties)->isEmpty()) {
-                                $errors[strtolower($type) . '_action_' . $key] = __(':type Action :index: Skill does not match research project specialties.', ['type' => $type, 'index' => $key]);
+                        } else {
+                            $characterSkill = CharacterSkill::find($actionData['skill_id']);
+                            if (empty($characterSkill)) {
+                                $errors[strtolower($type) . '_action_' . $key] = __(':type Action :index: Skill not found.', ['type' => $type, 'index' => $key]);
                                 continue 2;
                             }
-                        } else {
-                            if ($researchSkills->where('id', $characterSkill->skill_id)->isEmpty()) {
-                                $errors[strtolower($type) . '_action_' . $key] = __(':type Action :index: Skill does not match research project skills.', ['type' => $type, 'index' => $key]);
-                                continue 2;
+                            $researchSkills = $researchProject->skills;
+                            $researchSpecialties = $researchProject->skillSpecialties;
+                            if ($characterSkill->skill->specialty_type_id) {
+                                $characterSpecialties = $characterSkill->allSpecialties;
+                                if ($researchSpecialties->intersect($characterSpecialties)->isEmpty()) {
+                                    $errors[strtolower($type) . '_action_' . $key] = __(':type Action :index: Skill does not match research project specialties.', ['type' => $type, 'index' => $key]);
+                                    continue 2;
+                                }
+                            } else {
+                                if ($researchSkills->where('id', $characterSkill->skill_id)->isEmpty()) {
+                                    $errors[strtolower($type) . '_action_' . $key] = __(':type Action :index: Skill does not match research project skills.', ['type' => $type, 'index' => $key]);
+                                    continue 2;
+                                }
                             }
                         }
                     }
@@ -311,7 +314,7 @@ class DowntimeController extends Controller
                         'downtime_id' => $downtime->id,
                         'action_type_id' => $actionData['type'],
                         'research_project_id' => $researchProjectId,
-                        'character_skill_id' => $characterSkill->id,
+                        'character_skill_id' => $characterSkillId,
                         'notes' => $actionData['notes'] ?? '',
                         'response' => $actionData['response'] ?? '',
                     ]);
