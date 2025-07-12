@@ -25,10 +25,12 @@ jQuery('[id^="research_action_"]').on('change', function () {
     if (jQuery(this).val() === ACTION_UPKEEP_2) { // Upkeep 2
         jQuery('#upkeep_skill_' + id).removeClass('hidden');
         jQuery('#research_project_' + id).addClass('hidden');
+        jQuery('#research_skill_' + id).addClass('hidden');
         jQuery('#research_action_' + id + '_notes').addClass('hidden');
     } else if (jQuery(this).val() === ACTION_RESEARCH) { // Research
         jQuery('#upkeep_skill_' + id).addClass('hidden');
         jQuery('#research_project_' + id).removeClass('hidden');
+        jQuery('#research_skill_' + id).removeClass('hidden');
         if (jQuery('#research_project_' + id + ' option').length > 1) {
             jQuery('#research_action_' + id + '_notes').removeClass('hidden');
         }

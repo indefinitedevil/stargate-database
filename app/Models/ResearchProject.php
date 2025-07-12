@@ -217,7 +217,7 @@ class ResearchProject extends Model
         $researchers = $this->researchers;
         $allSpecialties = $researchers->flatMap(function ($researcher) {
             return $researcher['character']->trainedSkills->flatMap(function ($skill) {
-                return $skill->skillSpecialties;
+                return $skill->allSpecialties;
             });
         });
         return $allSpecialties->contains('id', $specialtyId);

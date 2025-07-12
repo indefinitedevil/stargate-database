@@ -207,7 +207,9 @@
                                           name="research_action[{{ $actionCount }}][research_project_id]"
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research-projects', ['action' => $action])</x-select>
-
+                                <x-select id="research_skill_{{ $actionCount }} }}"
+                                          name="research_action[{{ $actionCount }}][skill_id]"
+                                          class="mt-1 block {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research-skills', ['action' => $action])</x-select>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
@@ -237,7 +239,9 @@
                                           name="research_action[{{ $actionCount }}][research_project_id]"
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block hidden">@include('downtimes.partials.research-projects', ['action' => null])</x-select>
-
+                                <x-select id="research_skill_{{ $actionCount }} }}"
+                                          name="research_action[{{ $actionCount }}][skill_id]"
+                                          class="mt-1 block {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research-skills', ['action' => null])</x-select>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
