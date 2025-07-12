@@ -117,10 +117,10 @@
                                     @else
                                         {{ $researcher['character']->listName }}
                                     @endcan
-                                    {{ __('(:months months)', ['months' => count($researcher['actions'])]) }}
-                                    @if (count($researcher['pending_actions']))
-                                        <em>{{ __('(:months months pending)', ['months' => count($researcher['pending_actions'])]) }}</em>
-                                    @endif
+                                    {{ __('(:months months:pending)', [
+                                        'months' => count($researcher['actions']),
+                                        'pending' => count($researcher['pending_actions']) ? __(', :months  pending', ['months' => count($researcher['pending_actions'])]) : ''
+                                    ]) }}
                                 </li>
                             @endforeach
                         </ul>
