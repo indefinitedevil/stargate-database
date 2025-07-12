@@ -112,8 +112,7 @@
                         <x-input-label for="villain" class="text-lg">
                             <x-radio-input id="villain" name="hero_scoundrel" class=""
                                            value="{{ Character::VILLAIN }}"
-                                           :checked="old('hero_scoundrel', $character->hero_scoundrel ?? 0) === Character::VILLAIN"
-                                           :disabled="!empty($character) && Status::READY < $character->status_id && auth()->user()->cannot('edit all characters')"/>
+                                           :checked="old('hero_scoundrel', $character->hero_scoundrel ?? 0) === Character::VILLAIN"/>
                             {{ __('Villain') }}
                         </x-input-label>
                     @endcan
