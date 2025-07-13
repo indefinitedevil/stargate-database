@@ -1,4 +1,4 @@
-<ul class="list-disc list-inside space-y-1 mb-1">
+<ul class="list-disc list-inside space-y-1">
     @if (count($characters) == 0)
         <li>{{ __('No characters found') }}</li>
     @else
