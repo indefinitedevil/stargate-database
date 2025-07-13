@@ -136,7 +136,7 @@ class ResearchProject extends Model
                     ];
                 }
                 $researchCharacters[$researchAction->character_id]['actions'][] = $researchAction;
-                if (!empty($researchAction->characterSkill)) {
+                if (!empty($researchAction->character_skill_id)) {
                     $researchCharacters[$researchAction->character_id]['skills'][$researchAction->characterSkill->skill->name][] = $researchAction;
                 }
             }
@@ -173,9 +173,11 @@ class ResearchProject extends Model
                 } else {
                     $researchers[$character->id]['actions'][] = $researchAction;
                 }
-                $researchers[$character->id]['skills'][] = $researchAction->characterSkill->skill->name;
-                $researchers[$character->id]['skills'] = array_unique($researchers[$character->id]['skills']);
-                sort($researchers[$character->id]['skills']);
+                if (!empty($researchAction->character_skill_id)) {
+                    $researchers[$character->id]['skills'][] = $researchAction->characterSkill->skill->name;
+                    $researchers[$character->id]['skills'] = array_unique($researchers[$character->id]['skills']);
+                    sort($researchers[$character->id]['skills']);
+                }
             }
             return collect($researchers);
         });
