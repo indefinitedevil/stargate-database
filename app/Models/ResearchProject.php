@@ -132,9 +132,21 @@ class ResearchProject extends Model
                     $researchCharacters[$researchAction->character_id] = [
                         'character' => $researchAction->character,
                         'actions' => [],
+                        'skills' => [],
                     ];
                 }
                 $researchCharacters[$researchAction->character_id]['actions'][] = $researchAction;
+                $researchCharacters[$researchAction->character_id]['skills'][$researchAction->characterSkill->skill->name] = $researchAction;
+            }
+            foreach ($researchCharacters as &$researchCharacter) {
+                $skills = '';
+                foreach ($researchCharacter['skills'] as $skill => $actions) {
+                    if (!empty($skills)) {
+                        $skills .= ', ';
+                    }
+                    $skills .= trans_choice(':count month :skill|:count months :skill', count($actions), ['count' => count($actions), 'skill' => $skill]);
+                }
+                $researchCharacter['skills'] = $skills;
             }
             return collect($researchCharacters);
         });

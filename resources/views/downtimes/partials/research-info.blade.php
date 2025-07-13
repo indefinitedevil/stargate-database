@@ -28,9 +28,9 @@
                             @php $researchCharacters = $researchProject->researchCharacters($downtime->id); @endphp
                             @if ($researchCharacters->count() > 0)
                                 <ul class="list-inside list-disc ml-4">
-                                    @foreach($researchCharacters as $researchAction)
+                                    @foreach($researchCharacters as $researchCharacter)
                                         <li>
-                                            {{ __('Researching: :researcher (:months months)', ['researcher' => $researchAction['character']->listName, 'months' => count($researchAction['actions'])]) }}
+                                            {{ __('Researching: :researcher (:skills)', ['researcher' => $researchCharacter['character']->listName, 'skills' => $researchCharacter['skills']]) }}
                                         </li>
                                     @endforeach
                                 </ul>
