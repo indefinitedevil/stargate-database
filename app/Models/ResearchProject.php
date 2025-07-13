@@ -165,6 +165,7 @@ class ResearchProject extends Model
                         'character' => $character,
                         'actions' => [],
                         'pending_actions' => [],
+                        'skills' => [],
                     ];
                 }
                 if ($researchAction->downtime->isOpen()) {
@@ -172,6 +173,9 @@ class ResearchProject extends Model
                 } else {
                     $researchers[$character->id]['actions'][] = $researchAction;
                 }
+                $researchers[$character->id]['skills'][] = $researchAction->characterSkill->skill->name;
+                $researchers[$character->id]['skills'] = array_unique($researchers[$character->id]['skills']);
+                sort($researchers[$character->id]['skills']);
             }
             return collect($researchers);
         });
