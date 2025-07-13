@@ -9,6 +9,14 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 13th July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Updated research project views for better clarity of skill spread.</li>
+                    <li>Show skill checks in downtime view for better clarity.</li>
+                    <li>Improve formatting.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 12th July 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: make character archetype editable after approval.</li>
