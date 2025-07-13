@@ -137,7 +137,7 @@ class ResearchProject extends Model
                 }
                 $researchCharacters[$researchAction->character_id]['actions'][] = $researchAction;
                 if (!empty($researchAction->characterSkill)) {
-                    $researchCharacters[$researchAction->character_id]['skills'][$researchAction->characterSkill->skill->name] = $researchAction;
+                    $researchCharacters[$researchAction->character_id]['skills'][$researchAction->characterSkill->skill->name][] = $researchAction;
                 }
             }
             foreach ($researchCharacters as &$researchCharacter) {
