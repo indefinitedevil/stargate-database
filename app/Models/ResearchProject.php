@@ -140,15 +140,11 @@ class ResearchProject extends Model
                     $researchCharacters[$researchAction->character_id]['skills'][$researchAction->characterSkill->skill->name][] = $researchAction;
                 }
             }
-            foreach ($researchCharacters as &$researchCharacter) {
-                $skills = '';
-                foreach ($researchCharacter['skills'] as $skill => $actions) {
-                    if (!empty($skills)) {
-                        $skills .= ', ';
-                    }
-                    $skills .= trans_choice(':count month :skill|:count months :skill', count($actions), ['count' => count($actions), 'skill' => $skill]);
-                }
-                $researchCharacter['skills'] = $skills;
+            foreach ($researchCharacters as $characterId => $researchCharacter) {
+                $skillStrings = array_map(function ($actions, $skill) {
+                    return trans_choice(':count month :skill|:count months :skill', count($actions), ['count' => count($actions), 'skill' => $skill]);
+                }, $researchCharacter['skills'], array_keys($researchCharacter['skills']));
+                $researchCharacters[$characterId]['skills'] = implode(', ', $skillStrings);
             }
             return collect($researchCharacters);
         });
@@ -234,7 +230,7 @@ class ResearchProject extends Model
     public function specialtyCheck($specialtyId): bool
     {
         foreach ($this->researchActions as $researchAction) {
-            if (!empty($researchAction->character_skill_id)  && $researchAction->characterSkill->allSpecialties->where('id', $specialtyId)->count() > 0) {
+            if (!empty($researchAction->character_skill_id) && $researchAction->characterSkill->allSpecialties->where('id', $specialtyId)->count() > 0) {
                 return true;
             }
         }

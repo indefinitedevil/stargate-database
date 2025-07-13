@@ -122,8 +122,9 @@
                                         'pending' => count($researcher['pending_actions']) ? __(', :months  pending', ['months' => count($researcher['pending_actions'])]) : ''
                                     ]) }}
                                     @if (count($researcher['skills']))
-                                        <br>
-                                            <span class="pl-4">{{ __('[:skills]', ['skills' => implode(', ', $researcher['skills'])]) }}</span>
+                                        <div class="pl-4">
+                                            [{{ __(':skills', ['skills' => implode(', ', $researcher['skills'])]) }}]
+                                        </div>
                                     @endif
                                 </li>
                             @endforeach
