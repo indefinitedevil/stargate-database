@@ -40,7 +40,7 @@
                 <strong>{{ __('Downtime') }}:</strong> {{ $downtime->name }}
                 ({{ format_datetime($downtime->start_time, 'd/m/Y H:i') }}
                 - {{ format_datetime($downtime->end_time, 'd/m/Y H:i') }})
-                - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
+                - {{ $downtime->getStatusLabel() }}
             </p>
         </div>
     </div>
@@ -97,6 +97,7 @@
                                     @break
                                 @case(ActionType::ACTION_RESEARCHING)
                                     <p>{!! __('<strong>Project:</strong> :project', ['project' => $action->researchProject->name]) !!}</p>
+                                    <p>{!! __('<strong>Skill:</strong> :skill', ['skill' => optional($action->characterSkill)->name]) !!}</p>
                                     @break
                             @endswitch
                             <p>{!! __('<strong>Notes:</strong> :notes', ['notes' => $action->notes]) !!}</p>
