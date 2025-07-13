@@ -74,8 +74,10 @@
                 </div>
                 <div>
                     <p class="text-lg">{{ __('Villains/NPCs') }}</p>
-                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', Character::VILLAIN), 'checkbox' => true, 'hideStatus' => true])
-                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', User::PLOT_CO_ID), 'checkbox' => true, 'hideStatus' => true])
+                    <div class="divide-y divide-gray-100">
+                        @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', Character::VILLAIN), 'checkbox' => true, 'hideStatus' => true])
+                        @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', User::PLOT_CO_ID), 'checkbox' => true, 'hideStatus' => true])
+                    </div>
                 </div>
             </div>
         </div>
