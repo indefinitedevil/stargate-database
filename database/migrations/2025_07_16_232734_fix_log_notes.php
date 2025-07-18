@@ -17,12 +17,8 @@ return new class extends Migration
             $table->string('plot_notes')->nullable()->change();
         });
 
-        DB::query('UPDATE character_logs
-            SET notes = NULL
-            WHERE notes = ""');
-        DB::query('UPDATE character_logs
-            SET plot_notes = NULL
-            WHERE plot_notes = ""');
+        DB::table('character_logs')->where('notes', '')->update(['notes' => null]);
+        DB::table('character_logs')->where('plot_notes', '')->update(['plot_notes' => null]);
     }
 
     /**
