@@ -102,13 +102,13 @@
 
                 <div class="col-span-3">
                     <x-input-label for="notes" :value="__('Notes (player-visible)')"/>
-                    <x-textarea id="notes" name="notes" class="mt-1 block w-full" required>{{ empty($editLog) ? '' : $editLog->notes }}</x-textarea>
+                    <x-textarea id="notes" name="notes" class="mt-1 block w-full" required maxlength="255">{{ empty($editLog) ? '' : $editLog->notes }}</x-textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('notes')"/>
                 </div>
 
                 <div class="col-span-3">
                     <x-input-label for="plot_notes" :value="__('Plot notes')"/>
-                    <x-textarea id="plot_notes" name="plot_notes" class="mt-1 block w-full">{{ empty($editLog) ? '' : $editLog->plot_notes }}</x-textarea>
+                    <x-textarea id="plot_notes" name="plot_notes" class="mt-1 block w-full" maxlength="255">{{ empty($editLog) ? '' : $editLog->plot_notes }}</x-textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('plot_notes')"/>
                 </div>
             </div>

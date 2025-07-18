@@ -736,8 +736,8 @@ class CharacterController extends Controller
             'temp_body_change' => 'integer',
             'vigor_change' => 'integer',
             'temp_vigor_change' => 'integer',
-            'notes' => 'string|nullable',
-            'plot_notes' => 'string|nullable',
+            'notes' => 'string|nullable|max:255',
+            'plot_notes' => 'string|nullable|max:255',
         ]);
 
         if (!empty($validatedData['character_id']) && $request->user()->cannot('edit', Character::find($validatedData['character_id']))) {
@@ -801,8 +801,8 @@ class CharacterController extends Controller
             'temp_body_change' => $validatedData['temp_body_change'] ?? 0,
             'vigor_change' => $validatedData['vigor_change'] ?? 0,
             'temp_vigor_change' => $validatedData['temp_vigor_change'] ?? 0,
-            'notes' => $validatedData['notes'] ?? '',
-            'plot_notes' => $validatedData['plot_notes'] ?? '',
+            'notes' => $validatedData['notes'] ?? NULL,
+            'plot_notes' => $validatedData['plot_notes'] ?? NULL,
             'skill_completed' => $validatedData['completed'],
         ]);
         $log->save();
