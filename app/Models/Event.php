@@ -71,4 +71,15 @@ class Event extends Model
     {
         return $this->hasOne(Downtime::class);
     }
+
+    public static function nextEvent(): ?Event
+    {
+        return self::where('start_date', '>=', date('Y-m-d H:i:s'))->orderBy('start_date', 'asc')->first();
+    }
+
+    public static function nextEventId(): int
+    {
+        $event = self::nextEvent();
+        return $event ? $event->id : 0;
+    }
 }

@@ -570,8 +570,14 @@ class Character extends Model
         return implode(', ', $teamNames);
     }
 
-    public function getEventTeam($eventId): string
+    public function getEventTeam($eventId = null): string
     {
+        if (empty($eventId)) {
+            $eventId = Event::nextEventId();
+            if (empty($eventId)) {
+                return '';
+            }
+        }
         $teamNames = [];
         foreach ($this->teams()->where('event_id', $eventId)->get() as $team) {
             $teamNames[] = $this->getTeamName($team);
