@@ -169,6 +169,7 @@ class CharacterSkill extends Model
             $leadershipCount = 1 + $this->character->skills()
                     ->where('skill_id', Skill::LEADERSHIP_EXTRA_PERSON)
                     ->where('completed', true)
+                    ->where('removed', false)
                     ->count();
             return trans_choice(':name (:count person)|:name (:count people)', $leadershipCount, ['name' => $name, 'count' => $leadershipCount]);
         }
