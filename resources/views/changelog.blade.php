@@ -12,6 +12,9 @@
                 <h3 class="text-lg font-semibold">Update: 20th July 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Removed seeder references from migrations. Seeders should be run on-demand to avoid clashes with migrations.</li>
+                    <li>Added note about where to add specialties to the add skills form.</li>
+                    <li>Fixed Leadership skill to properly count the number of people you can affect.</li>
+                    <li>Fixed a repeating skill description in the edit skills form.</li>
                 </ul>
             </div>
             <div>
