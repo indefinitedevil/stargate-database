@@ -41,6 +41,11 @@
                             @include('characters.partials.available-skills')
                         </x-select>
                     @endif
+                    @if (!empty($editSkill))
+                        <p class="text-xs">
+                            {{ __('If the selected skill has specialties, you will need to edit the skill after saving in order to choose your specialties.') }}
+                        </p>
+                    @endif
                 </div>
 
                 @if (!empty($editSkill) && $editSkill->skill->specialties > 0)
@@ -130,17 +135,17 @@
                             <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                 @foreach ($skill->feats as $feat)
                                     <li>
-                                        <span class="underline decoration-dashed underline-offset-4"
-                                              onclick="toggleVisibility('feat-{{$skill->id}}-{{ $feat->id }}')">
-                                        {{ $feat->name }}
-                                        <i class="fa-regular fa-circle-question"
-                                           title="{{ $feat->description }}"
-                                        ></i>
-                                        </span>
+                    <span class="underline decoration-dashed underline-offset-4"
+                          onclick="toggleVisibility('feat-{{$skill->id}}-{{ $feat->id }}')">
+                    {{ $feat->name }}
+                    <i class="fa-regular fa-circle-question"
+                       title="{{ $feat->description }}"
+                    ></i>
+                    </span>
                                         <span id="feat-{{$skill->id}}-{{ $feat->id }}"
                                               class="text-sm hidden pl-4">
-                                            {!! process_markdown($feat->description) !!}
-                                        </span>
+                        {!! process_markdown($feat->description) !!}
+                    </span>
                                     </li>
                                 @endforeach
                             </ul>
