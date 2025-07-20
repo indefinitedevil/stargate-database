@@ -12,6 +12,7 @@
                 <h3 class="text-lg font-semibold">Bugfix: 20th July 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed issue where two teachers could not benefit from each other's courses.</li>
+                    <li>Limited downtime actions notes and responses to 2000 characters.</li>
                 </ul>
             </div>
             <div>
