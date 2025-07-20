@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\LogType;
-use Database\Seeders\SkillSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -24,8 +22,6 @@ return new class extends Migration
         Schema::table('skills', function (Blueprint $table) {
             $table->tinyInteger('repeatable')->change()->unsigned();
         });
-        $seeder = new SkillSeeder();
-        $seeder->run();
     }
 
     /**

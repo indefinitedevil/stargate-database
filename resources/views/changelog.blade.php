@@ -9,6 +9,12 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 20th July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Removed seeder references from migrations. Seeders should be run on-demand to avoid clashes with migrations.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 20th July 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed issue where two teachers could not benefit from each other's courses.</li>

@@ -1,6 +1,5 @@
 <?php
 
-use Database\Seeders\ActionTypeSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -24,9 +23,6 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
         });
-
-        $seeder = new ActionTypeSeeder();
-        $seeder->run();
 
         Schema::create('downtime_missions', function (Blueprint $table) {
             $table->id();

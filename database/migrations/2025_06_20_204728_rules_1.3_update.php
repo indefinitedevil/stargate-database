@@ -1,7 +1,5 @@
 <?php
 
-use Database\Seeders\FeatSeeder;
-use Database\Seeders\SkillSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
@@ -19,14 +17,6 @@ return new class extends Migration {
             $table->tinyInteger('per_day')->default(0)->after('per_event');
             $table->string('cost', 16)->default('')->after('per_day');
         });
-
-        // Add skill adjustments
-        $seeder = new SkillSeeder();
-        $seeder->run();
-
-        // Add feat adjustments
-        $seeder = new FeatSeeder();
-        $seeder->run();
     }
 
     /**

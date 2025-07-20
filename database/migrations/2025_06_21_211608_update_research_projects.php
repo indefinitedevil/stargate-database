@@ -1,8 +1,6 @@
 <?php
 
 use App\Models\ResearchProject;
-use Database\Seeders\ActionTypeSeeder;
-use Database\Seeders\RoleSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -36,12 +34,6 @@ return new class extends Migration {
         Schema::table('downtimes', function (Blueprint $table) {
             $table->tinyInteger('experiment_actions')->default(1)->after('research_actions');
         });
-
-        $seeder = new ActionTypeSeeder();
-        $seeder->run();
-
-        $seeder = new RoleSeeder();
-        $seeder->run();
     }
 
     /**
