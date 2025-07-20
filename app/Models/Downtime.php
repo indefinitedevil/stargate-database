@@ -285,7 +285,9 @@ class Downtime extends Model
                 $skill = Skill::find($skillId);
                 $skills[$skillId] = $skill;
             }
+            $teachers = [];
             foreach ($characters as $characterId => $action) {
+                $teachers[$characterId] = $characterId;
                 $skillChanges[$skillId][] = [
                     'character_id' => $characterId,
                     'character_skill_id' => $action->character_skill_id,
@@ -301,7 +303,7 @@ class Downtime extends Model
             if (!empty($skillChanges[$skillId])) {
                 $trainedCharacters = [];
                 foreach ($skillChanges[$skillId] as &$skillChange) {
-                    if ($skillChange['amount_trained'] > 0 && $skillChange['character_id'] != $characterId) {
+                    if ($skillChange['amount_trained'] > 0 && (!in_array($skillChange['character_id'], $teachers) || count($teachers) > 1)) {
                         $skillChange['teacher_id'] = $characterId;
                         $trainedCharacters[] = $skillChange['character_id'];
                         $skillChange['amount_trained']++;

@@ -61,7 +61,7 @@
                                     @endphp
                                     <li>
                                         {{ trans_choice('Trained by :name (:months month)|Trained by :name (:months months)', count($actions), ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
-                                        @if (!in_array($characterId, $teacherIds))
+                                        @if (!in_array($characterId, $teacherIds) || count($teacherIds) > 1)
                                             ({{ __('+1 month from course') }})
                                         @endif
                                     </li>
