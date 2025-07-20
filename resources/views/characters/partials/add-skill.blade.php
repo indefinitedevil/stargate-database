@@ -30,7 +30,7 @@
                                   onchange="showSkillDescription(this.value)">
                             @if (!empty($editSkill))
                                 @php
-                                    $skills[] = $editSkill->skill;
+                                    $skills[$editSkill->skill_id] = $editSkill->skill;
                                 @endphp
                                 <option value="{{ $editSkill->skill_id }}" selected="selected">
                                     {{ __(':name (:cost months)', ['name' => $editSkill->name, 'cost' => $editSkill->cost]) }}

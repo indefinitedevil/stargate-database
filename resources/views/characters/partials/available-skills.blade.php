@@ -10,7 +10,7 @@
         {!! '<optgroup label="' . __(':name Skills', ['name' => $skill->skillCategory->name]) . '">' !!}
     @endif
     @php
-        $skills[] = $skill;
+        $skills[$skill->id] = $skill;
         if ($skill->repeatable) {
             $count = $character->skills->where('skill_id', $skill->id)->count();
             if ($count >= $skill->repeatable) {
