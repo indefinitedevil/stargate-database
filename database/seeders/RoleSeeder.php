@@ -52,6 +52,7 @@ class RoleSeeder extends Seeder
         $addResearchProjects = Permission::findOrCreate('add research projects');
         $editResearchProjects = Permission::findOrCreate('edit research projects');
         $deleteResearchProjects = Permission::findOrCreate('delete research projects');
+        $approveResearchProjects = Permission::findOrCreate('approve research projects');
         $viewSkillBreakdown = Permission::findOrCreate('view skill breakdown');
         $editDowntimes = Permission::findOrCreate('edit downtimes');
         $accessExecutiveMenu = Permission::findOrCreate('access executive menu');
@@ -63,7 +64,6 @@ class RoleSeeder extends Seeder
         $systemReferee = Role::findOrCreate('system referee');
         $secretary = Role::findOrCreate('secretary');
         $researcher = Role::findOrCreate('researcher');
-        $eventRunner = Role::findOrCreate('event runner');
         $player = Role::findOrCreate('player');
 
         $admin->syncPermissions([
@@ -93,6 +93,7 @@ class RoleSeeder extends Seeder
             $addResearchProjects,
             $editResearchProjects,
             $deleteResearchProjects,
+            $approveResearchProjects,
             $viewSkillBreakdown,
             $editDowntimes,
             $accessExecutiveMenu,
@@ -123,11 +124,7 @@ class RoleSeeder extends Seeder
 
         $researcher->syncPermissions([
             $addResearchProjects,
-        ]);
-
-        $eventRunner->syncPermissions([
-            $viewSkillBreakdown,
-            $accessExecutiveMenu,
+            $editResearchProjects,
         ]);
 
         $player->syncPermissions([

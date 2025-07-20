@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Listeners\RollTraits;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,15 +24,16 @@ use Illuminate\Support\Str;
  * @property int background_id
  * @property int status_id
  * @property Background background
- * @property Collection skills
- * @property Collection trainedSkills
- * @property Collection displayedSkills
- * @property Collection displayedTrainedSkills
- * @property Collection hiddenTrainedSkills
- * @property Collection trainingSkills
- * @property Collection upkeepSkills
- * @property Collection requiredUpkeepSkills
- * @property Collection logs
+ * @property CharacterSkill[]|Collection skills
+ * @property CharacterSkill[]|Collection trainedSkills
+ * @property CharacterSkill[]|Collection trainedSkillsWithoutSystem
+ * @property CharacterSkill[]|Collection displayedSkills
+ * @property CharacterSkill[]|Collection displayedTrainedSkills
+ * @property CharacterSkill[]|Collection hiddenTrainedSkills
+ * @property CharacterSkill[]|Collection trainingSkills
+ * @property CharacterSkill[]|Collection upkeepSkills
+ * @property CharacterSkill[]|Collection requiredUpkeepSkills
+ * @property CharacterLog[]|Collection logs
  * @property Status status
  * @property Feat[] feats
  * @property User player
@@ -54,7 +56,9 @@ use Illuminate\Support\Str;
  * @property Event[] events
  * @property int hero_scoundrel
  * @property string type
- * @property Collection downtimeActions
+ * @property DowntimeAction[]|Collection downtimeActions
+ * @property CharacterTrait[]|Collection characterTraits
+ * @property string traits_indicator
  */
 class Character extends Model
 {
@@ -63,6 +67,7 @@ class Character extends Model
     const UNKNOWN = 0;
     const HERO = 1;
     const SCOUNDREL = 2;
+    const VILLAIN = 3;
 
     protected $fillable = [
         'user_id',
@@ -210,14 +215,7 @@ class Character extends Model
 
     public function requiredUpkeepSkills(): Collection
     {
-        $upkeepSkills = $this->upkeepSkills;
-        $requiredUpkeepSkills = [];
-        foreach ($upkeepSkills as $upkeepSkill) {
-            if (1 < $upkeepSkill->level) {
-                $requiredUpkeepSkills[$upkeepSkill->skill_id] = $upkeepSkill;
-            }
-        }
-        return collect($requiredUpkeepSkills);
+        return $this->upkeepSkills;
     }
 
     public function getRequiredUpkeepSkillsAttribute(): Collection
@@ -231,6 +229,12 @@ class Character extends Model
             ->where('skills.display', true);
     }
 
+    public function trainedSkillsWithoutSystem(): HasMany
+    {
+        return $this->trainedSkills()
+            ->where('skill_category_id', '!=', SkillCategory::SYSTEM);
+    }
+
     public function hiddenTrainedSkills(): HasMany
     {
         return $this->trainedSkills()->where('skills.display', false);
@@ -238,7 +242,8 @@ class Character extends Model
 
     public function trainingSkills(): HasMany
     {
-        return $this->skills()->where('completed', false);
+        return $this->skills()->where('completed', false)
+            ->where('skill_category_id', '!=', SkillCategory::SYSTEM);
     }
 
     public function status(): BelongsTo
@@ -332,6 +337,7 @@ class Character extends Model
                 foreach ($skillCards as $skillCard) {
                     if (!isset($unsortedCards[$skillCard->id][$skillCard->pivot->total])) {
                         $card = new \stdClass;
+                        $card->id = $skillCard->id;
                         $card->name = $skillCard->name;
                         $card->number = $skillCard->pivot->number;
                         $unsortedCards[$skillCard->id][$skillCard->pivot->total] = $card;
@@ -384,6 +390,8 @@ class Character extends Model
             return __('Hero');
         } elseif ($this->hero_scoundrel === self::SCOUNDREL) {
             return __('Scoundrel');
+        } elseif ($this->hero_scoundrel === self::VILLAIN) {
+            return __('Villain');
         } else {
             return __('Unknown');
         }
@@ -409,7 +417,9 @@ class Character extends Model
         $this->status_id = Status::NEW;
         $this->save();
 
-        $logs = CharacterLog::where('character_id', $this->id)->get();
+        $logs = CharacterLog::where('character_id', $this->id)
+            ->where('log_type_id', LogType::CHARACTER_CREATION)
+            ->get();
         foreach ($logs as $log) {
             $log->delete();
         }
@@ -427,17 +437,69 @@ class Character extends Model
     public function getViewRoute(): string
     {
         $name = $this->short_name ?: $this->name;
-        return route('characters.view-pretty', ['characterId' => $this, 'characterName' => Str::slug($name)]);
+        return route('characters.view', ['characterId' => $this, 'characterName' => Str::slug($name)]);
     }
 
     public function getLogsRoute(): string
     {
         $name = $this->short_name ?: $this->name;
-        return route('characters.logs-pretty', ['characterId' => $this, 'characterName' => Str::slug($name)]);
+        return route('characters.logs', ['characterId' => $this, 'characterName' => Str::slug($name)]);
     }
 
     public function getListNameAttribute(): string
     {
         return $this->short_name ?: $this->name;
+    }
+
+    public function characterTraits(): BelongsToMany
+    {
+        return $this->belongsToMany(CharacterTrait::class)
+            ->withPivot('status');
+    }
+
+    public function getTraitsIndicatorAttribute(): string
+    {
+        if ($this->status_id < Status::APPROVED) {
+            return __('N/A');
+        }
+        RollTraits::roll($this);
+        $indicators = json_decode($this->attributes['traits_indicator']);
+        if (empty($indicators) || count($indicators) < CharacterTrait::indicatorCount()) {
+            $this->resetIndicators();
+        }
+        $return = '';
+        foreach (json_decode($this->attributes['traits_indicator']) as $indicator) {
+            $return .= '<i class="fa-solid ' . e($indicator) . '"></i> ';
+        }
+        return $return;
+    }
+
+    public function resetIndicators(): bool
+    {
+        $indicators = [];
+        foreach ($this->characterTraits()->get() as $characterTrait) {
+            if ($characterTrait->pivot->status) {
+                $indicators[] = $characterTrait->icon;
+            }
+        }
+        $keys = array_rand(CharacterTrait::TRAIT_MASKS, CharacterTrait::indicatorCount() - count($indicators));
+        foreach ($keys as $key) {
+            $indicators[] = CharacterTrait::TRAIT_MASKS[$key];
+        }
+        shuffle($indicators);
+        $this->attributes['traits_indicator'] = json_encode($indicators);
+        return $this->saveQuietly();
+    }
+
+    public function abilities(): array
+    {
+        return once(function () {
+            $abilities = [];
+            foreach ($this->trainedSkills as $characterSkill) {
+                $abilities = array_merge($abilities, $characterSkill->skill->abilities());
+            }
+            sort($abilities);
+            return array_unique($abilities);
+        });
     }
 }

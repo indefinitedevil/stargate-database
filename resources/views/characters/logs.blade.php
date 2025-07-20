@@ -23,7 +23,7 @@
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <div class="grid grid-cols-1 sm:grid-cols-4 clear-both gap-6">
-            @foreach ($character->logs as $log)
+            @foreach ($logs as $log)
                 <div>
                     @can ('edit all characters')
                         <a href="{{ route('characters.edit-log', ['characterId' => $character, 'logId' => $log]) }}#add-log"
@@ -51,9 +51,17 @@
                         <p>{{ __('Temp Vigor: :amount', ['amount' => add_positive_modifier($log->temp_vigor_change)]) }}</p>
                     @endif
                     <p>{{ __('Notes: :notes', ['notes' => $log->notes]) }}</p>
+                    @can('view hidden notes')
+                        <p>{{ __('Plot notes: :notes', ['notes' => $log->plot_notes]) }}</p>
+                    @endcan
                 </div>
             @endforeach
         </div>
     </div>
+
+    <div class="mt-6">
+        {{ $logs->links() }}
+    </div>
+
     @include('characters.partials.add-log')
 </x-app-layout>

@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Support\Collection;
 
 /**
  * @property int id
@@ -44,6 +45,11 @@ class Skill extends Model
     const LEADERSHIP = 35;
     const LEADERSHIP_EXTRA_PERSON = 45;
 
+    const GENETICS = 13;
+    const PATHOLOGY = 17;
+    const MATHEMATICS = 21;
+
+    const PLOT_CHANGE = 90;
     const SYSTEM_CHANGE = 94;
 
     public function cards(): BelongsToMany
@@ -70,6 +76,11 @@ class Skill extends Model
     public function specialtyType(): BelongsTo
     {
         return $this->belongsTo(SpecialtyType::class);
+    }
+
+    public function skillSpecialties(): HasManyThrough
+    {
+        return $this->hasManyThrough(SkillSpecialty::class, SpecialtyType::class, 'id', 'specialty_type_id', 'specialty_type_id', 'id');
     }
 
     public function getSpecialtyListAttribute(): Collection
@@ -166,5 +177,14 @@ class Skill extends Model
     public function superSkills()
     {
         return $this->hasManyThrough(Skill::class, SkillTraining::class, 'trained_skill_id', 'id', 'id', 'taught_skill_id');
+    }
+
+    public function abilities(): array
+    {
+        if (!empty($this->abilities)) {
+            $abilities = explode(',', $this->abilities);
+            return array_map('trim', $abilities);
+        }
+        return [];
     }
 }

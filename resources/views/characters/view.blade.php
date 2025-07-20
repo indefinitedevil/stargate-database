@@ -20,13 +20,13 @@
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         @can('edit', $character)
-            <a href="{{ route('characters.edit-skills', ['characterId' => $character->id]) }}"
-               class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
-            >
+            <x-link-button href="{{ route('characters.edit-skills', ['characterId' => $character->id]) }}"
+                           class="float-right">
                 <i class="fa-solid fa-pen-to-square"></i>
+                &nbsp;
                 <span class="sm:hidden"> {{ __('Edit Skills') }}</span>
                 <span class="hidden sm:inline">{{ __('Skills') }}</span>
-            </a>
+            </x-link-button>
         @endcan
         <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
             {{ __('Skills') }}
@@ -134,6 +134,32 @@
 
     @include('characters.partials.feats-cards')
 
+    @if (!empty($character->abilities()))
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+            <div class="">
+                <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
+                    {{ __('Abilities') }}
+                </h2>
+                <div class="mt-1">
+                    <ul class="sm:grid sm:grid-cols-4 gap-x-6 mt-1 gap-y-6 sm:gap-y-2">
+                        @foreach ($character->abilities() as $ability)
+                            <li>{{ $ability }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if (!empty($character->other_abilities))
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+            <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
+                {{ __('Other abilities') }}
+            </h2>
+            <div class="mt-1 space-y-6">{!! process_markdown($character->other_abilities) !!}</div>
+        </div>
+    @endif
+
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
             {{ __('History') }}
@@ -148,22 +174,16 @@
         <div class="mt-1 space-y-6">{!! process_markdown($character->character_links) !!}</div>
     </div>
 
-    @can('view hidden notes')
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
-            <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
-                {{ __('Plot notes') }}
-            </h2>
-            <div class="mt-1 space-y-6">{!! process_markdown($character->plot_notes) !!}</div>
-        </div>
-        @if (!empty($character->other_abilities))
+    @if (empty(request()->input('as_player')))
+        @can('view hidden notes')
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
                 <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
-                    {{ __('Other abilities') }}
+                    {{ __('Plot notes') }}
                 </h2>
-                <div class="mt-1 space-y-6">{!! process_markdown($character->other_abilities) !!}</div>
+                <div class="mt-1 space-y-6">{!! process_markdown($character->plot_notes) !!}</div>
             </div>
-        @endif
-    @endcan
-    @include('characters.partials.add-log')
+        @endcan
+        @include('characters.partials.add-log')
+    @endif
     <script src="{{ asset('js/characters.js') }}" defer></script>
 </x-app-layout>

@@ -63,8 +63,12 @@
                 <li class="pl-4">
                     If a desired skill has a prerequisite, you must add the prerequisite first.
                 </li>
+                <li class="pl-4">
+                    Basic skills sometimes provide benefits beyond the discounted cost.
+                    Check to see if you can gain an extra benefit by taking a Basic skill first.
+                </li>
                 <li>
-                    You have {{ 36 + CharacterHelper::getLowestTrainedMonths() }} months to spend on skills and all of
+                    You have <span class="underline decoration-dashed underline-offset-4" title="base 36 + {{ CharacterHelper::getCatchupXP() }} catchup">{{ 36 + CharacterHelper::getCatchupXP() }} months</span> to spend on skills and all of
                     them must be used.
                     A running count of how many you have used will be shown under your trained skills.
                 </li>

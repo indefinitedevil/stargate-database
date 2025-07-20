@@ -4,8 +4,7 @@
 <div class="float-right mb-6">
     <x-dropdown align="right" contentClasses="py-1 mt-2 bg-white dark:bg-gray-700 divide-y divide-gray-100">
         <x-slot name="trigger">
-            <button type="button"
-                    class="inline-flex items-center p-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-1">
+            <x-primary-button type="button">
                 {{ __('Actions') }}
 
                 <span class="ms-1 -mr-1">
@@ -16,7 +15,7 @@
                               clip-rule="evenodd"/>
                     </svg>
                 </span>
-            </button>
+            </x-primary-button>
         </x-slot>
 
         <x-slot name="content">
@@ -48,7 +47,7 @@
                         </x-dropdown-link>
                     @endif
                 @endcan
-                @if(!request()->routeIs('characters.view') && !request()->routeIs('characters.view-pretty'))
+                @if(!request()->routeIs('characters.view'))
                     <x-dropdown-link :href="$character->getViewRoute()"
                                      title="{{ __('View') }}"
                     >
@@ -74,7 +73,7 @@
                         </x-dropdown-link>
                     @endif
                 @endcan
-                @if(!request()->routeIs('characters.logs') && !request()->routeIs('characters.logs-pretty') && $character->status_id > Status::READY)
+                @if(!request()->routeIs('characters.logs') && $character->status_id > Status::READY)
                     <x-dropdown-link :href="$character->getLogsRoute()"
                                      title="{{ __('Character Logs') }}"
                     >
@@ -123,35 +122,37 @@
                 @endcan
             </div>
             @can('edit all characters')
-                <div>
-                    @can('played', $character)
-                        <x-dropdown-link :href="route('characters.played', ['characterId' => $character->id])"
-                                         onclick="return confirm('{{ __('Are you sure you want to mark this character as played?') }}');"
-                                         title="{{ __('Played') }}"
-                        >
-                            <i class="fa-solid fa-play min-w-8"></i>
-                            {{ __('Played') }}
-                        </x-dropdown-link>
-                    @endcan
-                    @can('resuscitate', $character)
-                        <x-dropdown-link :href="route('characters.resuscitate', ['characterId' => $character->id])"
-                                         onclick="return confirm('{{ __('Are you sure you want to resuscitate this character?') }}');"
-                                         title="{{ __('Resuscitate') }}"
-                        >
-                            <i class="fa-solid fa-kit-medical min-w-8"></i>
-                            {{ __('Resuscitate') }}
-                        </x-dropdown-link>
-                    @endcan
-                    @can('inactive', $character)
-                        <x-dropdown-link :href="route('characters.inactive', ['characterId' => $character->id])"
-                                         onclick="return confirm('{{ __('Are you sure you want to mark this character as inactive?') }}');"
-                                         title="{{ __('Inactive') }}"
-                        >
-                            <i class="fa-solid fa-power-off min-w-8"></i>
-                            {{ __('Inactive') }}
-                        </x-dropdown-link>
-                    @endcan
-                </div>
+                @if (Status::APPROVED <= $character->status_id)
+                    <div>
+                        @can('played', $character)
+                            <x-dropdown-link :href="route('characters.played', ['characterId' => $character->id])"
+                                             onclick="return confirm('{{ __('Are you sure you want to mark this character as played?') }}');"
+                                             title="{{ __('Played') }}"
+                            >
+                                <i class="fa-solid fa-play min-w-8"></i>
+                                {{ __('Played') }}
+                            </x-dropdown-link>
+                        @endcan
+                        @can('resuscitate', $character)
+                            <x-dropdown-link :href="route('characters.resuscitate', ['characterId' => $character->id])"
+                                             onclick="return confirm('{{ __('Are you sure you want to resuscitate this character?') }}');"
+                                             title="{{ __('Resuscitate') }}"
+                            >
+                                <i class="fa-solid fa-kit-medical min-w-8"></i>
+                                {{ __('Resuscitate') }}
+                            </x-dropdown-link>
+                        @endcan
+                        @can('inactive', $character)
+                            <x-dropdown-link :href="route('characters.inactive', ['characterId' => $character->id])"
+                                             onclick="return confirm('{{ __('Are you sure you want to mark this character as inactive?') }}');"
+                                             title="{{ __('Inactive') }}"
+                            >
+                                <i class="fa-solid fa-power-off min-w-8"></i>
+                                {{ __('Inactive') }}
+                            </x-dropdown-link>
+                        @endcan
+                    </div>
+                @endif
             @endcan
         </x-slot>
     </x-dropdown>

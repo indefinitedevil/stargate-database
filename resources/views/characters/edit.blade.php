@@ -1,6 +1,7 @@
 @php
     use App\Models\Background;
     use App\Models\Character;
+    use App\Models\CharacterTrait;
     use App\Models\Status;
     use App\Models\User;
     $title = empty($character) ? __('Create character') : sprintf(__('Edit character: %s'), $character->name);
@@ -97,18 +98,50 @@
                         <x-radio-input id="hero" name="hero_scoundrel" class=""
                                        value="{{ Character::HERO }}"
                                        :checked="old('hero_scoundrel', $character->hero_scoundrel ?? 0) === Character::HERO"
-                                       :disabled="!empty($character) && Status::READY < $character->status_id"/>
+                                       :disabled="!empty($character) && Status::READY < $character->status_id && auth()->user()->cannot('edit all characters')"/>
                         {{ __('Hero') }}
                     </x-input-label>
                     <x-input-label for="scoundrel" class="text-lg">
                         <x-radio-input id="scoundrel" name="hero_scoundrel" class=""
                                        value="{{ Character::SCOUNDREL }}"
                                        :checked="old('hero_scoundrel', $character->hero_scoundrel ?? 0) === Character::SCOUNDREL"
-                                       :disabled="!empty($character) && Status::READY < $character->status_id"/>
+                                       :disabled="!empty($character) && Status::READY < $character->status_id && auth()->user()->cannot('edit all characters')"/>
                         {{ __('Scoundrel') }}
                     </x-input-label>
+                    @can ('edit all characters')
+                        <x-input-label for="villain" class="text-lg">
+                            <x-radio-input id="villain" name="hero_scoundrel" class=""
+                                           value="{{ Character::VILLAIN }}"
+                                           :checked="old('hero_scoundrel', $character->hero_scoundrel ?? 0) === Character::VILLAIN"/>
+                            {{ __('Villain') }}
+                        </x-input-label>
+                    @endcan
                     <x-input-error class="mt-2" :messages="$errors->get('hero_scoundrel')"/>
                 </div>
+                @can ('edit all characters')
+                    <div>
+                        <p class="text-xl">{{ __('Traits') }}</p>
+                        <div class="flex gap-4">
+                            @foreach (CharacterTrait::all() as $trait)
+                                @php
+                                    $traitStatus = false;
+                                    if (!empty($character)) {
+                                        $characterTrait = $character->characterTraits->where('id', $trait->id)->first();
+                                        $traitStatus = (bool) ($characterTrait ? $characterTrait->pivot->status : false);
+                                    }
+                                @endphp
+                                <x-input-label for="trait-{{ $trait->id }}" class="text-lg">
+                                    <x-checkbox-input id="trait-{{ $trait->id }}"
+                                                      name="traits[{{ $trait->id }}][status]"
+                                                      value="1"
+                                                      :checked="$traitStatus"
+                                                      :disabled="!empty($character) && Status::READY > $character->status_id"/>
+                                    <i class="fa-solid {{ $trait->icon }}"></i> {{ $trait->name }}
+                                </x-input-label>
+                            @endforeach
+                        </div>
+                    </div>
+                @endcan
 
                 <div>
                     <x-input-label for="background" :value="__('Background')"/>
@@ -151,39 +184,43 @@
 
                 <div>
                     <x-input-label for="history" :value="__('History')"/>
+                    <x-textarea id="history" name="history" rows="12"
+                                class="mt-1 block w-full">{{ $character->history ?? '' }}</x-textarea>
                     <p class="text-xs">
                         {{ __('This remains editable after character creation.') }}
                     </p>
                     <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
-                    <x-textarea id="history" name="history" rows="12"
-                                class="mt-1 block w-full">{{ $character->history ?? '' }}</x-textarea>
+                    <x-input-error class="mt-2" :messages="$errors->get('history')"/>
                 </div>
 
                 <div>
                     <x-input-label for="character_links" :value="__('Pre-Existing Character Links')"/>
+                    <x-textarea id="character_links" name="character_links" rows="6"
+                                class="mt-1 block w-full">{{ $character->character_links ?? '' }}</x-textarea>
                     <p class="text-xs">
                         {{ __('If you have established background links with other player characters, please note them here separately.') }}
                     </p>
                     <p class="text-xs">
                         {{ __('This remains editable after character creation.') }}
                     </p>
-                    <x-textarea id="character_links" name="character_links" rows="6"
-                                class="mt-1 block w-full">{{ $character->character_links ?? '' }}</x-textarea>
+                    <x-input-error class="mt-2" :messages="$errors->get('character_links')"/>
                 </div>
 
                 @can('edit all characters')
                     <div>
                         <x-input-label for="plot_notes" :value="__('Plot Notes')"/>
-                        <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                         <x-textarea id="plot_notes" name="plot_notes" rows="12"
                                     class="mt-1 block w-full">{{ $character->plot_notes ?? '' }}</x-textarea>
+                        <x-input-error class="mt-2" :messages="$errors->get('plot_notes')"/>
+                        <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                     </div>
 
                     <div>
                         <x-input-label for="other_abilities" :value="__('Other Abilities')"/>
-                        <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                         <x-textarea id="other_abilities" name="other_abilities" rows="12"
                                     class="mt-1 block w-full">{{ $character->other_abilities ?? '' }}</x-textarea>
+                        <x-input-error class="mt-2" :messages="$errors->get('other_abilities')"/>
+                        <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                     </div>
                 @endcan
 

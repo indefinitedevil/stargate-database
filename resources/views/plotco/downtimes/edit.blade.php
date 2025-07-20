@@ -74,19 +74,34 @@
                     </div>
 
                     <div>
-                        <x-input-label for="other_actions" :value="__('Other Actions')"/>
+                        <x-input-label for="experiment_actions" :value="__('Research Subject Actions')"/>
+                        <x-text-input id="experiment_actions" name="experiment_actions" type="number"
+                                      class="mt-1 block w-full"
+                                      :value="old('experiment_actions', $downtime->experiment_actions ?? 1)"
+                                      required/>
+                        <x-input-error class="mt-2" :messages="$errors->get('experiment_actions')"/>
+                    </div>
+
+                    <div>
+                        <x-input-label for="other_actions" :value="__('Personal Actions')"/>
                         <x-text-input id="other_actions" name="other_actions" type="number"
                                       class="mt-1 block w-full"
                                       :value="old('other_actions', $downtime->other_actions ?? 1)" required/>
                         <x-input-error class="mt-2" :messages="$errors->get('other_actions')"/>
-                        <p class="text-sm">{{ __('How many boxes players get for "other things to tell the plot co".') }}</p>
                     </div>
 
-                    <div class="col-span-3"></div>
-
-                    <div class="flex items-center gap-4">
-                        <x-primary-button>{{ __('Save') }}</x-primary-button>
+                    <div class="col-span-3">
+                        <x-input-label for="response" :value="__('Response')"/>
+                        <x-textarea id="response" name="response" rows="6"
+                                    class="mt-1 block w-full">{{ $downtime->response ?? '' }}</x-textarea>
+                        <x-input-error class="mt-2" :messages="$errors->get('response')"/>
+                        <p class="text-xs mt-1">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                        <p class="text-xs mt-1">{{ __('This field is not visible to players until the downtime is processed.') }}</p>
                     </div>
+                </div>
+
+                <div class="flex items-center gap-4 mt-6">
+                    <x-primary-button>{{ __('Save') }}</x-primary-button>
                 </div>
             </form>
         </div>

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
  * @property Character teacher
  * @property int|null teacher_id
  * @property string notes
+ * @property string plot_notes
  * @property int downtime_id
  * @property int body_change
  * @property int vigor_change
@@ -46,6 +47,7 @@ class CharacterLog extends Model
         'locked',
         'teacher_id',
         'notes',
+        'plot_notes',
         'downtime_id',
         'body_change',
         'vigor_change',

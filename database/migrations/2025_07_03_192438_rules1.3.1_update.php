@@ -1,6 +1,6 @@
 <?php
 
-use Database\Seeders\RoleSeeder;
+use App\Models\Feat;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
@@ -10,8 +10,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $seeder = new RoleSeeder();
-        $seeder->run();
+        Feat::destroy(44);
     }
 
     /**

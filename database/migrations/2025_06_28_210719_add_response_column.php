@@ -1,6 +1,5 @@
 <?php
 
-use Database\Seeders\RoleSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $seeder = new RoleSeeder();
-        $seeder->run();
+        Schema::table('downtime_actions', function (Blueprint $table) {
+            $table->string('response')->nullable()->after('notes');
+        });
     }
 
     /**
@@ -21,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('downtime_actions', function (Blueprint $table) {
+            $table->dropColumn('response');
+        });
     }
 };

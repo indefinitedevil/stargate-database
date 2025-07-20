@@ -9,6 +9,140 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 20th July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Removed seeder references from migrations. Seeders should be run on-demand to avoid clashes with migrations.</li>
+                    <li>Added note about where to add specialties to the add skills form.</li>
+                    <li>Fixed Leadership skill to properly count the number of people you can affect.</li>
+                    <li>Fixed a repeating skill description in the edit skills form.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Bugfix: 20th July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Fixed issue where two teachers could not benefit from each other's courses.</li>
+                    <li>Limited downtime actions notes and responses to 2000 characters.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Bugfix: 16th July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Updated log tables.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Update: 13th July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Updated research project views for better clarity of skill spread.</li>
+                    <li>Show skill checks in downtime view for better clarity.</li>
+                    <li>Improve formatting.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Update: 12th July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: make character archetype editable after approval.</li>
+                    <li>Added skill selection to research actions.</li>
+                    <li>Hid System skills from list of skills for teaching/researching.</li>
+                    <li>Updated error appearance on downtime submissions.</li>
+                    <li>Updated notes placeholders.</li>
+                    <li>Use base skill name on training course list.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Bugfix: 11th July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: added view as player option.</li>
+                    <li>Fixed skill upkeep processing errors.</li>
+                    <li>Made research projects only available for <em>completed</em> skills.</li>
+                    <li>Changed view of project researchers.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Bugfix: 7th July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Fixed downtime processing errors.</li>
+                    <li>Refined downtime processed email.</li>
+                    <li>Fixed Coderabbit nitpicks.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Bugfix: 9th July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Added skill specialties to research projects.</li>
+                    <li>Made downtime open/closed language better for downtimes in the future.</li>
+                    <li>Fixed Coderabbit nitpicks.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Update: 4th July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Sys Ref: rules 1.3.1 update.</li>
+                    <li>Sys Ref: added abilities to skill check view.</li>
+                    <li>Added explanation to help text about catchup XP calculations.</li>
+                    <li>Added per-event trackers for feats.</li>
+                    <li>Added percentage time discount note for cards.</li>
+                    <li>Added list of abilities to character sheets.</li>
+                    <li>Removed unnecessary code.</li>
+                    <li>Changed reset code to allow for plot updates to remain after reset.</li>
+                    <li>Made changes as per suggestions from AI code review.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Update: 1st July 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: added editing and approval capacity for research projects.</li>
+                    <li>Plot Co: added facility for personal responses to downtimes.</li>
+                    <li>Plot Co: added character traits.</li>
+                    <li>Plot Co: added general response field to downtimes.</li>
+                    <li>Plot Co: track changes to character traits.</li>
+                    <li>Researcher: added editing capacity for research projects.</li>
+                    <li>Added research projects.</li>
+                    <li>Added research subject action.</li>
+                    <li>Added research projects to downtime submissions.</li>
+                    <li>Added research projects to downtime email.</li>
+                    <li>Added personal action responses to downtime email.</li>
+                    <li>Cleaned up code to combine view routes.</li>
+                    <li>Fixed bugs with database duplication.</li>
+                    <li>Cleaned up button displays.</li>
+                    <li>Paginated log displays.</li>
+                    <li>Made changes as per suggestions from AI code review.</li>
+                </ul>
+                <p class="text-sm">Tested by Kath, Debi, James, and others</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Bugfix: 29th June 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: allow for hidden log notes.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Update: 23rd June 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Admin: tidied manage roles screen.</li>
+                    <li>Secretary: updated attendance lists to show event roles.</li>
+                    <li>Plot Co: updated training/catchup XP display.</li>
+                    <li>Plot Co: fixed bug in viewing downtime actions.</li>
+                    <li>Sys Ref: updated catchup XP calculations to be based solely on downtime training, ignoring characters who have not submitted a downtime.</li>
+                    <li>Sys Ref: added catchup XP numbers to Skill Check screen.</li>
+                    <li>Sys Ref: rules 1.3 update.</li>
+                    <li>Event Runner: removed dedicated role.</li>
+                    <li>Event runners now have access to the skill breakdown based on their attendance role for future events.</li>
+                    <li>Updated feat display to be clearer regarding uses per day/event and Vigor costs.</li>
+                    <li>Added a banner to make it clear when on a test site.</li>
+                    <li>Changed "miscellaneous actions" to "personal actions" in downtime and added explanatory text.</li>
+                    <li>Fixed bug which blocked character deletions.</li>
+                    <li>Made changes as per suggestions from AI code review.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Bugfix: 16th June 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Secretary: fixed bug with access to executive screen.</li>
+                    <li>Added <a href="/roles" class="underline">roles page</a> to show the different available roles.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 19th May 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: allow change of user on characters to allow for NPCs to be assigned to plot co user.</li>

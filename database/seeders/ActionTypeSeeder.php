@@ -16,39 +16,44 @@ class ActionTypeSeeder extends Seeder
     {
         $actionTypes = [
             [
-                'id' => ActionType::TRAINING,
-                'type' => ActionType::DEVELOPMENT,
+                'id' => ActionType::ACTION_TRAINING,
+                'type' => ActionType::TYPE_DEVELOPMENT,
                 'name' => 'Training'
             ],
             [
-                'id' => ActionType::TEACHING,
-                'type' => ActionType::DEVELOPMENT,
+                'id' => ActionType::ACTION_TEACHING,
+                'type' => ActionType::TYPE_DEVELOPMENT,
                 'name' => 'Teaching'
             ],
             [
-                'id' => ActionType::UPKEEP,
-                'type' => ActionType::DEVELOPMENT,
+                'id' => ActionType::ACTION_UPKEEP,
+                'type' => ActionType::TYPE_DEVELOPMENT,
                 'name' => 'Upkeep'
             ],
             [
-                'id' => ActionType::MISSION,
-                'type' => ActionType::DEVELOPMENT,
+                'id' => ActionType::ACTION_MISSION,
+                'type' => ActionType::TYPE_DEVELOPMENT,
                 'name' => 'Mission'
             ],
             [
-                'id' => ActionType::RESEARCHING,
-                'type' => ActionType::RESEARCH,
+                'id' => ActionType::ACTION_RESEARCHING,
+                'type' => ActionType::TYPE_RESEARCH,
                 'name' => 'Researching'
             ],
             [
-                'id' => ActionType::UPKEEP_2,
-                'type' => ActionType::RESEARCH,
+                'id' => ActionType::ACTION_UPKEEP_2,
+                'type' => ActionType::TYPE_RESEARCH,
                 'name' => 'Upkeep'
             ],
             [
-                'id' => ActionType::OTHER,
-                'type' => ActionType::MISC,
+                'id' => ActionType::ACTION_OTHER,
+                'type' => ActionType::TYPE_MISC,
                 'name' => 'Other'
+            ],
+            [
+                'id' => ActionType::ACTION_RESEARCH_SUBJECT,
+                'type' => ActionType::TYPE_EXPERIMENT,
+                'name' => 'Research Subject'
             ],
         ];
 

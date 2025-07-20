@@ -18,19 +18,19 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @auth
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
                         <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.index')">
                             {{ __('My Characters') }}
                         </x-nav-link>
                         <x-nav-link :href="route('downtimes.index')" :active="request()->routeIs('downtimes.*')">
                             {{ __('Downtimes') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('research.index')" :active="request()->routeIs('research.*')">
+                            {{ __('Research') }}
+                        </x-nav-link>
                         <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.*')">
                             {{ __('Events') }}
                         </x-nav-link>
-                        @can('access executive menu')
+                        @if (Auth::user()->can('access executive menu') || Auth::user()->can('viewSkills', Character::class))
                             <x-dropdown align="left"
                                         contentClasses="py-1 bg-white dark:bg-gray-700 divide-y divide-gray-100">
                                 <x-slot name="trigger" class="inline-flex">
@@ -38,26 +38,38 @@
                                                 :active="request()->routeIs('plotco.*') || request()->routeIs('sysref.*') || request()->routeIs('admin.*')">{{ __('Executive') }}</x-nav-link>
                                 </x-slot>
                                 <x-slot name="content">
-                                    <div>
-                                        @can('viewAll', Character::class)
-                                            <x-dropdown-link :href="route('plotco.characters')"
-                                                             :active="request()->routeIs('plotco.characters')">
-                                                {{ __('All Characters') }}
-                                            </x-dropdown-link>
-                                        @endcan
-                                        @can('view skill breakdown')
-                                            <x-dropdown-link :href="route('plotco.skills')"
-                                                             :active="request()->routeIs('plotco.skills')">
-                                                {{ __('Skill Breakdown') }}
-                                            </x-dropdown-link>
-                                        @endcan
-                                        @can('edit downtimes')
-                                            <x-dropdown-link :href="route('plotco.downtimes')"
-                                                             :active="request()->routeIs('plotco.downtimes*')">
-                                                {{ __('Downtimes') }}
-                                            </x-dropdown-link>
-                                        @endcan
-                                    </div>
+                                    @if (Auth::user()->can('edit downtimes') || Auth::user()->canAny(['viewAll', 'viewSkills'], Character::class))
+                                        <div>
+                                            @can('viewAll', Character::class)
+                                                <x-dropdown-link :href="route('plotco.characters')"
+                                                                 :active="request()->routeIs('plotco.characters')">
+                                                    {{ __('All Characters') }}
+                                                </x-dropdown-link>
+                                            @endcan
+                                            @can('viewSkills', Character::class)
+                                                <x-dropdown-link :href="route('plotco.skills')"
+                                                                 :active="request()->routeIs('plotco.skills')">
+                                                    {{ __('Skill Breakdown') }}
+                                                </x-dropdown-link>
+                                            @endcan
+                                            @can('edit downtimes')
+                                                <x-dropdown-link :href="route('plotco.downtimes')"
+                                                                 :active="request()->routeIs('plotco.downtimes*')">
+                                                    {{ __('Downtimes') }}
+                                                </x-dropdown-link>
+                                            @endcan
+                                            @can('edit all characters')
+                                                <x-dropdown-link :href="route('plotco.traits')"
+                                                                 :active="request()->routeIs('plotco.traits*')">
+                                                    {{ __('Traits') }}
+                                                </x-dropdown-link>
+                                                <x-dropdown-link :href="request()->fullUrlWithQuery(['as_player' => 1])"
+                                                                 :active="request()->input('as_player')">
+                                                    {{ __('View as player') }}
+                                                </x-dropdown-link>
+                                            @endcan
+                                        </div>
+                                    @endif
                                     @can('view attendance')
                                         <div>
                                             <x-dropdown-link :href="route('events.all-attendance')"
@@ -84,7 +96,7 @@
                                     @endcan
                                 </x-slot>
                             </x-dropdown>
-                        @endcan
+                        @endif
                     @else
                         <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                             {{ __('Log in') }}
@@ -169,9 +181,6 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @auth
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('characters.index')"
                                        :active="request()->routeIs('characters.index')">
                     {{ __('My Characters') }}
@@ -180,11 +189,15 @@
                                        :active="request()->routeIs('downtimes.index')">
                     {{ __('Downtimes') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('research.index')"
+                                       :active="request()->routeIs('research.index')">
+                    {{ __('Research') }}
+                </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('events.index')"
                                        :active="request()->routeIs('events.index')">
                     {{ __('Events') }}
                 </x-responsive-nav-link>
-                @can('view skill breakdown')
+                @if (Auth::user()->can('edit downtimes') || Auth::user()->canAny(['viewAll', 'viewSkills'], Character::class))
                     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                         <div class="px-4">
                             <div
@@ -196,30 +209,40 @@
                                 {{ __('All Characters') }}
                             </x-responsive-nav-link>
                         @endcan
-                        <x-responsive-nav-link :href="route('plotco.skills')"
-                                               :active="request()->routeIs('plotco.skills')">
-                            {{ __('Skill Breakdown') }}
-                        </x-responsive-nav-link>
+                        @can('viewSkills', Character::class)
+                            <x-responsive-nav-link :href="route('plotco.skills')"
+                                                   :active="request()->routeIs('plotco.skills')">
+                                {{ __('Skill Breakdown') }}
+                            </x-responsive-nav-link>
+                        @endcan
                         @can('edit downtimes')
                             <x-responsive-nav-link :href="route('plotco.downtimes')"
                                                    :active="request()->routeIs('plotco.downtimes')">
                                 {{ __('Downtimes') }}
                             </x-responsive-nav-link>
                         @endcan
+                        @can('edit all characters')
+                            <x-responsive-nav-link :href="route('plotco.traits')"
+                                                   :active="request()->routeIs('plotco.traits*')">
+                                {{ __('Traits') }}
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link :href="request()->fullUrlWithQuery(['as_player' => 1])"
+                                             :active="request()->input('as_player')">
+                                {{ __('View as player') }}
+                            </x-responsive-nav-link>
+                        @endcan
                     </div>
-                @endcan
+                @endif
                 @can('view attendance')
                     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                         <div class="px-4">
                             <div
                                 class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('Secretary') }}</div>
                         </div>
-                        @can('viewAll', Character::class)
-                            <x-responsive-nav-link :href="route('events.all-attendance')"
-                                                   :active="request()->routeIs('events.all-attendance')">
-                                {{ __('Attendance') }}
-                            </x-responsive-nav-link>
-                        @endcan
+                        <x-responsive-nav-link :href="route('events.all-attendance')"
+                                               :active="request()->routeIs('events.all-attendance')">
+                            {{ __('Attendance') }}
+                        </x-responsive-nav-link>
                     </div>
                 @endcan
                 @can('edit', Skill::class)

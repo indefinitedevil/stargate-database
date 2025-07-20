@@ -106,8 +106,10 @@ class DowntimeController extends Controller
             'end_time' => 'required|date',
             'development_actions' => 'required|int',
             'research_actions' => 'required|int',
+            'experiment_actions' => 'required|int',
             'other_actions' => 'required|int',
             'event_id' => 'sometimes|exists:events,id|nullable|int',
+            'response' => 'sometimes|nullable|string|max:65535',
         ]);
         if (!empty($validatedData['event_id'])) {
             $event = Event::find($validatedData['event_id']);
@@ -161,12 +163,10 @@ class DowntimeController extends Controller
             $errors[] = __('Downtime is not open.');
         }
         if (empty($errors)) {
-            $developmentActions = $request->get('development_action');
-            $this->validateActions($developmentActions ?? [], $errors, $character, $downtime, 'Development');
-            $researchActions = $request->get('research_action');
-            $this->validateActions($researchActions ?? [], $errors, $character, $downtime, 'Research');
-            $otherActions = $request->get('other_action');
-            $this->validateActions($otherActions ?? [], $errors, $character, $downtime, 'Miscellaneous');
+            $this->validateActions($request->get('development_action', []), $errors, $character, $downtime, 'Development');
+            $this->validateActions($request->get('research_action', []), $errors, $character, $downtime, 'Research');
+            $this->validateActions($request->get('research_subject_action', []), $errors, $character, $downtime, 'Research Subject');
+            $this->validateActions($request->get('other_action', []), $errors, $character, $downtime, 'Personal');
         }
         if (!empty($errors)) {
             throw ValidationException::withMessages($errors);
@@ -182,25 +182,28 @@ class DowntimeController extends Controller
     {
         foreach ($actions as $key => $actionData) {
             switch ($actionData['type']) {
-                case ActionType::TRAINING:
-                case ActionType::TEACHING:
-                case ActionType::UPKEEP:
-                case ActionType::UPKEEP_2:
+                case ActionType::ACTION_TRAINING:
+                case ActionType::ACTION_TEACHING:
+                case ActionType::ACTION_UPKEEP:
+                case ActionType::ACTION_UPKEEP_2:
                     if (empty($actionData['skill_id'])) {
-                        $errors[] = __(':type Action :index: Skill is required.', ['type' => $type, 'index' => $key]);
+                        $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Skill is required.', ['type' => $type, 'index' => $key]);
                     } else {
-                        if (!empty($actionData['notes']) && strlen($actionData['notes']) > 65535) {
-                            $errors[] = __(':type Action :index: Notes are limited to 65000 characters.', ['type' => $type, 'index' => $key]);
+                        if (!empty($actionData['notes']) && strlen($actionData['notes']) > 2000) {
+                            $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Notes are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
+                        } elseif (!empty($actionData['response']) && strlen($actionData['response']) > 2000) {
+                            $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Responses are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
                         } else {
                             $characterSkill = CharacterSkill::find($actionData['skill_id']);
                             if (empty($characterSkill)) {
-                                $errors[] = __(':type Action :index: Skill not found.', ['type' => $type, 'index' => $key]);
+                                $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Skill not found.', ['type' => $type, 'index' => $key]);
                             } else {
                                 $actionId = $actionData['id'] ?? null;
                                 if (!empty($actionId)) {
                                     $action = DowntimeAction::find($actionId);
                                     if (empty($action)) {
                                         $errors[] = __(':type Action :index: Action not found.', ['type' => $type, 'index' => $key]);
+                                        continue 2;
                                     }
                                 } else {
                                     $action = new DowntimeAction();
@@ -211,20 +214,23 @@ class DowntimeController extends Controller
                                     'action_type_id' => $actionData['type'],
                                     'character_skill_id' => $characterSkill->id,
                                     'notes' => $actionData['notes'] ?? '',
+                                    'response' => $actionData['response'] ?? '',
                                 ]);
                                 $action->save();
                             }
                         }
                     }
                     break;
-                case ActionType::OTHER:
-                    if (!empty($actionData['notes']) && strlen($actionData['notes']) > 65535) {
-                        $errors[] = __(':type Action :index: Notes are limited to 65000 characters.', ['type' => $type, 'index' => $key]);
+                case ActionType::ACTION_OTHER:
+                    if (!empty($actionData['notes']) && strlen($actionData['notes']) > 2000) {
+                        $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Notes are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
+                    } elseif (!empty($actionData['response']) && strlen($actionData['response']) > 2000) {
+                        $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Responses are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
                     } elseif (!empty(strlen($actionData['notes']))) {
                         if (!empty($actionData['id'])) {
                             $action = DowntimeAction::find($actionData['id']);
                             if (empty($action)) {
-                                $errors[] = __(':type Action :index: Action not found.', ['type' => $type, 'index' => $key]);
+                                $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Action not found.', ['type' => $type, 'index' => $key]);
                             }
                         } else {
                             $action = new DowntimeAction();
@@ -234,6 +240,7 @@ class DowntimeController extends Controller
                             'downtime_id' => $downtime->id,
                             'action_type_id' => $actionData['type'],
                             'notes' => $actionData['notes'] ?? '',
+                            'response' => $actionData['response'] ?? '',
                         ]);
                         $action->save();
                     } elseif (!empty($actionData['id'])) {
@@ -241,30 +248,115 @@ class DowntimeController extends Controller
                         $action->delete();
                     }
                     break;
-                case ActionType::RESEARCHING:
-                    $researchProject = ResearchProject::find($actionData['research_project_id'] ?? 0);
-                    if (empty($researchProject)) {
-                        $errors[] = __(':type Action :index: Research Project not found.', ['type' => $type, 'index' => $key]);
+                case ActionType::ACTION_RESEARCHING:
+                case ActionType::ACTION_RESEARCH_SUBJECT:
+                    $researchProjectId = $actionData['research_project_id'] ?? 0;
+                    $characterSkillId = $actionData['skill_id'] ?? null;
+                    if (empty($researchProjectId) && !empty($actionData['id'])) {
+                        $action = DowntimeAction::find($actionData['id']);
+                        if (empty($action)) {
+                            $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Action not found.', ['type' => $type, 'index' => $key]);
+                        } else {
+                            $action->delete();
+                        }
+                        continue 2;
                     }
-                    if (!empty($actionData['notes']) && strlen($actionData['notes']) > 65535) {
-                        $errors[] = __(':type Action :index: Notes are limited to 65000 characters.', ['type' => $type, 'index' => $key]);
+                    if (empty($researchProjectId) && ActionType::ACTION_RESEARCH_SUBJECT == $actionData['type']) {
+                        continue 2; // Skip if no research project is set for research subject action
                     }
+                    if (empty($researchProjectId)) {
+                        $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Research Project is required.', ['type' => $type, 'index' => $key]);
+                        continue 2;
+                    } else {
+                        $researchProject = ResearchProject::find($researchProjectId);
+                        if (empty($researchProject)) {
+                            $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Research Project not found.', ['type' => $type, 'index' => $key]);
+                            continue 2;
+                        }
+                    }
+                    if (!empty($actionData['notes']) && strlen($actionData['notes']) > 2000) {
+                        $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Notes are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
+                        continue 2;
+                    } elseif (!empty($actionData['response']) && strlen($actionData['response']) > 2000) {
+                        $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Responses are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
+                        continue 2;
+                    }
+                    if (ActionType::ACTION_RESEARCHING == $actionData['type']) {
+                        if (empty($actionData['skill_id'])) {
+                            $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Skill is required.', ['type' => $type, 'index' => $key]);
+                            continue 2;
+                        } else {
+                            $characterSkill = CharacterSkill::find($actionData['skill_id']);
+                            if (empty($characterSkill)) {
+                                $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Skill not found.', ['type' => $type, 'index' => $key]);
+                                continue 2;
+                            }
+                            $researchSkills = $researchProject->skills;
+                            $researchSpecialties = $researchProject->skillSpecialties;
+                            if ($characterSkill->skill->specialty_type_id) {
+                                $characterSpecialties = $characterSkill->allSpecialties;
+                                if ($researchSpecialties->intersect($characterSpecialties)->isEmpty()) {
+                                    $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Skill does not match research project specialties.', ['type' => $type, 'index' => $key]);
+                                    continue 2;
+                                }
+                            } else {
+                                if ($researchSkills->where('id', $characterSkill->skill_id)->isEmpty()) {
+                                    $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Skill does not match research project skills.', ['type' => $type, 'index' => $key]);
+                                    continue 2;
+                                }
+                            }
+                        }
+                    }
+                    if (!empty($actionData['id'])) {
+                        $action = DowntimeAction::find($actionData['id']);
+                        if (empty($action)) {
+                            $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Action not found.', ['type' => $type, 'index' => $key]);
+                            continue 2;
+                        }
+                    } else {
+                        $action = new DowntimeAction();
+                    }
+                    $action->fill([
+                        'character_id' => $character->id,
+                        'downtime_id' => $downtime->id,
+                        'action_type_id' => $actionData['type'],
+                        'research_project_id' => $researchProjectId,
+                        'character_skill_id' => $characterSkillId,
+                        'notes' => $actionData['notes'] ?? '',
+                        'response' => $actionData['response'] ?? '',
+                    ]);
+                    $action->save();
                     break;
-                case ActionType::MISSION:
+                case ActionType::ACTION_MISSION:
                     $mission = DowntimeMission::find($actionData['mission_id'] ?? 0);
                     if (empty($mission)) {
-                        $errors[] = __(':type Action :index: Mission not found.', ['type' => $type, 'index' => $key]);
+                        $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Mission not found.', ['type' => $type, 'index' => $key]);
+                        continue 2;
                     }
-                    if (!empty($actionData['notes']) && strlen($actionData['notes']) > 65535) {
-                        $errors[] = __(':type Action :index: Notes are limited to 65000 characters.', ['type' => $type, 'index' => $key]);
+                    if (!empty($actionData['notes']) && strlen($actionData['notes']) > 2000) {
+                        $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Notes are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
+                        continue 2;
                     }
                     break;
                 case 0:
+                    if (!empty($actionData['id'])) {
+                        $action = DowntimeAction::find($actionData['id']);
+                        if (empty($action)) {
+                            $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Action not found.', ['type' => $type, 'index' => $key]);
+                        } else {
+                            $action->delete();
+                        }
+                    }
                     break;
                 default:
-                    $errors[] = __(':type Action :index: Invalid action type.', ['type' => $type, 'index' => $key]);
+                    $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Invalid action type.', ['type' => $type, 'index' => $key]);
                     break;
             }
         }
+    }
+
+    private function getErrorKey(string $type, int $index): string
+    {
+        return str_replace(' ', '_', strtolower($type) . '_action_' . $index);
     }
 }

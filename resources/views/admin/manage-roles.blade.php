@@ -27,7 +27,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach (User::all() as $user)
+                @foreach (User::whereNot('id', User::PLOT_CO_ID)->orderBy('name')->get() as $user)
                     <tr>
                         <td class="{{ $cellClass }}">{{ $user->name }}</td>
                         @foreach($roles as $role)

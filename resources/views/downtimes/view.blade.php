@@ -8,13 +8,17 @@
             @can ('edit downtimes')
                 @if ($downtime->open)
                     <div class="sm:float-right sm:grid sm:grid-cols-2 gap-2">
-                        <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
-                           class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
-                        >{{ __('Edit') }}</a>
-                        <a href="{{ route('plotco.downtimes.delete-actions', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
-                           class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
-                           onclick="return confirm('{{ __('Are you sure you want to delete these downtime actions?') }}')"
-                        >{{ __('Delete') }}</a>
+                        <x-link-button
+                            href="{{ route('downtimes.submit', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
+                        >{{ __('Edit') }}</x-link-button>
+                        <form method="POST" action="{{ route('plotco.downtimes.delete-actions', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
+                              onsubmit="return confirm('{{ __('Are you sure you want to delete these downtime actions?') }}')">
+                            @csrf
+                            @method('DELETE')
+                            <x-primary-button>
+                                {{ __('Delete') }}
+                            </x-primary-button>
+                        </form>
                     </div>
                 @endif
             @endcan
@@ -36,7 +40,7 @@
                 <strong>{{ __('Downtime') }}:</strong> {{ $downtime->name }}
                 ({{ format_datetime($downtime->start_time, 'd/m/Y H:i') }}
                 - {{ format_datetime($downtime->end_time, 'd/m/Y H:i') }})
-                - {{ $downtime->isOpen() ? __('Open') : __('Closed') }}
+                - {{ $downtime->getStatusLabel() }}
             </p>
         </div>
     </div>
@@ -44,7 +48,7 @@
     <div class="sm:grid sm:grid-cols-2 sm:gap-6">
         @php
             $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
-                ->whereIn('action_type_id', [ActionType::TRAINING, ActionType::TEACHING, ActionType::UPKEEP, ActionType::MISSION])
+                ->whereIn('action_type_id', [ActionType::ACTION_TRAINING, ActionType::ACTION_TEACHING, ActionType::ACTION_UPKEEP, ActionType::ACTION_MISSION])
                 ->get();
             $actionCount = 0;
         @endphp
@@ -57,12 +61,12 @@
                             <p class="text-lg">{{ __('Development Action :number', ['number' => ++$actionCount]) }}</p>
                             <p><strong>Type:</strong> {{ $action->actionType->name }}</p>
                             @switch($action->action_type_id)
-                                @case(ActionType::TRAINING)
-                                @case(ActionType::TEACHING)
-                                @case(ActionType::UPKEEP)
+                                @case(ActionType::ACTION_TRAINING)
+                                @case(ActionType::ACTION_TEACHING)
+                                @case(ActionType::ACTION_UPKEEP)
                                     <p>{!! __('<strong>Skill:</strong> :skill', ['skill' => $action->characterSkill->name]) !!}</p>
                                     @break
-                                @case(ActionType::MISSION)
+                                @case(ActionType::ACTION_MISSION)
                                     <p>{!! __('<strong>Mission:</strong> :mission', ['mission' => $action->mission->name]) !!}</p>
                                     @break
                             @endswitch
@@ -75,7 +79,7 @@
 
         @php
             $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
-                ->whereIn('action_type_id', [ActionType::RESEARCHING, ActionType::UPKEEP_2])
+                ->whereIn('action_type_id', [ActionType::ACTION_RESEARCHING, ActionType::ACTION_UPKEEP_2])
                 ->get();
             $actionCount = 0;
         @endphp
@@ -88,11 +92,12 @@
                             <p class="text-lg">{{ __('Research Action :number', ['number' => ++$actionCount]) }}</p>
                             <p><strong>Type:</strong> {{ $action->actionType->name }}</p>
                             @switch($action->action_type_id)
-                                @case(ActionType::UPKEEP_2)
+                                @case(ActionType::ACTION_UPKEEP_2)
                                     <p>{!! __('<strong>Skill:</strong> :skill', ['skill' => $action->characterSkill->name]) !!}</p>
                                     @break
-                                @case(ActionType::RESEARCHING)
+                                @case(ActionType::ACTION_RESEARCHING)
                                     <p>{!! __('<strong>Project:</strong> :project', ['project' => $action->researchProject->name]) !!}</p>
+                                    <p>{!! __('<strong>Skill:</strong> :skill', ['skill' => optional($action->characterSkill)->name]) !!}</p>
                                     @break
                             @endswitch
                             <p>{!! __('<strong>Notes:</strong> :notes', ['notes' => $action->notes]) !!}</p>
@@ -104,7 +109,7 @@
 
         @php
             $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
-                ->whereIn('action_type_id', [ActionType::OTHER])
+                ->whereIn('action_type_id', [ActionType::ACTION_OTHER])
                 ->get();
             $actionCount = 0;
         @endphp
@@ -114,10 +119,23 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
                     @foreach ($savedActions as $action)
                         <div>
-                            <p class="text-lg">{{ __('Miscellaneous Action :number', ['number' => ++$actionCount]) }}</p>
-                            <p>{!! __('<strong>Notes:</strong> :notes', ['notes' => $action->notes]) !!}</p>
+                            <p class="text-lg">{{ trans_choice('Personal Action|Personal Action :number', count($savedActions), ['number' => ++$actionCount]) }}</p>
+                            {!! process_markdown($action->notes) !!}
+                            @if ($action->response && $downtime->processed)
+                                <p><strong>{{ __('Response') }}:</strong></p>
+                                {!! process_markdown($action->response) !!}
+                            @endif
                         </div>
                     @endforeach
+                </div>
+            </div>
+        @endif
+
+        @if ($downtime->response && $downtime->processed)
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+                    <h3 class="text-xl font-semibold">{{ __('Downtime Response') }}</h3>
+                    {!! process_markdown($downtime->response) !!}
                 </div>
             </div>
         @endif

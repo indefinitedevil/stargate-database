@@ -1,4 +1,5 @@
 @php
+    use App\Helpers\CharacterHelper;
     use App\Models\Skill;
     use App\Models\SkillCategory;
 @endphp
@@ -9,6 +10,21 @@
             {{ __('Skill check') }}
         </h2>
     </x-slot>
+
+    <div class="p-4 sm:px-8 sm:py-4 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+        <p>
+            <strong>{{ __('Lowest training months on an active character:') }}</strong> {{ CharacterHelper::getLowestTrainedMonths() }}
+        </p>
+        <p>
+            <strong>{{ __('Lowest training months on an active character who has done a downtime:') }}</strong> {{ CharacterHelper::getLowestDowntimeMonths() }}
+        </p>
+        <p>
+            <strong>{{ __('Highest training months on an active character:') }}</strong> {{ CharacterHelper::getHighestTrainedMonths() }}
+        </p>
+        <p>
+            <strong>{{ __('Catchup XP:') }}</strong> {{ CharacterHelper::getCatchupXP() }}
+        </p>
+    </div>
 
     @foreach (SkillCategory::all() as $category)
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
@@ -47,6 +63,16 @@
                                     <ul class="list-inside list-disc">
                                         @foreach($skill->cards as $card)
                                             <li>{{ $card->name }} ({{ $card->pivot->number }})</li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endif
+                            @if (count($skill->abilities()) > 0)
+                                <li>
+                                    <strong>{{ __('Abilities') }}</strong>
+                                    <ul class="list-inside list-disc">
+                                        @foreach($skill->abilities() as $ability)
+                                            <li>{{ $ability }}</li>
                                         @endforeach
                                     </ul>
                                 </li>

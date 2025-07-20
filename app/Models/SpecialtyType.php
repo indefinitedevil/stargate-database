@@ -9,7 +9,8 @@ use Illuminate\Support\Collection;
 /**
  * @property int id
  * @property string name
- * @property Collection skillSpecialties
+ * @property Collection|SkillSpecialty[] skillSpecialties
+ * @property Collection|Skill[] skills
  */
 class SpecialtyType extends Model
 {
@@ -18,5 +19,10 @@ class SpecialtyType extends Model
     public function skillSpecialties()
     {
         return $this->hasMany(SkillSpecialty::class);
+    }
+
+    public function skills()
+    {
+        return $this->hasMany(Skill::class);
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use Database\Seeders\SkillSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $seeder = new SkillSeeder();
-        $seeder->run();
+        Schema::table('downtimes', function (Blueprint $table) {
+            $table->text('response')->nullable();
+        });
     }
 
     /**
@@ -21,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('downtimes', function (Blueprint $table) {
+            $table->dropColumn('response');
+        });
     }
 };

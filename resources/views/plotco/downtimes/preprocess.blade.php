@@ -6,15 +6,15 @@
     <x-slot name="title">{{ __('Check Downtime Processing') }}</x-slot>
     <x-slot name="header">
         @if(!$downtime->open && now()->gt($downtime->end_time) && !$downtime->processed)
-            <a href="{{ route('plotco.downtimes.process', ['downtimeId' => $downtime]) }}"
-               class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
+            <x-link-button href="{{ route('plotco.downtimes.process', ['downtimeId' => $downtime]) }}"
+               class="float-right"
                onclick="return confirm('{{ __('Are you sure you want to process this downtime?') }}')"
-            >{{ __('Process') }}</a>
+            >{{ __('Process') }}</x-link-button>
         @elseif ($downtime->open)
-            <a href="{{ route('plotco.downtimes.remind', ['downtimeId' => $downtime]) }}"
-               class="float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
+            <x-link-button href="{{ route('plotco.downtimes.remind', ['downtimeId' => $downtime]) }}"
+               class="float-right"
                onclick="return confirm('{{ __('Are you sure you want to send a reminder?') }}')"
-            ><i class="fa-solid fa-envelope"></i> {{ __('Remind') }}</a>
+            ><i class="fa-solid fa-envelope"></i> {{ __('Remind') }}</x-link-button>
         @endif
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __($downtime->event_id ? 'Check Downtime Processing: :name (:event)' : 'Check Downtime Processing: :name', ['name' => $downtime->name, 'event' => $downtime->event->name ?? '']) }}
@@ -35,6 +35,7 @@
                             $skills[$skillId] = Skill::find($skillId);
                         }
                         $trainedCharacters = [];
+                        $teacherIds = array_keys($teachers);
                     @endphp
                     <div>
                         <p class="text-lg font-semibold">{{ $skills[$skillId]->name }}</p>
@@ -60,7 +61,7 @@
                                     @endphp
                                     <li>
                                         {{ trans_choice('Trained by :name (:months month)|Trained by :name (:months months)', count($actions), ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
-                                        @if (!in_array($characterId, $teachers))
+                                        @if (!in_array($characterId, $teacherIds) || count($teacherIds) > 1)
                                             ({{ __('+1 month from course') }})
                                         @endif
                                     </li>
@@ -77,7 +78,7 @@
                                         @endphp
                                         <li>
                                             {{ trans_choice(':skill trained by :name (:months month)|:skill trained by :name (:months months)', count($actions), ['skill' => $subSkill->name, 'name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
-                                            @if (!in_array($characterId, $teachers) && !in_array($characterId, $trainedCharacters))
+                                            @if (!in_array($characterId, $teacherIds) && !in_array($characterId, $trainedCharacters))
                                                 ({{ __('+1 month from course') }})
                                             @endif
                                         </li>
@@ -160,30 +161,63 @@
         </div>
     @endif
 
-    @if (false)
+    @if ($downtime->researchActions()->count())
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <h3 class="text-xl font-semibold">{{ __('Research Projects') }}</h3>
                 <div class="sm:grid sm:grid-cols-3 gap-6">
+                    @foreach ($downtime->researchProjects as $project)
+                        <div>
+                            <p class="text-lg font-semibold"><a href="{{ $project->getViewRoute() }}" class="underline">{{ $project->name }}</a></p>
+                            <ul class="list-disc list-inside">
+                                @if ($project->researchActions()->where('downtime_id', $downtime->id)->count())
+                                    @foreach($project->researchActions()->where('downtime_id', $downtime->id)->get() as $action)
+                                        <li>
+                                            {{ __('Researcher: :name', ['name' => $action->character->listName]) }}
+                                        </li>
+                                    @endforeach
+                                @endif
+                                @if ($project->subjectActions()->where('downtime_id', $downtime->id)->count())
+                                    @foreach($project->subjectActions()->where('downtime_id', $downtime->id)->get() as $action)
+                                        <li>
+                                            {{ __('Subject: :name', ['name' => $action->character->listName]) }}
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     @endif
 
-    @if ($downtime->miscActions()->count())
+    @if ($downtime->personalActions()->count())
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-                <h3 class="text-xl font-semibold">{{ __('Miscellaneous Actions') }}</h3>
+                <h3 class="text-xl font-semibold">{{ __('Personal Actions') }}</h3>
                 <div class="sm:grid sm:grid-cols-3 gap-6">
-                    @foreach($downtime->miscActions() as $action)
+                    @foreach($downtime->personalActions() as $action)
                         <div>
-                            <p class="text-lg font-semibold">{{ $action->character->listName }}</p>
+                            <p class="text-lg font-semibold">{!! __('<a href=":url" class="underline" target="_blank">:name</a>', ['name' => $action->character->listName, 'url' => route('downtimes.submit', ['downtimeId' => $downtime->id, 'characterId' => $action->character_id])]) !!}</p>
                             <ul class="list-disc list-inside">
                                 <li>{{ $action->notes }}</li>
+                                @if (!empty($action->response))
+                                    <li>{{ __('Response: :response', ['response' => $action->response]) }}</li>
+                                @endif
                             </ul>
                         </div>
                     @endforeach
                 </div>
+            </div>
+        </div>
+    @endif
+
+    @if ($downtime->response)
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+                <h3 class="text-xl font-semibold">{{ __('Downtime Response') }}</h3>
+                {!! process_markdown($downtime->response) !!}
             </div>
         </div>
     @endif

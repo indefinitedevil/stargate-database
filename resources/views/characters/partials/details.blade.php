@@ -36,5 +36,8 @@
                 ({{ $character->former_rank }})
             @endif
         </p>
+        <p class="mt-1">
+            <strong>{{ __('Traits') }}:</strong> {!! $character->traits_indicator !!}
+        </p>
     </div>
 </div>

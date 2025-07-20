@@ -9,6 +9,7 @@ use App\Mail\CharacterReady;
 use App\Models\Character;
 use App\Models\CharacterLog;
 use App\Models\CharacterSkill;
+use App\Models\CharacterTrait;
 use App\Models\Event;
 use App\Models\LogType;
 use App\Models\Skill;
@@ -62,8 +63,16 @@ class CharacterController extends Controller
             return redirect($character->getViewRoute())
                 ->with('errors', new MessageBag([__('Character must be approved to view logs.')]));
         }
+        $logs = $character->logs()->with(['characterSkill.skill', 'logType']);
+        if (auth()->user()->cannot('view hidden notes')) {
+            $logs->where(function ($query) {
+                $query->where('notes', '!=', '')
+                    ->orWhere('log_type_id', '!=', LogType::PLOT);
+            });
+        }
         return view('characters.logs', [
             'character' => $character,
+            'logs' => $logs->orderBy('created_at', 'desc')->paginate(20),
             'editLog' => $logId ? CharacterLog::find($logId) : null,
         ]);
     }
@@ -128,21 +137,23 @@ class CharacterController extends Controller
         $usedMonths = 0;
         $logs = [];
         foreach ($character->trainedSkills->sortBy('name') as $skill) {
-            if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
-                $errors[] = __('Character must select specialty for :name.', ['name' => $skill->skill->name]);
+            if (!CharacterLog::where('character_skill_id', $skill->id)->where('log_type_id', LogType::PLOT)->exists()) {
+                if ($skill->skill->specialties != $skill->skillSpecialties->count()) {
+                    $errors[] = __('Character must select specialty for :name.', ['name' => $skill->skill->name]);
+                }
+                $log = new CharacterLog();
+                $logData = [
+                    'character_id' => $character->id,
+                    'character_skill_id' => $skill->id,
+                    'locked' => true,
+                    'amount_trained' => $skill->cost,
+                    'log_type_id' => LogType::CHARACTER_CREATION,
+                    'teacher_id' => null,
+                ];
+                $log->fill($logData);
+                $logs[] = $log;
+                $usedMonths += $skill->cost;
             }
-            $log = new CharacterLog();
-            $logData = [
-                'character_id' => $character->id,
-                'character_skill_id' => $skill->id,
-                'locked' => true,
-                'amount_trained' => $skill->cost,
-                'log_type_id' => LogType::CHARACTER_CREATION,
-                'teacher_id' => null,
-            ];
-            $log->fill($logData);
-            $logs[] = $log;
-            $usedMonths += $skill->cost;
         }
         $remainingMonths = $character->background->adjustedMonths - $usedMonths;
         if ($remainingMonths < 0) {
@@ -213,6 +224,8 @@ class CharacterController extends Controller
             $character->primary_secondary = true;
         }
         $character->save();
+
+        \App\Events\CharacterApproved::dispatch($character);
 
         $notes = $request->post('notes', '');
         Mail::to($character->user->email)->send(new CharacterApproved($character, $notes));
@@ -536,6 +549,7 @@ class CharacterController extends Controller
             'other_abilities' => 'sometimes|string|max:65535|nullable',
             'events' => 'sometimes|array|exists:events,id',
             'hero_scoundrel' => 'sometimes|int',
+            'traits' => 'sometimes|array',
         ]);
 
         if ($request->user()->cannot('create', Character::class)) {
@@ -562,6 +576,57 @@ class CharacterController extends Controller
         $validatedData['rank'] = $validatedData['rank'] ?? '';
         $character->fill($validatedData);
         $character->save();
+
+        if (!empty($validatedData['traits'])) {
+            $traits = CharacterTrait::all();
+            foreach ($traits as $trait) {
+                if (empty($validatedData['traits'][$trait->id])) {
+                    $validatedData['traits'][$trait->id]['status'] = false;
+                }
+            }
+            $oldTraits = [];
+            foreach ($character->characterTraits as $trait) {
+                if ($trait->pivot->status) {
+                    $oldTraits[] = $trait->name;
+                }
+            }
+            $changes = $character->characterTraits()->sync($validatedData['traits']);
+            foreach ($changes as $changeType) {
+                if (!empty($changeType)) {
+                    $character->resetIndicators();
+                    break;
+                }
+            }
+            $newTraits = [];
+            foreach ($character->characterTraits()->get() as $trait) {
+                if ($trait->pivot->status) {
+                    $newTraits[] = $trait->name;
+                }
+            }
+            $characterSkill = $character->skills()->where('skill_id', Skill::PLOT_CHANGE)->first();
+            if (!$characterSkill) {
+                $characterSkill = new CharacterSkill();
+                $characterSkill->fill([
+                    'character_id' => $character->id,
+                    'skill_id' => Skill::PLOT_CHANGE,
+                    'completed' => true,
+                ]);
+                $characterSkill->save();
+            }
+            $log = new CharacterLog();
+            $log->fill([
+                'character_id' => $character->id,
+                'character_skill_id' => $characterSkill->id,
+                'skill_completed' => true,
+                'locked' => true,
+                'log_type_id' => LogType::PLOT,
+                'plot_notes' => __('Traits changed from :old to :new.', [
+                    'old' => implode(', ', $oldTraits),
+                    'new' => implode(', ', $newTraits),
+                ]),
+            ]);
+            $log->save();
+        }
 
         return redirect($character->getViewRoute())
             ->with('success', new MessageBag([__('Character :character saved.', ['character' => $character->listName])]));
@@ -671,7 +736,8 @@ class CharacterController extends Controller
             'temp_body_change' => 'integer',
             'vigor_change' => 'integer',
             'temp_vigor_change' => 'integer',
-            'notes' => 'string|nullable',
+            'notes' => 'string|nullable|max:255',
+            'plot_notes' => 'string|nullable|max:255',
         ]);
 
         if (!empty($validatedData['character_id']) && $request->user()->cannot('edit', Character::find($validatedData['character_id']))) {
@@ -693,13 +759,13 @@ class CharacterController extends Controller
                 ->count();
             if ($existing) {
                 if (!$skill->repeatable || $skill->repeatable <= $existing) {
-                    throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
+                    throw ValidationException::withMessages(['skill_id' => __('Skill has already been taken the maximum number of times.')]);
                 } elseif (PlotHelper::SKILL_RESUSCITATION_BUYBACK == $skill->id) {
                     $resuscitations = CharacterSkill::where('character_id', $validatedData['character_id'])
                         ->where('skill_id', PlotHelper::SKILL_RESUSCITATION)
                         ->count();
                     if ($resuscitations <= $existing) {
-                        throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
+                        throw ValidationException::withMessages(['skill_id' => __('Skill has already been taken the maximum number of times.')]);
                     }
                 }
             }
@@ -708,7 +774,7 @@ class CharacterController extends Controller
         $validatedData['completed'] = $validatedData['completed'] ?? false;
 
         if (!$validatedData['completed'] && !$validatedData['amount_trained'] && $skill->cost() > 0) {
-            throw ValidationException::withMessages([__('Log must apply training or a completed skill.')]);
+            throw ValidationException::withMessages(['log' => __('Log must apply training or a completed skill.')]);
         }
 
         $characterSkill->fill([
@@ -722,6 +788,9 @@ class CharacterController extends Controller
             $log = CharacterLog::find($validatedData['log_id']);
         } else {
             $log = new CharacterLog();
+            $log->fill([
+                'log_type_id' => LogType::PLOT,
+            ]);
         }
         $log->fill([
             'character_id' => $characterSkill->character->id,
@@ -732,53 +801,21 @@ class CharacterController extends Controller
             'temp_body_change' => $validatedData['temp_body_change'] ?? 0,
             'vigor_change' => $validatedData['vigor_change'] ?? 0,
             'temp_vigor_change' => $validatedData['temp_vigor_change'] ?? 0,
-            'notes' => $validatedData['notes'] ?? '',
-            'log_type_id' => LogType::PLOT,
-            'teacher_id' => null,
+            'notes' => $validatedData['notes'] ?? NULL,
+            'plot_notes' => $validatedData['plot_notes'] ?? NULL,
             'skill_completed' => $validatedData['completed'],
         ]);
         $log->save();
 
         if (!empty($validatedData['specialty_id'])) {
             if ($characterSkill->skill->specialties != count($validatedData['specialty_id'])) {
-                throw ValidationException::withMessages([__('You must select correct specialty count for :name.', [$characterSkill->skill->name])]);
+                throw ValidationException::withMessages(['specialty_id' => __('You must select correct specialty count for :name.', [$characterSkill->skill->name])]);
             }
             $characterSkill->skillSpecialties()->sync($validatedData['specialty_id']);
         }
 
         return redirect()->back()
-            ->with('success', new MessageBag([__('Character log for :character saved.', ['character' => $characterSkill->character->listName])]));
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    public function deleteLog(Request $request, $logId)
-    {
-        $log = CharacterLog::findOrFail($logId);
-        if ($request->user()->cannot('edit all characters')) {
-            return redirect()->back()
-                ->with('errors', new MessageBag([__('You cannot delete this log.')]));
-        }
-        $characterName = $log->character->listName;
-
-        $skillLogs = CharacterLog::where('character_skill_id', $log->character_skill_id)
-            ->get();
-        if (1 == $skillLogs->count()) {
-            $log->characterSkill->delete();
-        } else {
-            if ($log->skill_completed) {
-                $log->characterSkill->completed = false;
-                $log->characterSkill->save();
-            } elseif ($log->skill_removed) {
-                $log->characterSkill->removed = false;
-                $log->characterSkill->save();
-            }
-        }
-        $log->delete();
-
-        return redirect()->back()
-            ->with('success', new MessageBag([__('Character log for :character removed.', ['character' => $characterName])]));
+            ->with('success', new MessageBag(['log' => __('Character log for :character saved.', ['character' => $characterSkill->character->listName])]));
     }
 
     /**
