@@ -12,6 +12,7 @@ class Department extends Model
     use HasFactory;
 
     const HEAD = 1;
+    const SPECIALIST = 2;
 
     public function characters(): BelongsToMany
     {

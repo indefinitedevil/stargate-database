@@ -502,4 +502,22 @@ class Character extends Model
             return array_unique($abilities);
         });
     }
+
+    public function divisions(): BelongsToMany
+    {
+        return $this->belongsToMany(Division::class)
+            ->withPivot('position');
+    }
+
+    public function departments(): BelongsToMany
+    {
+        return $this->belongsToMany(Department::class)
+            ->withPivot('position');
+    }
+
+    public function teams(): BelongsToMany
+    {
+        return $this->belongsToMany(Team::class)
+            ->withPivot('position');
+    }
 }

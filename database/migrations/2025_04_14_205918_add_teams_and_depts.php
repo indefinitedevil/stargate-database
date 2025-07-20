@@ -53,7 +53,7 @@ return new class extends Migration {
             [
                 'id' => 1,
                 'name' => 'Command',
-                'description' => 'Command Division',
+                'description' => 'Command',
             ],
             [
                 'id' => 2,
@@ -104,7 +104,7 @@ return new class extends Migration {
             ],
             [
                 'name' => 'Siren',
-                'description' => 'SAR/Medivac',
+                'description' => 'SAR/Medevac',
             ],
             [
                 'name' => 'Cerberus',
@@ -116,7 +116,7 @@ return new class extends Migration {
             ],
             [
                 'name' => 'Dragon',
-                'description' => 'Forensics, Armoury and Engineerying',
+                'description' => 'Forensics, Armoury and Engineering',
             ],
             [
                 'name' => 'Sphinx',
