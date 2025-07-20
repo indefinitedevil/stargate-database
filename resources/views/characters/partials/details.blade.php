@@ -39,10 +39,10 @@
         <p class="mt-1">
             <strong>{{ __('Traits') }}:</strong> {!! $character->traits_indicator !!}
         </p>
-        <p class="mt-1 @if ($character->divisions->count() > 1) col-span-2 @endif">
+        <p class="mt-1 @if ($character->divisions->count() > 0) col-span-2 @endif">
             <strong>{{ __('Division') }}:</strong> {!! $character->division !!}
         </p>
-        @if ($character->departments->count() > 1)
+        @if ($character->departments->count() > 0)
             <p class="mt-1">
                 <strong>{{ __('Department') }}:</strong> {!! $character->department !!}
             </p>

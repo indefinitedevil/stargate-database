@@ -2,7 +2,10 @@
     use App\Models\Background;
     use App\Models\Character;
     use App\Models\CharacterTrait;
+    use App\Models\Department;
+    use App\Models\Division;
     use App\Models\Status;
+    use App\Models\Team;
     use App\Models\User;
     $title = empty($character) ? __('Create character') : sprintf(__('Edit character: %s'), $character->name);
 @endphp
@@ -91,6 +94,55 @@
                                   :disabled="!empty($character) && Status::READY < $character->status_id"/>
                     <x-input-error class="mt-2" :messages="$errors->get('former_rank')"/>
                 </div>
+
+                @can('edit all characters')
+                    <div class="sm:grid sm:grid-cols-2 gap-4">
+                        <div class="row-span-2">
+                            <x-input-label for="division" :value="__('Division')"/>
+                            <x-select id="division" name="division[]" class="mt-1 block w-full" required
+                                      multiple>
+                                @foreach(Division::all() as $division)
+                                    <option value="{{ $division->id }}"
+                                            @if(!empty($character) && in_array($division->id, $character->divisionIds)) selected @endif >
+                                        {{ $division->name }}
+                                    </option>
+                                @endforeach
+                            </x-select>
+                            <p class="text-xs">
+                                {{ __('Press Ctrl to select/de-select additional specialties.') }}
+                            </p>
+                            <x-input-error class="mt-2" :messages="$errors->get('division')"/>
+                        </div>
+
+                        <div>
+                            <x-input-label for="department" :value="__('Division')"/>
+                            <x-select id="department" name="department[]" class="mt-1 block w-full">
+                                <option value="">{{ __('Select a department') }}</option>
+                                @foreach(Department::all() as $department)
+                                    <option value="{{ $department->id }}"
+                                            @if(!empty($character) && in_array($department->id, $character->departmentIds)) selected @endif >
+                                        {{ $department->name }}
+                                    </option>
+                                @endforeach
+                            </x-select>
+                            <x-input-error class="mt-2" :messages="$errors->get('department')"/>
+                        </div>
+
+                        <div>
+                            <x-input-label for="team" :value="__('Team')"/>
+                            <x-select id="team" name="team[]" class="mt-1 block w-full">
+                                <option value="">{{ __('Select a team') }}</option>
+                                @foreach(Team::whereNull('event_id')->get() as $team)
+                                    <option value="{{ $team->id }}"
+                                            @if(!empty($character) && in_array($team->id, $character->teamIds)) selected @endif >
+                                        {{ $team->name }}
+                                    </option>
+                                @endforeach
+                            </x-select>
+                            <x-input-error class="mt-2" :messages="$errors->get('team')"/>
+                        </div>
+                    </div>
+                @endcan
 
                 <div class="flex gap-4">
                     <p>{{ __('Are you a hero or a scoundrel?') }}</p>

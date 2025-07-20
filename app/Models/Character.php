@@ -546,6 +546,15 @@ class Character extends Model
         return implode(', ', $divisionNames);
     }
 
+    public function getDivisionIdsAttribute(): array
+    {
+        $divisionIds = [];
+        foreach ($this->divisions as $division) {
+            $divisionIds[] = $division->id;
+        }
+        return $divisionIds;
+    }
+
     public function getDepartmentAttribute(): string
     {
         $departmentNames = [];
@@ -561,6 +570,15 @@ class Character extends Model
         return implode(', ', $departmentNames);
     }
 
+    public function getDepartmentIdsAttribute(): array
+    {
+        $departmentIds = [];
+        foreach ($this->departments as $department) {
+            $departmentIds[] = $department->id;
+        }
+        return $departmentIds;
+    }
+
     public function getTeamAttribute(): string
     {
         $teamNames = [];
@@ -568,6 +586,15 @@ class Character extends Model
             $teamNames[] = $this->getTeamName($team);
         }
         return implode(', ', $teamNames);
+    }
+
+    public function getTeamIdsAttribute(): array
+    {
+        $teamIds = [];
+        foreach ($this->teams as $team) {
+            $teamIds[] = $team->id;
+        }
+        return $teamIds;
     }
 
     public function getEventTeam($eventId = null): string
