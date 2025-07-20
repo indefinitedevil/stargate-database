@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
+            $table->foreignId('event_id')->nullable()->constrained('events')->cascadeOnDelete();
             $table->timestamps();
         });
         Schema::create('character_team', function (Blueprint $table) {

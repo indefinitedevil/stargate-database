@@ -59,6 +59,10 @@ use Illuminate\Support\Str;
  * @property DowntimeAction[]|Collection downtimeActions
  * @property CharacterTrait[]|Collection characterTraits
  * @property string traits_indicator
+ * @property string division
+ * @property Division[]|Collection divisions
+ * @property Department[]|Collection departments
+ * @property Team[]|Collection teams
  */
 class Character extends Model
 {
@@ -519,5 +523,70 @@ class Character extends Model
     {
         return $this->belongsToMany(Team::class)
             ->withPivot('position');
+    }
+
+    public function getDivisionAttribute(): string
+    {
+        $divisionNames = [];
+        foreach ($this->divisions as $division) {
+            $name = $division->name;
+            if (Division::HEAD == $division->pivot->position) {
+                if (1 == $division->id) {
+                    $name .= ' (' . __('1IC') . ')';
+                } else {
+                    $name .= ' (' . __('Head') . ')';
+                }
+            } elseif (Division::SECOND == $division->pivot->position) {
+                $name .= ' (' . __('2IC') . ')';
+            } elseif (Division::STAFF == $division->pivot->position) {
+                $name .= ' (' . __('Staff') . ')';
+            }
+            $divisionNames[] = $name;
+        }
+        return implode(', ', $divisionNames);
+    }
+
+    public function getDepartmentAttribute(): string
+    {
+        $departmentNames = [];
+        foreach ($this->departments as $department) {
+            $name = $department->name;
+            if (Department::HEAD == $department->pivot->position) {
+                $name .= ' (' . __('Head') . ')';
+            } elseif (Department::SPECIALIST == $department->pivot->position) {
+                $name .= ' (' . __('Specialist') . ')';
+            }
+            $departmentNames[] = $name;
+        }
+        return implode(', ', $departmentNames);
+    }
+
+    public function getTeamAttribute(): string
+    {
+        $teamNames = [];
+        foreach ($this->teams()->whereNull('event_id')->get() as $team) {
+            $teamNames[] = $this->getTeamName($team);
+        }
+        return implode(', ', $teamNames);
+    }
+
+    public function getEventTeam($eventId): string
+    {
+        $teamNames = [];
+        foreach ($this->teams()->where('event_id', $eventId)->get() as $team) {
+            $teamNames[] = $this->getTeamName($team);
+        }
+        return implode(', ', $teamNames);
+    }
+
+    private function getTeamName($team): string
+    {
+        $name = $team->name;
+        if (Team::LEAD == $team->pivot->position) {
+            $name .= ' (' . __('TL') . ')';
+        } elseif (Team::SECOND == $team->pivot->position) {
+            $name .= ' (' . __('2IC') . ')';
+        }
+        return $name;
     }
 }
