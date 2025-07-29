@@ -239,6 +239,12 @@ class Character extends Model
             ->where('skill_category_id', '!=', SkillCategory::SYSTEM);
     }
 
+    public function teachingSkills(): HasMany
+    {
+        return $this->trainedSkillsWithoutSystem()
+            ->where('id', '!=', Skill::LEADERSHIP_EXTRA_PERSON);
+    }
+
     public function hiddenTrainedSkills(): HasMany
     {
         return $this->trainedSkills()->where('skills.display', false);
