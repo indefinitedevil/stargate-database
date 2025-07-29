@@ -238,7 +238,7 @@ class Character extends Model
     public function teachingSkills(): HasMany
     {
         return $this->trainedSkillsWithoutSystem()
-            ->where('id', '!=', Skill::LEADERSHIP_EXTRA_PERSON);
+            ->where('skills.id', '!=', Skill::LEADERSHIP_EXTRA_PERSON);
     }
 
     public function hiddenTrainedSkills(): HasMany

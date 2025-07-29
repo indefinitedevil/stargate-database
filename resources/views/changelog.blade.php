@@ -17,6 +17,7 @@
                     <li>Added note about where to add specialties to the add skills form.</li>
                     <li>Fixed Leadership skill to properly count the number of people you can affect.</li>
                     <li>Fixed a repeating skill description in the edit skills form.</li>
+                    <li>Bug fixes!</li>
                 </ul>
             </div>
             <div>
