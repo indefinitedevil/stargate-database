@@ -11,6 +11,7 @@
             <div>
                 <h3 class="text-lg font-semibold">Update: 29th July 2025</h3>
                 <ul class="list-inside list-disc">
+                    <li>Plot Co: updated downtime user count to not include crew without characters.</li>
                     <li>Sys Ref: updated Leadership to apply training benefits to the extra person upgrade.</li>
                     <li>Removed seeder references from migrations. Seeders should be run on-demand to avoid clashes with migrations.</li>
                     <li>Added note about where to add specialties to the add skills form.</li>

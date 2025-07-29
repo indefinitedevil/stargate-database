@@ -194,7 +194,27 @@ class Downtime extends Model
         return once(function () {
             if ($this->event_id) {
                 $event = Event::find($this->event_id);
+                $users = $event->users->filter(function ($user) {
+                    return $user->characters()->whereIn('status_id', [Status::APPROVED, Status::PLAYED])->exists();
+                });
+            } else {
+                $users = User::all()->filter(function ($user) {
+                    return $user->characters()->whereIn('status_id', [Status::APPROVED, Status::PLAYED])->exists();
+                });
+            }
+            return $users;
+        });
+    }
+
+    public function getEligibleCharacters(): Collection
+    {
+        return once(function () {
+            if ($this->event_id) {
+                $event = Event::find($this->event_id);
                 $users = $event->users;
+                $characters = Character::whereIn('id', $users->pluck('pivot.character_id'))
+                    ->whereIn('status_id', [Status::APPROVED, Status::PLAYED])
+                    ->get();
             } else {
                 $users = User::all();
             }
