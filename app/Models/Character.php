@@ -628,4 +628,13 @@ class Character extends Model
         }
         return $name;
     }
+
+    public static function getActiveCharacters(): Collection
+    {
+        return once(function () {
+            return self::whereIn('status_id', [Status::APPROVED, Status::PLAYED])
+                ->orderBy('name')
+                ->get();
+        });
+    }
 }

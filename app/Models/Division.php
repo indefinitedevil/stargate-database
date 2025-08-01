@@ -24,6 +24,11 @@ class Division extends Model
     const SECOND = 2;
     const STAFF = 3;
 
+    protected $fillable = [
+        'name',
+        'description',
+    ];
+
     public function characters(): BelongsToMany
     {
         return $this->belongsToMany(Character::class)

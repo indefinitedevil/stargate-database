@@ -13,6 +13,10 @@ use Illuminate\Support\Str;
  * @property string name
  * @property string|null description
  * @property Character[]|Collection characters
+ * @property Character team_lead
+ * @property int team_lead_id
+ * @property Character team_second
+ * @property int team_second_id
  */
 class Team extends Model
 {
@@ -20,6 +24,11 @@ class Team extends Model
 
     const LEAD = 1;
     const SECOND = 2;
+
+    protected $fillable = [
+        'name',
+        'description',
+    ];
 
     public function characters(): BelongsToMany
     {
@@ -30,5 +39,30 @@ class Team extends Model
     public function getViewRoute(): string
     {
         return route('teams.view', ['teamId' => $this, 'teamName' => Str::slug($this->name)]);
+    }
+
+    public function getTeamLeadAttribute(): ?Character
+    {
+        return $this->characters()->wherePivot('position', self::LEAD)->first();
+    }
+
+    public function getTeamLeadIdAttribute(): int
+    {
+        return $this->team_lead?->id ?? 0;
+    }
+
+    public function getTeamSecondAttribute(): ?Character
+    {
+        return $this->characters()->wherePivot('position', self::SECOND)->first();
+    }
+
+    public function getTeamSecondIdAttribute(): int
+    {
+        return $this->team_second?->id ?? 0;
+    }
+
+    public function getCharacterIdsAttribute(): array
+    {
+        return $this->characters->pluck('id')->toArray();
     }
 }

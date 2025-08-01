@@ -24,6 +24,11 @@ class Department extends Model
     const HEAD = 1;
     const SPECIALIST = 2;
 
+    protected $fillable = [
+        'name',
+        'description',
+    ];
+
     public function characters(): BelongsToMany
     {
         return $this->belongsToMany(Character::class)

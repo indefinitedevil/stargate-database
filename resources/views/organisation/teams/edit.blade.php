@@ -1,4 +1,5 @@
 @php
+    use App\Models\Character;
     use App\Models\Event;
     $title = empty($team->id) ? __('Create team') : sprintf(__('Edit team: %s'), $team->name);
 @endphp
@@ -17,56 +18,74 @@
                 @if (!empty($team->id))
                     <input type="hidden" name="id" value="{{ $team->id }}">
                 @endif
-                <div class="sm:grid sm:grid-cols-5 gap-6 space-y-2 sm:space-y-0">
-                    <div class="col-span-5">
-                        <x-input-label for="name" :value="__('Team Name')"/>
-                        <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
-                                      :value="old('name', $team->name ?? '')" required autofocus/>
-                        <x-input-error class="mt-2" :messages="$errors->get('name')"/>
+                <div class="sm:grid sm:grid-cols-6 gap-6 space-y-2 sm:space-y-0">
+                    <div class="col-span-2 space-y-6">
+                        <div>
+                            <x-input-label for="name" :value="__('Team Name')"/>
+                            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
+                                          :value="old('name', $team->name ?? '')" required autofocus/>
+                            <x-input-error class="mt-2" :messages="$errors->get('name')"/>
+                        </div>
+
+                        <div>
+                            <x-input-label for="description" :value="__('Description')"/>
+                            <x-textarea id="description" name="description" rows="4"
+                                        class="mt-1 block w-full">{{ $team->description ?? '' }}</x-textarea>
+                            <x-input-error class="mt-2" :messages="$errors->get('description')"/>
+                            <p class="text-xs mt-1">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-span-2 space-y-6">
+                        <div>
+                            <x-input-label for="event_id" :value="__('Event (optional)')"/>
+                            <x-select id="event_id" name="event_id" class="mt-1 block w-full">
+                                <option value="">{{ __('Select an event for temporary teams') }}</option>
+                                @foreach(Event::all() as $event)
+                                    <option value="{{ $event->id }}"
+                                            @if(old('event_id', $team->event_id ?? '') == $event->id) selected @endif>{{ $event->name }}</option>
+                                @endforeach
+                            </x-select>
+                            <x-input-error class="mt-2" :messages="$errors->get('event_id')"/>
+                        </div>
+
+                        <div>
+                            <x-input-label for="team_lead" :value="__('Team Leader')"/>
+                            <x-select id="team_lead" name="team_lead" class="mt-1 block w-full">
+                                <option value="">{{ __('Select a team leader') }}</option>
+                                @foreach (Character::getActiveCharacters() as $character)
+                                    <option value="{{ $character->id }}"
+                                            @if(old('team_lead', $team->team_lead_id ?? '') == $character->id) selected @endif>{{ $character->list_name }}</option>
+                                @endforeach
+                            </x-select>
+                            <x-input-error class="mt-2" :messages="$errors->get('team_lead')"/>
+                        </div>
+                        <div>
+                            <x-input-label for="team_second" :value="__('Team 2IC')"/>
+                            <x-select id="team_second" name="team_second" class="mt-1 block w-full">
+                                <option value="">{{ __('Select a team second') }}</option>
+                                @foreach (Character::getActiveCharacters() as $character)
+                                    <option value="{{ $character->id }}"
+                                            @if(old('team_second', $team->team_second_id ?? '') == $character->id) selected @endif>{{ $character->list_name }}</option>
+                                @endforeach
+                            </x-select>
+                            <x-input-error class="mt-2" :messages="$errors->get('team_second')"/>
+                        </div>
                     </div>
 
                     <div class="col-span-2">
-                        <x-input-label for="event_id" :value="__('Event (optional)')"/>
-                        <x-select id="event_id" name="event_id" class="mt-1 block w-full">
-                            <option value="">{{ __('Select an event for temporary teams') }}</option>
-                            @foreach(Event::all() as $event)
-                                <option value="{{ $event->id }}"
-                                        @if(old('event_id', $team->event_id ?? '') == $event->id) selected @endif>{{ $event->name }}</option>
+                        <x-input-label for="team_members" :value="__('Team Members')"/>
+                        <x-select id="team_members" name="team_members[]" class="mt-1 block w-full" multiple size="12">
+                            <option value="">{{ __('Select team members') }}</option>
+                            @foreach (Character::getActiveCharacters() as $character)
+                                <option value="{{ $character->id }}"
+                                        @if(in_array($character->id, $team->character_ids)) selected @endif>{{ $character->list_name }}</option>
                             @endforeach
                         </x-select>
-                        <x-input-error class="mt-2" :messages="$errors->get('event_id')"/>
-                    </div>
-
-                    <div class="col-span-2">
-                        <x-input-label for="event_id" :value="__('Event (optional)')"/>
-                        <x-select id="event_id" name="event_id" class="mt-1 block w-full">
-                            <option value="">{{ __('Select an event for temporary teams') }}</option>
-                            @foreach(Event::all() as $event)
-                                <option value="{{ $event->id }}"
-                                        @if(old('event_id', $team->event_id ?? '') == $event->id) selected @endif>{{ $event->name }}</option>
-                            @endforeach
-                        </x-select>
-                        <x-input-error class="mt-2" :messages="$errors->get('event_id')"/>
-                    </div>
-
-                    <div class="col-span-2">
-                        <x-input-label for="event_id" :value="__('Event (optional)')"/>
-                        <x-select id="event_id" name="event_id" class="mt-1 block w-full">
-                            <option value="">{{ __('Select an event for temporary teams') }}</option>
-                            @foreach(Event::all() as $event)
-                                <option value="{{ $event->id }}"
-                                        @if(old('event_id', $team->event_id ?? '') == $event->id) selected @endif>{{ $event->name }}</option>
-                            @endforeach
-                        </x-select>
-                        <x-input-error class="mt-2" :messages="$errors->get('event_id')"/>
-                    </div>
-
-                    <div class="col-span-3 row-span-3">
-                        <x-input-label for="description" :value="__('Description')"/>
-                        <x-textarea id="description" name="description" rows="6"
-                                    class="mt-1 block w-full">{{ $team->description ?? '' }}</x-textarea>
-                        <x-input-error class="mt-2" :messages="$errors->get('description')"/>
-                        <p class="text-xs mt-1">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
+                        <x-input-error class="mt-2" :messages="$errors->get('team_members')"/>
+                        <p class="text-xs">
+                            {{ __('Press Ctrl to select/de-select additional specialties.') }}
+                        </p>
                     </div>
                 </div>
 
