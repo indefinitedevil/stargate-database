@@ -47,7 +47,7 @@
 
                     <div class="col-span-3">
                         <x-input-label for="ooc_intent" :value="__('OOC Intent and Explanatory Notes')"/>
-                        <x-textarea id="ooc_intent" name="ooc_intent" rows="6"
+                        <x-textarea id="ooc_intent" name="ooc_intent" rows="6" maxlength="65000"
                                     class="mt-1 block w-full">{{ $project->ooc_intent ?? '' }}</x-textarea>
                         <x-input-error class="mt-2" :messages="$errors->get('ooc_intent')"/>
                         <p class="text-xs mt-1">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
@@ -57,7 +57,7 @@
                     @can('approve research projects')
                         <div class="col-span-3">
                             <x-input-label for="plot_notes" :value="__('Plot Notes')"/>
-                            <x-textarea id="plot_notes" name="plot_notes" rows="6"
+                            <x-textarea id="plot_notes" name="plot_notes" rows="6" maxlength="65000"
                                         class="mt-1 block w-full">{{ $project->plot_notes ?? '' }}</x-textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('plot_notes')"/>
                             <p class="text-xs mt-1">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
@@ -66,7 +66,7 @@
 
                         <div class="col-span-3">
                             <x-input-label for="results" :value="__('Results')"/>
-                            <x-textarea id="results" name="results" rows="6"
+                            <x-textarea id="results" name="results" rows="6" maxlength="65000"
                                         class="mt-1 block w-full">{{ $project->results ?? '' }}</x-textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('results')"/>
                             <p class="text-xs mt-1">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>

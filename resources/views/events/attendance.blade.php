@@ -13,7 +13,7 @@
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         @php
             $roles = [Event::ROLE_PLAYER, Event::ROLE_RUNNER, Event::ROLE_CREW, Event::ROLE_PAID_DOWNTIME];
-            $cellClass = 'border-b border-slate-100 dark:border-slate-700 p-2 text-center';
+            $cellClass = 'border-b border-slate-100 dark:border-slate-700 p-2';
             $eventRoles = $attended = $characters = [];
             foreach ($event->users as $user) {
                 $eventRoles[$user->id] = $user->pivot->role;
@@ -24,24 +24,38 @@
         <form method="POST" action="{{ route('events.store-attendance') }}">
             @csrf
             <input type="hidden" name="event_id" value="{{ $event->id }}">
-            <table class="table-fixed w-full">
+            <table class="table-auto w-full">
                 <thead>
                 <tr>
-                    <th class="{{ $cellClass }}">{{ __('User') }}</th>
-                    <th class="{{ $cellClass }}">{{ __('Character') }}</th>
-                    <th class="{{ $cellClass }}">{{ __('Not booked') }}</th>
-                    @foreach($roles as $role)
-                        <th class="{{ $cellClass }}">{{ Event::roleName($role) }}</th>
-                    @endforeach
-                    <th class="{{ $cellClass }}">{{ __('Attended') }}</th>
+                    <th class="{{ $cellClass }} text-left"><span class="hidden sm:inline">{{ __('Attended') }}</span></th>
+                    <th class="{{ $cellClass }} text-left">{{ __('User') }}</th>
+                    <th class="{{ $cellClass }} text-left">{{ __('Role/Character') }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach (User::orderBy('name', 'asc')->get() as $user)
                     <tr>
+                        <td class="{{ $cellClass }}">
+                            <label>
+                                <input type="checkbox" name="attendance[{{ $user->id }}][attended]"
+                                    {{ !empty($attended[$user->id]) ? 'checked' : '' }}>
+                                <span class="hidden sm:inline">{{ __('Attended') }}</span>
+                            </label>
+                        </td>
                         <td class="{{ $cellClass }}">{{ $user->name }}</td>
                         <td class="{{ $cellClass }}">
-                            <x-select name="attendance[{{ $user->id }}][character_id]" class="w-full">
+                            <x-select name="attendance[{{ $user->id }}][role]" class="w-full sm:w-1/3">
+                                <option value="0" {{ empty($eventRoles[$user->id]) ? 'selected' : '' }}>
+                                    {{ __('None') }}
+                                </option>
+                                @foreach($roles as $role)
+                                    <option value="{{ $role }}"
+                                        {{ !empty($eventRoles[$user->id]) && $eventRoles[$user->id] == $role ? 'selected' : '' }}>
+                                        {{ Event::roleName($role) }}
+                                    </option>
+                                @endforeach
+                            </x-select>
+                            <x-select name="attendance[{{ $user->id }}][character_id]" class="w-full sm:w-1/2">
                                 <option value="">{{ __('None') }}</option>
                                 @foreach($user->characters as $character)
                                     <option value="{{ $character->id }}"
@@ -50,26 +64,6 @@
                                     </option>
                                 @endforeach
                             </x-select>
-                        </td>
-                        <td class="{{ $cellClass }}">
-                            <input type="radio" name="attendance[{{ $user->id }}][role]" value="0"
-                                {{ empty($eventRoles[$user->id]) ? 'checked' : '' }}>
-                        </td>
-                        @foreach($roles as $role)
-                            <td class="{{ $cellClass }}">
-                                <label>
-                                    <input type="radio" name="attendance[{{ $user->id }}][role]"
-                                           value="{{ $role }}" {{ !empty($eventRoles[$user->id]) && $eventRoles[$user->id] == $role ? 'checked' : '' }}>
-                                    {{ Event::roleName($role) }}
-                                </label>
-                            </td>
-                        @endforeach
-                        <td class="{{ $cellClass }}">
-                            <label>
-                                <input type="checkbox" name="attendance[{{ $user->id }}][attended]"
-                                    {{ !empty($attended[$user->id]) ? 'checked' : '' }}>
-                                {{ __('Attended') }}
-                            </label>
                         </td>
                     </tr>
                 @endforeach
