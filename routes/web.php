@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\DowntimeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PlotcoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\SysrefController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TraitsController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
@@ -136,6 +139,29 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => 'can:delete research projects'], function () {
         Route::delete('/research/delete/{projectId}', [ResearchController::class, 'delete'])->name('research.delete');
+    });
+
+    Route::group(['middleware' => 'can:view departments'], function () {
+        Route::get('/organisation', [DepartmentController::class, 'organisation'])->name('departments.organisation');
+        Route::get('/divisions', [DivisionController::class, 'index'])->name('divisions.index');
+        Route::get('/departments/view/{departmentId}/{departmentName?}', [DepartmentController::class, 'view'])->name('departments.view');
+    });
+    Route::group(['middleware' => 'can:edit departments'], function () {
+        Route::get('/divisions/edit/{divisionId}', [DivisionController::class, 'edit'])->name('divisions.edit');
+        Route::post('/divisions/store', [DivisionController::class, 'store'])->name('divisions.store');
+        Route::get('/departments/edit/{departmentId}', [DepartmentController::class, 'edit'])->name('departments.edit');
+        Route::post('/departments/store', [DepartmentController::class, 'store'])->name('departments.store');
+    });
+
+    Route::group(['middleware' => 'can:view teams'], function () {
+        Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
+        Route::get('/teams/view/{teamId}/{teamName?}', [TeamController::class, 'view'])->name('teams.view');
+    });
+    Route::group(['middleware' => 'can:edit teams'], function () {
+        Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create');
+        Route::get('/teams/edit/{teamId}', [TeamController::class, 'edit'])->name('teams.edit');
+        Route::get('/teams/delete/{teamId}', [TeamController::class, 'delete'])->name('teams.delete');
+        Route::post('/teams/store', [TeamController::class, 'store'])->name('teams.store');
     });
 });
 
