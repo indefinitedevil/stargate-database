@@ -11,6 +11,7 @@
             <div>
                 <h3 class="text-lg font-semibold">Update: 1st August 2025</h3>
                 <ul class="list-inside list-disc">
+                    <li>Plot Co: Increased response box height.</li>
                     <li>Secretary: improved event attendance screen for mobile and desktop.</li>
                 </ul>
             </div>

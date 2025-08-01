@@ -216,6 +216,8 @@
                                             name="research_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}"
+                                            maxlength="2000"
+                                            rows="6"
                                             :placeholder="__('Relevant notes regarding your research')">{{ $action->notes }}</x-textarea>
                                 <x-input-error class="mt-2" :messages="$errors->get('research_action_'.$actionCount)" />
                             </div>
@@ -249,6 +251,8 @@
                                             name="research_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full hidden"
+                                            maxlength="2000"
+                                            rows="6"
                                             :placeholder="__('Relevant notes regarding your research')"/>
                                 <x-input-error class="mt-2" :messages="$errors->get('research_action_'.$actionCount)" />
                             </div>
@@ -319,6 +323,7 @@
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full"
                                             maxlength="2000"
+                                            rows="6"
                                             :placeholder="__('Details regarding a single personal action you want to inform the plot coordinator about.')">{{ $action->notes }}</x-textarea>
                                 @if (auth()->user()->can('view hidden notes') || $downtime->processed)
                                     <x-input-label for="other_action_{{ $actionCount }}_response"
@@ -328,6 +333,7 @@
                                                 :disabled="!$downtime->isOpen()"
                                                 class="mt-1 block w-full"
                                                 maxlength="2000"
+                                                rows="6"
                                                 :placeholder="__('Plot co response to above.')">{{ $action->response }}</x-textarea>
                                 @endif
                                 <x-input-error class="mt-2" :messages="$errors->get('personal_action_'.$actionCount)" />
@@ -343,6 +349,7 @@
                                             :disabled="!$downtime->isOpen()"
                                             class="mt-1 block w-full"
                                             maxlength="2000"
+                                            rows="6"
                                             :placeholder="__('Details regarding a single personal action you want to inform the plot coordinator about.')"/>
                                 @if (auth()->user()->can('view hidden notes'))
                                     <x-input-label for="other_action_{{ $actionCount }}_response"
@@ -352,6 +359,7 @@
                                                 :disabled="!$downtime->isOpen()"
                                                 class="mt-1 block w-full"
                                                 maxlength="2000"
+                                                rows="6"
                                                 :placeholder="__('Plot co response to above.')"></x-textarea>
                                 @endif
                                 <x-input-error class="mt-2" :messages="$errors->get('personal_action_'.$actionCount)" />
