@@ -1,7 +1,8 @@
+@php use App\Models\ResearchProject; @endphp
 <x-mail::message>
 Hello {{ $character->user->name }},
 
-The downtime has been processed, and here are your results:
+The downtime has been processed, and here are the results for {{ $character->listName }}:
 
 <ul>
 @foreach ($results as $result)
@@ -56,8 +57,8 @@ The downtime has been processed, and here are your results:
 @endforeach
 </ul>
 @endif
-@if (!empty($projectResult['results']))
-{!! process_markdown(__('Results: :results', ['results' => $projectResult['results']])) !!}
+@if ($projectResult['project']->status === ResearchProject::STATUS_COMPLETED)
+{!! process_markdown(__('COMPLETED: For details, go to <a href=":results" class="underline">the project page</a>.', ['results' => $projectResult['project']->getViewRoute()])) !!}
 @endif
 </li>
 @endforeach

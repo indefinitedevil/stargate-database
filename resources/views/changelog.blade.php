@@ -12,6 +12,7 @@
                 <h3 class="text-lg font-semibold">Bugfix: 2nd August 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: fixed issues with downtime processing and response saving.</li>
+                    <li>Plot Co: fixed issues with long-text research responses in emails.</li>
                 </ul>
             </div>
             <div>
