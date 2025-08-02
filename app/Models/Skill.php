@@ -108,7 +108,7 @@ class Skill extends Model
         return $this->hasMany(SkillDiscount::class, 'discounting_skill');
     }
 
-    public function cost(Character $character = null, CharacterSkill $characterSkill = null): int
+    public function cost(Character $character = null): int
     {
         if ($this->attributes['cost']) {
             return $this->attributes['cost'];
