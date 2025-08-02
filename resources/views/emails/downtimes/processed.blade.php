@@ -33,7 +33,7 @@ The downtime has been processed, and here are your results:
 </li>
 @endforeach
 </ul>
-<x-mail::button :url="route('downtime.view', ['downtimeId' => $downtime->id, 'characterId' => $character->id])">{{ __('See downtime submission') }}</x-mail::button>
+<x-mail::button :url="route('downtimes.view', ['downtimeId' => $downtime->id, 'characterId' => $character->id])">{{ __('See downtime submission') }}</x-mail::button>
 
 @if (!empty($researchResults))
 <h3>{{ __('Research Projects') }}</h3>
