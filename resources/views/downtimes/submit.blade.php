@@ -330,7 +330,7 @@
                                                    class="mt-1" :value="__('Response')"/>
                                     <x-textarea id="other_action_{{ $actionCount }}_response"
                                                 name="other_action[{{ $actionCount }}][response]"
-                                                :disabled="!$downtime->isOpen()"
+                                                :disabled="$downtime->processed"
                                                 class="mt-1 block w-full"
                                                 maxlength="2000"
                                                 rows="6"
@@ -356,7 +356,7 @@
                                                    class="mt-1" :value="__('Response')"/>
                                     <x-textarea id="other_action_{{ $actionCount }}_response"
                                                 name="other_action[{{ $actionCount }}][response]"
-                                                :disabled="!$downtime->isOpen()"
+                                                :disabled="!$downtime->processed"
                                                 class="mt-1 block w-full"
                                                 maxlength="2000"
                                                 rows="6"
