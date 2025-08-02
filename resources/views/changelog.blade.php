@@ -13,6 +13,7 @@
                 <ul class="list-inside list-disc">
                     <li>Plot Co: fixed issues with downtime processing and response saving.</li>
                     <li>Plot Co: fixed issues with long-text research responses in emails.</li>
+                    <li>Fixed bug with scaling cost skills not scaling in cost once on character sheet.</li>
                 </ul>
             </div>
             <div>
