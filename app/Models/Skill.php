@@ -116,23 +116,11 @@ class Skill extends Model
         $category = $this->skillCategory;
         static $completedCategorySkills = [];
         if ($character && $category->scaling) {
-            if (empty($characterSkill)) {
-                if (empty($completedCategorySkills[$category->id])) {
-                    $completedCategorySkills[$category->id] = $character->trainedSkills()
-                        ->where('skills.skill_category_id', $this->skill_category_id);
-                }
-                $countSkills = $completedCategorySkills[$category->id]->count();
-            } else {
-                static $scalingCosts = [];
-                if (empty($scalingCosts[$category->id])) {
-                    $scalingCosts[$category->id] = [];
-                }
-                if (!isset($scalingCosts[$category->id][$this->id])) {
-                    $scalingCosts[$category->id][$this->id] = count(array_unique(array_diff_key($scalingCosts[$category->id], [$this->id => 0])));
-                }
-                $countSkills = $scalingCosts[$category->id][$this->id];
+            if (empty($completedCategorySkills[$category->id])) {
+                $completedCategorySkills[$category->id] = $character->trainedSkills()
+                    ->where('skills.skill_category_id', $this->skill_category_id);
             }
-            return $category->cost + $countSkills;
+            return $category->cost + $completedCategorySkills[$category->id]->count();
         }
         return $category->cost;
     }
