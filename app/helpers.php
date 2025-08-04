@@ -13,6 +13,7 @@ function process_markdown(string $text): Stringable
 {
     return Str::of($text)->markdown()
         ->replace('<ul>', '<ul class="list-disc list-inside">')
+        ->replace('<ol>', '<ol class="list-decimal list-inside">')
         ->replace('<blockquote>', '<blockquote class="px-4 py-2 border-l-4 border-gray-300 bg-gray-50 dark:border-gray-500 dark:bg-gray-700 text-gray-900 dark:text-white">');
 }
 
