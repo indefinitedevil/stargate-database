@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Character;
 use App\Models\Event;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class TeamController extends Controller
     {
         return view('organisation.teams.edit', [
             'events' => Event::all(),
+            'activeCharacters' => Character::getActiveCharacters(),
         ]);
     }
 
@@ -30,6 +32,7 @@ class TeamController extends Controller
         return view('organisation.teams.edit', [
             'team' => $team,
             'events' => Event::all(),
+            'activeCharacters' => Character::getActiveCharacters(),
         ]);
     }
 
