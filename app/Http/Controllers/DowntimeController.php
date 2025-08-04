@@ -159,13 +159,17 @@ class DowntimeController extends Controller
         $downtime = Downtime::find($request->input('downtime_id'));
         if (empty($downtime)) {
             $errors[] = __('Downtime not found.');
-        } elseif (!$downtime->isOpen()) {
+        } elseif ($downtime->processed) {
+            $errors[] = __('Downtime is already processed.');
+        } elseif (!$downtime->isOpen() && !auth()->user()->can('view hidden notes')) {
             $errors[] = __('Downtime is not open.');
         }
         if (empty($errors)) {
-            $this->validateActions($request->get('development_action', []), $errors, $character, $downtime, 'Development');
-            $this->validateActions($request->get('research_action', []), $errors, $character, $downtime, 'Research');
-            $this->validateActions($request->get('research_subject_action', []), $errors, $character, $downtime, 'Research Subject');
+            if ($downtime->open) {
+                $this->validateActions($request->get('development_action', []), $errors, $character, $downtime, 'Development');
+                $this->validateActions($request->get('research_action', []), $errors, $character, $downtime, 'Research');
+                $this->validateActions($request->get('research_subject_action', []), $errors, $character, $downtime, 'Research Subject');
+            }
             $this->validateActions($request->get('other_action', []), $errors, $character, $downtime, 'Personal');
         }
         if (!empty($errors)) {
@@ -226,7 +230,7 @@ class DowntimeController extends Controller
                         $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Notes are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
                     } elseif (!empty($actionData['response']) && strlen($actionData['response']) > 2000) {
                         $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Responses are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
-                    } elseif (!empty(strlen($actionData['notes']))) {
+                    } elseif (!empty($actionData['notes']) || !empty($actionData['response'])) {
                         if (!empty($actionData['id'])) {
                             $action = DowntimeAction::find($actionData['id']);
                             if (empty($action)) {
@@ -239,7 +243,7 @@ class DowntimeController extends Controller
                             'character_id' => $character->id,
                             'downtime_id' => $downtime->id,
                             'action_type_id' => $actionData['type'],
-                            'notes' => $actionData['notes'] ?? '',
+                            'notes' => $actionData['notes'] ?? $action->notes,
                             'response' => $actionData['response'] ?? '',
                         ]);
                         $action->save();

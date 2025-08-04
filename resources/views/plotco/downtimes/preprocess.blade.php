@@ -8,7 +8,7 @@
         @if(!$downtime->open && now()->gt($downtime->end_time) && !$downtime->processed)
             <x-link-button href="{{ route('plotco.downtimes.process', ['downtimeId' => $downtime]) }}"
                class="float-right"
-               onclick="return confirm('{{ __('Are you sure you want to process this downtime?') }}')"
+               onclick="return confirm('{{ __('Are you sure you want to process this downtime? This will process all training and send notifications to affected users.') }}')"
             >{{ __('Process') }}</x-link-button>
         @elseif ($downtime->open)
             <x-link-button href="{{ route('plotco.downtimes.remind', ['downtimeId' => $downtime]) }}"

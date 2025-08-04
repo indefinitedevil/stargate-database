@@ -330,7 +330,7 @@
                                                    class="mt-1" :value="__('Response')"/>
                                     <x-textarea id="other_action_{{ $actionCount }}_response"
                                                 name="other_action[{{ $actionCount }}][response]"
-                                                :disabled="!$downtime->isOpen()"
+                                                :disabled="$downtime->processed"
                                                 class="mt-1 block w-full"
                                                 maxlength="2000"
                                                 rows="6"
@@ -356,7 +356,7 @@
                                                    class="mt-1" :value="__('Response')"/>
                                     <x-textarea id="other_action_{{ $actionCount }}_response"
                                                 name="other_action[{{ $actionCount }}][response]"
-                                                :disabled="!$downtime->isOpen()"
+                                                :disabled="$downtime->processed"
                                                 class="mt-1 block w-full"
                                                 maxlength="2000"
                                                 rows="6"
@@ -377,7 +377,7 @@
             @endif
 
 
-            @if ($downtime->isOpen())
+            @if ($downtime->isOpen() || auth()->user()->can('view hidden notes') && !$downtime->processed)
                 <div
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-1">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">

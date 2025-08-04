@@ -53,7 +53,7 @@ class Downtime extends Model
         'end_time' => 'datetime',
     ];
 
-    private $open = null;
+    private $is_open = null;
 
     public function actions(): HasMany
     {
@@ -77,10 +77,10 @@ class Downtime extends Model
 
     public function isOpen(): bool
     {
-        if ($this->open === null) {
-            $this->open = $this->start_time < now() && $this->end_time > now();
+        if ($this->is_open === null) {
+            $this->is_open = $this->start_time < now() && $this->end_time > now();
         }
-        return $this->open;
+        return $this->is_open;
     }
 
     public function getStatusLabel(): string

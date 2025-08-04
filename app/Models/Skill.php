@@ -108,7 +108,7 @@ class Skill extends Model
         return $this->hasMany(SkillDiscount::class, 'discounting_skill');
     }
 
-    public function cost(Character $character = null, CharacterSkill $characterSkill = null): int
+    public function cost(Character $character = null): int
     {
         if ($this->attributes['cost']) {
             return $this->attributes['cost'];
@@ -116,7 +116,7 @@ class Skill extends Model
         $category = $this->skillCategory;
         static $completedCategorySkills = [];
         if ($character && $category->scaling) {
-            if (empty($characterSkill)) {
+            if ($character->status_id >= Status::APPROVED) {
                 if (empty($completedCategorySkills[$category->id])) {
                     $completedCategorySkills[$category->id] = $character->trainedSkills()
                         ->where('skills.skill_category_id', $this->skill_category_id);
