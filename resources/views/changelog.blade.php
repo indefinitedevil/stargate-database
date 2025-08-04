@@ -11,8 +11,12 @@
             <div>
                 <h3 class="text-lg font-semibold">Update: 4th August 2025</h3>
                 <ul class="list-inside list-disc">
+                    <li>Plot Co: added management of teams, departments, and divisions.</li>
+                    <li>Command: added management of teams, departments, and divisions.</li>
+                    <li>Added new role: Command.</li>
                     <li>Reorganised research project view.</li>
                     <li>Added ordered lists to the markdown processor.</li>
+                    <li>Added teams, departments, and divisions to characters.</li>
                 </ul>
             </div>
             <div>
