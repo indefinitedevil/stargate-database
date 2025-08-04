@@ -17,7 +17,7 @@ class DepartmentController extends Controller
     public function edit($departmentId)
     {
         return view('organisation.departments.edit', [
-            'department' => Department::findOrFail($divisionId),
+            'department' => Department::findOrFail($departmentId),
             'activeCharacters' => Character::getActiveCharacters(),
         ]);
     }

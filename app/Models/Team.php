@@ -44,7 +44,7 @@ class Team extends Model
 
     public function getTeamLeadAttribute(): ?Character
     {
-        return $this->characters()->wherePivot('position', self::LEAD)->first();
+        return $this->characters->where('pivot.position', self::LEAD)->first();
     }
 
     public function getTeamLeadIdAttribute(): int
@@ -54,7 +54,7 @@ class Team extends Model
 
     public function getTeamSecondAttribute(): ?Character
     {
-        return $this->characters()->wherePivot('position', self::SECOND)->first();
+        return $this->characters->where('pivot.position', self::SECOND)->first();
     }
 
     public function getTeamSecondIdAttribute(): int

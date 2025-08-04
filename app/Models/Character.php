@@ -594,19 +594,21 @@ class Character extends Model
         return $this->teams->pluck('id')->toArray();
     }
 
+    public function eventTeams(int $eventId): BelongsToMany
+    {
+        return $this->teams()->where('event_id', $eventId);
+    }
+
     public function getEventTeam($eventId = null): string
     {
+        $eventId ??= Event::nextEventId();
         if (empty($eventId)) {
-            $eventId = Event::nextEventId();
-            if (empty($eventId)) {
-                return '';
-            }
+            return '';
         }
-        $teamNames = [];
-        foreach ($this->teams()->where('event_id', $eventId)->get() as $team) {
-            $teamNames[] = $this->getTeamName($team);
-        }
-        return implode(', ', $teamNames);
+
+        return $this->eventTeams($eventId)->get()
+            ->map([$this, 'getTeamName'])
+            ->implode(', ');
     }
 
     private function getTeamName($team): string

@@ -52,7 +52,7 @@ class Department extends Model
 
     public function getDepartmentHeadAttribute(): ?Character
     {
-        return $this->characters()->wherePivot('position', self::HEAD)->first();
+        return $this->characters->where('pivot.position', self::HEAD)->first();
     }
 
     public function getDepartmentHeadIdAttribute(): int
@@ -62,7 +62,7 @@ class Department extends Model
 
     public function getDepartmentSpecialistsAttribute(): Collection
     {
-        return $this->characters()->wherePivot('position', self::SPECIALIST)->get();
+        return $this->characters->where('pivot.position', self::SPECIALIST)->get();
     }
 
     public function getDepartmentSpecialistIdsAttribute(): array

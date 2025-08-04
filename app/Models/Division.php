@@ -54,7 +54,7 @@ class Division extends Model
 
     public function getDivisionHeadAttribute(): ?Character
     {
-        return $this->characters()->wherePivot('position', self::HEAD)->first();
+        return $this->characters->where('pivot.position', self::HEAD)->first();
     }
 
     public function getDivisionHeadIdAttribute(): int
@@ -64,7 +64,7 @@ class Division extends Model
 
     public function getDivisionSecondAttribute(): ?Character
     {
-        return $this->characters()->wherePivot('position', self::SECOND)->first();
+        return $this->characters->where('pivot.position', self::SECOND)->first();
     }
 
     public function getDivisionSecondIdAttribute(): int
@@ -74,7 +74,7 @@ class Division extends Model
 
     public function getDivisionStaffAttribute(): ?Character
     {
-        return $this->characters()->wherePivot('position', self::STAFF)->first();
+        return $this->characters->where('pivot.position', self::STAFF)->first();
     }
 
     public function getDivisionStaffIdAttribute(): int
