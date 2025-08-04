@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
             SkillSeeder::class,
             FeatSeeder::class,
             RoleSeeder::class,
-            EventSeeder::class,
             ActionTypeSeeder::class,
         ]);
     }
