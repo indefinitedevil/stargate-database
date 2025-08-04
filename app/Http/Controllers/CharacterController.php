@@ -661,7 +661,7 @@ class CharacterController extends Controller
                     $newDepartmentData[$department->id] = ['position' => $department->pivot->position];
                 }
             }
-            $character->divisions()->sync($newDepartmentData);
+            $character->departments()->sync($newDepartmentData);
         } elseif ($request->user()->can('edit all characters')) {
             $character->departments()->sync([]);
         }

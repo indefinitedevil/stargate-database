@@ -109,13 +109,13 @@
                                 @endforeach
                             </x-select>
                             <p class="text-xs">
-                                {{ __('Press Ctrl to select/de-select additional specialties.') }}
+                                {{ __('Press Ctrl to select/de-select additional divisions.') }}
                             </p>
                             <x-input-error class="mt-2" :messages="$errors->get('division')"/>
                         </div>
 
                         <div>
-                            <x-input-label for="department" :value="__('Division')"/>
+                            <x-input-label for="department" :value="__('Department')"/>
                             <x-select id="department" name="department[]" class="mt-1 block w-full">
                                 <option value="">{{ __('Select a department') }}</option>
                                 @foreach(Department::all() as $department)
