@@ -16,6 +16,11 @@ use Illuminate\Support\Str;
  * @property Character[]|Collection characters
  * @property int division_id
  * @property Division division
+ * @property Character|null department_head
+ * @property int department_head_id
+ * @property Collection department_specialists
+ * @property int[] department_specialist_ids
+ * @property int[] character_ids
  */
 class Department extends Model
 {
@@ -43,5 +48,30 @@ class Department extends Model
     public function getViewRoute(): string
     {
         return route('departments.view', ['departmentId' => $this, 'departmentName' => Str::slug($this->name)]);
+    }
+
+    public function getDepartmentHeadAttribute(): ?Character
+    {
+        return $this->characters()->wherePivot('position', self::HEAD)->first();
+    }
+
+    public function getDepartmentHeadIdAttribute(): int
+    {
+        return $this->department_head?->id ?? 0;
+    }
+
+    public function getDepartmentSpecialistsAttribute(): Collection
+    {
+        return $this->characters()->wherePivot('position', self::SPECIALIST)->get();
+    }
+
+    public function getDepartmentSpecialistIdsAttribute(): array
+    {
+        return $this->department_specialists->pluck('id')->toArray();
+    }
+
+    public function getCharacterIdsAttribute(): array
+    {
+        return $this->characters->pluck('id')->toArray();
     }
 }

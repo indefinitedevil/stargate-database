@@ -76,15 +76,14 @@
                     <div class="col-span-2">
                         <x-input-label for="team_members" :value="__('Team Members')"/>
                         <x-select id="team_members" name="team_members[]" class="mt-1 block w-full" multiple size="12">
-                            <option value="">{{ __('Select team members') }}</option>
                             @foreach (Character::getActiveCharacters() as $character)
                                 <option value="{{ $character->id }}"
-                                        @if(in_array($character->id, $team->character_ids)) selected @endif>{{ $character->list_name }}</option>
+                                        @if (!empty($team) && in_array($character->id, $team->character_ids)) selected @endif>{{ $character->list_name }}</option>
                             @endforeach
                         </x-select>
                         <x-input-error class="mt-2" :messages="$errors->get('team_members')"/>
                         <p class="text-xs">
-                            {{ __('Press Ctrl to select/de-select additional specialties.') }}
+                            {{ __('Press Ctrl to select/de-select additional characters.') }}
                         </p>
                     </div>
                 </div>

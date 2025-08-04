@@ -49,10 +49,10 @@ class TeamController extends Controller
                 $members[$memberId] = ['position' => 0];
             }
         }
-        if ($request->has('team_lead')) {
+        if ($request->get('team_lead', 0)) {
             $members[$request->input('team_lead')] = ['position' => Team::LEAD];
         }
-        if ($request->has('team_second')) {
+        if ($request->get('team_second', 0)) {
             $members[$request->input('team_second')] = ['position' => Team::SECOND];
         }
         $team->characters()->sync($members);

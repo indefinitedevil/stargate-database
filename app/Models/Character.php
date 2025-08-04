@@ -549,6 +549,9 @@ class Character extends Model
             }
             $divisionNames[] = $name;
         }
+        if (empty($divisionNames)) {
+            return $this->departments->first()?->division->name ?? '';
+        }
         return implode(', ', $divisionNames);
     }
 

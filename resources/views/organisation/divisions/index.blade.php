@@ -21,7 +21,7 @@
                         <li>
                             <strong>{{ $division->name }}</strong>
                             @can('edit departments')
-                                <a class="underline ms-6" href="{{ route('departments.edit', $division) }}">
+                                <a class="underline ms-6" href="{{ route('divisions.edit', $division) }}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     {{ __('Edit') }}
                                 </a>

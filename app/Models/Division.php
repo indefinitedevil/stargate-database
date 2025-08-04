@@ -15,6 +15,13 @@ use Illuminate\Support\Str;
  * @property string|null description
  * @property Character[]|Collection characters
  * @property Department[]|Collection departments
+ * @property int division_head_id
+ * @property int division_second_id
+ * @property int division_staff_id
+ * @property Character|null division_head
+ * @property Character|null division_second
+ * @property Character|null division_staff
+ * @property int[] character_ids
  */
 class Division extends Model
 {
@@ -43,5 +50,40 @@ class Division extends Model
     public function getViewRoute(): string
     {
         return route('divisions.view', ['divisionId' => $this, 'divisionName' => Str::slug($this->name)]);
+    }
+
+    public function getDivisionHeadAttribute(): ?Character
+    {
+        return $this->characters()->wherePivot('position', self::HEAD)->first();
+    }
+
+    public function getDivisionHeadIdAttribute(): int
+    {
+        return $this->division_head?->id ?? 0;
+    }
+
+    public function getDivisionSecondAttribute(): ?Character
+    {
+        return $this->characters()->wherePivot('position', self::SECOND)->first();
+    }
+
+    public function getDivisionSecondIdAttribute(): int
+    {
+        return $this->division_second?->id ?? 0;
+    }
+
+    public function getDivisionStaffAttribute(): ?Character
+    {
+        return $this->characters()->wherePivot('position', self::STAFF)->first();
+    }
+
+    public function getDivisionStaffIdAttribute(): int
+    {
+        return $this->division_staff?->id ?? 0;
+    }
+
+    public function getCharacterIdsAttribute(): array
+    {
+        return $this->characters->pluck('id')->toArray();
     }
 }

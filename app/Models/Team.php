@@ -13,9 +13,9 @@ use Illuminate\Support\Str;
  * @property string name
  * @property string|null description
  * @property Character[]|Collection characters
- * @property Character team_lead
+ * @property Character|null team_lead
  * @property int team_lead_id
- * @property Character team_second
+ * @property Character|null team_second
  * @property int team_second_id
  */
 class Team extends Model

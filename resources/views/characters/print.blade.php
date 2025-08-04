@@ -45,7 +45,7 @@
                                 {{ __('(+:temp for this event)', ['temp' => $character->temp_vigor]) }}
                             @endif
                         </p>
-                        <p class="mt-1 @if ($character->divisions->count() > 0) col-span-2 @endif">
+                        <p class="mt-1">
                             <strong>{{ __('Division') }}:</strong> {!! $character->division !!}
                         </p>
                         @if ($character->departments->count() > 0)
