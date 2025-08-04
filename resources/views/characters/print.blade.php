@@ -45,6 +45,17 @@
                                 {{ __('(+:temp for this event)', ['temp' => $character->temp_vigor]) }}
                             @endif
                         </p>
+                        <p class="mt-1">
+                            <strong>{{ __('Division') }}:</strong> {!! $character->division !!}
+                        </p>
+                        @if ($character->departments->count() > 0)
+                            <p class="mt-1">
+                                <strong>{{ __('Department') }}:</strong> {!! $character->department !!}
+                            </p>
+                        @endif
+                        <p class="mt-1">
+                            <strong>{{ __('Team') }}:</strong> {!! $character->getEventTeam() !!}
+                        </p>
                     </div>
                 </div>
 

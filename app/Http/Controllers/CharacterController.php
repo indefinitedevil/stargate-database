@@ -534,6 +534,12 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
+        if (empty($request->get('department')[0])) {
+            $request->request->set('department', []);
+        }
+        if (empty($request->get('team')[0])) {
+            $request->request->set('team', []);
+        }
         $validatedData = $request->validate([
             'id' => 'sometimes|integer|exists:characters,id',
             'user_id' => 'required|exists:users,id',
@@ -550,6 +556,9 @@ class CharacterController extends Controller
             'events' => 'sometimes|array|exists:events,id',
             'hero_scoundrel' => 'sometimes|int',
             'traits' => 'sometimes|array',
+            'division' => 'sometimes|array|exists:divisions,id',
+            'department' => 'sometimes|array|exists:departments,id',
+            'team' => 'sometimes|array|exists:teams,id',
         ]);
 
         if ($request->user()->cannot('create', Character::class)) {
@@ -626,6 +635,59 @@ class CharacterController extends Controller
                 ]),
             ]);
             $log->save();
+        }
+
+        if (!empty($validatedData['division'])) {
+            $newDivisionData = [];
+            foreach ($validatedData['division'] as $divisionId) {
+                $newDivisionData[$divisionId] = ['position' => 0];
+            }
+            foreach ($character->divisions as $division) {
+                if (!empty($newDivisionData[$division->id])) {
+                    $newDivisionData[$division->id] = ['position' => $division->pivot->position];
+                }
+            }
+            $character->divisions()->sync($newDivisionData);
+        }
+
+        if (!empty($validatedData['department'])) {
+            $character->departments()->sync($validatedData['department']);
+            $newDepartmentData = [];
+            foreach ($validatedData['department'] as $divisionId) {
+                $newDepartmentData[$divisionId] = ['position' => 0];
+            }
+            foreach ($character->departments as $department) {
+                if (!empty($newDepartmentData[$department->id])) {
+                    $newDepartmentData[$department->id] = ['position' => $department->pivot->position];
+                }
+            }
+            $character->divisions()->sync($newDepartmentData);
+        } elseif ($request->user()->can('edit all characters')) {
+            $character->departments()->sync([]);
+        }
+
+        if (!empty($validatedData['team'])) {
+            $eventTeams = $character->teams()->whereNotNull('event_id')->get();
+            $newTeamData = [];
+            foreach ($eventTeams as $team) {
+                $newTeamData[$team->id] = ['position' => $team->pivot->position];
+            }
+            foreach ($validatedData['team'] as $teamId) {
+                $newTeamData[$teamId] = ['position' => 0];
+            }
+            foreach ($character->teams as $team) {
+                if (!empty($newTeamData[$team->id])) {
+                    $newTeamData[$team->id] = ['position' => $team->pivot->position];
+                }
+            }
+            $character->teams()->sync($newTeamData);
+        } elseif ($request->user()->can('edit all characters')) {
+            $eventTeams = $character->teams()->whereNotNull('event_id')->get();
+            $newTeamData = [];
+            foreach ($eventTeams as $team) {
+                $newTeamData[$team->id] = ['position' => $team->pivot->position];
+            }
+            $character->teams()->sync($newTeamData);
         }
 
         return redirect($character->getViewRoute())

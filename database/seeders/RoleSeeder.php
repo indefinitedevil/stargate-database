@@ -56,6 +56,10 @@ class RoleSeeder extends Seeder
         $viewSkillBreakdown = Permission::findOrCreate('view skill breakdown');
         $editDowntimes = Permission::findOrCreate('edit downtimes');
         $accessExecutiveMenu = Permission::findOrCreate('access executive menu');
+        $viewDepartments = Permission::findOrCreate('view departments');
+        $editDepartments = Permission::findOrCreate('edit departments');
+        $viewTeams = Permission::findOrCreate('view teams');
+        $editTeams = Permission::findOrCreate('edit teams');
 
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
@@ -64,6 +68,7 @@ class RoleSeeder extends Seeder
         $systemReferee = Role::findOrCreate('system referee');
         $secretary = Role::findOrCreate('secretary');
         $researcher = Role::findOrCreate('researcher');
+        $command = Role::findOrCreate('command');
         $player = Role::findOrCreate('player');
 
         $admin->syncPermissions([
@@ -97,6 +102,10 @@ class RoleSeeder extends Seeder
             $viewSkillBreakdown,
             $editDowntimes,
             $accessExecutiveMenu,
+            $viewDepartments,
+            $editDepartments,
+            $viewTeams,
+            $editTeams,
         ]);
 
         $systemReferee->syncPermissions([
@@ -127,6 +136,11 @@ class RoleSeeder extends Seeder
             $editResearchProjects,
         ]);
 
+        $command->syncPermissions([
+            $editTeams,
+            $viewTeams,
+        ]);
+
         $player->syncPermissions([
             $viewOwnCharacter,
             $createCharacter,
@@ -136,6 +150,8 @@ class RoleSeeder extends Seeder
             $viewOwnLog,
             $createLog,
             $editOwnLog,
+            $viewDepartments,
+            $viewTeams,
         ]);
     }
 }

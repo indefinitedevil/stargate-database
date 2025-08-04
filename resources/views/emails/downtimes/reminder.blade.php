@@ -7,6 +7,8 @@ The current downtime period will close at {{ format_datetime($downtime->end_time
 This downtime is associated with the event {{ $downtime->event->name }} and open to attendees of same.
 @endif
 
+Downtime submissions can be edited up to the deadline, so it is recommended to submit your actions early and return to them later if needed.
+
 <x-mail::button :url="route('downtimes.index')">Go to Downtime System</x-mail::button>
 
 Regards,

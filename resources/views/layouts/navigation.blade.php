@@ -30,6 +30,33 @@
                         <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.*')">
                             {{ __('Events') }}
                         </x-nav-link>
+                        <x-dropdown align="left"
+                                    contentClasses="py-1 bg-white dark:bg-gray-700 divide-y divide-gray-100">
+                            <x-slot name="trigger" class="inline-flex">
+                                <x-nav-link class="cursor-pointer"
+                                            :active="request()->routeIs('organisation') || request()->routeIs('divisions.*') || request()->routeIs('departments.*') || request()->routeIs('teams.*')">{{ __('Organisation') }}</x-nav-link>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div>
+                                    @can('view departments')
+                                        <x-dropdown-link :href="route('departments.organisation')"
+                                                         :active="request()->routeIs('departments.organisation')">
+                                            {{ __('Organisation Chart') }}
+                                        </x-dropdown-link>
+                                        <x-dropdown-link :href="route('divisions.index')"
+                                                         :active="request()->routeIs('divisions.*') || request()->routeIs('departments.*')">
+                                            {{ __('Divisions') }}
+                                        </x-dropdown-link>
+                                    @endcan
+                                    @can('view teams')
+                                        <x-dropdown-link :href="route('teams.index')"
+                                                         :active="request()->routeIs('teams.*')">
+                                            {{ __('Teams') }}
+                                        </x-dropdown-link>
+                                    @endcan
+                                </div>
+                            </x-slot>
+                        </x-dropdown>
                         @if (Auth::user()->can('access executive menu') || Auth::user()->can('viewSkills', Character::class))
                             <x-dropdown align="left"
                                         contentClasses="py-1 bg-white dark:bg-gray-700 divide-y divide-gray-100">
@@ -197,6 +224,28 @@
                                        :active="request()->routeIs('events.index')">
                     {{ __('Events') }}
                 </x-responsive-nav-link>
+                <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                    <div class="px-4">
+                        <div
+                            class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('Organisation') }}</div>
+                    </div>
+                    @can('view departments')
+                        <x-responsive-nav-link :href="route('departments.organisation')"
+                                               :active="request()->routeIs('departments.organisation')">
+                            {{ __('Organisation Chart') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('divisions.index')"
+                                               :active="request()->routeIs('divisions.*') || request()->routeIs('departments.*')">
+                            {{ __('Divisions') }}
+                        </x-responsive-nav-link>
+                    @endcan
+                    @can('view teams')
+                        <x-responsive-nav-link :href="route('teams.index')"
+                                               :active="request()->routeIs('teams.*')">
+                            {{ __('Teams') }}
+                        </x-responsive-nav-link>
+                    @endcan
+                </div>
                 @if (Auth::user()->can('edit downtimes') || Auth::user()->canAny(['viewAll', 'viewSkills'], Character::class))
                     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                         <div class="px-4">
@@ -227,7 +276,7 @@
                                 {{ __('Traits') }}
                             </x-responsive-nav-link>
                             <x-responsive-nav-link :href="request()->fullUrlWithQuery(['as_player' => 1])"
-                                             :active="request()->input('as_player')">
+                                                   :active="request()->input('as_player')">
                                 {{ __('View as player') }}
                             </x-responsive-nav-link>
                         @endcan
