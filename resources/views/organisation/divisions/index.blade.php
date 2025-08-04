@@ -1,7 +1,3 @@
-@php
-    use App\Models\Department;
-    use App\Models\Division;
-@endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Divisions') }}</x-slot>
     <x-slot name="header">
@@ -13,7 +9,6 @@
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <div>
             <ul class="list-disc list-inside space-y-2">
-                @php $divisions = Division::all(); @endphp
                 @if (count($divisions) == 0)
                     <li>{{ __('No divisions found') }}</li>
                 @else
@@ -27,11 +22,10 @@
                                 </a>
                             @endcan
                             <ul class="list-disc list-inside space-y-2 pl-4 mt-1">
-                                @php $departments = Department::where('division_id', $division->id)->get(); @endphp
-                                @if (count($departments) == 0)
+                                @if (count($division->$departments) == 0)
                                     <li>{{ __('No departments found') }}</li>
                                 @else
-                                    @foreach ($departments as $department)
+                                    @foreach ($division->departments as $department)
                                         <li>
                                             <strong>{{ $department->name }}</strong>
                                             @can('edit departments')

@@ -1,5 +1,4 @@
 @php
-    use App\Models\Character;
     $title = empty($division->id) ? __('Create division') : sprintf(__('Edit division: %s'), $division->name);
 @endphp
 <x-app-layout>
@@ -40,7 +39,7 @@
                             <x-input-label for="division_head" :value="__('Division Head')"/>
                             <x-select id="division_head" name="division_head" class="mt-1 block w-full">
                                 <option value="">{{ __('Select a division head') }}</option>
-                                @foreach (Character::getActiveCharacters() as $character)
+                                @foreach ($activeCharacters as $character)
                                     <option value="{{ $character->id }}"
                                             @if(old('division_head', $division->division_head_id ?? '') == $character->id) selected @endif>{{ $character->list_name }}</option>
                                 @endforeach
@@ -51,7 +50,7 @@
                             <x-input-label for="division_second" :value="__('Division 2IC')"/>
                             <x-select id="division_second" name="division_second" class="mt-1 block w-full">
                                 <option value="">{{ __('Select a division second') }}</option>
-                                @foreach (Character::getActiveCharacters() as $character)
+                                @foreach ($activeCharacters as $character)
                                     <option value="{{ $character->id }}"
                                             @if(old('division_second', $division->division_second_id ?? '') == $character->id) selected @endif>{{ $character->list_name }}</option>
                                 @endforeach
@@ -62,7 +61,7 @@
                             <x-input-label for="division_staff" :value="__('Division Staff Officer')"/>
                             <x-select id="division_staff" name="division_staff" class="mt-1 block w-full">
                                 <option value="">{{ __('Select a division staff officer') }}</option>
-                                @foreach (Character::getActiveCharacters() as $character)
+                                @foreach ($activeCharacters as $character)
                                     <option value="{{ $character->id }}"
                                             @if(old('division_staff', $division->division_staff_id ?? '') == $character->id) selected @endif>{{ $character->list_name }}</option>
                                 @endforeach

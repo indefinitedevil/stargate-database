@@ -1,5 +1,4 @@
 @php
-    use App\Models\Character;
     $title = empty($department->id) ? __('Create department') : sprintf(__('Edit department: %s'), $department->name);
 @endphp
 <x-app-layout>
@@ -40,7 +39,7 @@
                             <x-input-label for="department_head" :value="__('Department Head')"/>
                             <x-select id="department_head" name="department_head" class="mt-1 block w-full">
                                 <option value="">{{ __('Select a department head') }}</option>
-                                @foreach (Character::getActiveCharacters() as $character)
+                                @foreach ($activeCharacters as $character)
                                     <option value="{{ $character->id }}"
                                             @if(old('department_head', $department->department_head_id ?? '') == $character->id) selected @endif>{{ $character->list_name }}</option>
                                 @endforeach
@@ -51,7 +50,7 @@
                         <div>
                             <x-input-label for="department_specialists" :value="__('Department Specialists')"/>
                             <x-select id="department_specialists" name="department_specialists[]" class="mt-1 block w-full" multiple size="6">
-                                @foreach (Character::getActiveCharacters() as $character)
+                                @foreach ($activeCharacters as $character)
                                     <option value="{{ $character->id }}"
                                             @if (!empty($department) && in_array($character->id, $department->department_specialist_ids)) selected @endif>{{ $character->list_name }}</option>
                                 @endforeach
@@ -66,7 +65,7 @@
                     <div class="col-span-2">
                         <x-input-label for="department_members" :value="__('Department Members')"/>
                         <x-select id="department_members" name="department_members[]" class="mt-1 block w-full" multiple size="12">
-                            @foreach (Character::getActiveCharacters() as $character)
+                            @foreach ($activeCharacters as $character)
                                 <option value="{{ $character->id }}"
                                         @if (!empty($department) && in_array($character->id, $department->character_ids)) selected @endif>{{ $character->list_name }}</option>
                             @endforeach

@@ -10,10 +10,13 @@ use App\Models\Character;
 use App\Models\CharacterLog;
 use App\Models\CharacterSkill;
 use App\Models\CharacterTrait;
+use App\Models\Department;
+use App\Models\Division;
 use App\Models\Event;
 use App\Models\LogType;
 use App\Models\Skill;
 use App\Models\Status;
+use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\MessageBag;
@@ -39,7 +42,11 @@ class CharacterController extends Controller
             return redirect(route('characters.index'))
                 ->with('errors', new MessageBag([__('Characters cannot be created.')]));
         }
-        return view('characters.edit');
+        return view('characters.edit', [
+            'divisions' => Division::all(),
+            'departments' => Department::all(),
+            'teams' => Team::whereNull('event_id')->get(),
+        ]);
     }
 
     public function view(Request $request, $characterId)
@@ -112,7 +119,12 @@ class CharacterController extends Controller
         if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
             return redirect($character->getViewRoute());
         }
-        return view('characters.edit', ['character' => $character]);
+        return view('characters.edit', [
+            'character' => $character,
+            'divisions' => Division::all(),
+            'departments' => Department::all(),
+            'teams' => Team::whereNull('event_id')->get(),
+        ]);
     }
 
     /**
@@ -651,7 +663,6 @@ class CharacterController extends Controller
         }
 
         if (!empty($validatedData['department'])) {
-            $character->departments()->sync($validatedData['department']);
             $newDepartmentData = [];
             foreach ($validatedData['department'] as $divisionId) {
                 $newDepartmentData[$divisionId] = ['position' => 0];

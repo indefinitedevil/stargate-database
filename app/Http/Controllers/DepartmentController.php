@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Character;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
@@ -15,8 +16,10 @@ class DepartmentController extends Controller
 
     public function edit($departmentId)
     {
-        $department = Department::findOrFail($departmentId);
-        return view('organisation.departments.edit', ['department' => $department]);
+        return view('organisation.departments.edit', [
+            'department' => Department::findOrFail($divisionId),
+            'activeCharacters' => Character::getActiveCharacters(),
+        ]);
     }
 
     public function store(Request $request)

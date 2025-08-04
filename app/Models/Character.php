@@ -557,11 +557,7 @@ class Character extends Model
 
     public function getDivisionIdsAttribute(): array
     {
-        $divisionIds = [];
-        foreach ($this->divisions as $division) {
-            $divisionIds[] = $division->id;
-        }
-        return $divisionIds;
+        return $this->divisions->pluck('id')->toArray();
     }
 
     public function getDepartmentAttribute(): string
@@ -581,11 +577,7 @@ class Character extends Model
 
     public function getDepartmentIdsAttribute(): array
     {
-        $departmentIds = [];
-        foreach ($this->departments as $department) {
-            $departmentIds[] = $department->id;
-        }
-        return $departmentIds;
+        return $this->departments->pluck('id')->toArray();
     }
 
     public function getTeamAttribute(): string
@@ -599,11 +591,7 @@ class Character extends Model
 
     public function getTeamIdsAttribute(): array
     {
-        $teamIds = [];
-        foreach ($this->teams as $team) {
-            $teamIds[] = $team->id;
-        }
-        return $teamIds;
+        return $this->teams->pluck('id')->toArray();
     }
 
     public function getEventTeam($eventId = null): string

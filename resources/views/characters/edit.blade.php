@@ -2,10 +2,7 @@
     use App\Models\Background;
     use App\Models\Character;
     use App\Models\CharacterTrait;
-    use App\Models\Department;
-    use App\Models\Division;
     use App\Models\Status;
-    use App\Models\Team;
     use App\Models\User;
     $title = empty($character) ? __('Create character') : sprintf(__('Edit character: %s'), $character->name);
 @endphp
@@ -101,7 +98,7 @@
                             <x-input-label for="division" :value="__('Division')"/>
                             <x-select id="division" name="division[]" class="mt-1 block w-full" required
                                       multiple>
-                                @foreach(Division::all() as $division)
+                                @foreach($divisions as $division)
                                     <option value="{{ $division->id }}"
                                             @if(!empty($character) && in_array($division->id, $character->divisionIds)) selected @endif >
                                         {{ $division->name }}
@@ -118,7 +115,7 @@
                             <x-input-label for="department" :value="__('Department')"/>
                             <x-select id="department" name="department[]" class="mt-1 block w-full">
                                 <option value="">{{ __('Select a department') }}</option>
-                                @foreach(Department::all() as $department)
+                                @foreach($departments as $department)
                                     <option value="{{ $department->id }}"
                                             @if(!empty($character) && in_array($department->id, $character->departmentIds)) selected @endif >
                                         {{ $department->name }}
@@ -132,7 +129,7 @@
                             <x-input-label for="team" :value="__('Team')"/>
                             <x-select id="team" name="team[]" class="mt-1 block w-full">
                                 <option value="">{{ __('Select a team') }}</option>
-                                @foreach(Team::whereNull('event_id')->get() as $team)
+                                @foreach($teams as $team)
                                     <option value="{{ $team->id }}"
                                             @if(!empty($character) && in_array($team->id, $character->teamIds)) selected @endif >
                                         {{ $team->name }}

@@ -1,6 +1,4 @@
 @php
-    use App\Models\Character;
-    use App\Models\Event;
     $title = empty($team->id) ? __('Create team') : sprintf(__('Edit team: %s'), $team->name);
 @endphp
 <x-app-layout>
@@ -41,7 +39,7 @@
                             <x-input-label for="event_id" :value="__('Event (optional)')"/>
                             <x-select id="event_id" name="event_id" class="mt-1 block w-full">
                                 <option value="">{{ __('Select an event for temporary teams') }}</option>
-                                @foreach(Event::all() as $event)
+                                @foreach($events as $event)
                                     <option value="{{ $event->id }}"
                                             @if(old('event_id', $team->event_id ?? '') == $event->id) selected @endif>{{ $event->name }}</option>
                                 @endforeach
@@ -53,7 +51,7 @@
                             <x-input-label for="team_lead" :value="__('Team Leader')"/>
                             <x-select id="team_lead" name="team_lead" class="mt-1 block w-full">
                                 <option value="">{{ __('Select a team leader') }}</option>
-                                @foreach (Character::getActiveCharacters() as $character)
+                                @foreach ($activeCharacters as $character)
                                     <option value="{{ $character->id }}"
                                             @if(old('team_lead', $team->team_lead_id ?? '') == $character->id) selected @endif>{{ $character->list_name }}</option>
                                 @endforeach
@@ -64,7 +62,7 @@
                             <x-input-label for="team_second" :value="__('Team 2IC')"/>
                             <x-select id="team_second" name="team_second" class="mt-1 block w-full">
                                 <option value="">{{ __('Select a team second') }}</option>
-                                @foreach (Character::getActiveCharacters() as $character)
+                                @foreach ($activeCharacters as $character)
                                     <option value="{{ $character->id }}"
                                             @if(old('team_second', $team->team_second_id ?? '') == $character->id) selected @endif>{{ $character->list_name }}</option>
                                 @endforeach
@@ -76,7 +74,7 @@
                     <div class="col-span-2">
                         <x-input-label for="team_members" :value="__('Team Members')"/>
                         <x-select id="team_members" name="team_members[]" class="mt-1 block w-full" multiple size="12">
-                            @foreach (Character::getActiveCharacters() as $character)
+                            @foreach ($activeCharacters as $character)
                                 <option value="{{ $character->id }}"
                                         @if (!empty($team) && in_array($character->id, $team->character_ids)) selected @endif>{{ $character->list_name }}</option>
                             @endforeach

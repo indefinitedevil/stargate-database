@@ -74,7 +74,7 @@ class Event extends Model
 
     public static function nextEvent(): ?Event
     {
-        return self::where('start_date', '>=', date('Y-m-d H:i:s'))->orderBy('start_date', 'asc')->first();
+        return self::where('start_date', '>=', now())->orderBy('start_date', 'asc')->first();
     }
 
     public static function nextEventId(): int

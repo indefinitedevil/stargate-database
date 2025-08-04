@@ -1,7 +1,3 @@
-@php
-    use App\Models\Event;
-    use App\Models\Team;
-@endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Teams') }}</x-slot>
     <x-slot name="header">
@@ -19,11 +15,10 @@
         <div>
             <h3 class="text-xl">{{ __('Permanent Teams') }}</h3>
             <ul class="list-disc list-inside space-y-2">
-                @php $teams = Team::whereNull('event_id')->orderBy('name')->get(); @endphp
-                @if (count($teams) == 0)
+                @if (count($permanentTeams) == 0)
                     <li>{{ __('No teams found') }}</li>
                 @else
-                    @foreach ($teams as $team)
+                    @foreach ($permanentTeams as $team)
                         <li>
                             <strong><a href="{{ $team->getViewRoute() }}"
                                        class="underline">{{ $team->name }}</a></strong>
@@ -42,11 +37,10 @@
         <div>
             <h3 class="text-xl">{{ __('Event Teams') }}</h3>
             <ul class="list-disc list-inside space-y-2">
-                @php $teams = Team::where('event_id', Event::nextEventId())->orderBy('name')->get(); @endphp
-                @if (count($teams) == 0)
+                @if (count($eventTeams) == 0)
                     <li>{{ __('No teams found') }}</li>
                 @else
-                    @foreach ($teams as $team)
+                    @foreach ($eventTeams as $team)
                         <li>
                             <strong><a href="{{ $team->getViewRoute() }}"
                                        class="underline">{{ $team->name }}</a></strong>

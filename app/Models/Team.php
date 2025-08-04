@@ -28,6 +28,7 @@ class Team extends Model
     protected $fillable = [
         'name',
         'description',
+        'event_id',
     ];
 
     public function characters(): BelongsToMany
