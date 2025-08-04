@@ -62,7 +62,7 @@ class Department extends Model
 
     public function getDepartmentSpecialistsAttribute(): Collection
     {
-        return $this->characters->where('pivot.position', self::SPECIALIST)->get();
+        return $this->characters->where('pivot.position', self::SPECIALIST);
     }
 
     public function getDepartmentSpecialistIdsAttribute(): array
