@@ -611,7 +611,7 @@ class Character extends Model
             ->implode(', ');
     }
 
-    private function getTeamName($team): string
+    public function getTeamName($team): string
     {
         $name = $team->name;
         if (Team::LEAD == $team->pivot->position) {
