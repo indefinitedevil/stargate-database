@@ -34,7 +34,8 @@ class Team extends Model
     public function characters(): BelongsToMany
     {
         return $this->belongsToMany(Character::class)
-            ->withPivot('position');
+            ->withPivot('position')
+            ->orderBy('characters.name');
     }
 
     public function getViewRoute(): string

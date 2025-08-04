@@ -1,3 +1,4 @@
+@php use App\Models\Team; @endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Teams') }}</x-slot>
     <x-slot name="header">
@@ -28,6 +29,23 @@
                                     {{ __('Edit') }}
                                 </a>
                             @endcan
+                            <ul class="list-inside list-disc pl-4 mt-1">
+                                @if (count($team->characters) == 0)
+                                    <li>{{ __('No members found') }}</li>
+                                @else
+                                    @foreach ($team->characters as $character)
+                                        <li>
+                                            {{ $character->listName }}</a>
+                                            @if (Team::LEAD == $character->pivot->position)
+                                                <span class="text-sm text-gray-500">({{ __('Team Lead') }})</span>
+                                            @endif
+                                            @if (Team::SECOND == $character->pivot->position)
+                                                <span class="text-sm text-gray-500">({{ __('Team 2IC') }})</span>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
                         </li>
                     @endforeach
                 @endif
@@ -50,6 +68,23 @@
                                     {{ __('Edit') }}
                                 </a>
                             @endcan
+                            <ul class="list-inside list-disc pl-4 mt-1">
+                                @if (count($team->characters) == 0)
+                                    <li>{{ __('No members found') }}</li>
+                                @else
+                                    @foreach ($team->characters as $character)
+                                        <li>
+                                            {{ $character->listName }}</a>
+                                            @if (Team::LEAD == $character->pivot->position)
+                                                <span class="text-sm text-gray-500">({{ __('Team Lead') }})</span>
+                                            @endif
+                                            @if (Team::SECOND == $character->pivot->position)
+                                                <span class="text-sm text-gray-500">({{ __('Team 2IC') }})</span>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
                         </li>
                     @endforeach
                 @endif
