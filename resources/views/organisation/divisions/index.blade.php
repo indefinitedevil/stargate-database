@@ -22,7 +22,7 @@
                                 </a>
                             @endcan
                             <ul class="list-disc list-inside space-y-2 pl-4 mt-1">
-                                @if (count($division->$departments) == 0)
+                                @if (count($division->departments) == 0)
                                     <li>{{ __('No departments found') }}</li>
                                 @else
                                     @foreach ($division->departments as $department)
