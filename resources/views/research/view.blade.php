@@ -71,12 +71,22 @@
             @endcan
         @endif
         @if (ResearchProject::STATUS_COMPLETED == $project->status)
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-3">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                     <h3 class="text-xl">{{ __('Results') }}</h3>
                     {!! process_markdown($project->results ?? '') !!}
                 </div>
             </div>
+        @endif
+        @if (empty(request()->input('as_player')))
+            @can('view hidden notes')
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+                        <h3 class="text-xl">{{ __('Plot Notes') }}</h3>
+                        {!! process_markdown($project->plot_notes ?? '') !!}
+                    </div>
+                </div>
+            @endcan
         @endif
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
@@ -104,7 +114,7 @@
             </div>
         </div>
         @if (ResearchProject::STATUS_ACTIVE <= $project->status && $project->downtimeActions->count())
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-2">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                     <h3 class="text-xl">{{ __('Researchers') }}</h3>
                     @if ($project->researchers->count())
@@ -151,16 +161,6 @@
                     @endif
                 </div>
             </div>
-        @endif
-        @if (empty(request()->input('as_player')))
-            @can('view hidden notes')
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-                        <h3 class="text-xl">{{ __('Plot Notes') }}</h3>
-                        {!! process_markdown($project->plot_notes ?? '') !!}
-                    </div>
-                </div>
-            @endcan
         @endif
     </div>
 </x-app-layout>
