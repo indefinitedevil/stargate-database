@@ -34,13 +34,19 @@
 
     <div class="p-4 sm:px-8 sm:py-4 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <p>
-            <strong>{{ __('Lowest training months on an active character:') }}</strong> {{ CharacterHelper::getLowestTrainedMonths() }}
+            <strong>{{ __('Lowest training months on an active character:') }}</strong> {{ CharacterHelper::getLowestTrainingMonths() }}
         </p>
         <p>
-            <strong>{{ __('Lowest training months on an active character who has done a downtime:') }}</strong> {{ CharacterHelper::getLowestDowntimeMonths() }}
+            <strong>{{ __('Lowest training months on an active character who has done a downtime:') }}</strong> {{ CharacterHelper::getLowestTrainingMonthsIncludingDowntime() }}
+            @php
+            $characterId = CharacterHelper::getLowestPostCreationTrainingMonthsIncludingDowntimeCharacterId();
+            @endphp
+            @if ($characterId)
+                ({{ CharacterHelper::getCharacterById($characterId)->listName }})
+            @endif
         </p>
         <p>
-            <strong>{{ __('Highest training months on an active character:') }}</strong> {{ CharacterHelper::getHighestTrainedMonths() }}
+            <strong>{{ __('Highest training months on an active character:') }}</strong> {{ CharacterHelper::getHighestTrainingMonths() }}
         </p>
         <p>
             <strong>{{ __('Catchup XP:') }}</strong> {{ CharacterHelper::getCatchupXP() }}

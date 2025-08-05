@@ -10,29 +10,9 @@ use Illuminate\Support\Collection;
 
 class CharacterHelper
 {
-    private static ?Collection $charactersWithoutDowntime = null;
-
-    public static function getLowestTrainedMonths(): int
+    public static function getLowestTrainingMonths(): int
     {
-        if (is_null(self::$charactersWithoutDowntime)) {
-            self::$charactersWithoutDowntime = Character::leftJoin('character_logs', function ($join) {
-                $join->on('characters.id', '=', 'character_logs.character_id')
-                    ->where('character_logs.log_type_id', LogType::DOWNTIME);
-            })
-                ->whereIn('characters.status_id', [Status::PLAYED])
-                ->whereNull('character_logs.id')
-                ->get();
-        }
-        if (self::$charactersWithoutDowntime->count()) {
-            return 0;
-        }
-        return self::getLowestDowntimeMonths();
-    }
-
-    public static function getLowestDowntimeMonths(): int
-    {
-        $logs = CharacterLog::where('log_type_id', LogType::DOWNTIME)
-            ->join('characters', 'characters.id', '=', 'character_logs.character_id')
+        $logs = CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
             ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
             ->selectRaw('SUM(amount_trained) AS total')
             ->groupBy('character_id')
@@ -41,10 +21,47 @@ class CharacterHelper
         return $logs->count() ? $logs->first()->total : 0;
     }
 
-    public static function getHighestTrainedMonths(): int
+    public static function getLowestTrainingMonthsIncludingDowntime(): int
     {
-        $logs = CharacterLog::where('log_type_id', LogType::DOWNTIME)
-            ->join('characters', 'characters.id', '=', 'character_logs.character_id')
+        $logs = CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
+            ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
+            ->whereIn('characters.id', self::getCharacterIdsWithDowntimes())
+            ->selectRaw('SUM(amount_trained) AS total')
+            ->groupBy('character_id')
+            ->orderBy('total', 'ASC')
+            ->get();
+        return $logs->count() ? $logs->first()->total : 0;
+    }
+
+    public static function getLowestPostCreationTrainingMonthsIncludingDowntime(): int
+    {
+        $logs = CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
+            ->join('backgrounds', 'backgrounds.id', '=', 'characters.background_id')
+            ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
+            ->whereIn('characters.id', self::getCharacterIdsWithDowntimes())
+            ->selectRaw('SUM(amount_trained) - backgrounds.months AS total')
+            ->groupBy('character_id', 'backgrounds.months')
+            ->orderBy('total', 'ASC')
+            ->get();
+        return $logs->count() ? $logs->first()->total : 0;
+    }
+
+    public static function getLowestPostCreationTrainingMonthsIncludingDowntimeCharacterId(): int
+    {
+        $logs = CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
+            ->join('backgrounds', 'backgrounds.id', '=', 'characters.background_id')
+            ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
+            ->whereIn('characters.id', self::getCharacterIdsWithDowntimes())
+            ->selectRaw('SUM(amount_trained) - backgrounds.months AS total, character_id')
+            ->groupBy('character_id', 'backgrounds.months')
+            ->orderBy('total', 'ASC')
+            ->get();
+        return $logs->count() ? $logs->first()->character_id : 0;
+    }
+
+    public static function getHighestTrainingMonths(): int
+    {
+        $logs = CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
             ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
             ->selectRaw('SUM(amount_trained) AS total')
             ->groupBy('character_id')
@@ -53,9 +70,18 @@ class CharacterHelper
         return $logs->count() ? $logs->first()->total : 0;
     }
 
+    public static function getCharacterIdsWithDowntimes(): array
+    {
+        return CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
+            ->where('character_logs.log_type_id', LogType::DOWNTIME)
+            ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
+            ->pluck('character_logs.character_id')
+            ->toArray();
+    }
+
     public static function getCatchupXP(): int
     {
-        return self::getLowestDowntimeMonths();
+        return self::getLowestPostCreationTrainingMonthsIncludingDowntime();
     }
 
     public static function getCharacterById(int $characterId): ?Character
