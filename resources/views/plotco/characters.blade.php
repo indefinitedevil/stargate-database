@@ -1,7 +1,5 @@
 @php
     use App\Helpers\CharacterHelper;
-    use App\Models\Character;
-    use App\Models\User;
 @endphp
 <x-app-layout>
     <x-slot name="title">{{ __('All characters') }}</x-slot>
@@ -62,21 +60,21 @@
             <div class="sm:grid sm:grid-cols-2 gap-6">
                 <div>
                     <p class="text-lg">{{ __('Heroes') }}</p>
-                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', Character::HERO), 'checkbox' => true, 'hideStatus' => true])
+                    @include('characters.partials.index', ['characters' => $heroCharacters, 'checkbox' => true, 'hideStatus' => true])
                 </div>
                 <div>
                     <p class="text-lg">{{ __('Scoundrels') }}</p>
-                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', Character::SCOUNDREL), 'checkbox' => true, 'hideStatus' => true])
+                    @include('characters.partials.index', ['characters' => $scoundrelCharacters, 'checkbox' => true, 'hideStatus' => true])
                 </div>
                 <div>
                     <p class="text-lg">{{ __('Unknown') }}</p>
-                    @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', Character::UNKNOWN), 'checkbox' => true, 'hideStatus' => true])
+                    @include('characters.partials.index', ['characters' => $unknownCharacters, 'checkbox' => true, 'hideStatus' => true])
                 </div>
                 <div>
                     <p class="text-lg">{{ __('Villains/NPCs') }}</p>
                     <div class="divide-y divide-gray-100">
-                        @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', '!=', User::PLOT_CO_ID)->where('hero_scoundrel', Character::VILLAIN), 'checkbox' => true, 'hideStatus' => true])
-                        @include('characters.partials.index', ['characters' => $activeCharacters->where('user_id', User::PLOT_CO_ID), 'checkbox' => true, 'hideStatus' => true])
+                        @include('characters.partials.index', ['characters' => $villainCharacters, 'checkbox' => true, 'hideStatus' => true])
+                        @include('characters.partials.index', ['characters' => $plotcoCharacters, 'checkbox' => true, 'hideStatus' => true])
                     </div>
                 </div>
             </div>

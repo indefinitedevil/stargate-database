@@ -23,10 +23,21 @@ class PlotcoController extends Controller
             return redirect(route('dashboard'))
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
+        $baseCharacters = Character::with('user')->join('users', 'characters.user_id', '=', 'users.id')
+            ->select('characters.*')
+            ->orderBy('users.name')
+            ->orderBy('characters.name');
+        $activeCharacters = (clone $baseCharacters)->whereIn('status_id', [Status::APPROVED, Status::PLAYED]);
+        $playerCharacters = (clone $activeCharacters)->where('user_id', '!=', User::PLOT_CO_ID);
         return view('plotco.characters', [
-            'newCharacters' => Character::with('user')->where('status_id', Status::READY)->orderBY('name', 'asc')->get(),
-            'activeCharacters' => Character::with('user')->whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get(),
-            'inactiveCharacters' => Character::with('user')->whereIn('status_id', [Status::DEAD, Status::RETIRED, Status::INACTIVE])->orderBy('name', 'asc')->get(),
+            'newCharacters' => (clone $baseCharacters)->where('status_id', Status::READY)->get(),
+            'activeCharacters' => $activeCharacters->get(),
+            'heroCharacters' => (clone $playerCharacters)->where('hero_scoundrel', Character::HERO)->get(),
+            'scoundrelCharacters' => (clone $playerCharacters)->where('hero_scoundrel', Character::SCOUNDREL)->get(),
+            'unknownCharacters' => (clone $playerCharacters)->where('hero_scoundrel', Character::UNKNOWN)->get(),
+            'villainCharacters' => (clone $playerCharacters)->where('hero_scoundrel', Character::VILLAIN)->get(),
+            'plotcoCharacters' => (clone $activeCharacters)->where('user_id', User::PLOT_CO_ID)->get(),
+            'inactiveCharacters' => (clone $baseCharacters)->whereIn('status_id', [Status::DEAD, Status::RETIRED, Status::INACTIVE])->get(),
         ]);
     }
 
@@ -39,7 +50,7 @@ class PlotcoController extends Controller
         if ($request->has('event')) {
             $characters = Event::where('id', $request->get('event'))->first()->characters()->whereIn('status_id', [Status::APPROVED, Status::PLAYED])->sortBy('name')->pluck('id');
         } else {
-            $characters = Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get()->pluck('id');
+            $characters = Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name')->get()->pluck('id');
         }
         return view('plotco.skills', [
             'validCharacters' => $characters,
@@ -62,7 +73,7 @@ class PlotcoController extends Controller
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         return view('characters.print', [
-            'characters' => Character::with('user')->whereIn('status_id', [Status::READY, Status::APPROVED, Status::PLAYED])->orderBy('name', 'asc')->get(),
+            'characters' => Character::with('user')->whereIn('status_id', [Status::READY, Status::APPROVED, Status::PLAYED])->orderBy('name')->get(),
         ]);
     }
 
@@ -73,7 +84,7 @@ class PlotcoController extends Controller
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         if ($request->has('characters')) {
-            $characters = Character::with('user')->whereIn('id', $request->get('characters'))->orderBy('name', 'asc')->get();
+            $characters = Character::with('user')->whereIn('id', $request->get('characters'))->orderBy('name')->get();
         } elseif ($request->has('event')) {
             $characters = Event::where('id', $request->get('event'))->first()->characters()->sortBy('name');
         } else {

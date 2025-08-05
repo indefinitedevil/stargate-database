@@ -76,10 +76,10 @@
                                         <li>
                                             {{ $character->listName }}</a>
                                             @if (Team::LEAD == $character->pivot->position)
-                                                <span class="text-sm text-gray-500">({{ __('Team Lead') }})</span>
+                                                <span class="text-sm text-gray-400 dark:text-gray-500">({{ __('Team Lead') }})</span>
                                             @endif
                                             @if (Team::SECOND == $character->pivot->position)
-                                                <span class="text-sm text-gray-500">({{ __('Team 2IC') }})</span>
+                                                <span class="text-sm text-gray-400 dark:text-gray-500">({{ __('Team 2IC') }})</span>
                                             @endif
                                         </li>
                                     @endforeach

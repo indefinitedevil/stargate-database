@@ -7,15 +7,15 @@
                 @if (!empty($checkbox))
                     <input type="checkbox" name="characters[]" value="{{ $character->id }}">
                 @endif
+                @if (auth()->user()->can('view all characters') && empty($hideUser))
+                    <span class="text-sm text-gray-400 dark:text-gray-500"><a class="underline" href="{{ $character->user->getViewRoute() }}">{{ $character->user->name }}</a>:</span>
+                @endif
                 <a class="underline" href="{{ $character->getViewRoute() }}">
                     {{ $character->listName }}</a>
                 @if ($character->isPrimary && empty($hidePrimary))
                     <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i>
                 @endif
                 ({{ $character->background->name }})
-                @if (auth()->user()->can('view all characters') && empty($hideUser))
-                    [<a class="underline" href="{{ $character->user->getViewRoute() }}">{{ $character->user->name }}</a>]
-                @endif
                 @if (empty($hideStatus))
                     - {{ $character->status->name }}
                 @endif
