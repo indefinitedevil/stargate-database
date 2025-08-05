@@ -9,6 +9,14 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 1st August 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: changed catch-up XP display.</li>
+                    <li>Sys Ref: changed catch-up XP display.</li>
+                    <li>Changed catch-up XP to be calculated based on the entirety of training, not just downtime training.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 4th August 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: added management of teams, departments, and divisions.</li>
