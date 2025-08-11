@@ -15,7 +15,7 @@
                 </ul>
             </div>
             <div>
-                <h3 class="text-lg font-semibold">Update: 1st August 2025</h3>
+                <h3 class="text-lg font-semibold">Update: 5th August 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: changed catch-up XP display.</li>
                     <li>Sys Ref: changed catch-up XP display.</li>
