@@ -9,6 +9,12 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Bugfix: 11th August 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Fixed bug with events disappearing from indexes on the final day of the event.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 1st August 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: changed catch-up XP display.</li>

@@ -1,6 +1,3 @@
-@php
-    use App\Models\Event;
-@endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Events') }}</x-slot>
     <x-slot name="header">
@@ -16,11 +13,10 @@
         <div>
             <h3 class="text-lg font-semibold">{{ __('Upcoming events') }}</h3>
             <ul class="space-y-6">
-                @php $events = Event::where('end_date', '>', date('Y-m-d'))->get(); @endphp
-                @if (count($events) == 0)
+                @if (count($currentEvents) == 0)
                     <li>{{ __('No events found') }}</li>
                 @else
-                    @foreach ($events as $event)
+                    @foreach ($currentEvents as $event)
                         <li>
                             <strong>{{ $event->name }}:</strong> {{ format_datetime($event->start_date, 'd/m/y') }}
                             - {{ format_datetime($event->end_date, 'd/m/y') }}
@@ -45,11 +41,10 @@
         </div>
 
         <div class="mt-4">
-            @php $events = Event::where('end_date', '<', date('Y-m-d'))->get(); @endphp
-            @if (count($events))
+            @if (count($pastEvents))
                 <h3 class="text-lg font-semibold">{{ __('Past events') }}</h3>
                 <ul class="list-disc list-inside">
-                    @foreach ($events as $event)
+                    @foreach ($pastEvents as $event)
                         <li>
                             <strong>{{ $event->name }}:</strong> {{ format_datetime($event->start_date, 'd/m/y') }}
                             - {{ format_datetime($event->end_date, 'd/m/y') }}

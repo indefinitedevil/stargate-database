@@ -63,7 +63,16 @@ class PlotcoController extends Controller
             return redirect(route('dashboard'))
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
-        return view('plotco.attendance');
+        $currentEvents = Event::where('end_date', '>=', now())
+            ->orderBy('start_date', 'asc')
+            ->get();
+        $pastEvents = Event::where('end_date', '<', now())
+            ->orderBy('start_date', 'asc')
+            ->get();
+        return view('plotco.attendance', [
+            'currentEvents' => $currentEvents,
+            'pastEvents' => $pastEvents,
+        ]);
     }
 
     public function printAll(Request $request)

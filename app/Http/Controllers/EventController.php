@@ -16,7 +16,16 @@ class EventController extends Controller
 {
     public function index()
     {
-        return view('events.index');
+        $currentEvents = Event::where('end_date', '>=', now())
+            ->orderBy('start_date', 'asc')
+            ->get();
+        $pastEvents = Event::where('end_date', '<', now())
+            ->orderBy('start_date', 'asc')
+            ->get();
+        return view('events.index', [
+            'currentEvents' => $currentEvents,
+            'pastEvents' => $pastEvents,
+        ]);
     }
 
     public function attendance(Request $request, $eventId)

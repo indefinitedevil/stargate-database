@@ -1,6 +1,3 @@
-@php
-    use App\Models\Event;
-@endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Attendance') }}</x-slot>
     <x-slot name="header">
@@ -9,7 +6,7 @@
         </h2>
     </x-slot>
 
-    @foreach (Event::where('end_date', '>', date('Y-m-d'))->get() as $event)
+    @foreach ($currentEvents as $event)
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
             @can('view all characters')
                 <x-link-button href="{{ route('plotco.print-some', ['event' => $event->id]) }}"
@@ -64,7 +61,7 @@
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <h3 class="text-lg font-semibold">{{ __('Past events') }}</h3>
         <ul class="list-disc list-inside">
-            @foreach (Event::where('end_date', '<', date('Y-m-d'))->get() as $event)
+            @foreach ($pastEvents as $event)
                 <li>
                     <strong>{{ $event->name }}:</strong> {{ format_datetime($event->start_date, 'd/m/y') }}
                     - {{ format_datetime($event->end_date, 'd/m/y') }}
