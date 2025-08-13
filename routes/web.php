@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'can:create character'], function () {
         Route::get('/characters', [CharacterController::class, 'index'])->name('characters.index');
+        Route::get('/characters/skills', [CharacterController::class, 'skills'])->name('characters.skills');
         Route::get('/characters/view/{characterId}/{characterName?}', [CharacterController::class, 'view'])->name('characters.view');
         Route::get('/characters/logs/{characterId}/{characterName?}', [CharacterController::class, 'logs'])->name('characters.logs');
         Route::get('/characters/print/{characterId}', [CharacterController::class, 'print'])->name('characters.print');

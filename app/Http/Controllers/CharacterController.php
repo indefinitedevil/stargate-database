@@ -15,6 +15,7 @@ use App\Models\Division;
 use App\Models\Event;
 use App\Models\LogType;
 use App\Models\Skill;
+use App\Models\SkillCategory;
 use App\Models\Status;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -962,5 +963,17 @@ class CharacterController extends Controller
         $log->save();
 
         return redirect(route('characters.edit-skills', ['characterId' => $characterSkill->character->id]));
+    }
+
+    public function skills()
+    {
+        $characters = Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name')->get()->pluck('id');
+        $skillCategories = SkillCategory::with('skills')
+            ->where('id', '!=', SkillCategory::SYSTEM)
+            ->get();
+        return view('characters.skills', [
+            'validCharacters' => $characters,
+            'skillCategories' => $skillCategories,
+        ]);
     }
 }

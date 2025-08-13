@@ -18,7 +18,8 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @auth
-                        <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.index')">
+                        <x-nav-link :href="route('characters.index')"
+                                    :active="request()->routeIs('characters.index')">
                             {{ __('My Characters') }}
                         </x-nav-link>
                         <x-nav-link :href="route('downtimes.index')" :active="request()->routeIs('downtimes.*')">
@@ -34,7 +35,7 @@
                                     contentClasses="py-1 bg-white dark:bg-gray-700 divide-y divide-gray-100">
                             <x-slot name="trigger" class="inline-flex">
                                 <x-nav-link class="cursor-pointer"
-                                            :active="request()->routeIs('organisation') || request()->routeIs('divisions.*') || request()->routeIs('departments.*') || request()->routeIs('teams.*')">{{ __('Organisation') }}</x-nav-link>
+                                            :active="request()->routeIs('organisation') || request()->routeIs('divisions.*') || request()->routeIs('departments.*') || request()->routeIs('teams.*') || request()->routeIs('characters.skills')">{{ __('Organisation') }}</x-nav-link>
                             </x-slot>
                             <x-slot name="content">
                                 <div>
@@ -54,6 +55,12 @@
                                             {{ __('Teams') }}
                                         </x-dropdown-link>
                                     @endcan
+                                </div>
+                                <div>
+                                    <x-dropdown-link :href="route('characters.skills')"
+                                                     :active="request()->routeIs('characters.skills')">
+                                        {{ __('Skill Coverage') }}
+                                    </x-dropdown-link>
                                 </div>
                             </x-slot>
                         </x-dropdown>
@@ -245,6 +252,10 @@
                             {{ __('Teams') }}
                         </x-responsive-nav-link>
                     @endcan
+                    <x-responsive-nav-link :href="route('characters.skills')"
+                                           :active="request()->routeIs('characters.skills')">
+                        {{ __('Skill Coverage') }}
+                    </x-responsive-nav-link>
                 </div>
                 @if (Auth::user()->can('edit downtimes') || Auth::user()->canAny(['viewAll', 'viewSkills'], Character::class))
                     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">

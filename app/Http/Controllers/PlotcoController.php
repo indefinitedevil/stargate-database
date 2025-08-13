@@ -9,6 +9,7 @@ use App\Models\Downtime;
 use App\Models\DowntimeAction;
 use App\Models\Event;
 use App\Models\LogType;
+use App\Models\SkillCategory;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -52,8 +53,16 @@ class PlotcoController extends Controller
         } else {
             $characters = Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name')->get()->pluck('id');
         }
+        $currentEvents = Event::where('end_date', '>=', now())
+            ->orderBy('start_date', 'asc')
+            ->get();
+        $skillCategories = SkillCategory::with('skills')
+            ->where('id', '!=', SkillCategory::SYSTEM)
+            ->get();
         return view('plotco.skills', [
             'validCharacters' => $characters,
+            'currentEvents' => $currentEvents,
+            'skillCategories' => $skillCategories,
         ]);
     }
 
