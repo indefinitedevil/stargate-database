@@ -36,7 +36,7 @@ class CharacterTrait extends Model
         'fa-duck',
         'fa-cupcake',
         'fa-tree',
-        'fa-bell',
+        'fa-bird',
         'fa-star',
         'fa-heart',
         'fa-bolt',
