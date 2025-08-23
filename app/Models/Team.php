@@ -31,6 +31,8 @@ class Team extends Model
         'event_id',
     ];
 
+    protected $with = ['characters'];
+
     public function characters(): BelongsToMany
     {
         return $this->belongsToMany(Character::class)
