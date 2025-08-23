@@ -36,6 +36,8 @@ class Division extends Model
         'description',
     ];
 
+    protected $with = ['characters'];
+
     public function characters(): BelongsToMany
     {
         return $this->belongsToMany(Character::class)
