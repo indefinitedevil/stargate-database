@@ -20,6 +20,14 @@
                 @else
                     @foreach ($permanentTeams as $team)
                         <li>
+                            <strong><a href="{{ $team->getViewRoute() }}"
+                                       class="underline">{{ $team->name }}</a></strong>
+                            @can('edit teams')
+                                <a class="underline ms-6" href="{{ route('teams.edit', $team) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    {{ __('Edit') }}
+                                </a>
+                            @endcan
                             @include('organisation.partials.team')
                         </li>
                     @endforeach
@@ -35,6 +43,14 @@
                 @else
                     @foreach ($eventTeams as $team)
                         <li>
+                            <strong><a href="{{ $team->getViewRoute() }}"
+                                       class="underline">{{ $team->name }}</a></strong>
+                            @can('edit teams')
+                                <a class="underline ms-6" href="{{ route('teams.edit', $team) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    {{ __('Edit') }}
+                                </a>
+                            @endcan
                             @include('organisation.partials.team')
                         </li>
                     @endforeach
