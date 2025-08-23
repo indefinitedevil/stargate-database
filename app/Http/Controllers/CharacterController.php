@@ -964,16 +964,4 @@ class CharacterController extends Controller
 
         return redirect(route('characters.edit-skills', ['characterId' => $characterSkill->character->id]));
     }
-
-    public function skills()
-    {
-        $characters = Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name')->get()->pluck('id');
-        $skillCategories = SkillCategory::with('skills')
-            ->where('id', '!=', SkillCategory::SYSTEM)
-            ->get();
-        return view('characters.skills', [
-            'validCharacters' => $characters,
-            'skillCategories' => $skillCategories,
-        ]);
-    }
 }

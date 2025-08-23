@@ -2,15 +2,16 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CharacterController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\DowntimeController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\Organisation\DepartmentController;
+use App\Http\Controllers\Organisation\DivisionController;
+use App\Http\Controllers\Organisation\TeamController;
+use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\PlotcoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\SysrefController;
-use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TraitsController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
@@ -46,7 +47,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'can:create character'], function () {
         Route::get('/characters', [CharacterController::class, 'index'])->name('characters.index');
-        Route::get('/characters/skills', [CharacterController::class, 'skills'])->name('characters.skills');
         Route::get('/characters/view/{characterId}/{characterName?}', [CharacterController::class, 'view'])->name('characters.view');
         Route::get('/characters/logs/{characterId}/{characterName?}', [CharacterController::class, 'logs'])->name('characters.logs');
         Route::get('/characters/print/{characterId}', [CharacterController::class, 'print'])->name('characters.print');
@@ -143,7 +143,8 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['middleware' => 'can:view departments'], function () {
-        Route::get('/organisation', [DepartmentController::class, 'organisation'])->name('departments.organisation');
+        Route::get('/organisation', [OrganisationController::class, 'chart'])->name('organisation.chart');
+        Route::get('/organisation/skills', [OrganisationController::class, 'skills'])->name('organisation.skills');
         Route::get('/divisions', [DivisionController::class, 'index'])->name('divisions.index');
         Route::get('/departments/view/{departmentId}/{departmentName?}', [DepartmentController::class, 'view'])->name('departments.view');
     });

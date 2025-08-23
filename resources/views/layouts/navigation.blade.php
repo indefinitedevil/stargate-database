@@ -35,13 +35,13 @@
                                     contentClasses="py-1 bg-white dark:bg-gray-700 divide-y divide-gray-100">
                             <x-slot name="trigger" class="inline-flex">
                                 <x-nav-link class="cursor-pointer"
-                                            :active="request()->routeIs('organisation') || request()->routeIs('divisions.*') || request()->routeIs('departments.*') || request()->routeIs('teams.*') || request()->routeIs('characters.skills')">{{ __('Organisation') }}</x-nav-link>
+                                            :active="request()->routeIs('organisation') || request()->routeIs('divisions.*') || request()->routeIs('departments.*') || request()->routeIs('teams.*') || request()->routeIs('organisation.skills')">{{ __('Organisation') }}</x-nav-link>
                             </x-slot>
                             <x-slot name="content">
                                 <div>
                                     @can('view departments')
-                                        <x-dropdown-link :href="route('departments.organisation')"
-                                                         :active="request()->routeIs('departments.organisation')">
+                                        <x-dropdown-link :href="route('organisation.chart')"
+                                                         :active="request()->routeIs('organisation.chart')">
                                             {{ __('Organisation Chart') }}
                                         </x-dropdown-link>
                                         <x-dropdown-link :href="route('divisions.index')"
@@ -57,8 +57,8 @@
                                     @endcan
                                 </div>
                                 <div>
-                                    <x-dropdown-link :href="route('characters.skills')"
-                                                     :active="request()->routeIs('characters.skills')">
+                                    <x-dropdown-link :href="route('organisation.skills')"
+                                                     :active="request()->routeIs('organisation.skills')">
                                         {{ __('Skill Coverage') }}
                                     </x-dropdown-link>
                                 </div>
@@ -237,8 +237,8 @@
                             class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('Organisation') }}</div>
                     </div>
                     @can('view departments')
-                        <x-responsive-nav-link :href="route('departments.organisation')"
-                                               :active="request()->routeIs('departments.organisation')">
+                        <x-responsive-nav-link :href="route('organisation.chart')"
+                                               :active="request()->routeIs('organisation.chart')">
                             {{ __('Organisation Chart') }}
                         </x-responsive-nav-link>
                         <x-responsive-nav-link :href="route('divisions.index')"
@@ -252,8 +252,8 @@
                             {{ __('Teams') }}
                         </x-responsive-nav-link>
                     @endcan
-                    <x-responsive-nav-link :href="route('characters.skills')"
-                                           :active="request()->routeIs('characters.skills')">
+                    <x-responsive-nav-link :href="route('organisation.skills')"
+                                           :active="request()->routeIs('organisation.skills')">
                         {{ __('Skill Coverage') }}
                     </x-responsive-nav-link>
                 </div>
