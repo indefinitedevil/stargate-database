@@ -13,7 +13,10 @@
                 <ul class="list-inside list-disc">
                     <li>Added organisation chart.</li>
                     <li>Added feature for players to see skill coverage across characters.</li>
+                    <li>Added missing team view.</li>
                     <li>Fixed bug with events disappearing from indexes on the final day of the event.</li>
+                    <li>Refactored controllers and views.</li>
+                    <li>Improved class loading.</li>
                 </ul>
             </div>
             <div>
