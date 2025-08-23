@@ -35,7 +35,7 @@
                                 @else
                                     @foreach ($team->characters as $character)
                                         <li>
-                                            {{ $character->listName }}</a>
+                                            {{ $character->listName }}
                                             @if (Team::LEAD == $character->pivot->position)
                                                 <span class="text-sm text-gray-500">({{ __('Team Lead') }})</span>
                                             @endif
