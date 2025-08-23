@@ -16,7 +16,7 @@
         <div>
             <h3 class="text-xl">{{ __('Permanent Teams') }}</h3>
             <ul class="list-disc list-inside space-y-2">
-                @if (count($permanentTeams) == 0)
+                @if ($permanentTeams->isEmpty())
                     <li>{{ __('No teams found') }}</li>
                 @else
                     @foreach ($permanentTeams as $team)
@@ -30,17 +30,17 @@
                                 </a>
                             @endcan
                             <ul class="list-inside list-disc pl-4 mt-1">
-                                @if (count($team->characters) == 0)
+                                @if ($team->characters->isEmpty())
                                     <li>{{ __('No members found') }}</li>
                                 @else
                                     @foreach ($team->characters as $character)
                                         <li>
                                             {{ $character->listName }}
                                             @if (Team::LEAD == $character->pivot->position)
-                                                <span class="text-sm text-gray-500">({{ __('Team Lead') }})</span>
+                                                <span class="text-sm text-gray-400 dark:text-gray-500">({{ __('Team Lead') }})</span>
                                             @endif
                                             @if (Team::SECOND == $character->pivot->position)
-                                                <span class="text-sm text-gray-500">({{ __('Team 2IC') }})</span>
+                                                <span class="text-sm text-gray-400 dark:text-gray-500">({{ __('Team 2IC') }})</span>
                                             @endif
                                         </li>
                                     @endforeach
@@ -55,7 +55,7 @@
         <div>
             <h3 class="text-xl">{{ __('Event Teams') }}</h3>
             <ul class="list-disc list-inside space-y-2">
-                @if (count($eventTeams) == 0)
+                @if ($eventTeams->isEmpty())
                     <li>{{ __('No teams found') }}</li>
                 @else
                     @foreach ($eventTeams as $team)
@@ -69,7 +69,7 @@
                                 </a>
                             @endcan
                             <ul class="list-inside list-disc pl-4 mt-1">
-                                @if (count($team->characters) == 0)
+                                @if ($team->characters->isEmpty())
                                     <li>{{ __('No members found') }}</li>
                                 @else
                                     @foreach ($team->characters as $character)
