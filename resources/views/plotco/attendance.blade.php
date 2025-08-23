@@ -1,3 +1,4 @@
+@php use App\Models\Event; @endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Attendance') }}</x-slot>
     <x-slot name="header">

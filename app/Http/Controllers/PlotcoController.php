@@ -53,7 +53,7 @@ class PlotcoController extends Controller
         } else {
             $characters = Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name')->get()->pluck('id');
         }
-        $currentEvents = Event::where('end_date', '>=', now())
+        $currentEvents = Event::where('end_date', '>=', today())
             ->orderBy('start_date', 'asc')
             ->get();
         $skillCategories = SkillCategory::with('skills')
@@ -72,10 +72,10 @@ class PlotcoController extends Controller
             return redirect(route('dashboard'))
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
-        $currentEvents = Event::where('end_date', '>=', now())
+        $currentEvents = Event::where('end_date', '>=', today())
             ->orderBy('start_date', 'asc')
             ->get();
-        $pastEvents = Event::where('end_date', '<', now())
+        $pastEvents = Event::where('end_date', '<', today())
             ->orderBy('start_date', 'asc')
             ->get();
         return view('plotco.attendance', [
@@ -102,7 +102,8 @@ class PlotcoController extends Controller
                 ->with('errors', new MessageBag([__('Access not allowed.')]));
         }
         if ($request->has('characters')) {
-            $characters = Character::with('user')->whereIn('id', $request->get('characters'))->orderBy('name')->get();
+            $ids = $request->validate(['characters' => 'required|array', 'characters.*' => 'integer|exists:characters,id'])['characters'];
+            $characters = Character::with('user')->whereIn('id', $ids)->orderBy('name')->get();
         } elseif ($request->has('event')) {
             $characters = Event::where('id', $request->get('event'))->first()->characters()->sortBy('name');
         } else {

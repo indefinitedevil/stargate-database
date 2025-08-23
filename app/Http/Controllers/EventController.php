@@ -16,10 +16,10 @@ class EventController extends Controller
 {
     public function index()
     {
-        $currentEvents = Event::where('end_date', '>=', now())
+        $currentEvents = Event::where('end_date', '>=', today())
             ->orderBy('start_date', 'asc')
             ->get();
-        $pastEvents = Event::where('end_date', '<', now())
+        $pastEvents = Event::where('end_date', '<', today())
             ->orderBy('start_date', 'asc')
             ->get();
         return view('events.index', [
