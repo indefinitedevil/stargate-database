@@ -9,8 +9,9 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Update: 13th August 2025</h3>
+                <h3 class="text-lg font-semibold">Update: 23rd August 2025</h3>
                 <ul class="list-inside list-disc">
+                    <li>Added organisation chart.</li>
                     <li>Added feature for players to see skill coverage across characters.</li>
                     <li>Fixed bug with events disappearing from indexes on the final day of the event.</li>
                 </ul>

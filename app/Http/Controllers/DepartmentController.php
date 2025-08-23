@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Character;
 use App\Models\Department;
+use App\Models\Division;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 
@@ -69,6 +70,8 @@ class DepartmentController extends Controller
 
     public function organisation()
     {
-        return view('organisation.chart');
+        return view('organisation.chart', [
+            'divisions' => Division::with(['characters', 'departments.characters'])->get(),
+        ]);
     }
 }
