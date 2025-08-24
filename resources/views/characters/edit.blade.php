@@ -105,7 +105,7 @@
                                 @endforeach
                             </x-select>
                             <p class="text-xs">
-                                {{ __('Press Ctrl to select/de-select additional divisions.') }}
+                                {{ __('Press Ctrl (or Cmd on Mac) to select/de-select additional divisions.') }}
                             </p>
                             <x-input-error class="mt-2" :messages="$errors->get('division')"/>
                         </div>

@@ -45,7 +45,7 @@
                         @endforeach
                     </x-select>
                     <p class="text-xs">
-                        {{ __('Press Ctrl to select/de-select additional specialties.') }}
+                        {{ __('Press Ctrl (or Cmd on Mac) to select/de-select additional specialties.') }}
                     </p>
                     <x-input-error class="mt-2" :messages="$errors->get('specialty_id')" />
                 </div>

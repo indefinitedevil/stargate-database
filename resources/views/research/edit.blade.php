@@ -174,7 +174,7 @@
                                 @endif
                             </x-select>
                             <x-input-error class="mt-2" :messages="$errors->get('skills')"/>
-                            <p class="text-xs">{{ __('Press Ctrl to select/de-select additional skills.') }}</p>
+                            <p class="text-xs">{{ __('Press Ctrl (or Cmd on Mac) to select/de-select additional skills.') }}</p>
                         </div>
 
                         <div class="col-span-2">
@@ -194,7 +194,7 @@
                                 @endforeach
                             </x-select>
                             <p class="text-xs">
-                                {{ __('Press Ctrl to select/de-select additional specialties.') }}
+                                {{ __('Press Ctrl (or Cmd on Mac) to select/de-select additional specialties.') }}
                             </p>
                         </div>
                     @endcan

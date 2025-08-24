@@ -81,7 +81,7 @@
                         </x-select>
                         <x-input-error class="mt-2" :messages="$errors->get('team_members')"/>
                         <p class="text-xs">
-                            {{ __('Press Ctrl to select/de-select additional characters.') }}
+                            {{ __('Press Ctrl (or Cmd on Mac) to select/de-select additional characters.') }}
                         </p>
                     </div>
                 </div>
