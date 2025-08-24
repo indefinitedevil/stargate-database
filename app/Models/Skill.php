@@ -117,12 +117,15 @@ class Skill extends Model
         static $completedCategorySkills = [];
         if ($character && $category->scaling) {
             if ($character->status_id >= Status::APPROVED || empty($characterSkill)) {
+                // This case covers approved characters and the available skills list on the add skill form
                 if (empty($completedCategorySkills[$category->id])) {
                     $completedCategorySkills[$category->id] = $character->trainedSkills()
                         ->where('skills.skill_category_id', $this->skill_category_id);
                 }
                 $countSkills = $completedCategorySkills[$category->id]->count();
             } else {
+                // This case covers trained skills on new characters
+                // This is needed because they don't have saved costs yet, so they need to be calculated on the fly
                 static $scalingCosts = [];
                 if (empty($scalingCosts[$category->id])) {
                     $scalingCosts[$category->id] = [];
