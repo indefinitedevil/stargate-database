@@ -661,6 +661,8 @@ class CharacterController extends Controller
                 }
             }
             $character->divisions()->sync($newDivisionData);
+        } elseif ($request->user()->can('edit all characters')) {
+            $character->divisions()->sync([]);
         }
 
         if (!empty($validatedData['department'])) {
