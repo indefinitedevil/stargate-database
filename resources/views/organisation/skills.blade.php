@@ -22,13 +22,7 @@
                 <ul class="list-disc list-inside">
                 @foreach($category->cleanSkills as $skill)
                     <li>
-                        @php
-                            $characterSkills = $skill->characterSkills
-                                ->where('completed', true)
-                                ->whereIn('character_id', $validCharacters)
-                                ->groupBy('character_id');
-                        @endphp
-                        {{ sprintf('%s (%d)', $skill->name, count($characterSkills)) }}
+                        {{ sprintf('%s (%d)', $skill->name, $skill->characterCount($validCharacters)) }}
                     </li>
                 @endforeach
                 </ul>

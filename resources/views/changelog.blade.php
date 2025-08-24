@@ -14,6 +14,7 @@
                     <li>Plot Co: made division not mandatory.</li>
                     <li>Fixed bug with scaling-cost skills for new characters.</li>
                     <li>Refactored skill cost calculations for better caching.</li>
+                    <li>Excluded NPCs from skill coverage.</li>
                     <li>Cleaned up code.</li>
                 </ul>
             </div>

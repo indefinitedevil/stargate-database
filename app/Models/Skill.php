@@ -196,4 +196,13 @@ class Skill extends Model
         }
         return [];
     }
+
+    public function characterCount($validCharacterIds) {
+        return $this->characterSkills
+            ->where('completed', true)
+            ->where('removed', false)
+            ->whereIn('character_id', $validCharacterIds)
+            ->groupBy('character_id')
+            ->count();
+    }
 }
