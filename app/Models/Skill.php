@@ -116,24 +116,30 @@ class Skill extends Model
         $category = $this->skillCategory;
         static $completedCategorySkills = [];
         if ($character && $category->scaling) {
-            if ($character->status_id >= Status::APPROVED || empty($characterSkill)) {
+            if ($character->status_id >= Status::APPROVED || $characterSkill === null) {
                 // This case covers approved characters and the available skills list on the add skill form
-                if (empty($completedCategorySkills[$category->id])) {
-                    $completedCategorySkills[$category->id] = $character->trainedSkills()
-                        ->where('skills.skill_category_id', $this->skill_category_id);
+                if (!isset($completedCategorySkills[$character->id])) {
+                    $completedCategorySkills[$character->id] = [];
                 }
-                $countSkills = $completedCategorySkills[$category->id]->count();
+                if (!isset($completedCategorySkills[$character->id][$category->id])) {
+                    $completedCategorySkills[$character->id][$category->id] = $character->trainedSkills()
+                        ->where('skills.skill_category_id', $this->skill_category_id)->count();
+                }
+                $countSkills = $completedCategorySkills[$character->id][$category->id];
             } else {
                 // This case covers trained skills on new characters
                 // This is needed because they don't have saved costs yet, so they need to be calculated on the fly
                 static $scalingCosts = [];
-                if (empty($scalingCosts[$category->id])) {
-                    $scalingCosts[$category->id] = [];
+                if (!isset($scalingCosts[$character->id])) {
+                    $scalingCosts[$character->id] = [];
                 }
-                if (!isset($scalingCosts[$category->id][$this->id])) {
-                    $scalingCosts[$category->id][$this->id] = count(array_unique(array_diff_key($scalingCosts[$category->id], [$this->id => 0])));
+                if (!isset($scalingCosts[$character->id][$category->id])) {
+                    $scalingCosts[$character->id][$category->id] = [];
                 }
-                $countSkills = $scalingCosts[$category->id][$this->id];
+                if (!isset($scalingCosts[$character->id][$category->id][$this->id])) {
+                    $scalingCosts[$character->id][$category->id][$this->id] = count(array_unique(array_diff_key($scalingCosts[$character->id][$category->id], [$this->id => 0])));
+                }
+                $countSkills = $scalingCosts[$character->id][$category->id][$this->id];
             }
             return $category->cost + $countSkills;
         }
