@@ -96,8 +96,7 @@
                     <div class="sm:grid sm:grid-cols-2 gap-4">
                         <div class="row-span-2">
                             <x-input-label for="division" :value="__('Division')"/>
-                            <x-select id="division" name="division[]" class="mt-1 block w-full" required
-                                      multiple>
+                            <x-select id="division" name="division[]" class="mt-1 block w-full" multiple>
                                 @foreach($divisions as $division)
                                     <option value="{{ $division->id }}"
                                             @if(!empty($character) && in_array($division->id, $character->divisionIds)) selected @endif >
