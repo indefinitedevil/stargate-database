@@ -12,7 +12,9 @@
                 <h3 class="text-lg font-semibold">Bugfix: 24th August 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: made division not mandatory.</li>
-                    <li>Fixed bug with scaling cost skills for new characters.</li>
+                    <li>Fixed bug with scaling-cost skills for new characters.</li>
+                    <li>Refactored skill cost calculations for better caching.</li>
+                    <li>Cleaned up code.</li>
                 </ul>
             </div>
             <div>
@@ -50,7 +52,7 @@
                 <ul class="list-inside list-disc">
                     <li>Plot Co: fixed issues with downtime processing and response saving.</li>
                     <li>Plot Co: fixed issues with long-text research responses in emails.</li>
-                    <li>Fixed bug with scaling cost skills not scaling in cost once on character sheet.</li>
+                    <li>Fixed bug with scaling-cost skills not scaling in cost once on character sheet.</li>
                 </ul>
             </div>
             <div>
@@ -356,7 +358,7 @@
                     <li>Updated character links to be include character name (old links will still work).</li>
                     <li>Fixed <a href="https://github.com/indefinitedevil/stargate-database/issues/34"
                                  target="_blank"
-                                 class="underline">issue</a> with scaling costs display for approved characters.
+                                 class="underline">issue</a> with scaling-costs display for approved characters.
                     </li>
                     <li>Added random name generator to character create/edit screen <a
                             href="https://github.com/indefinitedevil/stargate-database/issues/32"
