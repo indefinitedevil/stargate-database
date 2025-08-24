@@ -110,10 +110,7 @@ class CharacterSkill extends Model
         $cost = $this->skill->cost($this->character, $this);
         if ($this->discountedBy) {
             foreach ($this->discountedBy as $discountedBy) {
-                $skillDiscount = SkillDiscount::where('discounted_skill', $this->skill_id)
-                    ->where('discounting_skill', $discountedBy->skill_id)
-                    ->first();
-                $cost -= $skillDiscount->discount;
+                $cost -= $discountedBy->discountFor($this->skill_id);
             }
         }
         return $cost;
