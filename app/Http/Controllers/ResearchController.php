@@ -35,7 +35,8 @@ class ResearchController extends Controller
                 ->orderBy('status')
                 ->orderBy('name'));
         }
-        $projects = $activeProjects->union($approvedProjects)->union($otherProjects)->orderBy('sort_order')->paginate(18);
+        $projects = $activeProjects->union($approvedProjects)->union($otherProjects)
+            ->orderBy('sort_order')->orderBy('name')->paginate(18);
         return view('research.index', compact('projects'));
     }
 
