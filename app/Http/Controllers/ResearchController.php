@@ -11,13 +11,18 @@ class ResearchController extends Controller
     public function index()
     {
         $publicProjects = ResearchProject::where('visibility', ResearchProject::VISIBILITY_PUBLIC);
-        $privateProjects = ResearchProject::where('visibility', ResearchProject::VISIBILITY_PRIVATE);
-        $archivedProjects = ResearchProject::where('visibility', ResearchProject::VISIBILITY_ARCHIVED);
+        $privateProjects = ResearchProject::where('visibility', ResearchProject::VISIBILITY_PRIVATE)
+            ->selectRaw('research_projects.*, 4 AS sort_order');
+        $archivedProjects = ResearchProject::where('visibility', ResearchProject::VISIBILITY_ARCHIVED)
+            ->selectRaw('research_projects.*, 5 AS sort_order');
         $activeProjects = (clone $publicProjects)->where('status', ResearchProject::STATUS_ACTIVE)
+            ->selectRaw('research_projects.*, 1 AS sort_order')
             ->orderBy('name');
         $approvedProjects = (clone $publicProjects)->where('status', ResearchProject::STATUS_APPROVED)
+            ->selectRaw('research_projects.*, 2 AS sort_order')
             ->orderBy('name');
         $otherProjects = (clone $publicProjects)->whereNotIn('status', [ResearchProject::STATUS_ACTIVE, ResearchProject::STATUS_APPROVED])
+            ->selectRaw('research_projects.*, 3 AS sort_order')
             ->orderBy('status')
             ->orderBy('name');
         if (empty(request()->input('as_player')) && auth()->user()->can('edit research projects')) {
@@ -30,7 +35,7 @@ class ResearchController extends Controller
                 ->orderBy('status')
                 ->orderBy('name'));
         }
-        $projects = $activeProjects->union($approvedProjects)->union($otherProjects)->paginate(12);
+        $projects = $activeProjects->union($approvedProjects)->union($otherProjects)->orderBy('sort_order')->paginate(18);
         return view('research.index', compact('projects'));
     }
 
