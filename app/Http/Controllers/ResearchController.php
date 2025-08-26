@@ -85,7 +85,7 @@ class ResearchController extends Controller
             'ooc_intent' => 'required|string',
             'results' => 'string|nullable',
             'plot_notes' => 'string|nullable',
-            'months' => 'integer|min:1',
+            'months' => 'integer',
             'status' => 'required|integer',
             'visibility' => 'required|integer',
             'needs_volunteers' => 'boolean',

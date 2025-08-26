@@ -44,10 +44,12 @@
                 <strong>{{ __('Visibility') }}:</strong> {{ $project->visibility_name }}
             </p>
             <p>
-                <strong>{{ __('Project length') }}:</strong> {{ __(':months months', ['months' => $project->months]) }}
+                <strong>{{ __('Project length') }}:</strong>
+                {{ trans_choice('{0} Not determined | :months months', ResearchProject::STATUS_APPROVED <= $project->status ? $project->months: 0, ['months' => $project->months]) }}
             </p>
             <p>
-                <strong>{{ __('Needs subjects') }}:</strong> {{ $project->needs_volunteers ? __('Yes') : __('No') }}
+                <strong>{{ __('Needs subjects') }}:</strong>
+                {{ ResearchProject::STATUS_APPROVED <= $project->status ? ($project->needs_volunteers ? __('Yes') : __('No')) : __('Not determined') }}
             </p>
         </div>
     </div>
@@ -59,6 +61,7 @@
                 {!! process_markdown($project->project_goals ?? '') !!}
             </div>
         </div>
+
         @if (empty(request()->input('as_player')))
             @can('edit research projects')
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -70,6 +73,7 @@
                 </div>
             @endcan
         @endif
+
         @if (ResearchProject::STATUS_COMPLETED == $project->status)
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-3">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
@@ -78,6 +82,7 @@
                 </div>
             </div>
         @endif
+
         @if (empty(request()->input('as_player')))
             @can('view hidden notes')
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -88,31 +93,35 @@
                 </div>
             @endcan
         @endif
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-                <h3 class="text-xl">{{ __('Skills required') }}</h3>
-                <ul class="list-disc list-inside">
-                    @foreach($project->skills as $skill)
-                        <li>{{ $skill->name }}
-                            @if ($project->skillCheck($skill->id))
-                                <i class="fa-solid fa-check"></i>
-                            @endif
-                            @if (!empty($skill->specialty_type_id) && !empty($project->specialties[$skill->specialty_type_id]))
-                                <ul class="ml-4 list-disc list-inside">
-                                    @foreach($project->specialties[$skill->specialty_type_id] as $specialty)
-                                        <li>{{ $specialty->name }}
-                                            @if ($project->specialtyCheck($specialty->id))
-                                                <i class="fa-solid fa-check"></i>
-                                            @endif
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @endif
-                        </li>
-                    @endforeach
-                </ul>
+
+        @if (ResearchProject::STATUS_APPROVED <= $project->status && $project->skills->count())
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+                    <h3 class="text-xl">{{ __('Skills required') }}</h3>
+                    <ul class="list-disc list-inside">
+                        @foreach($project->skills as $skill)
+                            <li>{{ $skill->name }}
+                                @if ($project->skillCheck($skill->id))
+                                    <i class="fa-solid fa-check"></i>
+                                @endif
+                                @if (!empty($skill->specialty_type_id) && !empty($project->specialties[$skill->specialty_type_id]))
+                                    <ul class="ml-4 list-disc list-inside">
+                                        @foreach($project->specialties[$skill->specialty_type_id] as $specialty)
+                                            <li>{{ $specialty->name }}
+                                                @if ($project->specialtyCheck($specialty->id))
+                                                    <i class="fa-solid fa-check"></i>
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
-        </div>
+        @endif
+
         @if (ResearchProject::STATUS_ACTIVE <= $project->status && $project->downtimeActions->count())
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-2">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
