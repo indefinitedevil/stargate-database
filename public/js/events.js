@@ -1,5 +1,5 @@
 function toggleHideable() {
-    jQuery('.hideable').each(function() {
+    jQuery('.hideable, #toggle-hideable svg').each(function() {
         jQuery(this).toggleClass('hidden');
     });
 }

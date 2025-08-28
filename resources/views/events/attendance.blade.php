@@ -4,12 +4,16 @@
 <x-app-layout>
     <x-slot name="title">{{ __('Record attendance: :event', ['event' => $event->name]) }}</x-slot>
     <x-slot name="header">
-        <div class="sm:float-right">
-        <x-link-button onclick="toggleHideable()" class="cursor-pointer">{{ __('Toggle booked') }}</x-link-button>
-        </div>
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Record attendance: :event', ['event' => $event->name]) }}
         </h2>
+    </x-slot>
+    <x-slot name="sidebar2">
+        <x-dropdown-link onclick="toggleHideable()" class="cursor-pointer" id="toggle-hideable">
+            <i class="fa-solid fa-toggle-off min-w-8"></i>
+            <i class="fa-solid fa-toggle-large-on min-w-8 hidden"></i>
+            {{ __('Toggle booked only') }}
+        </x-dropdown-link>
     </x-slot>
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
