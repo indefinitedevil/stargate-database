@@ -13,7 +13,7 @@
         </h2>
     </x-slot>
 
-    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <ul class="list-disc list-inside space-y-2">
                 @if ($downtimes->isEmpty())
@@ -99,7 +99,7 @@
         </div>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <p>{{ __('Downtimes open between events to allow for character development to occur.') }}</p>
             <p>{{ __('When a downtime period is open, if you are eligible for it, you can submit downtime actions for your character.') }}</p>

@@ -11,7 +11,7 @@
 
     <form action="{{ route('downtimes.store-submission') }}" method="POST" class="space-y-6">
         @csrf
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <input type="hidden" name="character_id" value="{{ $character->id }}">
                 <input type="hidden" name="downtime_id" value="{{ $downtime->id }}">
@@ -34,7 +34,7 @@
 
         @include('characters.partials.reset')
 
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <p>
                     {{ __('You do not need to fill in all details immediately.') }}
@@ -62,7 +62,7 @@
 
             @if ($downtime->development_actions > 0)
                 <div
-                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->development_actions }}">
+                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg row-span-{{ $downtime->development_actions }}">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
                         <p>{!! __('In order to train a skill you first need to add the skill via <a href="#add-skill" class="underline">the skills form below</a> or the skills page for your character.') !!}</p>
                         @php
@@ -174,7 +174,7 @@
 
             @if ($downtime->research_actions > 0)
                 <div
-                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->research_actions + $downtime->experiment_actions }}">
+                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg row-span-{{ $downtime->research_actions + $downtime->experiment_actions }}">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
                         @php
                             $actionTypes = ActionType::where('type', ActionType::TYPE_RESEARCH)->get();
@@ -303,7 +303,7 @@
 
             @if ($downtime->other_actions > 0)
                 <div
-                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->other_actions }}">
+                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg row-span-{{ $downtime->other_actions }}">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
                         @php
                             $savedActions = $character->downtimeActions()->where('downtime_id', $downtime->id)
@@ -379,7 +379,7 @@
 
             @if ($downtime->isOpen() || auth()->user()->can('view hidden notes') && !$downtime->processed)
                 <div
-                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-1">
+                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg row-span-1">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                         <p>{{ __('You can come back and edit your downtime actions at any point until downtime closes.') }}</p>
                         <p>{{ __('You do not need to submit your downtime - all saved actions will be processed.') }}</p>

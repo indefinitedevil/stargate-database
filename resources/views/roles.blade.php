@@ -6,7 +6,7 @@
         </h2>
     </x-slot>
 
-    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <p>{{ __('Roles are used to determine what a user can do on the site. Each user can have multiple roles, and each role can have multiple permissions.') }}</p>
             <p>{{ __('This is a breakdown of what roles are available on the site and what they do.') }}</p>

@@ -11,7 +11,7 @@
         </h2>
     </x-slot>
 
-    <div class="p-4 sm:px-8 sm:py-4 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:px-8 sm:py-4 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <p>
             <strong>{{ __('Lowest training months on an active character:') }}</strong> {{ CharacterHelper::getLowestTrainingMonths() }}
         </p>
@@ -27,7 +27,7 @@
     </div>
 
     @foreach (SkillCategory::all() as $category)
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
             <h3 class="text-xl font-semibold">{!! trans_choice('{-1} :name Skills|[1,*] :name Skills (:cost months)', $category->cost, ['name' => $category->name, 'cost' => $category->cost]) !!}</h3>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 @foreach($category->skills->sortBy('name') as $skill)

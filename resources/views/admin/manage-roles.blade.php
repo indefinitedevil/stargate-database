@@ -10,7 +10,7 @@
         </h2>
     </x-slot>
 
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         @php
             $roles = Role::all();
             $cellClass = 'border-b border-slate-100 dark:border-slate-700 p-2 text-center';

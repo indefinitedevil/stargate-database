@@ -2,7 +2,7 @@
     use App\Models\SpecialtyType;
 @endphp
 @can('edit all characters')
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <form method="POST" action="{{ route('characters.store-log') }}" id="add-log">
             <p class="text-xl">{{ empty($editLog) ? __('Add new log') : __('Edit log') }}</p>
             @csrf

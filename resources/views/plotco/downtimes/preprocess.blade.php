@@ -21,7 +21,7 @@
         </h2>
     </x-slot>
 
-    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             @php
                 extract($downtime->preprocess());
@@ -152,7 +152,7 @@
     </div>
 
     @if ($downtime->missions->count())
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <h3 class="text-xl font-semibold">{{ __('Missions') }}</h3>
                 <div class="sm:grid sm:grid-cols-3 gap-6">
@@ -162,7 +162,7 @@
     @endif
 
     @if ($downtime->researchActions()->count())
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <h3 class="text-xl font-semibold">{{ __('Research Projects') }}</h3>
                 <div class="sm:grid sm:grid-cols-3 gap-6">
@@ -193,7 +193,7 @@
     @endif
 
     @if ($downtime->personalActions()->count())
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <h3 class="text-xl font-semibold">{{ __('Personal Actions') }}</h3>
                 <div class="sm:grid sm:grid-cols-3 gap-6">
@@ -214,7 +214,7 @@
     @endif
 
     @if ($downtime->response)
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <h3 class="text-xl font-semibold">{{ __('Downtime Response') }}</h3>
                 {!! process_markdown($downtime->response) !!}

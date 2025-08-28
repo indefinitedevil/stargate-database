@@ -7,7 +7,7 @@
         </h2>
     </x-slot>
 
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <div class="mt-1">
             <h3 class="text-lg font-semibold">{{ __('Active characters') }}</h3>
             @include('characters.partials.index', ['characters' => $activeCharacters, 'hideUser' => true,])

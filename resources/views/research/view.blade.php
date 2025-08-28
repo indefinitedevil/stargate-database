@@ -28,7 +28,7 @@
         </h2>
     </x-slot>
 
-    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 sm:grid sm:grid-cols-4 gap-x-6 gap-y-2">
             <p class="col-span-2">
                 <strong>{{ __('Project name') }}:</strong> {!! process_inline_markdown($project->name ?? '') !!}
@@ -53,7 +53,7 @@
     </div>
 
     <div class="sm:grid sm:grid-cols-2 gap-6">
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <h3 class="text-xl">{{ __('Project Goals') }}</h3>
                 {!! process_markdown($project->project_goals ?? '') !!}
@@ -61,7 +61,7 @@
         </div>
         @if (empty(request()->input('as_player')))
             @can('edit research projects')
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                         <h3 class="text-xl">{{ __('OOC Intent') }}</h3>
                         <em class="text-xs">{{ __('This field is intended to be used to explain in OOC terms what you\'re trying to achieve, and what you expect to get.') }}</em>
@@ -71,7 +71,7 @@
             @endcan
         @endif
         @if (ResearchProject::STATUS_COMPLETED == $project->status)
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-3">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg row-span-3">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                     <h3 class="text-xl">{{ __('Results') }}</h3>
                     {!! process_markdown($project->results ?? '') !!}
@@ -80,7 +80,7 @@
         @endif
         @if (empty(request()->input('as_player')))
             @can('view hidden notes')
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                         <h3 class="text-xl">{{ __('Plot Notes') }}</h3>
                         {!! process_markdown($project->plot_notes ?? '') !!}
@@ -88,7 +88,7 @@
                 </div>
             @endcan
         @endif
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <h3 class="text-xl">{{ __('Skills required') }}</h3>
                 <ul class="list-disc list-inside">
@@ -114,7 +114,7 @@
             </div>
         </div>
         @if (ResearchProject::STATUS_ACTIVE <= $project->status && $project->downtimeActions->count())
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-2">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg row-span-2">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                     <h3 class="text-xl">{{ __('Researchers') }}</h3>
                     @if ($project->researchers->count())

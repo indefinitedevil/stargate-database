@@ -6,7 +6,7 @@
         </h2>
     </x-slot>
 
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <div class="max-w-xl">
             @include('profile.partials.view-profile-information-form')
         </div>
@@ -14,7 +14,7 @@
 
     @can('view all characters')
         <div
-            class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+            class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
             <div class="max-w-xl">
                 <h3 class="text-lg font-semibold">{{ __('Characters') }}</h3>
                 @include('characters.partials.index', ['characters' => $user->characters->sortBy('name')])

@@ -1,4 +1,4 @@
-<div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+<div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
     <div class="">
         <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
             {{ __('Feats') }}

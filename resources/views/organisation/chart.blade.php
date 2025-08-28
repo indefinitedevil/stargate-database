@@ -6,7 +6,7 @@
         </h2>
     </x-slot>
 
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <div>
             {{ __('This represents the current organisation chart of the Stargate Expeditionary Force.') }}
             {{ __('While this is representative as the organisation as a whole, changes may occur while on deployment as a result of deployment needs and available personnel.') }}
@@ -14,7 +14,7 @@
     </div>
 
     @foreach ($divisions as $division)
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $division->name }}</h2>
             <div>
                 @if ($division->division_head)
