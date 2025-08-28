@@ -28,7 +28,7 @@
 
     @if ('local' == config('app.env'))
         <div class="bg-orange-100 text-orange-700 lg:grid lg:grid-cols-6 gap-4">
-            <div class="lg:col-span-4 lg:col-start-2 py-2">
+            <div class="lg:col-span-4 lg:col-start-2 py-2 px-4 lg:px-0">
                 <p class="font-bold">{{ __('This is a development version of the Stargate Database. Changes made here will not reflect on the live database.') }}</p>
             </div>
         </div>

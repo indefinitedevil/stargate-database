@@ -5,7 +5,7 @@
 @endphp
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 lg:grid lg:grid-cols-6 gap-4">
     <!-- Primary Navigation Menu -->
-    <div class="lg:col-span-4 lg:col-start-2">
+    <div class="lg:col-span-4 lg:col-start-2 px-4 lg:px-0">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
