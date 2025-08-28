@@ -73,6 +73,18 @@ class ResearchController extends Controller
         return view('research.edit', compact('project', 'parentProjects'));
     }
 
+    public function delete($projectId)
+    {
+        $project = ResearchProject::findOrFail($projectId);
+        if (ResearchProject::STATUS_PENDING != $project->status) {
+            return redirect($project->getViewRoute())
+                ->with('error', __('Approved projects cannot be deleted.'));
+        }
+        $project->delete();
+        return redirect(route('research.index'))
+            ->with('success', new MessageBag([__('Research project deleted successfully.')]));
+    }
+
     /**
      * @throws ValidationException
      */
