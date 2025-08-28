@@ -1,5 +1,4 @@
 @php
-    use App\Models\Event;
     $title = empty($downtime->id) ? __('Create downtime') : sprintf(__('Edit downtime: %s'), $downtime->name);
 @endphp
 <x-app-layout>
@@ -47,7 +46,7 @@
                         <x-input-label for="event_id" :value="__('Event (optional)')"/>
                         <x-select id="event_id" name="event_id" class="mt-1 block w-full">
                             <option value="">{{ __('Select an event') }}</option>
-                            @foreach(Event::all() as $event)
+                            @foreach($events as $event)
                                 <option value="{{ $event->id }}"
                                         @if(old('event_id', $downtime->event_id ?? '') == $event->id) selected @endif>{{ $event->name }}</option>
                             @endforeach
