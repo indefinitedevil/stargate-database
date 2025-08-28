@@ -27,8 +27,8 @@
     @include('layouts.navigation')
 
     @if ('local' == config('app.env'))
-        <div class="bg-orange-100 text-orange-700">
-            <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
+        <div class="bg-orange-100 text-orange-700 sm:grid sm:grid-cols-6">
+            <div class="sm:col-span-4 sm:col-start-2 py-2 px-4 sm:px-6 lg:px-8">
                 <p class="font-bold">{{ __('This is a development version of the Stargate Database. Changes made here will not reflect on the live database.') }}</p>
             </div>
         </div>
@@ -36,26 +36,24 @@
 
     <!-- Page Heading -->
     @isset($header)
-        <header class="bg-white dark:bg-gray-800 shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <header class="bg-white dark:bg-gray-800 shadow sm:grid sm:grid-cols-6">
+            <div class="sm:col-span-4 sm:col-start-2 py-6 px-4 sm:px-6 lg:px-8">
                 {{ $header }}
             </div>
         </header>
     @endisset
 
     <!-- Page Content -->
-    <main>
-        <div class="py-6 sm:py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                @include('partials.downtimes')
-                @include('partials.errors')
-                {{ $slot }}
-            </div>
+    <main class="sm:grid sm:grid-cols-6">
+        <div class="sm:col-span-4 sm:col-start-2 py-6 sm:px-6 lg:px-8 space-y-6">
+            @include('partials.downtimes')
+            @include('partials.errors')
+            {{ $slot }}
         </div>
     </main>
 
-    <footer class="pt-6 sm:pt-12 pb-4">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <footer class="pt-6 sm:pt-12 pb-4 sm:grid sm:grid-cols-6">
+        <div class="sm:col-span-4 sm:col-start-2 py-6 sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="float-right">
@@ -79,12 +77,10 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <div class="py-2 px-6 text-gray-900 dark:text-gray-100 text-center text-sm gap-4 flex justify-center">
-                    <a href="{{ route('changelog') }}" class="inline-block underline">{{ __('Changelog') }}</a>
-                    <a href="{{ route('privacy') }}" class="inline-block underline">{{ __('Privacy Policy') }}</a>
-                    <a href="{{ route('roles') }}" class="inline-block underline">{{ __('Roles') }}</a>
-                </div>
+            <div class="py-2 px-6 text-gray-900 dark:text-gray-100 text-center text-sm gap-4 flex justify-center">
+                <a href="{{ route('changelog') }}" class="inline-block underline">{{ __('Changelog') }}</a>
+                <a href="{{ route('privacy') }}" class="inline-block underline">{{ __('Privacy Policy') }}</a>
+                <a href="{{ route('roles') }}" class="inline-block underline">{{ __('Roles') }}</a>
             </div>
         </div>
     </footer>
