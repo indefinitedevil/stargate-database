@@ -11,7 +11,7 @@
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
             @can('view all characters')
                 <x-link-button href="{{ route('plotco.print-some', ['event' => $event->id]) }}"
-                               class="float-right"
+                               class="float-right ml-2"
                                title="{{ __('Print Characters') }}"
                 >
                     <i class="fa-solid fa-print"></i>
@@ -20,7 +20,7 @@
             @endcan
             @can('record attendance')
                 <x-link-button href="{{ route('events.attendance', $event) }}"
-                               class="float-right"
+                               class="float-right ml-2"
                                title="{{ __('Record attendance') }}"
                 >
                     <i class="fa-solid fa-pen-to-square"></i>
