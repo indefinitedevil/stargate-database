@@ -1,13 +1,18 @@
 <x-app-layout>
     <x-slot name="title">{{ __('Events') }}</x-slot>
     <x-slot name="header">
-        @can('edit events')
-            <x-link-button href="{{ route('events.create') }}" class="float-right">{{ __('Create') }}</x-link-button>
-        @endcan
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Events') }}
         </h2>
     </x-slot>
+    @can('edit events')
+        <x-slot name="sidebar2">
+            <x-dropdown-link href="{{ route('events.create') }}">
+                <i class="fa-solid fa-plus min-w-8"></i>
+                {{ __('Create') }}
+            </x-dropdown-link>
+        </x-slot>
+    @endcan
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <div>
