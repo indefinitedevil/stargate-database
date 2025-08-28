@@ -4,14 +4,22 @@
 <x-app-layout>
     <x-slot name="title">{{ __('Downtimes') }}</x-slot>
     <x-slot name="header">
-        @can('edit downtimes')
-            <x-link-button href="{{ route('plotco.downtimes') }}"
-               class="float-right">{{ __('Plot Co') }}</x-link-button>
-        @endcan
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Downtimes') }}
         </h2>
     </x-slot>
+    @can ('edit downtimes')
+        <x-slot name="sidebar2">
+            <x-dropdown-link href="{{ route('plotco.downtimes') }}">
+                <i class="fa-solid fa-eye min-w-8"></i>
+                {{ __('Plot Co View') }}
+            </x-dropdown-link>
+            <x-dropdown-link href="{{ route('plotco.downtimes.create') }}">
+                <i class="fa-solid fa-plus min-w-8"></i>
+                {{ __('Create') }}
+            </x-dropdown-link>
+        </x-slot>
+    @endcan
 
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
