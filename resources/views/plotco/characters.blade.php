@@ -4,32 +4,23 @@
 <x-app-layout>
     <x-slot name="title">{{ __('All characters') }}</x-slot>
     <x-slot name="header">
-        <div class="sm:float-right grid grid-cols-2 sm:flex gap-4 sm:gap-1 mb-6">
-            <x-link-button href="{{ route('plotco.print-all') }}" class="float-right"
-                           title="{{ __('Print All Characters') }}"
-            >
-                <i class="fa-solid fa-print"></i>
-                <span class="sm:hidden"> {{ __('Print All') }}</span>
-                <span class="hidden sm:inline">{{ __('All') }}</span>
-            </x-link-button>
-            <x-link-button onclick="document.getElementById('character_select').submit();"
-                           class="float-right" title="{{ __('Print Selected Characters') }}"
-            >
-                <i class="fa-solid fa-print"></i>
-                <span class="sm:hidden"> {{ __('Print Selected') }}</span>
-                <span class="hidden sm:inline">{{ __('Selected') }}</span>
-            </x-link-button>
-            <x-link-button href="{{ route('plotco.logs') }}"
-                           class="float-right"
-                           title="{{ __('Plot Logs') }}"
-            >
-                <i class="fa-solid fa-clipboard"></i>
-                {{ __('Logs') }}
-            </x-link-button>
-        </div>
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('All characters') }}
         </h2>
+    </x-slot>
+    <x-slot name="sidebar2">
+        <x-dropdown-link href="{{ route('plotco.print-all') }}">
+            <i class="fa-solid fa-print min-w-8"></i>
+            {{ __('Print All') }}
+        </x-dropdown-link>
+        <x-dropdown-link class="cursor-pointer" onclick="document.getElementById('character_select').submit();">
+            <i class="fa-solid fa-print min-w-8"></i>
+            {{ __('Print Selected') }}
+        </x-dropdown-link>
+        <x-dropdown-link href="{{ route('plotco.logs') }}">
+            <i class="fa-solid fa-clipboard min-w-8"></i>
+            {{ __('Character Logs') }}
+        </x-dropdown-link>
     </x-slot>
 
     <div class="p-4 sm:px-8 sm:py-4 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
