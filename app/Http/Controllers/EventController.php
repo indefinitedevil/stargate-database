@@ -33,9 +33,22 @@ class EventController extends Controller
         if ($request->user()->cannot('view attendance')) {
             return redirect(route('dashboard'));
         }
-        return view('events.attendance', [
-            'event' => Event::findOrFail($eventId),
-        ]);
+        $event = Event::findOrFail($eventId);
+        $roles = [Event::ROLE_PLAYER, Event::ROLE_RUNNER, Event::ROLE_CREW, Event::ROLE_PAID_DOWNTIME];$eventRoles = $attended = $characters = [];
+        foreach ($event->users as $user) {
+            $eventRoles[$user->id] = $user->pivot->role;
+            $attended[$user->id] = $user->pivot->attended;
+            $characters[$user->id] = $user->pivot->character_id;
+        }
+        $users = User::orderBy('name', 'asc')->get();
+        return view('events.attendance', compact(
+            'event',
+            'roles',
+            'eventRoles',
+            'attended',
+            'characters',
+            'users',
+        ));
     }
 
     public function create(Request $request)

@@ -11,6 +11,8 @@
             <div>
                 <h3 class="text-lg font-semibold">Update: 28th August 2025</h3>
                 <ul class="list-inside list-disc">
+                    <li>Plot Co: added lowest-training character name to info box.</li>
+                    <li>Secretary: added toggle to hide non-booked people from attendance screen.</li>
                     <li>Altered design philosophy to be closer to holy grail design.</li>
                 </ul>
             </div>
