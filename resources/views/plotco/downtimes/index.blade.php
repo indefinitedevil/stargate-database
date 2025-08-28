@@ -14,22 +14,25 @@
 
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
-            <ul class="list-disc list-inside space-y-2">
+            <ul class="space-y-2">
                 @if ($downtimes->isEmpty())
                     <li>{{ __('No downtimes available') }}</li>
                 @else
                     @foreach($downtimes as $downtime)
                         <li>
-                            <a href="{{ route('plotco.downtimes.edit', ['downtimeId' => $downtime->id]) }}"
-                               class="underline">{{ $downtime->name }}</a>
+                            <h3 class="text-lg font-semibold">
+                                <a href="{{ route('plotco.downtimes.edit', ['downtimeId' => $downtime->id]) }}"
+                                   class="underline">{{ $downtime->name }}</a>
                             @if ($downtime->event_id)
                                 ({{ $downtime->event->name }})
                             @endif
                                 ({{ format_datetime($downtime->start_time, 'd/m/Y') }}
                                 - {{ format_datetime($downtime->end_time, 'd/m/Y') }})
                             - {{ $downtime->getStatusLabel() }}
+                            </h3>
                             <a href="{{ route('plotco.downtimes.preprocess', ['downtimeId' => $downtime->id]) }}"
-                               class="underline ps-3"><i class="fa-solid fa-file-check"></i> {{ __('View actions') }}</a>
+                               class="underline ps-3"><i class="fa-solid fa-file-check"></i> {{ __('View actions') }}
+                            </a>
 
                             <ul class="list-disc list-inside pl-4 sm:grid sm:grid-cols-6">
                                 <li>{{ __(':count / :eligible submitted', ['count' => $downtime->getCharacters()->count(), 'eligible' => $downtime->getEligibleUsers()->count()]) }}</li>
