@@ -22,7 +22,7 @@
         </li>
         <li>
             Click on the "<a class="underline" href="{{ route('characters.create') }}" target="_blank">Create</a>"
-            button.
+            on the right.
         </li>
         <li>
             Fill in the form with the character's details.
