@@ -6,26 +6,29 @@
     <x-slot name="title">{{ sprintf(__('Research project: %s'), $project->name) }}</x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            <div class="sm:float-right sm:grid sm:grid-cols-2 gap-2">
-                @can ('edit research projects')
-                    <x-link-button href="{{ route('research.edit', ['projectId' => $project]) }}"
-                    >{{ __('Edit') }}</x-link-button>
-                @endcan
-                @can ('delete research projects')
-                    @if (ResearchProject::STATUS_PENDING == $project->status)
-                        <form method="POST" action="{{ route('research.delete', ['projectId' => $project]) }}"
-                              onsubmit="return confirm('{{ __('Are you sure you want to delete this research project?') }}')">
-                            @csrf
-                            @method('DELETE')
-                            <x-primary-button>
-                                {{ __('Delete') }}
-                            </x-primary-button>
-                        </form>
-                    @endif
-                @endcan
-            </div>
             {{ sprintf(__('Research project: %s'), $project->name) }}
         </h2>
+    </x-slot>
+    <x-slot name="sidebar2">
+        @can ('edit research projects')
+            <x-dropdown-link href="{{ route('research.edit', ['projectId' => $project]) }}">
+                <i class="fa-solid fa-pen min-w-8"></i>
+                {{ __('Edit') }}
+            </x-dropdown-link>
+        @endcan
+        @can ('delete research projects')
+            @if (ResearchProject::STATUS_PENDING == $project->status)
+                <form method="POST" action="{{ route('research.delete', ['projectId' => $project]) }}"
+                      onsubmit="return confirm('{{ __('Are you sure you want to delete this research project?') }}')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
+                        <i class="fa-solid fa-trash min-w-8"></i>
+                        {{ __('Delete') }}
+                    </button>
+                </form>
+            @endif
+        @endcan
     </x-slot>
 
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
