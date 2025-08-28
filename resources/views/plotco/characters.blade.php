@@ -35,6 +35,12 @@
     <div class="p-4 sm:px-8 sm:py-4 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
         <p>
             <strong>{{ __('Lowest training months on an active character:') }}</strong> {{ CharacterHelper::getLowestTrainingMonths() }}
+            @php
+                $characterId = CharacterHelper::getLowestTrainingMonthsCharacterId();
+            @endphp
+            @if ($characterId)
+                ({{ CharacterHelper::getCharacterById($characterId)->listName }})
+            @endif
         </p>
         <p>
             <strong>{{ __('Lowest training months on an active character who has done a downtime:') }}</strong> {{ CharacterHelper::getLowestTrainingMonthsIncludingDowntime() }}

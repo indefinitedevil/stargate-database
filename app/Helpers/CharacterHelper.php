@@ -21,6 +21,18 @@ class CharacterHelper
         return $logs->count() ? $logs->first()->total : 0;
     }
 
+    public static function getLowestTrainingMonthsCharacterId(): int
+    {
+        $logs = CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
+            ->join('backgrounds', 'backgrounds.id', '=', 'characters.background_id')
+            ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
+            ->selectRaw('SUM(amount_trained) - backgrounds.months AS total, character_id')
+            ->groupBy('character_id', 'backgrounds.months')
+            ->orderBy('total', 'ASC')
+            ->get();
+        return $logs->count() ? $logs->first()->character_id : 0;
+    }
+
     public static function getLowestTrainingMonthsIncludingDowntime(): int
     {
         $logs = CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
