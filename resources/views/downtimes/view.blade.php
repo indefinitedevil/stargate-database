@@ -11,7 +11,8 @@
                         <x-link-button
                             href="{{ route('downtimes.submit', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
                         >{{ __('Edit') }}</x-link-button>
-                        <form method="POST" action="{{ route('plotco.downtimes.delete-actions', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
+                        <form method="POST"
+                              action="{{ route('plotco.downtimes.delete-actions', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
                               onsubmit="return confirm('{{ __('Are you sure you want to delete these downtime actions?') }}')">
                             @csrf
                             @method('DELETE')
@@ -24,6 +25,30 @@
             @endcan
             {{ __('View Downtime') }}
         </h2>
+    </x-slot>
+    <x-slot name="sidebar2">
+        @if ($downtime->open || !$downtime->processed)
+            <x-dropdown-link
+                href="{{ route('downtimes.submit', ['downtimeId' => $downtime, 'characterId' => $character]) }}">
+                <i class="fa-solid fa-pen min-w-8"></i>
+                {{ __('Edit') }}
+            </x-dropdown-link>
+        @endif
+        @can ('edit downtimes')
+            @if ($downtime->open)
+                <form method="POST"
+                      action="{{ route('plotco.downtimes.delete-actions', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
+                      onsubmit="return confirm('{{ __('Are you sure you want to delete these downtime actions?') }}')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                            class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
+                        <i class="fa-solid fa-trash min-w-8"></i>
+                        {{ __('Delete') }}
+                    </button>
+                </form>
+            @endif
+        @endcan
     </x-slot>
 
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
