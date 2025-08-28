@@ -26,7 +26,7 @@
         </h2>
     </x-slot>
 
-    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <p>
                 <strong>{{ __('Name') }}:</strong>
@@ -54,7 +54,7 @@
         @endphp
         @if (count($savedActions) > 0)
             <div
-                class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->development_actions }}">
+                class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg row-span-{{ $downtime->development_actions }}">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
                     @foreach ($savedActions as $action)
                         <div>
@@ -85,7 +85,7 @@
         @endphp
         @if (count($savedActions) > 0)
             <div
-                class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->research_actions }}">
+                class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg row-span-{{ $downtime->research_actions }}">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
                     @foreach ($savedActions as $action)
                         <div>
@@ -115,7 +115,7 @@
         @endphp
         @if (count($savedActions) > 0)
             <div
-                class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg row-span-{{ $downtime->other_actions }}">
+                class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg row-span-{{ $downtime->other_actions }}">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
                     @foreach ($savedActions as $action)
                         <div>
@@ -132,7 +132,7 @@
         @endif
 
         @if ($downtime->response && $downtime->processed)
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                     <h3 class="text-xl font-semibold">{{ __('Downtime Response') }}</h3>
                     {!! process_markdown($downtime->response) !!}

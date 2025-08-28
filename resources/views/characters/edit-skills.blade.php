@@ -5,7 +5,6 @@
 <x-app-layout>
     <x-slot name="title">{{ __('Edit character skills') }}</x-slot>
     <x-slot name="header">
-        @include('characters.partials.actions')
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ sprintf(__('Edit character skills: %s'), $character->name) }}
             @if($character->isPrimary)
@@ -13,12 +12,13 @@
             @endif
         </h2>
     </x-slot>
+    @include('characters.partials.sidebar2')
 
     @include('plotco.partials.approval')
     @include('characters.partials.reset')
     @include('characters.partials.details')
 
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <div class="grid grid-cols-1 sm:grid-cols-4 clear-both gap-6">
             @if ($character->status_id < Status::APPROVED)
                 <div>

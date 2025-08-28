@@ -5,7 +5,6 @@
 <x-app-layout>
     <x-slot name="title">{{ $character->name }}</x-slot>
     <x-slot name="header">
-        @include('characters.partials.actions')
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-300 leading-tight">
             {{ sprintf(__('Character: %s'), $character->name) }}
             @if($character->isPrimary)
@@ -13,12 +12,13 @@
             @endif
         </h2>
     </x-slot>
+    @include('characters.partials.sidebar2')
 
     @include('plotco.partials.approval')
     @include('characters.partials.reset')
     @include('characters.partials.details')
 
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         @can('edit', $character)
             <x-link-button href="{{ route('characters.edit-skills', ['characterId' => $character->id]) }}"
                            class="float-right">
@@ -135,7 +135,7 @@
     @include('characters.partials.feats-cards')
 
     @if (!empty($character->abilities()))
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
             <div class="">
                 <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
                     {{ __('Abilities') }}
@@ -152,7 +152,7 @@
     @endif
 
     @if (!empty($character->other_abilities))
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
             <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
                 {{ __('Other abilities') }}
             </h2>
@@ -160,14 +160,14 @@
         </div>
     @endif
 
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
             {{ __('History') }}
         </h2>
         <div class="mt-1 space-y-6">{!! process_markdown($character->history) !!}</div>
     </div>
 
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
             {{ __('Pre-Existing Character Links') }}
         </h2>
@@ -176,7 +176,7 @@
 
     @if (empty(request()->input('as_player')))
         @can('view hidden notes')
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
                 <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
                     {{ __('Plot notes') }}
                 </h2>

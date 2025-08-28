@@ -9,9 +9,6 @@
 <x-app-layout>
     <x-slot name="title">{{ $title }}</x-slot>
     <x-slot name="header">
-        @if (!empty($character))
-            @include('characters.partials.actions')
-        @endif
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ $title }}
             @if (!empty($character) && $character->isPrimary)
@@ -19,12 +16,15 @@
             @endif
         </h2>
     </x-slot>
+    @if (!empty($character))
+        @include('characters.partials.sidebar2')
+    @endif
 
     @if (!empty($character))
         @include('plotco.partials.approval')
         @include('characters.partials.reset')
     @endif
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <form method="POST" action="{{ route('characters.store') }}">
             @csrf
             @if (!empty($character))

@@ -1,6 +1,6 @@
 @if($downtime->isOpen() && $downtime->researchProjects->count() > 0)
     <div
-            class="p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300 row-span-{{ $downtime->research_actions + $downtime->experiment_actions }}">
+            class="p-6 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300 row-span-{{ $downtime->research_actions + $downtime->experiment_actions }}">
         <div>
             <h3 class="text-lg font-semibold">{{ __('Research Projects') }}</h3>
             <div class="space-y-2">

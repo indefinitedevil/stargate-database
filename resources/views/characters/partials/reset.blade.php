@@ -1,5 +1,5 @@
 @if($character->canBeReset())
-    <div class="p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-6 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <div>
             <x-link-button href="{{ route('characters.reset', ['characterId' => $character->id]) }}"
                            class="float-right ml-1"

@@ -11,7 +11,7 @@
     </x-slot>
 
     <div
-        class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300 sm:grid grid-cols-2">
+        class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300 sm:grid grid-cols-2">
         <div>
             <h3 class="text-xl">{{ __('Permanent Teams') }}</h3>
             <ul class="list-disc list-inside space-y-2">

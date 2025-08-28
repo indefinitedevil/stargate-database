@@ -12,7 +12,7 @@
 
 
     @if ($projects->isEmpty())
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 {{ __('No research projects available') }}
             </div>
@@ -20,7 +20,7 @@
     @else
         <div class="sm:grid sm:grid-cols-3 sm:gap-6">
             @foreach($projects as $project)
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                         <p>
                             @can ('edit research projects')

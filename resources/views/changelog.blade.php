@@ -6,13 +6,18 @@
         </h2>
     </x-slot>
 
-    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
+            <div>
+                <h3 class="text-lg font-semibold">Update: 28th August 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Altered design philosophy to be closer to holy grail design.</li>
+                </ul>
+            </div>
             <div>
                 <h3 class="text-lg font-semibold">Bugfix: 27th August 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed research project view for non-approved projects.</li>
-                </ul>
             </div>
             <div>
                 <h3 class="text-lg font-semibold">Bugfix: 26th August 2025</h3>

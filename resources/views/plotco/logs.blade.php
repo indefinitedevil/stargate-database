@@ -6,14 +6,14 @@
         </h2>
     </x-slot>
 
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">
             {{ __('Plot Logs') }}
         </h2>
         <p>{{ __('Logs are records of changes made to characters. These logs are those made by a plot coordinator.') }}</p>
     </div>
 
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <div class="grid grid-cols-1 sm:grid-cols-4 clear-both gap-6">
             @foreach ($logs as $log)
                 <div>

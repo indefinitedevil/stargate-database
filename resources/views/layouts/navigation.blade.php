@@ -3,9 +3,9 @@
     use App\Models\Skill;
     use App\Models\User;
 @endphp
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 lg:grid lg:grid-cols-6 gap-4">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="lg:col-span-4 lg:col-start-2">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->

@@ -10,7 +10,7 @@
         </h2>
     </x-slot>
 
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <div>
             <form method="POST" action="{{ route('plotco.traits.store') }}">
                 @csrf
@@ -93,7 +93,7 @@
     </div>
 
     @if (!empty($trait->id))
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                 <h3 class="text-2xl">{{ __('Characters') }}</h3>
                 <ul class="list-disc list-inside space-y-2 sm:space-y-0 sm:grid grid-cols-4 gap-2">

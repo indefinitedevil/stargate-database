@@ -8,7 +8,7 @@
     </x-slot>
 
     @foreach ($currentEvents as $event)
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
             @can('view all characters')
                 <x-link-button href="{{ route('plotco.print-some', ['event' => $event->id]) }}"
                                class="float-right"
@@ -59,7 +59,7 @@
         </div>
     @endforeach
 
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <h3 class="text-lg font-semibold">{{ __('Past events') }}</h3>
         <ul class="list-disc list-inside">
             @foreach ($pastEvents as $event)
