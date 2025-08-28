@@ -46,13 +46,13 @@
     <!-- Page Content -->
     <main class="md:grid lg:grid-cols-6 md:grid-cols-4 md:grid-flow-col lg:grid-flow-row gap-4 py-6 space-y-6 sm:space-y-0">
         @if (isset($sidebar1))
-            <div class="lg:order-1">{{ $sidebar1 }}</div>
+            <div class="lg:order-1 md:order-2">{{ $sidebar1 }}</div>
         @endif
         @if (isset($sidebar2))
-            <div class="lg:order-3">{{ $sidebar2 ?? 'BAR' }}</div>
+            <div class="lg:order-3 md:order-3">{{ $sidebar2 }}</div>
         @endif
         <div
-            class="lg:col-span-4 lg:row-span-1 @if(isset($sidebar1) || isset($sidebar2)) md:col-span-3 @else md:col-span-4 @endif @if(!isset($sidebar1)) lg:col-start-2 @endif md:row-span-2 space-y-6 lg:order-2">
+            class="lg:col-span-4 lg:row-span-1 @if(isset($sidebar1) || isset($sidebar2)) md:col-span-3 @else md:col-span-4 @endif @if(!isset($sidebar1)) lg:col-start-2 @endif md:row-span-2 space-y-6 lg:order-2 md:order-1">
             @include('partials.downtimes')
             @include('partials.errors')
             {{ $slot }}
