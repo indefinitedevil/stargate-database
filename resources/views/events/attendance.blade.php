@@ -9,7 +9,7 @@
         </h2>
     </x-slot>
     <x-slot name="sidebar2">
-        <x-dropdown-link onclick="toggleHideable()" class="cursor-pointer" id="toggle-hideable">
+        <x-dropdown-link href="#" onclick="toggleHideable()" class="cursor-pointer" id="toggle-hideable">
             <i class="fa-solid fa-toggle-off min-w-8"></i>
             <i class="fa-solid fa-toggle-large-on min-w-8 hidden"></i>
             {{ __('Toggle booked only') }}

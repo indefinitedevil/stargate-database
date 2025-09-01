@@ -51,22 +51,24 @@ class CharacterController extends Controller
     public function edit(Request $request, $characterId)
     {
         $character = Character::find($characterId);
-        if ($request->user()->cannot('edit', $character)) {
-            if ($character) {
+        if ($character) {
+            if ($request->user()->cannot('edit', $character)) {
                 return redirect($character->getViewRoute())
                     ->with('errors', new MessageBag([__('You cannot edit :character.', ['character' => $character->listName])]));
-            } else {
-                return redirect(route('characters.index'))
-                    ->with('errors', new MessageBag([__('Character not found.')]));
             }
+        } else {
+            return redirect(route('characters.index'))
+                ->with('errors', new MessageBag([__('Character not found.')]));
         }
         if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
-            return redirect($character->getViewRoute());
+            return redirect($character->getViewRoute())
+                ->with('errors', new MessageBag([__('You cannot edit :character.', ['character' => $character->listName])]));
         }
         return view('characters.edit', $this->getCharacterEditData($request, $character));
     }
 
-    protected function getCharacterEditData(Request $request, ?Character $character = NULL): array {
+    protected function getCharacterEditData(Request $request, ?Character $character = NULL): array
+    {
         return [
             'character' => $character,
             'divisions' => Division::all(),

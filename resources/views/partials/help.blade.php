@@ -21,8 +21,8 @@
                 section</a>.
         </li>
         <li>
-            Click on the "<a class="underline" href="{{ route('characters.create') }}" target="_blank">Create</a>"
-            on the right.
+            Click "<a class="underline" href="{{ route('characters.create') }}" target="_blank">Create</a>"
+            in the sidebar.
         </li>
         <li>
             Fill in the form with the character's details.

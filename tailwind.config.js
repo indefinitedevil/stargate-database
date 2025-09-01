@@ -56,5 +56,6 @@ export default {
         'md:order-4',
         'md:order-5',
         'md:order-6',
+        'lg:col-start-2',
     ],
 };
