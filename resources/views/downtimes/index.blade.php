@@ -30,14 +30,14 @@
                     @foreach($downtimes as $downtime)
                         @if ($downtime->event_id)
                             @php
-                                $eventCharacters = $downtime->event->characters()->whereIn('id', $characterIds)->all();
+                                $eventCharacters = $downtime->event->characters()->whereIn('id', $characterIds)->get();
                             @endphp
-                            @if (!empty($eventCharacters))
+                            @if ($eventCharacters->isNotEmpty())
                                 <li>
-                                    <a href="{{ route($downtime->isOpen() ? 'downtimes.submit' : 'downtimes.view', ['downtimeId' => $downtime->id, current($eventCharacters)->id]) }}"
+                                    <a href="{{ route($downtime->isOpen() ? 'downtimes.submit' : 'downtimes.view', ['downtimeId' => $downtime->id, 'characterId' => $eventCharacters->first()->id]) }}"
                                        class="underline">{{ $downtime->name }}
                                         ({{ $downtime->event->name }})
-                                        - {{ current($eventCharacters)->listName }}</a>
+                                        - {{ $eventCharacters->first()->listName }}</a>
                                     ({{ format_datetime($downtime->start_time, 'd/m/Y H:i') }}
                                     - {{ format_datetime($downtime->end_time, 'd/m/Y H:i') }})
                                     - {{ $downtime->getStatusLabel() }}

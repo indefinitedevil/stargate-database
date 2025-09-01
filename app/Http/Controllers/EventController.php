@@ -40,7 +40,7 @@ class EventController extends Controller
             $attended[$user->id] = $user->pivot->attended;
             $characters[$user->id] = $user->pivot->character_id;
         }
-        $users = User::orderBy('name', 'asc')->get();
+        $users = User::with('characters')->orderBy('name', 'asc')->get();
         return view('events.attendance', compact(
             'event',
             'roles',
