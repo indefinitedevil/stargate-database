@@ -13,6 +13,7 @@
                 <ul class="list-inside list-disc">
                     <li>Plot Co: added lowest-training character name to info box.</li>
                     <li>Secretary: added toggle to hide non-booked people from attendance screen.</li>
+                    <li>Researcher: allow deletion of pending projects.</li>
                     <li>Altered design philosophy to be closer to holy grail design.</li>
                     <li>Added warning for missing skill specialties.</li>
                     <li>Refactored code for better practices.</li>

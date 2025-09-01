@@ -134,6 +134,7 @@ class RoleSeeder extends Seeder
         $researcher->syncPermissions([
             $addResearchProjects,
             $editResearchProjects,
+            $deleteResearchProjects,
         ]);
 
         $command->syncPermissions([
