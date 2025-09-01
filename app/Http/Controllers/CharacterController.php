@@ -6,6 +6,7 @@ use App\Helpers\PlotHelper;
 use App\Mail\CharacterApproved;
 use App\Mail\CharacterDenied;
 use App\Mail\CharacterReady;
+use App\Models\Background;
 use App\Models\Character;
 use App\Models\CharacterLog;
 use App\Models\CharacterSkill;
@@ -18,6 +19,7 @@ use App\Models\Skill;
 use App\Models\SkillCategory;
 use App\Models\Status;
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\MessageBag;
@@ -43,11 +45,37 @@ class CharacterController extends Controller
             return redirect(route('characters.index'))
                 ->with('errors', new MessageBag([__('Characters cannot be created.')]));
         }
-        return view('characters.edit', [
+        return view('characters.edit', $this->getCharacterEditData($request));
+    }
+
+    public function edit(Request $request, $characterId)
+    {
+        $character = Character::find($characterId);
+        if ($request->user()->cannot('edit', $character)) {
+            if ($character) {
+                return redirect($character->getViewRoute())
+                    ->with('errors', new MessageBag([__('You cannot edit :character.', ['character' => $character->listName])]));
+            } else {
+                return redirect(route('characters.index'))
+                    ->with('errors', new MessageBag([__('Character not found.')]));
+            }
+        }
+        if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
+            return redirect($character->getViewRoute());
+        }
+        return view('characters.edit', $this->getCharacterEditData($request, $character));
+    }
+
+    protected function getCharacterEditData(Request $request, ?Character $character = NULL): array {
+        return [
+            'character' => $character,
             'divisions' => Division::all(),
             'departments' => Department::all(),
             'teams' => Team::whereNull('event_id')->get(),
-        ]);
+            'traits' => CharacterTrait::all(),
+            'backgrounds' => Background::all(),
+            'users' => $request->user()->can('edit all characters') ? User::all() : NULL,
+        ];
     }
 
     public function view(Request $request, $characterId)
@@ -103,29 +131,6 @@ class CharacterController extends Controller
                 ->with('errors', new MessageBag([__('Character not found.')]));
         }
         return view('characters.print-skills', ['characters' => [$character]]);
-    }
-
-    public function edit(Request $request, $characterId)
-    {
-        $character = Character::find($characterId);
-        if ($request->user()->cannot('edit', $character)) {
-            if ($character) {
-                return redirect($character->getViewRoute())
-                    ->with('errors', new MessageBag([__('You cannot edit :character.', ['character' => $character->listName])]));
-            } else {
-                return redirect(route('characters.index'))
-                    ->with('errors', new MessageBag([__('Character not found.')]));
-            }
-        }
-        if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
-            return redirect($character->getViewRoute());
-        }
-        return view('characters.edit', [
-            'character' => $character,
-            'divisions' => Division::all(),
-            'departments' => Department::all(),
-            'teams' => Team::whereNull('event_id')->get(),
-        ]);
     }
 
     /**

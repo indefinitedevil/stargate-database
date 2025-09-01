@@ -1,9 +1,6 @@
 @php
-    use App\Models\Background;
     use App\Models\Character;
-    use App\Models\CharacterTrait;
     use App\Models\Status;
-    use App\Models\User;
     $title = empty($character) ? __('Create character') : sprintf(__('Edit character: %s'), $character->name);
 @endphp
 <x-app-layout>
@@ -34,7 +31,7 @@
                     <div>
                         <x-input-label for="user_id" :value="__('User')"/>
                         <x-select id="user_id" name="user_id" class="mt-1 block w-full" required>
-                            @foreach (User::all() as $user)
+                            @foreach ($users as $user)
                                 <option value="{{ $user->id }}"
                                         @if(!empty($character) && $user->id === $character->user_id || empty($character) && auth()->user()->id == $user->id) selected @endif >
                                     {{ $user->name }}
@@ -167,7 +164,7 @@
                     <div>
                         <p class="text-xl">{{ __('Traits') }}</p>
                         <div class="flex gap-4">
-                            @foreach (CharacterTrait::all() as $trait)
+                            @foreach ($traits as $trait)
                                 @php
                                     $traitStatus = false;
                                     if (!empty($character)) {
@@ -196,14 +193,14 @@
                             @if (empty($character))
                                 <option value="">{{ __('Select a background') }}</option>
                             @endif
-                            @foreach(Background::all() as $background)
+                            @foreach($backgrounds as $background)
                                 <option value="{{ $background->id }}"
                                         @if(!empty($character) && $background->id === $character->background_id) selected @endif >
                                     {{ $background->name }}
                                 </option>
                             @endforeach
                         </x-select>
-                        @foreach(Background::all() as $key => $background)
+                        @foreach($backgrounds as $key => $background)
                             <div id="background-description-{{ $background->id }}"
                                  class="background-description p-2 mt-2 space-y-2 border-2 border-slate-600 rounded-md @if(empty($character) || $background->id != $character->background_id) hidden @endif">
                                 <p>{{ $background->description }}</p>
