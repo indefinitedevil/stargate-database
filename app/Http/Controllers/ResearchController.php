@@ -78,7 +78,7 @@ class ResearchController extends Controller
         $project = ResearchProject::findOrFail($projectId);
         if (ResearchProject::STATUS_PENDING != $project->status) {
             return redirect($project->getViewRoute())
-                ->with('error', __('Approved projects cannot be deleted.'));
+                ->with('error', __('Only pending research projects can be deleted.'));
         }
         $project->delete();
         return redirect(route('research.index'))
