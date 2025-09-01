@@ -1,8 +1,5 @@
 @php
     use App\Models\ResearchProject;
-    use App\Models\Skill;
-    use App\Models\SkillCategory;
-    use App\Models\SpecialtyType;
     $title = empty($project->id) ? __('Create research project') : sprintf(__('Edit research project: %s'), $project->name);
 @endphp
 <x-app-layout>
@@ -169,15 +166,15 @@
 
                         <div class="col-span-2">
                             <x-input-label for="skills" :value="__('Skills required')"/>
-                            <x-select id="skills" name="skills[]" class="mt-1 block w-full" multiple>
+                            <x-select id="skills" name="skills[]" class="mt-1 block w-full" multiple
+                                      :disabled="$project->completed ?? false"
+                            >
                                 @php $skillIds = !empty($project) ? $project->skills->pluck('id')->toArray() : []; @endphp
-                                @foreach (Skill::where('skill_category_id', '!=', SkillCategory::SYSTEM)->orderBy('skill_category_id')->orderBy('name')->get() as $skill)
+                                @foreach ($skills as $skill)
+                                    @php if (!empty($currentCategory)) echo '</optgroup>'; @endphp
                                     @if (empty($currentCategory) || $currentCategory != $skill->skill_category_id)
-                                        @if (!empty($currentCategory))
-                                            {!! '</optgroup>' !!}
-                                        @endif
                                         @php $currentCategory = $skill->skill_category_id; @endphp
-                                        {!! '<optgroup label="' . __(':name Skills', ['name' => $skill->skillCategory->name]) . '">' !!}
+                                        <optgroup label="{{ __(':name Skills', ['name' => $skill->skillCategory->name]) }}">
                                     @endif
                                     <option value="{{ $skill->id }}"
                                             @if (in_array($skill->id, old('skills', $skillIds))) selected @endif>
@@ -185,7 +182,7 @@
                                     </option>
                                 @endforeach
                                 @if (!empty($currentCategory))
-                                    {!! '</optgroup>' !!}
+                                    </optgroup>
                                 @endif
                             </x-select>
                             <x-input-error class="mt-2" :messages="$errors->get('skills')"/>
@@ -194,9 +191,10 @@
 
                         <div class="col-span-2">
                             <x-input-label for="specialty">{{ __('Specialty') }}</x-input-label>
-                            <x-select id="specialty" name="specialty_id[]" class="mt-1 block w-full"
-                                      :multiple="true">
-                                @foreach (SpecialtyType::all() as $specialtyType)
+                            <x-select id="specialty" name="specialty_id[]" class="mt-1 block w-full" multiple
+                                      :disabled="$project->completed ?? false"
+                            >
+                                @foreach ($specialtyTypes as $specialtyType)
                                     <optgroup label="{{ $specialtyType->name }}">
                                         @foreach ($specialtyType->skillSpecialties->sortBy('name') as $specialty)
                                             <option value="{{ $specialty->id }}"

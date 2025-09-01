@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ResearchProject;
+use App\Models\Skill;
+use App\Models\SkillCategory;
+use App\Models\SpecialtyType;
 use Illuminate\Support\MessageBag;
 use Illuminate\Validation\ValidationException;
 
@@ -70,7 +73,9 @@ class ResearchController extends Controller
             ->where('status', ResearchProject::STATUS_COMPLETED)
             ->orderBy('name')
             ->get();
-        return view('research.edit', compact('project', 'parentProjects'));
+        $skills = Skill::where('skill_category_id', '!=', SkillCategory::SYSTEM)->orderBy('skill_category_id')->orderBy('name')->get();
+        $specialtyTypes = SpecialtyType::all();
+        return view('research.edit', compact('project', 'parentProjects', 'skills', 'specialtyTypes'));
     }
 
     public function delete($projectId)

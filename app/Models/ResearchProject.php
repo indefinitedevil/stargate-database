@@ -34,6 +34,7 @@ use Illuminate\Support\Str;
  * @property ResearchProject parentProject
  * @property Collection|ResearchProject[] childProjects
  * @property Collection researchers
+ * @property bool completed
  */
 class ResearchProject extends Model
 {
@@ -195,6 +196,11 @@ class ResearchProject extends Model
             self::STATUS_ABANDONED => 'Abandoned',
             default => 'Unknown Status',
         };
+    }
+
+    public function getCompletedAttribute(): bool
+    {
+        return $this->status === self::STATUS_COMPLETED;
     }
 
     public function getVisibilityNameAttribute(): string
