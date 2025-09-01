@@ -30,7 +30,7 @@
                     @foreach($downtimes as $downtime)
                         @if ($downtime->event_id)
                             @php
-                                $eventCharacters = $downtime->event->characters()->whereIn('id', $characterIds)->get();
+                                $eventCharacters = $downtime->event->characters()->whereIn('id', $characterIds);
                             @endphp
                             @if ($eventCharacters->isNotEmpty())
                                 <li>
@@ -53,7 +53,7 @@
                                         @if ($downtime->event->users->where('id', Auth::user()->id)->count())
                                             @foreach ($activeCharacterIds as $characterId)
                                                 <li>
-                                                    <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
+                                                    <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, 'characterId' => $characterId]) }}"
                                                        class="underline">
                                                         {{ __('Downtime actions for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
                                                     </a>
@@ -74,7 +74,7 @@
                                     $character = $actions->first()->character;
                                 @endphp
                                 <li>
-                                    <a href="{{ route($downtime->isOpen() ? 'downtimes.submit' : 'downtimes.view', ['downtimeId' => $downtime->id, $character->id]) }}"
+                                    <a href="{{ route($downtime->isOpen() ? 'downtimes.submit' : 'downtimes.view', ['downtimeId' => $downtime->id, 'characterId' => $character->id]) }}"
                                        class="text-blue-500 hover:underline">
                                         {{ $downtime->name }} - {{ $character->listName }}
                                     </a>

@@ -61,7 +61,7 @@ class DowntimeController extends Controller
         }
         return view('plotco.downtimes.edit', [
             'downtime' => new Downtime(),
-            'events' => Event::orderBy('start_time', 'desc')->get(),
+            'events' => Event::where('end_date', '<', today())->orderBy('start_date', 'desc')->get(),
         ]);
     }
 
@@ -74,7 +74,7 @@ class DowntimeController extends Controller
         $downtime = Downtime::find($downtimeId);
         return view('plotco.downtimes.edit', [
             'downtime' => $downtime,
-            'events' => Event::orderBy('start_time', 'desc')->get(),
+            'events' => Event::where('end_date', '<', today())->orderBy('start_date', 'desc')->get(),
         ]);
     }
 
