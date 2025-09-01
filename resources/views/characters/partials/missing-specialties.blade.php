@@ -7,17 +7,27 @@
             @foreach($character->skillsWithMissingSpecialties as $skill)
                 @php if ($skill->completed) $completed = true; @endphp
                 <li>@if ($skill->completed)
-                        {{ $skill->name }} *
+                        @can ('edit all characters')
+                            <a href="{{ route('characters.edit-skill', ['characterId' => $character, 'skillId' => $skill]) }}"
+                               class="underline">
+                                {{ $skill->name }}
+                            </a>
+                        @else
+                            {{ $skill->name }}
+                        @endcan
+                        *
                     @else
-                     <a href="{{ route('characters.edit-skill', ['characterId' => $character, 'skillId' => $skill]) }}" class="underline">
-                         {{ $skill->name }}
-                     </a>
+                        <a href="{{ route('characters.edit-skill', ['characterId' => $character, 'skillId' => $skill]) }}"
+                           class="underline">
+                            {{ $skill->name }}
+                        </a>
                     @endif
                 </li>
             @endforeach
         </ul>
         @if ($completed)
-            <p class="mt-2 italic">* {{ __('Skills marked with an asterisk require the plot coordinator to amend them.') }}</p>
+            <p class="mt-2 italic">
+                * {{ __('Skills marked with an asterisk require the plot coordinator to amend them.') }}</p>
         @endif
     </div>
 @endif
