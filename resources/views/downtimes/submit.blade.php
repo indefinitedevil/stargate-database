@@ -48,6 +48,8 @@
         <div class="sm:grid sm:grid-cols-2 sm:gap-6">
             @include('downtimes.partials.training-courses')
 
+            @include('characters.partials.missing-specialties')
+
             @if ($downtime->isOpen() && $character->requiredUpkeepSkills->count())
                 <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-5 shadow">
                     <p class="font-bold">{{ __('Upkeep Skills') }}</p>

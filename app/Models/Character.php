@@ -33,6 +33,8 @@ use Illuminate\Support\Str;
  * @property CharacterSkill[]|Collection trainingSkills
  * @property CharacterSkill[]|Collection upkeepSkills
  * @property CharacterSkill[]|Collection requiredUpkeepSkills
+ * @property CharacterSkill[]|Collection skillsWithSpecialties
+ * @property CharacterSkill[]|Collection skillsWithMissingSpecialties
  * @property CharacterLog[]|Collection logs
  * @property Status status
  * @property Feat[] feats
@@ -217,14 +219,9 @@ class Character extends Model
             ->where('upkeep', true);
     }
 
-    public function requiredUpkeepSkills(): Collection
-    {
-        return $this->upkeepSkills;
-    }
-
     public function getRequiredUpkeepSkillsAttribute(): Collection
     {
-        return $this->requiredUpkeepSkills();
+        return $this->upkeepSkills;
     }
 
     public function displayedTrainedSkills(): HasMany
@@ -254,6 +251,23 @@ class Character extends Model
     {
         return $this->skills()->where('completed', false)
             ->where('skill_category_id', '!=', SkillCategory::SYSTEM);
+    }
+
+    public function skillsWithSpecialties(): HasMany
+    {
+        return $this->skills()
+            ->where('skills.specialties', '>', 0);
+    }
+
+    public function getSkillsWithMissingSpecialtiesAttribute(): Collection
+    {
+        $missingSpecialties = [];
+        foreach ($this->skillsWithSpecialties as $characterSkill) {
+            if ($characterSkill->specialties->count() < $characterSkill->skill->specialties) {
+                $missingSpecialties[] = $characterSkill;
+            }
+        }
+        return collect($missingSpecialties);
     }
 
     public function status(): BelongsTo

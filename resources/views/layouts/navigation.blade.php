@@ -1,7 +1,6 @@
 @php
     use App\Models\Character;
     use App\Models\Skill;
-    use App\Models\User;
 @endphp
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 lg:grid lg:grid-cols-6 gap-4">
     <!-- Primary Navigation Menu -->

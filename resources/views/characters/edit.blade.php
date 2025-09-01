@@ -18,9 +18,6 @@
     </x-slot>
     @if (!empty($character))
         @include('characters.partials.sidebar2')
-    @endif
-
-    @if (!empty($character))
         @include('plotco.partials.approval')
         @include('characters.partials.reset')
     @endif

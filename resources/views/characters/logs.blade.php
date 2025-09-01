@@ -10,6 +10,7 @@
     </x-slot>
     @include('characters.partials.sidebar2')
 
+    @include('characters.partials.missing-specialties')
     @include('plotco.partials.approval')
     @include('characters.partials.reset')
     @include('characters.partials.details')
