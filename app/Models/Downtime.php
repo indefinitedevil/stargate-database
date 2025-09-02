@@ -100,16 +100,15 @@ class Downtime extends Model
     public function getResearchProjectsAttribute(): Collection
     {
         return once(function () {
-            $projects = ResearchProject::whereHas('downtimeActions', function ($query) {
+            return ResearchProject::whereHas('downtimeActions', function ($query) {
                 $query->where('downtime_id', $this->id)
                     ->where('action_type_id', ActionType::ACTION_RESEARCHING);
-            })->get();
-            if ($projects->isEmpty()) {
-                $projects = ResearchProject::where('status', ResearchProject::STATUS_ACTIVE)
-                    ->where('visibility', ResearchProject::VISIBILITY_PUBLIC)
-                    ->get();
-            }
-            return $projects;
+            })
+                ->orWhere(function ($query) {
+                    $query->where('status', ResearchProject::STATUS_ACTIVE)
+                        ->where('visibility', ResearchProject::VISIBILITY_PUBLIC);
+                })
+                ->get();
         });
     }
 
