@@ -74,7 +74,8 @@ class ResearchProject extends Model
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class)
-            ->withPivot('months');
+            ->withPivot('months')
+            ->orderBy('skills.name', 'asc');
     }
 
     public function skillSpecialties(): BelongsToMany
