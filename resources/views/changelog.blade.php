@@ -9,6 +9,12 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 4th September 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Character logs now clearly show bonus from attending a training course.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 2nd September 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed research project info on downtime submission.</li>

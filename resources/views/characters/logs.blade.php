@@ -37,7 +37,10 @@
                     <p>{{ __('Type: :type', ['type' => $log->logType->name]) }}</p>
                     <p>{{ __('Skill: :skill', ['skill' => $log->skill->name]) }}</p>
                     @if (0 != $log->amount_trained)
-                        <p>{{ __('Trained: :amount months', ['amount' => add_positive_modifier($log->amount_trained)]) }}</p>
+                        <p>{{ __('Trained: :amount months :teacher', [
+                            'amount' => add_positive_modifier($log->amount_trained),
+                            'teacher' => empty($log->teacher_id) ? '' : __('(with teacher)'),
+                        ]) }}</p>
                     @endif
                     @if (0 != $log->body_change)
                         <p>{{ __('Body: :amount', ['amount' => add_positive_modifier($log->body_change)]) }}</p>
