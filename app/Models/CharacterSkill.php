@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int level
  * @property string name
  * @property string printName
+ * @property string unformattedName
  * @property bool removed
  */
 class CharacterSkill extends Model
@@ -146,20 +147,34 @@ class CharacterSkill extends Model
         return $this->formatName($this->skill->name);
     }
 
+    public function getUnformattedNameAttribute(): string
+    {
+       return $this->baseName($this->skill->name);
+    }
+
     public function getPrintNameAttribute(): string
     {
         return $this->formatName($this->skill->print_name ?? $this->skill->name);
     }
 
-    protected function formatName($name): string
-    {
+    protected function baseName($name) {
+        $name = $this->skill->name;
+        if ($this->skill->skill_category_id == SkillCategory::SYSTEM) {
+            return __(':name (:id)', ['name' => $name, 'id' => $this->id]);
+        }
         if (1 == $this->skill->specialties) {
             if ($this->skillSpecialties->count()) {
                 return __(':name (:specialty)', ['name' => $name, 'specialty' => $this->skillSpecialties->first()->name]);
             }
             return __(':name (Not selected)', ['name' => $name]);
         }
-        if ($this->skill->repeatable) {
+        return $name;
+    }
+
+    protected function formatName($name): string
+    {
+        $name = $this->baseName($name);
+        if ($this->completed &&     $this->skill->repeatable) {
             return __(':name (x:level)', ['name' => $name, 'level' => $this->level]);
         }
         if (Skill::LEADERSHIP == $this->skill_id) {

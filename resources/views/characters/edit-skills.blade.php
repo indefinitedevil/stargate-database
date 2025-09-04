@@ -49,7 +49,7 @@
                         <li class="leading-loose sm:leading-normal">
                             <span class="cursor-pointer underline decoration-dashed underline-offset-4"
                                   onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')">
-                                {{ $characterSkill->name }}
+                                {{ $characterSkill->unformattedName }}
                                 @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
                                     *
                                     @php $flashOfInsight = true; @endphp
@@ -124,7 +124,7 @@
                             <li class="leading-loose sm:leading-normal">
                                 <span class="cursor-pointer underline decoration-dashed underline-offset-4"
                                       onclick="toggleVisibility('skill-{{ $characterSkill->skill_id }}')">
-                                    {{ $characterSkill->name }}
+                                    {{ $characterSkill->unformattedName }}
                                     @if($characterSkill->skill->feats->contains(Feat::FLASH_OF_INSIGHT))
                                         *
                                         @php $flashOfInsight = true; @endphp

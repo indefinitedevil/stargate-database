@@ -12,6 +12,9 @@
                 <h3 class="text-lg font-semibold">Update: 4th September 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Character logs now clearly show bonus from attending a training course.</li>
+                    <li>Renamed character "type" to "archetype".</li>
+                    <li>Removed level from skill names.</li>
+                    <li>Added additional logging.</li>
                 </ul>
             </div>
             <div>

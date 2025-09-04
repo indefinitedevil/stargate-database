@@ -76,7 +76,9 @@
                 <div>
                     <p class="text-lg">{{ __('Villains/NPCs') }}</p>
                     <div class="divide-y divide-gray-100">
+                        @if (!$villainCharacters->isEmpty())
                         @include('characters.partials.index', ['characters' => $villainCharacters, 'checkbox' => true, 'hideStatus' => true])
+                        @endif
                         @include('characters.partials.index', ['characters' => $plotcoCharacters, 'checkbox' => true, 'hideStatus' => true])
                     </div>
                 </div>

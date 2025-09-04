@@ -57,7 +57,7 @@ use Illuminate\Support\Str;
  * @property int primary_secondary
  * @property Event[] events
  * @property int hero_scoundrel
- * @property string type
+ * @property string archetype
  * @property DowntimeAction[]|Collection downtimeActions
  * @property CharacterTrait[]|Collection characterTraits
  * @property string traits_indicator
@@ -408,13 +408,18 @@ class Character extends Model
             ->withPivot('attended', 'role');
     }
 
-    public function getTypeAttribute(): string
+    public function getArchetypeAttribute(): string
     {
-        if ($this->hero_scoundrel === self::HERO) {
+        return self::getArchetypeName($this->hero_scoundrel);
+    }
+
+    public static function getArchetypeName(int $archetype): string
+    {
+        if ($archetype === self::HERO) {
             return __('Hero');
-        } elseif ($this->hero_scoundrel === self::SCOUNDREL) {
+        } elseif ($archetype === self::SCOUNDREL) {
             return __('Scoundrel');
-        } elseif ($this->hero_scoundrel === self::VILLAIN) {
+        } elseif ($archetype === self::VILLAIN) {
             return __('Villain');
         } else {
             return __('Unknown');

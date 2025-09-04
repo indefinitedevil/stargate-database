@@ -24,7 +24,7 @@
                             <strong>{{ __('Background') }}:</strong> {{ $character->background->name }}
                         </p>
                         <p class="mt-1">
-                            <strong>{{ __('Type') }}:</strong> {{ $character->type }}
+                            <strong>{{ __('Archetype') }}:</strong> {{ $character->archetype }}
                         </p>
                         <p class="mt-1">
                             <strong>{{ __('Body') }}:</strong> {{ $character->body }} @if ($character->temp_body)

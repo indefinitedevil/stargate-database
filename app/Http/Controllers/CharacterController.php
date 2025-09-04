@@ -603,6 +603,18 @@ class CharacterController extends Controller
         $validatedData['other_abilities'] = $validatedData['other_abilities'] ?? '';
         $validatedData['former_rank'] = $validatedData['former_rank'] ?? '';
         $validatedData['rank'] = $validatedData['rank'] ?? '';
+        if (Status::APPROVED <= $character->status_id && $character->background_id != $validatedData['background_id']) {
+            $this->plotLog($character, __('Character background changed from :old to :new.', [
+                'old' => $character->background->name,
+                'new' => Background::find($validatedData['background_id'])->name,
+            ]));
+        }
+        if (Status::APPROVED <= $character->status_id && $character->hero_scoundrel != $validatedData['hero_scoundrel']) {
+            $this->plotLog($character, __('Character archetype changed from :old to :new.', [
+                'old' => Character::getArchetypeName($character->hero_scoundrel),
+                'new' => Character::getArchetypeName($validatedData['hero_scoundrel']),
+            ]));
+        }
         $character->fill($validatedData);
         $character->save();
 
@@ -623,38 +635,20 @@ class CharacterController extends Controller
             foreach ($changes as $changeType) {
                 if (!empty($changeType)) {
                     $character->resetIndicators();
+                    $newTraits = [];
+                    foreach ($character->characterTraits()->get() as $trait) {
+                        if ($trait->pivot->status) {
+                            $newTraits[] = $trait->name;
+                        }
+                    }
+                    $this->plotLog($character, __('Character edited.'), __('Traits changed from :old to :new.', [
+                        'old' => implode(', ', $oldTraits) ?: __('None'),
+                        'new' => implode(', ', $newTraits) ?: __('None'),
+                    ]));
                     break;
                 }
             }
-            $newTraits = [];
-            foreach ($character->characterTraits()->get() as $trait) {
-                if ($trait->pivot->status) {
-                    $newTraits[] = $trait->name;
-                }
-            }
-            $characterSkill = $character->skills()->where('skill_id', Skill::PLOT_CHANGE)->first();
-            if (!$characterSkill) {
-                $characterSkill = new CharacterSkill();
-                $characterSkill->fill([
-                    'character_id' => $character->id,
-                    'skill_id' => Skill::PLOT_CHANGE,
-                    'completed' => true,
-                ]);
-                $characterSkill->save();
-            }
-            $log = new CharacterLog();
-            $log->fill([
-                'character_id' => $character->id,
-                'character_skill_id' => $characterSkill->id,
-                'skill_completed' => true,
-                'locked' => true,
-                'log_type_id' => LogType::PLOT,
-                'plot_notes' => __('Traits changed from :old to :new.', [
-                    'old' => implode(', ', $oldTraits),
-                    'new' => implode(', ', $newTraits),
-                ]),
-            ]);
-            $log->save();
+
         }
 
         if (!empty($validatedData['division'])) {
@@ -713,6 +707,31 @@ class CharacterController extends Controller
 
         return redirect($character->getViewRoute())
             ->with('success', new MessageBag([__('Character :character saved.', ['character' => $character->listName])]));
+    }
+
+    protected function plotLog(Character $character, string $notes, ?string $plotNotes = null)
+    {
+        $characterSkill = $character->skills()->where('skill_id', Skill::PLOT_CHANGE)->first();
+        if (!$characterSkill) {
+            $characterSkill = new CharacterSkill();
+            $characterSkill->fill([
+                'character_id' => $character->id,
+                'skill_id' => Skill::PLOT_CHANGE,
+                'completed' => true,
+            ]);
+            $characterSkill->save();
+        }
+        $log = new CharacterLog();
+        $log->fill([
+            'character_id' => $character->id,
+            'character_skill_id' => $characterSkill->id,
+            'skill_completed' => true,
+            'locked' => true,
+            'log_type_id' => LogType::PLOT,
+            'notes' => $notes,
+            'plot_notes' => $plotNotes,
+        ]);
+        $log->save();
     }
 
     /**

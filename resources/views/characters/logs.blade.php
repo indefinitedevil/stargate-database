@@ -1,8 +1,8 @@
 <x-app-layout>
-    <x-slot name="title">{{ $character->name }}</x-slot>
+    <x-slot name="title">{{ sprintf(__('Character Logs: %s'), $character->name) }}</x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-300 leading-tight">
-            {{ sprintf(__('Character: %s'), $character->name) }}
+            {{ sprintf(__('Character Logs: %s'), $character->name) }}
             @if($character->isPrimary)
                 <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i>
             @endif
@@ -35,7 +35,7 @@
                     @endcan
                     <p>{{ __('Date: :date', ['date' => format_datetime($log->created_at, 'j M Y')]) }}</p>
                     <p>{{ __('Type: :type', ['type' => $log->logType->name]) }}</p>
-                    <p>{{ __('Skill: :skill', ['skill' => $log->skill->name]) }}</p>
+                    <p>{{ __('Skill: :skill', ['skill' => $log->characterSkill->unformattedName]) }}</p>
                     @if (0 != $log->amount_trained)
                         <p>{{ __('Trained: :amount months :teacher', [
                             'amount' => add_positive_modifier($log->amount_trained),
