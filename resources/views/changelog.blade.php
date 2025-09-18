@@ -9,11 +9,12 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Update: 4th September 2025</h3>
+                <h3 class="text-lg font-semibold">Update: 18th September 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Character logs now clearly show bonus from attending a training course.</li>
                     <li>Renamed character "type" to "archetype".</li>
                     <li>Removed level from skill names.</li>
+                    <li>Made some messages more readable.</li>
                     <li>Added additional logging.</li>
                 </ul>
             </div>

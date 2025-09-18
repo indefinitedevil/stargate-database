@@ -706,7 +706,7 @@ class CharacterController extends Controller
         }
 
         return redirect($character->getViewRoute())
-            ->with('success', new MessageBag([__('Character :character saved.', ['character' => $character->listName])]));
+            ->with('success', new MessageBag([__('Character ":character" saved.', ['character' => $character->listName])]));
     }
 
     protected function plotLog(Character $character, string $notes, ?string $plotNotes = null)
@@ -818,7 +818,7 @@ class CharacterController extends Controller
         }
 
         return redirect()->back()
-            ->with('success', new MessageBag([__('Character :character skill saved.', ['character' => $characterSkill->character->listName])]));
+            ->with('success', new MessageBag([__('Skill saved for :character.', ['character' => $characterSkill->character->listName])]));
     }
 
     /**
