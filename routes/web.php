@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\DowntimeController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\Organisation\DepartmentController;
 use App\Http\Controllers\Organisation\DivisionController;
 use App\Http\Controllers\Organisation\TeamController;
@@ -32,6 +33,9 @@ Route::get('/roles', function () {
 })->name('roles');
 
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
+
+Route::get('/memberships/verify', [MembershipController::class, 'verify'])->name('memberships.verify');
+Route::post('/memberships/verify', [MembershipController::class, 'verify'])->name('memberships.verify-post');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

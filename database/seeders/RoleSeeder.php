@@ -60,6 +60,7 @@ class RoleSeeder extends Seeder
         $editDepartments = Permission::findOrCreate('edit departments');
         $viewTeams = Permission::findOrCreate('view teams');
         $editTeams = Permission::findOrCreate('edit teams');
+        $manageMemberships = Permission::findOrCreate('manage memberships');
 
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
@@ -129,6 +130,7 @@ class RoleSeeder extends Seeder
             $viewAttendance,
             $recordAttendance,
             $accessExecutiveMenu,
+            $manageMemberships,
         ]);
 
         $researcher->syncPermissions([

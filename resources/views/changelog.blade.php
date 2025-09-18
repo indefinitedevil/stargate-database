@@ -11,6 +11,9 @@
             <div>
                 <h3 class="text-lg font-semibold">Update: 18th September 2025</h3>
                 <ul class="list-inside list-disc">
+                    <li>Secretary: added permission to manage memberships.</li>
+                    <li>Added membership verification system.</li>
+                    <li>Added membership name to profiles.</li>
                     <li>Character logs now clearly show bonus from attending a training course.</li>
                     <li>Renamed character "type" to "archetype".</li>
                     <li>Removed level from skill names.</li>

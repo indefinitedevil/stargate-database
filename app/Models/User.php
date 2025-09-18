@@ -14,10 +14,13 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * @property int $id
- * @property string $name
- * @property string $email
- * @property Collection $characters
+ * @property int id
+ * @property string name
+ * @property string membership_name
+ * @property string membership_number
+ * @property string email
+ * @property Collection characters
+ * @property Collection memberships
  */
 class User extends Authenticatable
 {
@@ -32,6 +35,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'membership_name',
         'email',
         'password',
     ];
@@ -123,5 +127,47 @@ class User extends Authenticatable
     public function getViewRoute(): string
     {
         return route('profile.view', ['userId' => $this, 'userName' => Str::slug($this->name)]);
+    }
+
+    public function getMembershipNameAttribute(): string
+    {
+        if (!empty($this->attributes['membership_name'])) {
+            return $this->attributes['membership_name'];
+        }
+        return $this->name;
+    }
+
+    public function getMembershipNumberAttribute(): string
+    {
+        $name = $this->membership_name;
+        $nameTokens = preg_split('/\s+/', $name);
+        $initials = '';
+        foreach ($nameTokens as $token) {
+            $initials .= strtoupper($token[0]);
+        }
+        $membershipNumber = 'SG-' . str_pad($this->id, 4, '0', STR_PAD_LEFT) . '-' . $initials;
+        $membership = $this->memberships?->first();
+        if ($membership) {
+            $membershipNumber .= '-' . $membership->name;
+        }
+        return $membershipNumber;
+    }
+
+    public function getMembershipStatusAttribute(): string
+    {
+        $membership = $this->memberships?->first();
+        if ($membership) {
+            if ($membership->isActive()) {
+                return __('Active member');
+            }
+            return __('Lapsed member');
+        }
+        return __('Not a member');
+    }
+
+    public function memberships(): BelongsToMany
+    {
+        return $this->belongsToMany(Membership::class)
+            ->orderBy('start_date', 'desc');
     }
 }

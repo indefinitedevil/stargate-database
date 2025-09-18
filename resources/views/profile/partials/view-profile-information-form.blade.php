@@ -12,6 +12,18 @@
     </div>
 
     <div>
+        <x-input-label for="membership_name" :value="__('Membership Name')"/>
+        <x-text-input id="membership_name" name="membership_name" type="text" class="mt-1 block w-full" :value="old('membership_name', $user->membership_name)"
+                      disabled/>
+    </div>
+
+    <div>
+        <x-input-label for="membership_number" :value="__('Membership Number')"/>
+        <x-text-input id="membership_number" name="membership_number" type="text" class="mt-1 block w-full" :value="old('membership_number', $user->membership_number)"
+                      disabled/>
+    </div>
+
+    <div>
         <x-input-label for="email" :value="__('Email')"/>
         <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)"
                       disabled/>

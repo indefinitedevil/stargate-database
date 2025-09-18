@@ -88,6 +88,7 @@
                 <a href="{{ route('changelog') }}" class="inline-block underline">{{ __('Changelog') }}</a>
                 <a href="{{ route('privacy') }}" class="inline-block underline">{{ __('Privacy Policy') }}</a>
                 <a href="{{ route('roles') }}" class="inline-block underline">{{ __('Roles') }}</a>
+                <a href="{{ route('memberships.verify') }}" class="inline-block underline">{{ __('Verify Membership') }}</a>
             </div>
         </div>
     </footer>
