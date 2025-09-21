@@ -9,6 +9,20 @@
             {{ $title }}
         </h2>
     </x-slot>
+    @if (!empty($trait->id))
+        <x-slot name="sidebar2">
+            <form method="POST" action="{{ route('plotco.traits.delete', $trait) }}"
+                  onsubmit="return confirm('{{ __('Are you sure you want to delete this trait?') }}')">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                        class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
+                    <i class="fa-solid fa-trash min-w-8"></i>
+                    {{ __('Delete') }}
+                </button>
+            </form>
+        </x-slot>
+    @endif
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <div>
@@ -77,16 +91,6 @@
 
                 <div class="flex items-center gap-4 mt-6">
                     <x-primary-button>{{ __('Save') }}</x-primary-button>
-                    @if (!empty($trait->id))
-                        <form method="POST" action="{{ route('plotco.traits.delete', $trait) }}"
-                              onsubmit="return confirm('{{ __('Are you sure you want to delete this trait?') }}')">
-                            @csrf
-                            @method('DELETE')
-                            <x-secondary-button>
-                                {{ __('Delete') }}
-                            </x-secondary-button>
-                        </form>
-                    @endif
                 </div>
             </form>
         </div>
