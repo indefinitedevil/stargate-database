@@ -22,6 +22,18 @@
                 </ul>
             </div>
             <div>
+                <h3 class="text-lg font-semibold">Bugfix: 21st September 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: fixed issue with delete buttons causing saves to error.</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Bugfix: 3rd September 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Fixed research project skill names on downtime submission.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 2nd September 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed research project info on downtime submission.</li>

@@ -5,24 +5,6 @@
     <x-slot name="title">{{ __('View Downtime') }}</x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            @can ('edit downtimes')
-                @if ($downtime->open)
-                    <div class="sm:float-right sm:grid sm:grid-cols-2 gap-2">
-                        <x-link-button
-                            href="{{ route('downtimes.submit', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
-                        >{{ __('Edit') }}</x-link-button>
-                        <form method="POST"
-                              action="{{ route('plotco.downtimes.delete-actions', ['downtimeId' => $downtime, 'characterId' => $character]) }}"
-                              onsubmit="return confirm('{{ __('Are you sure you want to delete these downtime actions?') }}')">
-                            @csrf
-                            @method('DELETE')
-                            <x-primary-button>
-                                {{ __('Delete') }}
-                            </x-primary-button>
-                        </form>
-                    </div>
-                @endif
-            @endcan
             {{ __('View Downtime') }}
         </h2>
     </x-slot>

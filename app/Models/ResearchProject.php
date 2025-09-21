@@ -74,7 +74,8 @@ class ResearchProject extends Model
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class)
-            ->withPivot('months');
+            ->withPivot('months')
+            ->orderBy('skills.name', 'asc');
     }
 
     public function skillSpecialties(): BelongsToMany
@@ -138,7 +139,7 @@ class ResearchProject extends Model
                 }
                 $researchCharacters[$researchAction->character_id]['actions'][] = $researchAction;
                 if (!empty($researchAction->character_skill_id)) {
-                    $researchCharacters[$researchAction->character_id]['skills'][$researchAction->characterSkill->skill->print_name ?? $researchAction->characterSkill->skill->name][] = $researchAction;
+                    $researchCharacters[$researchAction->character_id]['skills'][$researchAction->characterSkill->print_name][] = $researchAction;
                 }
             }
             foreach ($researchCharacters as $characterId => $researchCharacter) {
