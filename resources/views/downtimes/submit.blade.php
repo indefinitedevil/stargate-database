@@ -201,19 +201,27 @@
                                         >{{ $type->name }}</option>
                                     @endforeach
                                 </x-select>
-                                <x-select id="upkeep_skill_{{ $actionCount }}"
-                                          name="research_action[{{ $actionCount }}][skill_id]"
-                                          :disabled="!$downtime->isOpen()"
-                                          class="mt-1 block {{ ActionType::ACTION_UPKEEP_2 == $action->action_type_id ? '' : 'hidden' }}">
-                                    @include('downtimes.partials.upkeep-skills', ['action' => $action])
-                                </x-select>
                                 <x-select id="research_project_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][research_project_id]"
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research-projects', ['action' => $action])</x-select>
-                                <x-select id="research_skill_{{ $actionCount }}"
+                                <x-select id="research_action_skill_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][skill_id]"
-                                          class="mt-1 block {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research-skills', ['action' => $action])</x-select>
+                                          :disabled="!$downtime->isOpen()"
+                                          class="mt-1 block">
+                                    @if (ActionType::ACTION_UPKEEP_2 == $action->action_type_id)
+                                        @include('downtimes.partials.upkeep-skills', ['action' => $action])
+                                    @elseif (ActionType::ACTION_RESEARCHING == $action->action_type_id)
+                                        @include('downtimes.partials.research-skills', ['action' => $action])
+                                    @endif
+                                </x-select>
+                                <x-select id="upkeep_skill_{{ $actionCount }}"
+                                          :disabled="!$downtime->isOpen()"
+                                          class="mt-1 block hidden">
+                                    @include('downtimes.partials.upkeep-skills', ['action' => $action])
+                                </x-select>
+                                <x-select id="research_skill_{{ $actionCount }}"
+                                          class="mt-1 block hidden">@include('downtimes.partials.research-skills', ['action' => $action])</x-select>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
                                             :disabled="!$downtime->isOpen()"
@@ -236,18 +244,22 @@
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
                                 </x-select>
-                                <x-select id="upkeep_skill_{{ $actionCount }}"
-                                          name="research_action[{{ $actionCount }}][skill_id]"
-                                          :disabled="!$downtime->isOpen()"
-                                          class="mt-1 block hidden">
-                                    @include('downtimes.partials.upkeep-skills', ['action' => null])
-                                </x-select>
                                 <x-select id="research_project_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][research_project_id]"
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block hidden">@include('downtimes.partials.research-projects', ['action' => null])</x-select>
-                                <x-select id="research_skill_{{ $actionCount }}"
+                                <x-select id="research_action_skill_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][skill_id]"
+                                          :disabled="!$downtime->isOpen()"
+                                          class="mt-1 block hidden">
+                                    <option>{{ __('Select an action type') }}</option>
+                                </x-select>
+                                <x-select id="upkeep_skill_{{ $actionCount }}"
+                                          :disabled="!$downtime->isOpen()"
+                                          class="mt-1 block hidden">
+                                    @include('downtimes.partials.upkeep-skills', ['action' => null])
+                                </x-select>
+                                <x-select id="research_skill_{{ $actionCount }}"
                                           class="mt-1 block hidden">@include('downtimes.partials.research-skills', ['action' => null])</x-select>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
@@ -394,5 +406,5 @@
     </form>
 
     @include('characters.partials.add-skill')
-    <script src="{{ asset('js/downtimes.js') }}" defer></script>
+    <script src="{{ asset('js/downtimes.js?v=20250930') }}" defer></script>
 </x-app-layout>
