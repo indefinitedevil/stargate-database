@@ -205,7 +205,7 @@
                                           name="research_action[{{ $actionCount }}][research_project_id]"
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research-projects', ['action' => $action])</x-select>
-                                <x-select id="research_action_skill_{{ $actionCount }}"
+                                <x-select id="research_skill_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][skill_id]"
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block">
@@ -215,12 +215,12 @@
                                         @include('downtimes.partials.research-skills', ['action' => $action])
                                     @endif
                                 </x-select>
-                                <x-select id="upkeep_skill_{{ $actionCount }}"
+                                <x-select id="rs_{{ $actionCount }}_{{ ActionType::ACTION_UPKEEP_2 }}"
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block hidden">
                                     @include('downtimes.partials.upkeep-skills', ['action' => $action])
                                 </x-select>
-                                <x-select id="research_skill_{{ $actionCount }}"
+                                <x-select id="rs_{{ $actionCount }}_{{ ActionType::ACTION_RESEARCHING }}"
                                           class="mt-1 block hidden">@include('downtimes.partials.research-skills', ['action' => $action])</x-select>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
@@ -248,18 +248,18 @@
                                           name="research_action[{{ $actionCount }}][research_project_id]"
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block hidden">@include('downtimes.partials.research-projects', ['action' => null])</x-select>
-                                <x-select id="research_action_skill_{{ $actionCount }}"
+                                <x-select id="research_skill_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][skill_id]"
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block hidden">
                                     <option>{{ __('Select an action type') }}</option>
                                 </x-select>
-                                <x-select id="upkeep_skill_{{ $actionCount }}"
+                                <x-select id="rs_{{ $actionCount }}_{{ ActionType::ACTION_UPKEEP_2 }}"
                                           :disabled="!$downtime->isOpen()"
                                           class="mt-1 block hidden">
                                     @include('downtimes.partials.upkeep-skills', ['action' => null])
                                 </x-select>
-                                <x-select id="research_skill_{{ $actionCount }}"
+                                <x-select id="rs_{{ $actionCount }}_{{ ActionType::ACTION_RESEARCHING }}"
                                           class="mt-1 block hidden">@include('downtimes.partials.research-skills', ['action' => null])</x-select>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
