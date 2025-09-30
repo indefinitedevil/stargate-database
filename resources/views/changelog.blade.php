@@ -22,6 +22,12 @@
                 </ul>
             </div>
             <div>
+                <h3 class="text-lg font-semibold">Bugfix: 30th September 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Fixed an issue where using research actions for upkeep caused a bug.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 21st September 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: fixed issue with delete buttons causing saves to error.</li>
@@ -88,7 +94,9 @@
                 <ul class="list-inside list-disc">
                     <li>Plot Co: changed catch-up XP display.</li>
                     <li>Sys Ref: changed catch-up XP display.</li>
-                    <li>Changed catch-up XP to be calculated based on the entirety of training, not just downtime training.</li>
+                    <li>Changed catch-up XP to be calculated based on the entirety of training, not just downtime
+                        training.
+                    </li>
                 </ul>
             </div>
             <div>
@@ -122,7 +130,9 @@
                 <ul class="list-inside list-disc">
                     <li>Plot Co: updated downtime user count to not include crew without characters.</li>
                     <li>Sys Ref: updated Leadership to apply training benefits to the extra person upgrade.</li>
-                    <li>Removed seeder references from migrations. Seeders should be run on-demand to avoid clashes with migrations.</li>
+                    <li>Removed seeder references from migrations. Seeders should be run on-demand to avoid clashes with
+                        migrations.
+                    </li>
                     <li>Added note about where to add specialties to the add skills form.</li>
                     <li>Fixed Leadership skill to properly count the number of people you can affect.</li>
                     <li>Fixed a repeating skill description in the edit skills form.</li>
@@ -235,14 +245,19 @@
                     <li>Secretary: updated attendance lists to show event roles.</li>
                     <li>Plot Co: updated training/catchup XP display.</li>
                     <li>Plot Co: fixed bug in viewing downtime actions.</li>
-                    <li>Sys Ref: updated catchup XP calculations to be based solely on downtime training, ignoring characters who have not submitted a downtime.</li>
+                    <li>Sys Ref: updated catchup XP calculations to be based solely on downtime training, ignoring
+                        characters who have not submitted a downtime.
+                    </li>
                     <li>Sys Ref: added catchup XP numbers to Skill Check screen.</li>
                     <li>Sys Ref: rules 1.3 update.</li>
                     <li>Event Runner: removed dedicated role.</li>
-                    <li>Event runners now have access to the skill breakdown based on their attendance role for future events.</li>
+                    <li>Event runners now have access to the skill breakdown based on their attendance role for future
+                        events.
+                    </li>
                     <li>Updated feat display to be clearer regarding uses per day/event and Vigor costs.</li>
                     <li>Added a banner to make it clear when on a test site.</li>
-                    <li>Changed "miscellaneous actions" to "personal actions" in downtime and added explanatory text.</li>
+                    <li>Changed "miscellaneous actions" to "personal actions" in downtime and added explanatory text.
+                    </li>
                     <li>Fixed bug which blocked character deletions.</li>
                     <li>Made changes as per suggestions from AI code review.</li>
                 </ul>
@@ -251,13 +266,15 @@
                 <h3 class="text-lg font-semibold">Bugfix: 16th June 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Secretary: fixed bug with access to executive screen.</li>
-                    <li>Added <a href="/roles" class="underline">roles page</a> to show the different available roles.</li>
+                    <li>Added <a href="/roles" class="underline">roles page</a> to show the different available roles.
+                    </li>
                 </ul>
             </div>
             <div>
                 <h3 class="text-lg font-semibold">Update: 19th May 2025</h3>
                 <ul class="list-inside list-disc">
-                    <li>Plot Co: allow change of user on characters to allow for NPCs to be assigned to plot co user.</li>
+                    <li>Plot Co: allow change of user on characters to allow for NPCs to be assigned to plot co user.
+                    </li>
                     <li>Plot Co: organise user lists by type.</li>
                     <li>Plot Co: allow direct creation and editing of character logs.</li>
                     <li>Plot Co: removed ability to add completed skills to characters without creating a log.</li>
