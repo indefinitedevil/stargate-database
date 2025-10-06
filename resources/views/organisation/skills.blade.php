@@ -12,6 +12,14 @@
             {{ __('Only characters that are "Approved" or "Played" will be included in the below counts.') }}
             {{ __('This does include secondary characters and other characters who may not have been played yet, and characters who haven\'t been played recently.') }}
         </p>
+        <p>
+            {{ __('The numbers can be deceptive as they relate to how many characters have a skill, but don\'t account for situations like Basic Chemistry and Basic Physics being part of Material Science.') }}
+            {{ __('They also cannot account for the regularity in attendance of any given character.') }}
+        </p>
+        <p>
+            {{ __('Event runners have their own version of this which shows them the skills of those attending their event.') }}
+            {{ __('This allows them to tailor their event to suit the attending characters so you do not need to worry about filling niches.') }}
+        </p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
