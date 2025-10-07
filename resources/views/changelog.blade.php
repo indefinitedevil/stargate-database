@@ -23,6 +23,12 @@
                 </ul>
             </div>
             <div>
+                <h3 class="text-lg font-semibold">Bugfix: 7th October 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Researcher: fixed a bug which prevented new research projects from being created.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 30th September 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed an issue where using research actions for upkeep caused a bug.</li>
