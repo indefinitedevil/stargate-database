@@ -9,21 +9,24 @@
             {{ $title }}
         </h2>
     </x-slot>
-    <x-slot name="sidebar2">
-        @can ('delete research projects')
-            @if (ResearchProject::STATUS_PENDING == $project->status)
-                <form method="POST" action="{{ route('research.delete', ['projectId' => $project]) }}"
-                      onsubmit="return confirm('{{ __('Are you sure you want to delete this research project?') }}')">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
-                        <i class="fa-solid fa-trash min-w-8"></i>
-                        {{ __('Delete') }}
-                    </button>
-                </form>
-            @endif
-        @endcan
-    </x-slot>
+    @if (!empty($project))
+        <x-slot name="sidebar2">
+            @can ('delete research projects')
+                @if (ResearchProject::STATUS_PENDING == $project->status)
+                    <form method="POST" action="{{ route('research.delete', ['projectId' => $project]) }}"
+                          onsubmit="return confirm('{{ __('Are you sure you want to delete this research project?') }}')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                                class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
+                            <i class="fa-solid fa-trash min-w-8"></i>
+                            {{ __('Delete') }}
+                        </button>
+                    </form>
+                @endif
+            @endcan
+        </x-slot>
+    @endif
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <div>
@@ -174,16 +177,17 @@
                                     @php if (!empty($currentCategory)) echo '</optgroup>'; @endphp
                                     @if (empty($currentCategory) || $currentCategory != $skill->skill_category_id)
                                         @php $currentCategory = $skill->skill_category_id; @endphp
-                                        <optgroup label="{{ __(':name Skills', ['name' => $skill->skillCategory->name]) }}">
+                                        <optgroup
+                                            label="{{ __(':name Skills', ['name' => $skill->skillCategory->name]) }}">
+                                            @endif
+                                            <option value="{{ $skill->id }}"
+                                                    @if (in_array($skill->id, old('skills', $skillIds))) selected @endif>
+                                                {{ $skill->name }}
+                                            </option>
+                                            @endforeach
+                                            @if (!empty($currentCategory))
+                                        </optgroup>
                                     @endif
-                                    <option value="{{ $skill->id }}"
-                                            @if (in_array($skill->id, old('skills', $skillIds))) selected @endif>
-                                        {{ $skill->name }}
-                                    </option>
-                                @endforeach
-                                @if (!empty($currentCategory))
-                                    </optgroup>
-                                @endif
                             </x-select>
                             <x-input-error class="mt-2" :messages="$errors->get('skills')"/>
                             <p class="text-xs">{{ __('Press Ctrl (or Cmd on Mac) to select/de-select additional skills.') }}</p>
