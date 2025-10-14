@@ -1377,6 +1377,25 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'display' => 0,
             ],
             [
+                'id' => 58,
+                'name' => 'Interpreter',
+                'print_name' => NULL,
+                'skill_category_id' => SkillCategory::BASIC,
+                'description' => 'After five minutes of appropriate roleplay, you may spend additional vigour (1 per person) to allow others to understand what is being said to you. This can be combined with Polyglot to allow them to understand Alien languages.
+
+This effect lasts until the next call of Restore',
+                'abilities' => 'Interpret Languages (1V per person)',
+                'upkeep' => 0,
+                'cost' => 0,
+                'specialties' => 0,
+                'specialty_type_id' => NULL,
+                'repeatable' => 0,
+                'body' => 0,
+                'vigor' => 0,
+                'per_restore' => 0,
+                'display' => 1,
+            ],
+            [
                 'id' => 71,
                 'name' => 'Medic',
                 'print_name' => NULL,
@@ -2258,6 +2277,11 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'prereq_id' => 28,
                 'always_required' => 1,
             ],
+            [
+                'skill_id' => 58,
+                'prereq_id' => 14,
+                'always_required' => 1,
+            ],
         ], ['skill_id', 'prereq_id']);
     }
 
@@ -2752,6 +2776,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'repeatable' => 255,
                 'body' => 0,
                 'vigor' => -1,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [

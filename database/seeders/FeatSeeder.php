@@ -353,7 +353,9 @@ This feat **cannot** be given to an NPC without approval from the System Referee
             [
                 'id' => 28,
                 'name' => 'Emergency Measures',
-                'description' => 'Once per Event, you may choose to complete 1 Surgical Procedure caused by a wound card in 60 seconds. This may be used at any time, including when a surgery would otherwise fail. Mechanically, this counts as solving all Problem Cards and Complications presented by the Procedure. This must be roleplayed by performing some sort of dramatic and non-standard medical solution.',
+                'description' => 'Once per Event, you may choose to complete 1 Surgical Procedure caused by a wound card in 60 seconds. This may be used at any time, including when a surgery would otherwise fail. Mechanically, this counts as solving all Problem Cards and Complications presented by the Procedure. This must be roleplayed by performing some sort of dramatic and non-standard medical solution.
+
+Use of this Feat counts as an additional Surgical Procedure for the purposes of the patient’s treatment track.',
                 'per_event' => 1,
                 'per_day' => 0,
                 'per_restore' => 0,
