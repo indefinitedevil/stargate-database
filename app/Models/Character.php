@@ -525,7 +525,18 @@ class Character extends Model
         return once(function () {
             $abilities = [];
             foreach ($this->trainedSkills as $characterSkill) {
-                $abilities = array_merge($abilities, $characterSkill->skill->abilities());
+                $skillAbilities = $characterSkill->skill->abilities();
+                if (Skill::LEADERSHIP == $characterSkill->skill_id) {
+                    $leadershipCount = 1 + $this->skills()
+                            ->where('skill_id', Skill::LEADERSHIP_EXTRA_PERSON)
+                            ->where('completed', true)
+                            ->where('removed', false)
+                            ->count();
+                    foreach ($skillAbilities as &$ability) {
+                        $ability = trans_choice($ability, $leadershipCount, ['count' => $leadershipCount]);
+                    }
+                }
+                $abilities = array_merge($abilities, $skillAbilities);
             }
             sort($abilities);
             return array_unique($abilities);

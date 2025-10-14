@@ -755,7 +755,7 @@ If you are actively leading them or protecting them and you are within 50 feet w
 You may also spend a further three months adding additional people to the effects of this skill.
 
 There is no maximum number of times you can purchase this upgrade, but no character may gain more than +2 Body gained from this skill at any one time.',
-                'abilities' => 'Under Your Wing (+2 Body)',
+                'abilities' => 'Under Your Wing (+2 Body) (:count person per Restore)|Under Your Wing (+2 Body) (:count people per Restore)',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,

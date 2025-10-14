@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string description
  * @property int per_event
  * @property int per_day
+ * @property int per_restore
  * @property string cost
  * @property Collection skills
  */
@@ -22,6 +23,16 @@ class Feat extends Model
 
     const FLASH_OF_INSIGHT = 3;
     const BOTCH_JOB = 9;
+
+    protected $fillable = [
+        'name',
+        'print_name',
+        'description',
+        'per_event',
+        'per_day',
+        'per_restore',
+        'cost',
+    ];
 
     public function skills(): BelongsToMany
     {
@@ -52,5 +63,18 @@ class Feat extends Model
             }
         }
         return $perDay;
+    }
+
+    public function getPerRestore(Character $character): int
+    {
+        $perRestore = 0;
+        if ($this->per_restore) {
+            foreach ($character->trainedSkills as $trainedSkill) {
+                if ($trainedSkill->skill->feats->contains($this)) {
+                    $perRestore += $this->per_restore;
+                }
+            }
+        }
+        return $perRestore;
     }
 }

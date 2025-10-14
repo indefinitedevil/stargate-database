@@ -145,6 +145,9 @@
                                         ({{ __(':count per day', ['count' => $feat->getPerDay($character)]) }})
                                         @php $trackers['per_day'][$feat->print_name ?: $feat->name] = $feat->getPerDay($character); @endphp
                                     @endif
+                                    @if ($feat->per_restore)
+                                        ({{ __(':count per Restore', ['count' => $feat->getPerRestore($character)]) }})
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>

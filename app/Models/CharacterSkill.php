@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string printName
  * @property string unformattedName
  * @property bool removed
+ * @property int per_restore
  */
 class CharacterSkill extends Model
 {
@@ -246,5 +247,17 @@ class CharacterSkill extends Model
             return $this->character->trainedSkills->where('skill_id', $this->skill_id)->count();
         }
         return 0;
+    }
+
+    public function getPerRestoreAttribute(): int
+    {
+        if (Skill::LEADERSHIP === $this->skill_id) {
+            return 1 + $this->character->skills()
+                    ->where('skill_id', Skill::LEADERSHIP_EXTRA_PERSON)
+                    ->where('completed', true)
+                    ->where('removed', false)
+                    ->count();
+        }
+        return $this->attributes['per_restore'] ?? 0;
     }
 }

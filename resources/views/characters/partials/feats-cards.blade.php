@@ -16,6 +16,9 @@
                         @if ($feat->per_day)
                             ({{ __(':count per day', ['count' => $feat->getPerDay($character)]) }})
                         @endif
+                        @if ($feat->per_restore)
+                            ({{ __(':count per Restore', ['count' => $feat->getPerRestore($character)]) }})
+                        @endif
                         <i class="fa-regular fa-circle-question" title="{{ __('Show description') }}"
                            data-tooltip-target="feat-{{ $feat->id }}"
                            onclick="toggleVisibility('feat-{{ $feat->id }}')"
