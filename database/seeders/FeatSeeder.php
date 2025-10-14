@@ -122,7 +122,7 @@ You may also use this feat to determine the Maximum Vigor of someone you have ob
                 'name' => 'Botch Job',
                 'description' => 'Within reason (ref\'s discretion), you improvise with what you have and immediately solve a skill game card problem.
 
-The device will only work for 1 scene before it breaks down again. Future attempts to fix the problem will have +1 problem card added to the skill game unless it is a Demolitions problem. If this feat is used on a Demolition Skill Game, the device detonates at the end of the scene.',
+The device will only work until the next Restore call before it breaks down again. Future attempts to fix the problem will have +1 problem card added to the skill game unless it is a Demolitions problem. If this feat is used on a Demolition Skill Game, the device detonates at the call of Restore.',
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
@@ -416,7 +416,7 @@ Once the effect of this feat ends, if the character has not been stabilised, the
             [
                 'id' => 35,
                 'name' => 'Polyglot',
-                'description' => 'You can pick up languages extremely quickly. You may identify the base roots of an Alien language, and spend 1 Vigor per Scene to speak it. After a period of time interacting with an Alien Culture this cost may be waived by the Event Referee at their discretion.',
+                'description' => 'You can pick up languages extremely quickly. You may identify the base roots of an Alien language, and spend 1 Vigor per call of Restore to speak, read, or write it. After a period of time interacting with an Alien Culture this cost may be waived by the Event Referee at their discretion.',
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
@@ -477,11 +477,9 @@ Note: This does not work on Psychology Challenges.',
             [
                 'id' => 41,
                 'name' => 'We Have A Job To Do',
-                'description' => 'Through calls of encouragement/a speech the user inspires all friendly personnel who can hear, restoring their Vigor to their maximum or to 10, whichever is lower.
+                'description' => 'Through calls of encouragement/a speech the user inspires all friendly personnel who can hear them. This grants the listeners 5 additional Vigor, up to their maximum or to 10, whichever is lower.
 
-This feat can only be used once per scene.
-
-Once affected by this feat (from anyone), you cannot be affected by another "We Have A Job To Do" feat in the same scene.
+This feat can only be used once per Restore call.
 
 **This feat does not affect the character who made the call.**',
                 'per_event' => 0,

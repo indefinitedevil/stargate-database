@@ -9,10 +9,11 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Update: 6th October 2025</h3>
+                <h3 class="text-lg font-semibold">Update: 14th October 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Secretary: added permission to manage memberships.</li>
-                    <li>Added membership verification system.</li>
+                    <li>Sys Ref: added rules 1.4 update.</li>
+                    <li>Added beginnings of membership verification system.</li>
                     <li>Added membership name to profiles.</li>
                     <li>Character logs now clearly show bonus from attending a training course.</li>
                     <li>Renamed character "type" to "archetype".</li>

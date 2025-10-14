@@ -714,7 +714,7 @@ This can be information around new technology discoveries or procedures or can b
                 'name' => 'Leadership',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::COMPLEX,
-                'description' => 'Once per Scene, you can take one other character under your wing.
+                'description' => 'Once per Restore call, you can take one other character under your wing.
 
 If you are actively leading them or protecting them and you are within 50 feet with line of sight, both you and they gain +2 Body.
 
