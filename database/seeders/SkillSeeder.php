@@ -102,6 +102,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -118,6 +119,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -134,6 +136,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -150,6 +153,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -166,6 +170,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -182,6 +187,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -202,6 +208,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -218,6 +225,7 @@ class SkillSeeder extends Seeder
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
         ], 'id');
@@ -246,6 +254,7 @@ Characters with Archaeo-Anthropology must also select two specialist cultures. A
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -262,6 +271,7 @@ Characters with Archaeo-Anthropology must also select two specialist cultures. A
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -278,6 +288,7 @@ Characters with Archaeo-Anthropology must also select two specialist cultures. A
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -298,6 +309,7 @@ This Skill reduces the time on all Medical Card problems by 10%. This stacks wit
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -314,6 +326,7 @@ This Skill reduces the time on all Medical Card problems by 10%. This stacks wit
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -330,6 +343,7 @@ This Skill reduces the time on all Medical Card problems by 10%. This stacks wit
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -352,6 +366,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -370,6 +385,7 @@ This Skill reduces the time on all Medical Card problems by 10%. This stacks wit
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -388,6 +404,7 @@ This skill reduces the training time of Medical Doctor to 3 months, regardless o
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -417,6 +434,7 @@ You may spend additional points of Vigor to reduce the time needed to use these 
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -442,6 +460,7 @@ Note: The requirement is time spent roleplaying with your target. The form of th
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -458,6 +477,7 @@ Note: The requirement is time spent roleplaying with your target. The form of th
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -476,6 +496,7 @@ This skill reduces the training time of Medical Doctor to 3 months, regardless o
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -498,6 +519,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
         ], 'id');
@@ -520,6 +542,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'repeatable' => 20,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -539,6 +562,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -555,6 +579,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -571,6 +596,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -587,6 +613,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -603,6 +630,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -621,6 +649,7 @@ You can also use forensics in conjunction with other skills you have to enable y
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -639,6 +668,7 @@ You have studied the art of thought, from the Greek philosophers to modern ethic
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -657,6 +687,7 @@ You have studied the art of thought, from the Greek philosophers to modern ethic
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -675,6 +706,7 @@ This can be information around new technology discoveries or procedures or can b
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -691,6 +723,7 @@ This can be information around new technology discoveries or procedures or can b
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -707,6 +740,7 @@ This can be information around new technology discoveries or procedures or can b
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -729,6 +763,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 1,
                 'display' => 1,
             ],
             [
@@ -745,6 +780,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'repeatable' => 20,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 1,
                 'display' => 0,
             ],
             [
@@ -761,6 +797,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'repeatable' => 20,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -777,6 +814,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -793,6 +831,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -809,6 +848,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -825,6 +865,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -841,6 +882,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -859,6 +901,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -875,6 +918,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -891,6 +935,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -907,6 +952,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
         ], 'id');
@@ -930,6 +976,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -946,6 +993,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -962,6 +1010,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -978,6 +1027,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -994,6 +1044,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1010,6 +1061,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1026,6 +1078,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1042,6 +1095,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1058,6 +1112,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 10,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1074,6 +1129,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1090,6 +1146,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1106,6 +1163,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1122,6 +1180,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1142,6 +1201,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'repeatable' => 5,
                 'body' => 1,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -1158,6 +1218,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -1174,6 +1235,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -1190,6 +1252,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -1206,6 +1269,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -1222,6 +1286,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -1238,6 +1303,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -1254,6 +1320,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -1270,6 +1337,7 @@ Additionally, at +4 Body or above, you may ignore the restrictions imposed on we
                 'repeatable' => 6,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -1288,6 +1356,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1304,6 +1373,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'repeatable' => 5,
                 'body' => 0,
                 'vigor' => 1,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -1320,6 +1390,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1336,6 +1407,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'repeatable' => 10,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1353,6 +1425,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1369,6 +1442,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'repeatable' => 3,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
         ], 'id');
@@ -1391,6 +1465,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1409,6 +1484,7 @@ Unarmed Combat Strikes should be represented by an open palm aimed at the target
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1427,6 +1503,7 @@ Allows use of a Riot Shield (+2 BP).',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1443,6 +1520,7 @@ Allows use of a Riot Shield (+2 BP).',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1463,6 +1541,7 @@ Allows use of a Riot Shield (+2 BP).',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1487,6 +1566,7 @@ Allows use of a Riot Shield (+2 BP).',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1504,6 +1584,7 @@ Allows use of a Riot Shield (+2 BP).',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1522,6 +1603,7 @@ You gain access to the Stun call for any weapon in the Pistols table capable of 
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1540,6 +1622,7 @@ Allows the use of a Public Order Shield. (+1BP).',
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1561,6 +1644,7 @@ You gain the following abilities using Primitive Weapons:
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -1581,6 +1665,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 1,
             ],
         ], 'id');
@@ -2651,6 +2736,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'repeatable' => 255,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -2681,6 +2767,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'repeatable' => 255,
                 'body' => 0,
                 'vigor' => 1,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -2696,6 +2783,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'repeatable' => 255,
                 'body' => 0,
                 'vigor' => 0,
+                'per_restore' => 0,
                 'display' => 0,
             ],
         ], 'id');
