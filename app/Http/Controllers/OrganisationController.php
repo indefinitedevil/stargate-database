@@ -12,8 +12,15 @@ class OrganisationController extends Controller
 {
     public function chart()
     {
+        $unsortedCharacters = Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])
+            ->where('user_id', '!=', User::PLOT_CO_ID)
+            ->has('divisions', '=', 0)
+            ->has('departments', '=', 0)
+            ->orderBy('name')
+            ->get();
         return view('organisation.chart', [
-            'divisions' => Division::with(['characters', 'departments.characters'])->get(),
+            'divisions' => Division::with(['characters', 'departments', 'departments.characters'])->get(),
+            'unsortedCharacters' => $unsortedCharacters,
         ]);
     }
 

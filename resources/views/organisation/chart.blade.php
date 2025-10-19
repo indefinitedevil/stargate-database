@@ -16,19 +16,39 @@
     @foreach ($divisions as $division)
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $division->name }}</h2>
+            @can('edit departments')
+                <a class="underline ms-6" href="{{ route('divisions.edit', $division) }}">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    {{ __('Edit') }}
+                </a>
+            @endcan
             <div>
                 @if ($division->division_head)
                     <p>
-                        <strong>{{ __(strtolower($division->name) == 'command' ? 'SEF 1IC' : 'Division Head') }}:</strong>
+                        <strong>{{ __(strtolower($division->name) == 'command' ? 'SEF 1IC' : 'Division Head') }}
+                            :</strong>
                         {{ $division->division_head->rank }}
                         {{ $division->division_head->listName }}
+                        @can('edit all characters')
+                            <a class="underline ms-6" href="{{ route('characters.edit', $division->division_head) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                {{ __('Edit') }}
+                            </a>
+                        @endcan
                     </p>
                 @endif
                 @if ($division->division_second)
                     <p>
-                        <strong>{{ __(strtolower($division->name) == 'command' ? 'SEF 2IC' : 'Division Second') }}:</strong>
+                        <strong>{{ __(strtolower($division->name) == 'command' ? 'SEF 2IC' : 'Division Second') }}
+                            :</strong>
                         {{ $division->division_second->rank }}
                         {{ $division->division_second->listName }}
+                        @can('edit all characters')
+                            <a class="underline ms-6" href="{{ route('characters.edit', $division->division_second) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                {{ __('Edit') }}
+                            </a>
+                        @endcan
                     </p>
                 @endif
                 @if ($division->division_staff)
@@ -36,6 +56,12 @@
                         <strong>{{ __('Staff Officer') }}:</strong>
                         {{ $division->division_staff->rank }}
                         {{ $division->division_staff->listName }}
+                        @can('edit all characters')
+                            <a class="underline ms-6" href="{{ route('characters.edit', $division->division_staff) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                {{ __('Edit') }}
+                            </a>
+                        @endcan
                     </p>
                 @endif
             </div>
@@ -43,6 +69,13 @@
                 @foreach($division->departments as $department)
                     <div>
                         <h3 class="text-lg font-semibold">{{ $department->name }}</h3>
+                        @can('edit departments')
+                            <a class="underline ms-6"
+                               href="{{ route('departments.edit', $department) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                {{ __('Edit') }}
+                            </a>
+                        @endcan
                         @if ($department->department_head)
                             <p>
                                 <strong>{{ __('Department Lead') }}:</strong>
@@ -56,12 +89,25 @@
                                 @foreach ($department->departmentSpecialists as $character)
                                     <li>
                                         {{ $character->rank }} {{ $character->listName }}
+                                        @can('edit all characters')
+                                            <a class="underline ms-6" href="{{ route('characters.edit', $character) }}">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                {{ __('Edit') }}
+                                            </a>
+                                        @endcan
                                     </li>
                                 @endforeach
                                 @foreach ($department->characters as $character)
                                     @if (0 == $character->pivot->position)
                                         <li>
                                             {{ $character->rank }} {{ $character->listName }}
+                                            @can('edit all characters')
+                                                <a class="underline ms-6"
+                                                   href="{{ route('characters.edit', $character) }}">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                    {{ __('Edit') }}
+                                                </a>
+                                            @endcan
                                         </li>
                                     @endif
                                 @endforeach
@@ -72,4 +118,22 @@
             </div>
         </div>
     @endforeach
+    @if (count($unsortedCharacters) > 0)
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ 'Unassigned characters' }}</h2>
+            <ul class="list-disc list-inside pl-4">
+                @foreach ($unsortedCharacters as $character)
+                    <li>
+                        {{ $character->rank }} {{ $character->listName }}
+                        @can('edit all characters')
+                            <a class="underline ms-6" href="{{ route('characters.edit', $character) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                {{ __('Edit') }}
+                            </a>
+                        @endcan
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 </x-app-layout>
