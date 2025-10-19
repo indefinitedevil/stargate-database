@@ -6,7 +6,7 @@
 </head>
 <body>
 <div>
-    <h3>Quick times</h3>
+    <h2>Quick times</h2>
     <button onclick="setTimeTo(30)">30 seconds</button>
     <button onclick="setTimeTo(60)">60 seconds</button>
     <button onclick="setTimeTo(90)">90 seconds</button>
@@ -16,19 +16,21 @@
     <button onclick="setTimeTo(600)">600 seconds</button>
 </div>
 <div>
-    <h3>Discounts</h3>
+    <h2>Discounts</h2>
+    <h3>Compound</h3>
+    <label><input type="checkbox" name="discount50[card2]"> Card 2 (50%)</label>
+    <label><input type="checkbox" name="discount50[card3]"> Card 3 (50%)</label>
+    <label><input type="checkbox" name="discount25[card2]"> Card 2 (25%)</label>
+    <label><input type="checkbox" name="discount25[card3]"> Card 3 (25%)</label>
+    <h3>Additive</h3>
     <label><input type="checkbox" name="discount10[numbers1]"> Numb3rs</label>
     <label><input type="checkbox" name="discount10[numbers2]"> Numb3rs (again)</label>
     <label><input type="checkbox" name="discount10[numbers3]"> Numb3rs (again again)</label>
     <label><input type="checkbox" name="discount10[genetics]"> Genetics</label>
     <label><input type="checkbox" name="discount10[pathology]"> Pathology</label>
-    <label><input type="checkbox" name="discount50[card2]"> Card 2 (50%)</label>
-    <label><input type="checkbox" name="discount50[card3]"> Card 3 (50%)</label>
-    <label><input type="checkbox" name="discount25[card2]"> Card 2 (25%)</label>
-    <label><input type="checkbox" name="discount25[card3]"> Card 3 (25%)</label>
 </div>
 <div>
-    <h3>Timer</h3>
+    <h2>Timer</h2>
     <label for="time_input">Time:
         <input type="number" id="time_input" placeholder="Enter time in seconds">
     </label>
@@ -53,21 +55,25 @@
     document.getElementById('start_button').onclick = function () {
         let inputTime = parseInt(document.getElementById('time_input').value);
         if (!isNaN(inputTime) && inputTime > 0) {
-            let discount = 0;
+            let additiveDiscount = 0;
             const discount10Count = document.querySelectorAll('input[name^=discount10]:checked').length;
             const discount25Count = document.querySelectorAll('input[name^=discount25]:checked').length;
             const discount50Count = document.querySelectorAll('input[name^=discount50]:checked').length;
             if (discount10Count > 0) {
-                discount += discount10Count * 10;
-            }
-            if (discount25Count > 0) {
-                discount += discount25Count * 25;
+                additiveDiscount += discount10Count * 10;
             }
             if (discount50Count > 0) {
-                discount += discount50Count * 50;
+                for (let i = 0; i < discount50Count; i++) {
+                    inputTime = Math.round(inputTime * 0.5);
+                }
             }
-            if (discount) {
-                inputTime = Math.max(0, inputTime - Math.floor(inputTime * (discount / 100)));
+            if (discount25Count > 0) {
+                for (let i = 0; i < discount25Count; i++) {
+                    inputTime = Math.round(inputTime * 0.75);
+                }
+            }
+            if (additiveDiscount) {
+                inputTime = Math.max(0, inputTime - Math.floor(inputTime * (additiveDiscount / 100)));
             }
             setTimeLeft(inputTime);
             document.getElementById('timer_base').innerText = timeLeft;
