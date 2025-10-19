@@ -243,6 +243,9 @@ class CharacterController extends Controller
         if ($character->user->characters->where('primary_secondary', true)->count() == 0) {
             $character->primary_secondary = true;
         }
+        if (empty($character->rank)) {
+            $character->rank = 'Trooper';
+        }
         $character->save();
 
         \App\Events\CharacterApproved::dispatch($character);
