@@ -24,6 +24,8 @@
                     <li>Made "Trooper" the default rank for approved characters.</li>
                     <li>Updated guidelines.</li>
                     <li>Added additional logging.</li>
+                    <li>Added "Medical Mycology" as a medical specialism.</li>
+                    <li>Added pronouns to characters and user profiles.</li>
                 </ul>
             </div>
             <div>
