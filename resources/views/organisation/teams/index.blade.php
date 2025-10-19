@@ -17,7 +17,7 @@
     <div
         class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300 sm:grid grid-cols-2">
         <div>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ __('Permanent Teams') }}</h3>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ __('Permanent Teams') }}</h2>
             <ul class="list-disc list-inside space-y-2">
                 @if ($permanentTeams->isEmpty())
                     <li>{{ __('No teams found') }}</li>
@@ -40,7 +40,7 @@
         </div>
 
         <div>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ __('Event Teams') }}</h3>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ __('Event Teams') }}</h2>
             <ul class="list-disc list-inside space-y-2">
                 @if ($eventTeams->isEmpty())
                     <li>{{ __('No teams found') }}</li>
