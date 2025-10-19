@@ -243,7 +243,7 @@ class CharacterController extends Controller
         if ($character->user->characters->where('primary_secondary', true)->count() == 0) {
             $character->primary_secondary = true;
         }
-        if (empty($character->rank)) {
+        if (empty($character->rank) && User::PLOT_CO_ID != $character->user_id) {
             $character->rank = 'Trooper';
         }
         $character->save();
