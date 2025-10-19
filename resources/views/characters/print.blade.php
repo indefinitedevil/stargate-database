@@ -326,10 +326,10 @@
                         </div>
                         <div class="mt-4 space-y-2 text-sm">
                             <p>
-                                Open a <strong>black wound card</strong> when you fall to 3 Body or below.
-                                Do not open another black wound card until after your hits have been restored above 3.
+                                Scan a <strong>black wound token</strong> when you fall to 3 Body or below.
+                                Do not open another black wound token until after your hits have been restored above 3.
                             </p>
-                            <p>Open a <strong>white wound card</strong> when you fall to 0 Body.</p>
+                            <p>Scan a <strong>white wound token</strong> when you fall to 0 Body.</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
                                 <div>
                                     <p>While on 0 Body (Critical), you are:</p>
@@ -339,7 +339,7 @@
                                         <li>Unable to use any skills or abilities (including Medic)</li>
                                         <li>Unable to partake in combat</li>
                                         <li>Counted as Unresisting</li>
-                                        <li>Conscious unless a wound card or other effect says otherwise</li>
+                                        <li>Conscious unless a wound token or other effect says otherwise</li>
                                         <li>Able to shout or use a radio to call for help</li>
                                         <li>Able to use feats (such as Cauterize to pause your bleed count)</li>
                                     </ul>

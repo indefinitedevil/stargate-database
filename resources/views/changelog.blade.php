@@ -26,6 +26,7 @@
                     <li>Added additional logging.</li>
                     <li>Added "Medical Mycology" as a medical specialism.</li>
                     <li>Added pronouns to characters and user profiles.</li>
+                    <li>Update wound token language.</li>
                 </ul>
             </div>
             <div>
