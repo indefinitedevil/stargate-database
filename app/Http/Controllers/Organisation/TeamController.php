@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Organisation;
 use App\Http\Controllers\Controller;
 use App\Models\Character;
 use App\Models\Event;
+use App\Models\Status;
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 
@@ -13,9 +15,17 @@ class TeamController extends Controller
 {
     public function index()
     {
+        $unassignedCharacters = Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])
+            ->where('user_id', '!=', User::PLOT_CO_ID)
+            ->whereDoesntHave('teams', function ($query) {
+                $query->whereNull('event_id');
+            })
+            ->orderBy('name')
+            ->get();
         return view('organisation.teams.index', [
             'permanentTeams' => Team::whereNull('event_id')->orderBy('name')->get(),
             'eventTeams' => Team::where('event_id', Event::nextEventId())->orderBy('name')->get(),
+            'unassignedCharacters' => $unassignedCharacters,
         ]);
     }
 

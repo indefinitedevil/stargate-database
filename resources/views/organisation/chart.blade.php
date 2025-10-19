@@ -118,11 +118,11 @@
             </div>
         </div>
     @endforeach
-    @if (count($unsortedCharacters) > 0)
+    @if (count($unassignedCharacters) > 0)
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ 'Unassigned characters' }}</h2>
             <ul class="list-disc list-inside pl-4">
-                @foreach ($unsortedCharacters as $character)
+                @foreach ($unassignedCharacters as $character)
                     <li>
                         {{ $character->rank }} {{ $character->listName }}
                         @can('edit all characters')
