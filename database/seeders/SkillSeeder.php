@@ -1771,6 +1771,11 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'name' => 'Plastic Surgery',
                 'specialty_type_id' => 2,
             ],
+            [
+                'id' => 97,
+                'name' => 'Medical Mycology',
+                'specialty_type_id' => 2,
+            ],
         ], 'id');
         // Mythology
         DB::table('skill_specialties')->upsert([
@@ -1853,270 +1858,337 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
         // Linguistics
         DB::table('skill_specialties')->upsert([
             [
+                'id' => 52,
                 'name' => 'Afrikaans',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 53,
                 'name' => 'Albanian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 54,
                 'name' => 'American Sign Language',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 21,
                 'name' => 'Arabic',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 55,
                 'name' => 'Armenian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 56,
                 'name' => 'Aymara',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 57,
                 'name' => 'Bengali',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 58,
                 'name' => 'Berber',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 59,
                 'name' => 'British Sign Language',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 60,
                 'name' => 'Burmese',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 61,
                 'name' => 'Catalan',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 51,
                 'name' => 'Cherokee',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 28,
                 'name' => 'Chinese (Cantonese)',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 27,
                 'name' => 'Chinese (Mandarin)',
                 'specialty_type_id' => 3,
             ],
             [
-                'name' => 'Chinese (Yue Chinese)',
-                'specialty_type_id' => 3,
-            ],
-            [
+                'id' => 63,
                 'name' => 'Chinese (Wu Chinese)',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 62,
+                'name' => 'Chinese (Yue Chinese)',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'id' => 64,
                 'name' => 'Danish',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 65,
                 'name' => 'Dutch',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 66,
                 'name' => 'Egyptian Hieroglyphs',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 67,
                 'name' => 'Filipino',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 68,
                 'name' => 'Finnish',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 16,
                 'name' => 'French',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 96,
                 'name' => 'Futhark',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 32,
                 'name' => 'Gaelic',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 17,
                 'name' => 'German',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 22,
                 'name' => 'Greek',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 69,
                 'name' => 'Greek (Ancient)',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 70,
                 'name' => 'Guarani',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 20,
                 'name' => 'Hebrew',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 71,
                 'name' => 'Hindi',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 50,
                 'name' => 'Hungarian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 72,
                 'name' => 'Irish',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 26,
                 'name' => 'Italian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 30,
                 'name' => 'Japanese',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 29,
                 'name' => 'Korean',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 73,
                 'name' => 'Kurdish',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 19,
                 'name' => 'Latin',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 74,
                 'name' => 'Latvian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 75,
                 'name' => 'Lithuanian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 76,
                 'name' => 'Macedonian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 77,
                 'name' => 'Malay',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 78,
                 'name' => 'Marathi',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 79,
                 'name' => 'Mongolian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 24,
                 'name' => 'Norwegian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 49,
                 'name' => 'Ogham',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 80,
                 'name' => 'Pashto',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 81,
                 'name' => 'Persian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 34,
                 'name' => 'Polish',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 33,
                 'name' => 'Portuguese',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 82,
                 'name' => 'Punjabi',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 83,
                 'name' => 'Quechua',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 84,
                 'name' => 'Romanian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 23,
                 'name' => 'Russian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 85,
                 'name' => 'Serb-Croatian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 86,
                 'name' => 'Slovak',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 87,
                 'name' => 'Somali',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 88,
                 'name' => 'Sotho',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 18,
                 'name' => 'Spanish',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 31,
                 'name' => 'Swahili',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 25,
                 'name' => 'Swedish',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 89,
                 'name' => 'Tamil',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 90,
                 'name' => 'Telugu',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 91,
                 'name' => 'Tswana',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 92,
                 'name' => 'Turkish',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 93,
                 'name' => 'Ukrainian',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 94,
                 'name' => 'Urdu',
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 95,
                 'name' => 'Vietnamese',
                 'specialty_type_id' => 3,
             ],
