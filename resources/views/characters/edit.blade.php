@@ -56,34 +56,49 @@
                     </div>
                 </div>
 
-                <div>
-                    <x-input-label for="short_name" :value="__('Short Name (optional)')"/>
-                    <p class="text-xs">
-                        {{ __('This will be used on indexes and your printed sheet. This is intended for condensing long character names into a simpler format.') }}
-                    </p>
-                    <p class="text-xs">
-                        {{ __('This is not for nicknames, but so you can have "Robert John Smith" as your full name and "Bob Smith" as the short name people actually know you by.') }}
-                    </p>
-                    <x-text-input id="short_name" name="short_name" type="text" class="mt-1 block w-full"
-                                  :value="old('short_name', $character->short_name ?? '')"/>
-                    <x-input-error class="mt-2" :messages="$errors->get('short_name')"/>
+                <div class="sm:grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <x-input-label for="short_name" :value="__('Short Name (optional)')"/>
+                        <x-text-input id="short_name" name="short_name" type="text" class="mt-1 block w-full" maxlength="64"
+                                      :value="old('short_name', $character->short_name ?? '')"/>
+                        <x-input-error class="mt-2" :messages="$errors->get('short_name')"/>
+                        <p class="text-xs">
+                            {{ __('This will be used on indexes and your printed sheet. This is intended for condensing long character names into a simpler format.') }}
+                        </p>
+                        <p class="text-xs">
+                            {{ __('This is not for nicknames, but so you can have "Robert John Smith" as your full name and "Bob Smith" as the short name people actually know you by.') }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <x-input-label for="pronouns" :value="__('Pronouns (optional)')"/>
+                        <x-text-input id="pronouns" name="pronouns" type="text" class="mt-1 block w-full" maxlength="16"
+                                      :value="old('pronouns', $character->pronouns ?? '')"/>
+                        <x-input-error class="mt-2" :messages="$errors->get('pronouns')"/>
+                        <p class="text-xs">
+                            {{ __('For character pronouns (not your own)') }}
+                        </p>
+                        @include('partials.pronoun-examples')
+                    </div>
                 </div>
 
-                @can('edit all characters')
-                    <div>
-                        <x-input-label for="rank" :value="__('Rank')"/>
-                        <x-text-input id="rank" name="rank" type="text" class="mt-1 block w-full"
-                                      :value="old('rank', $character->rank ?? '')"/>
-                        <x-input-error class="mt-2" :messages="$errors->get('rank')"/>
-                    </div>
-                @endcan
+                <div class="sm:grid sm:grid-cols-2 gap-4">
+                    @can('edit all characters')
+                        <div>
+                            <x-input-label for="rank" :value="__('Rank')"/>
+                            <x-text-input id="rank" name="rank" type="text" class="mt-1 block w-full"
+                                          :value="old('rank', $character->rank ?? '')"/>
+                            <x-input-error class="mt-2" :messages="$errors->get('rank')"/>
+                        </div>
+                    @endcan
 
-                <div>
-                    <x-input-label for="former_rank" :value="__('Former Rank (optional)')"/>
-                    <x-text-input id="former_rank" name="former_rank" type="text" class="mt-1 block w-full"
-                                  :value="old('former_rank', $character->former_rank ?? '')"
-                                  :disabled="!empty($character) && Status::READY < $character->status_id"/>
-                    <x-input-error class="mt-2" :messages="$errors->get('former_rank')"/>
+                    <div>
+                        <x-input-label for="former_rank" :value="__('Former Rank (optional)')"/>
+                        <x-text-input id="former_rank" name="former_rank" type="text" class="mt-1 block w-full"
+                                      :value="old('former_rank', $character->former_rank ?? '')"
+                                      :disabled="!empty($character) && Status::READY < $character->status_id"/>
+                        <x-input-error class="mt-2" :messages="$errors->get('former_rank')"/>
+                    </div>
                 </div>
 
                 @can('edit all characters')
@@ -272,5 +287,5 @@
             </div>
         </form>
     </div>
-    <script src="{{ asset('js/characters.js') }}" defer></script>
+    <script src="{{ asset('js/characters.js?20251019') }}" defer></script>
 </x-app-layout>

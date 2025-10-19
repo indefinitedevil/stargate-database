@@ -16,6 +16,7 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * @property int id
  * @property string name
+ * @property string pronouns
  * @property string membership_name
  * @property string membership_number
  * @property string email
@@ -38,6 +39,7 @@ class User extends Authenticatable
         'membership_name',
         'email',
         'password',
+        'pronouns',
     ];
 
     /**

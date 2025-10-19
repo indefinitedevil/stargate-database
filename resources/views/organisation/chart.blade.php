@@ -29,6 +29,7 @@
                             :</strong>
                         {{ $division->division_head->rank }}
                         {{ $division->division_head->listName }}
+                        @if ($division->division_head->pronouns)({{ $division->division_head->pronouns }})@endif
                         @can('edit all characters')
                             <a class="underline ms-6" href="{{ route('characters.edit', $division->division_head) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -43,6 +44,7 @@
                             :</strong>
                         {{ $division->division_second->rank }}
                         {{ $division->division_second->listName }}
+                        @if ($division->division_second->pronouns)({{ $division->division_second->pronouns }})@endif
                         @can('edit all characters')
                             <a class="underline ms-6" href="{{ route('characters.edit', $division->division_second) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -56,6 +58,7 @@
                         <strong>{{ __('Staff Officer') }}:</strong>
                         {{ $division->division_staff->rank }}
                         {{ $division->division_staff->listName }}
+                        @if ($division->division_staff->pronouns)({{ $division->division_staff->pronouns }})@endif
                         @can('edit all characters')
                             <a class="underline ms-6" href="{{ route('characters.edit', $division->division_staff) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -81,6 +84,7 @@
                                 <strong>{{ __('Department Lead') }}:</strong>
                                 {{ $department->department_head->rank }}
                                 {{ $department->department_head->listName }}
+                                @if ($department->department_head->pronouns)({{ $department->department_head->pronouns }})@endif
                             </p>
                         @endif
                         @if ($department->characters->count())
@@ -89,6 +93,7 @@
                                 @foreach ($department->departmentSpecialists as $character)
                                     <li>
                                         {{ $character->rank }} {{ $character->listName }}
+                                        @if ($character->pronouns)({{ $character->pronouns }})@endif
                                         @can('edit all characters')
                                             <a class="underline ms-6" href="{{ route('characters.edit', $character) }}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -101,6 +106,7 @@
                                     @if (0 == $character->pivot->position)
                                         <li>
                                             {{ $character->rank }} {{ $character->listName }}
+                                            @if ($character->pronouns)({{ $character->pronouns }})@endif
                                             @can('edit all characters')
                                                 <a class="underline ms-6"
                                                    href="{{ route('characters.edit', $character) }}">
@@ -125,6 +131,7 @@
                 @foreach ($unassignedCharacters as $character)
                     <li>
                         {{ $character->rank }} {{ $character->listName }}
+                        @if ($character->pronouns)({{ $character->pronouns }})@endif
                         @can('edit all characters')
                             <a class="underline ms-6" href="{{ route('characters.edit', $character) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>

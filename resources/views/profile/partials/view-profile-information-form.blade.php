@@ -12,6 +12,12 @@
     </div>
 
     <div>
+        <x-input-label for="pronouns" :value="__('Pronouns')"/>
+        <x-text-input id="pronouns" name="pronouns" type="text" class="mt-1 block w-full" :value="old('pronouns', $user->pronouns)"
+                      disabled/>
+    </div>
+
+    <div>
         <x-input-label for="membership_name" :value="__('Membership Name')"/>
         <x-text-input id="membership_name" name="membership_name" type="text" class="mt-1 block w-full" :value="old('membership_name', $user->membership_name)"
                       disabled/>

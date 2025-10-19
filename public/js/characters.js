@@ -39,3 +39,8 @@ function generateRandomNames() {
     nameHtml += '</ul>';
     randomNames.innerHTML = nameHtml;
 }
+
+function populatePronouns(pronouns) {
+    let pronounInput = document.getElementById('pronouns');
+    pronounInput.value = pronouns;
+}

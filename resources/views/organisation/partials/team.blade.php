@@ -6,6 +6,7 @@
         @foreach ($team->characters as $character)
             <li>
                 {{ $character->listName }}
+                @if ($character->pronouns)({{ $character->pronouns }})@endif
                 @if (Team::LEAD == $character->pivot->position)
                     <span class="text-sm text-gray-400 dark:text-gray-500">({{ __('Team Lead') }})</span>
                 @elseif (Team::SECOND == $character->pivot->position)

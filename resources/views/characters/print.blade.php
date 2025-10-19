@@ -12,8 +12,9 @@
             <div class="max-w-7xl mx-auto">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     {{ $character->listName }}
+                    @if ($character->pronouns)({{ $character->pronouns }})@endif
                     <span class="text-sm ml-4">
-                        ({{ $character->user->name }})
+                        ({{ $character->user->name }}@if ($character->user->pronouns) [{{ $character->user->pronouns }}]@endif)
                     </span>
                 </h2>
             </div>

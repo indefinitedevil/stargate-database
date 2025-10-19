@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
  * @property int id
  * @property string name
  * @property string short_name
+ * @property string pronouns
  * @property int user_id
  * @property int background_id
  * @property int status_id
@@ -89,6 +90,7 @@ class Character extends Model
         'character_links',
         'primary_secondary',
         'hero_scoundrel',
+        'pronouns',
     ];
 
     public function player(): BelongsTo

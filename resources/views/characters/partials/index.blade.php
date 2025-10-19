@@ -8,10 +8,13 @@
                     <input type="checkbox" name="characters[]" value="{{ $character->id }}">
                 @endif
                 @if (auth()->user()->can('view all characters') && empty($hideUser))
-                    <span class="text-sm text-gray-400 dark:text-gray-500"><a class="underline" href="{{ $character->user->getViewRoute() }}">{{ $character->user->name }}</a>:</span>
+                    <span class="text-sm text-gray-400 dark:text-gray-500">
+                        <a class="underline" href="{{ $character->user->getViewRoute() }}">{{ $character->user->name }}</a>@if ($character->user->pronouns) ({{ $character->user->pronouns }})@endif:
+                    </span>
                 @endif
                 <a class="underline" href="{{ $character->getViewRoute() }}">
                     {{ $character->listName }}</a>
+                @if ($character->pronouns)({{ $character->pronouns }})@endif
                 @if ($character->isPrimary && empty($hidePrimary))
                     <i class="fa-solid fa-star" title="{{ __('Primary character') }}"></i>
                 @endif

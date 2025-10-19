@@ -24,11 +24,18 @@
                           required autofocus autocomplete="name"/>
             <x-input-error class="mt-2" :messages="$errors->get('name')"/>
         </div>
+        <div>
+            <x-input-label for="pronouns" :value="__('Name')"/>
+            <x-text-input id="pronouns" name="pronouns" type="text" class="mt-1 block w-full" :value="old('pronouns', $user->pronouns)"
+                          autocomplete="pronouns"/>
+            <x-input-error class="mt-2" :messages="$errors->get('pronouns')"/>
+            @include('partials.pronoun-examples')
+        </div>
 
         <div>
             <x-input-label for="membership_name" :value="__('Membership Name')"/>
             <x-text-input id="membership_name" name="membership_name" type="text" class="mt-1 block w-full"
-                          :value="old('membership_name', $user->membership_name)" required autofocus
+                          :value="old('membership_name', $user->membership_name)"
                           autocomplete="membership_name"/>
             <p class="text-xs">{{ __('Your full name. Will be used for membership verification.') }}</p>
             <x-input-error class="mt-2" :messages="$errors->get('membership_name')"/>

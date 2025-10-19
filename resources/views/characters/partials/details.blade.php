@@ -1,8 +1,9 @@
 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
     @can('viewAll', $character)
         <p class="mb-2">
-            <strong>{{ __('Player') }}:</strong> <a href="{{ $character->user->getViewRoute() }}"
-                                                    class="underline">{{ $character->user->name }}</a>
+            <strong>{{ __('Player') }}:</strong>
+            <a href="{{ $character->user->getViewRoute() }}" class="underline">{{ $character->user->name }}</a>
+            @if ($character->user->pronouns)({{ $character->user->pronouns }})@endif
         </p>
     @endcan
     @if ($character->short_name)
@@ -49,6 +50,9 @@
         @endif
         <p class="mt-1">
             <strong>{{ __('Team') }}:</strong> {!! $character->team !!}
+        </p>
+        <p class="mt-1">
+            <strong>{{ __('Pronouns') }}:</strong> {!! $character->pronouns !!}
         </p>
     </div>
 </div>

@@ -69,6 +69,7 @@
                 @foreach ($unassignedCharacters as $character)
                     <li>
                         {{ $character->rank }} {{ $character->listName }}
+                        @if ($character->pronouns)({{ $character->pronouns }})@endif
                         @can('edit all characters')
                             <a class="underline ms-6" href="{{ route('characters.edit', $character) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
