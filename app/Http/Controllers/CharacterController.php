@@ -609,7 +609,6 @@ class CharacterController extends Controller
         $validatedData['plot_notes'] = $validatedData['plot_notes'] ?? '';
         $validatedData['other_abilities'] = $validatedData['other_abilities'] ?? '';
         $validatedData['former_rank'] = $validatedData['former_rank'] ?? '';
-        $validatedData['rank'] = $validatedData['rank'] ?? '';
         if (Status::APPROVED <= $character->status_id && $character->background_id != $validatedData['background_id']) {
             $this->plotLog($character, __('Character background changed from :old to :new.', [
                 'old' => $character->background->name,

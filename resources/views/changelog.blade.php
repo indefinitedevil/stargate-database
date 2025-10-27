@@ -28,6 +28,7 @@
                     <li>Added pronouns to characters and user profiles.</li>
                     <li>Updated wound token language.</li>
                     <li>CodeRabbit/Copilot fixes.</li>
+                    <li>Fixed disappearing ranks.</li>
                 </ul>
             </div>
             <div>
