@@ -27,7 +27,7 @@
                     <li>Added "Medical Mycology" as a medical specialism.</li>
                     <li>Added pronouns to characters and user profiles.</li>
                     <li>Updated wound token language.</li>
-                    <li>Coderabbit/Copilot fixes.</li>
+                    <li>CodeRabbit/Copilot fixes.</li>
                 </ul>
             </div>
             <div>
@@ -200,7 +200,7 @@
                 <ul class="list-inside list-disc">
                     <li>Fixed downtime processing errors.</li>
                     <li>Refined downtime processed email.</li>
-                    <li>Fixed Coderabbit nitpicks.</li>
+                    <li>Fixed CodeRabbit nitpicks.</li>
                 </ul>
             </div>
             <div>
@@ -208,7 +208,7 @@
                 <ul class="list-inside list-disc">
                     <li>Added skill specialties to research projects.</li>
                     <li>Made downtime open/closed language better for downtimes in the future.</li>
-                    <li>Fixed Coderabbit nitpicks.</li>
+                    <li>Fixed CodeRabbit nitpicks.</li>
                 </ul>
             </div>
             <div>
