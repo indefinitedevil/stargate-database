@@ -31,12 +31,16 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('characters', function (Blueprint $table) {
-            $table->dropColumn('pronouns');
-        });
+        if (Schema::hasColumn('characters', 'pronouns')) {
+            Schema::table('characters', function (Blueprint $table) {
+                $table->dropColumn('pronouns');
+            });
+        }
 
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('pronouns');
-        });
+        if (Schema::hasColumn('users', 'pronouns')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('pronouns');
+            });
+        }
     }
 };

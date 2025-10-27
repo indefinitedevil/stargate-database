@@ -25,7 +25,7 @@
             <x-input-error class="mt-2" :messages="$errors->get('name')"/>
         </div>
         <div>
-            <x-input-label for="pronouns" :value="__('Name')"/>
+            <x-input-label for="pronouns" :value="__('Pronouns')"/>
             <x-text-input id="pronouns" name="pronouns" type="text" class="mt-1 block w-full" :value="old('pronouns', $user->pronouns)"
                           autocomplete="pronouns"/>
             <x-input-error class="mt-2" :messages="$errors->get('pronouns')"/>

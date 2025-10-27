@@ -21,6 +21,7 @@ use App\Models\Status;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\MessageBag;
 use Illuminate\Validation\ValidationException;
@@ -614,7 +615,7 @@ class CharacterController extends Controller
                 'new' => Background::find($validatedData['background_id'])->name,
             ]));
         }
-        if (Status::APPROVED <= $character->status_id && $character->hero_scoundrel != $validatedData['hero_scoundrel']) {
+        if (Status::APPROVED <= $character->status_id && array_key_exists('hero_scoundrel', $validatedData) && $character->hero_scoundrel != $validatedData['hero_scoundrel']) {
             $this->plotLog($character, __('Character archetype changed from :old to :new.', [
                 'old' => Character::getArchetypeName($character->hero_scoundrel),
                 'new' => Character::getArchetypeName($validatedData['hero_scoundrel']),
@@ -716,27 +717,29 @@ class CharacterController extends Controller
 
     protected function plotLog(Character $character, string $notes, ?string $plotNotes = null)
     {
-        $characterSkill = $character->skills()->where('skill_id', Skill::PLOT_CHANGE)->first();
-        if (!$characterSkill) {
-            $characterSkill = new CharacterSkill();
-            $characterSkill->fill([
+        DB::transaction(function () use ($character, $notes, $plotNotes) {
+            $characterSkill = $character->skills()->where('skill_id', Skill::PLOT_CHANGE)->first();
+            if (!$characterSkill) {
+                $characterSkill = new CharacterSkill();
+                $characterSkill->fill([
+                    'character_id' => $character->id,
+                    'skill_id' => Skill::PLOT_CHANGE,
+                    'completed' => true,
+                ]);
+                $characterSkill->save();
+            }
+            $log = new CharacterLog();
+            $log->fill([
                 'character_id' => $character->id,
-                'skill_id' => Skill::PLOT_CHANGE,
-                'completed' => true,
+                'character_skill_id' => $characterSkill->id,
+                'skill_completed' => true,
+                'locked' => true,
+                'log_type_id' => LogType::PLOT,
+                'notes' => $notes,
+                'plot_notes' => $plotNotes,
             ]);
-            $characterSkill->save();
-        }
-        $log = new CharacterLog();
-        $log->fill([
-            'character_id' => $character->id,
-            'character_skill_id' => $characterSkill->id,
-            'skill_completed' => true,
-            'locked' => true,
-            'log_type_id' => LogType::PLOT,
-            'notes' => $notes,
-            'plot_notes' => $plotNotes,
-        ]);
-        $log->save();
+            $log->save();
+        });
     }
 
     /**

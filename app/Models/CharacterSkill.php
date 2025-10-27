@@ -150,7 +150,7 @@ class CharacterSkill extends Model
 
     public function getUnformattedNameAttribute(): string
     {
-       return $this->baseName($this->skill->name);
+        return $this->baseName($this->skill->name);
     }
 
     public function getPrintNameAttribute(): string
@@ -158,8 +158,8 @@ class CharacterSkill extends Model
         return $this->formatName($this->skill->print_name ?? $this->skill->name);
     }
 
-    protected function baseName($name) {
-        $name = $this->skill->name;
+    protected function baseName($name): string
+    {
         if ($this->skill->skill_category_id == SkillCategory::SYSTEM) {
             return __(':name (:id)', ['name' => $name, 'id' => $this->id]);
         }
@@ -175,7 +175,7 @@ class CharacterSkill extends Model
     protected function formatName($name): string
     {
         $name = $this->baseName($name);
-        if ($this->completed &&     $this->skill->repeatable) {
+        if ($this->completed && $this->skill->repeatable) {
             return __(':name (x:level)', ['name' => $name, 'level' => $this->level]);
         }
         if (Skill::LEADERSHIP == $this->skill_id) {
@@ -258,6 +258,6 @@ class CharacterSkill extends Model
                     ->where('removed', false)
                     ->count();
         }
-        return $this->attributes['per_restore'] ?? 0;
+        return $this->skill->per_restore ?? 0;
     }
 }

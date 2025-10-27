@@ -64,7 +64,7 @@
     </div>
     @if (count($unassignedCharacters) > 0)
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ 'Unassigned characters' }}</h2>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ __('Unassigned characters') }}</h2>
             <ul class="list-disc list-inside pl-4">
                 @foreach ($unassignedCharacters as $character)
                     <li>

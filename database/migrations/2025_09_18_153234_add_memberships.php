@@ -31,7 +31,9 @@ return new class extends Migration
                 $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
                 $table->timestamps();
             });
+        }
 
+        if (!Schema::hasColumn('users', 'membership_name')) {
             Schema::table('users', function (Blueprint $table) {
                 $table->string('membership_name')->nullable()->after('name');
             });
@@ -43,6 +45,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('memberships');
+        Schema::dropIfExists('membership_user');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('membership_name');
+        });
     }
 };

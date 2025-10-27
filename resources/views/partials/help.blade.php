@@ -65,7 +65,7 @@
                 </li>
                 <li>
                     Basic skills sometimes provide benefits beyond the discounted cost.
-                    For example: Basic Computing gives you a card for both Computing and Signals Intelligence problems; and Basic Geology gives you additional grounding in geology not necessarily provided by Archeo-Anthropology..
+                    For example: Basic Computing gives you a card for both Computing and Signals Intelligence problems; and Basic Geology gives you additional grounding in geology not necessarily provided by Archeo-Anthropology.
                     Check to see if you can gain an extra benefit by taking a Basic skill first.
                 </li>
                 <li>

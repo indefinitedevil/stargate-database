@@ -558,6 +558,7 @@ This feat can only be used once per Restore call.
             'description',
             'per_event',
             'per_day',
+            'per_restore',
             'cost',
         ]);
     }

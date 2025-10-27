@@ -9,7 +9,7 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Update: 19th October 2025</h3>
+                <h3 class="text-lg font-semibold">Update: 27th October 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: added additional edit links for organisation controls.</li>
                     <li>Secretary: added permission to manage memberships.</li>
@@ -27,6 +27,7 @@
                     <li>Added "Medical Mycology" as a medical specialism.</li>
                     <li>Added pronouns to characters and user profiles.</li>
                     <li>Update wound token language.</li>
+                    <li>Coderabbit/Copilot fixes.</li>
                 </ul>
             </div>
             <div>

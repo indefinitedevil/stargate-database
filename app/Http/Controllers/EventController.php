@@ -87,13 +87,14 @@ class EventController extends Controller
             $user = User::findOrFail($userId);
             $data['attended'] = !empty($data['attended']) && $data['attended'] == 'on';
             $eventsData[$user->id] = $data;
-            if ($data['attended'] && in_array($data['role'], [Event::ROLE_PLAYER, Event::ROLE_PAID_DOWNTIME]) && !empty($data['character_id'])) {
+            $role = $data['role'] ?? Event::ROLE_NONE;
+            if ($data['attended'] && in_array($role, [Event::ROLE_PLAYER, Event::ROLE_PAID_DOWNTIME]) && !empty($data['character_id'])) {
                 $character = Character::findOrFail($data['character_id']);
                 if (Status::APPROVED == $character->status_id) {
                     $character->status_id = Status::PLAYED;
                     $character->save();
                 }
-                if (Event::ROLE_PLAYER == $data['role']) {
+                if (Event::ROLE_PLAYER == $role) {
                     $tempBody = $character->temp_body;
                     $tempVigor = $character->temp_vigor;
                     if ($tempBody > 0 || $tempVigor > 0) {
@@ -101,7 +102,6 @@ class EventController extends Controller
                         $skill->fill([
                             'character_id' => $character->id,
                             'skill_id' => Skill::SYSTEM_CHANGE,
-                            'cost' => 0,
                             'completed' => true,
                         ]);
                         $skill->save();
@@ -114,7 +114,7 @@ class EventController extends Controller
                             'temp_body_change' => -1 * $tempBody,
                             'temp_vigor_change' => -1 * $tempVigor,
                             'locked' => 1,
-                            'notes' => 'Resetting temporary stats after event attendance.',
+                            'notes' => __('Resetting temporary stats after event attendance.'),
                         ]);
                         $log->save();
                     }

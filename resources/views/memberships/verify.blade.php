@@ -8,11 +8,11 @@
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         <div>
-            <form method="POST" action="{{ route('memberships.verify') }}">
+            <form method="POST" action="{{ route('memberships.verify-post') }}">
                 @csrf
                 <x-input-label for="membership_number" :value="__('Enter membership number to verify membership status')" />
                 <x-text-input id="membership_number" name="membership_number" type="text" class="mt-1 block w-full sm:w-1/2"
-                              :value="old('membership_number', $user->membershipNumber ?? '')" required autofocus />
+                              :value="old('membership_number', $user?->membershipNumber ?? '')" required autofocus />
                 <x-primary-button class="mt-2">{{ __('Verify') }}</x-primary-button>
             </form>
             @if ($user)

@@ -2192,7 +2192,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'name' => 'Vietnamese',
                 'specialty_type_id' => 3,
             ],
-        ], 'name');
+        ], 'id');
     }
 
     public function seedSkillPrereqs()
