@@ -26,7 +26,7 @@
                     <li>Added additional logging.</li>
                     <li>Added "Medical Mycology" as a medical specialism.</li>
                     <li>Added pronouns to characters and user profiles.</li>
-                    <li>Update wound token language.</li>
+                    <li>Updated wound token language.</li>
                     <li>Coderabbit/Copilot fixes.</li>
                 </ul>
             </div>

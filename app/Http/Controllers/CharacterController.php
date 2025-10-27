@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class CharacterController extends Controller
@@ -718,16 +719,10 @@ class CharacterController extends Controller
     protected function plotLog(Character $character, string $notes, ?string $plotNotes = null)
     {
         DB::transaction(function () use ($character, $notes, $plotNotes) {
-            $characterSkill = $character->skills()->where('skill_id', Skill::PLOT_CHANGE)->first();
-            if (!$characterSkill) {
-                $characterSkill = new CharacterSkill();
-                $characterSkill->fill([
-                    'character_id' => $character->id,
-                    'skill_id' => Skill::PLOT_CHANGE,
-                    'completed' => true,
-                ]);
-                $characterSkill->save();
-            }
+            $characterSkill = CharacterSkill::firstOrCreate(
+                ['character_id' => $character->id, 'skill_id' => Skill::PLOT_CHANGE],
+                ['completed' => true]
+            );
             $log = new CharacterLog();
             $log->fill([
                 'character_id' => $character->id,
@@ -735,8 +730,8 @@ class CharacterController extends Controller
                 'skill_completed' => true,
                 'locked' => true,
                 'log_type_id' => LogType::PLOT,
-                'notes' => $notes,
-                'plot_notes' => $plotNotes,
+                'notes' => Str::limit($notes, 255),
+                'plot_notes' => Str::limit($plotNotes, 255),
             ]);
             $log->save();
         });

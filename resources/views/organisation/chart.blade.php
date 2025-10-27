@@ -85,6 +85,12 @@
                                 {{ $department->department_head->rank }}
                                 {{ $department->department_head->listName }}
                                 @if ($department->department_head->pronouns)({{ $department->department_head->pronouns }})@endif
+                                @can('edit all characters')
+                                    <a class="underline ms-6" href="{{ route('characters.edit', $department->department_head) }}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        {{ __('Edit') }}
+                                    </a>
+                                @endcan
                             </p>
                         @endif
                         @if ($department->characters->count())

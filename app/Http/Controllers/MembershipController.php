@@ -49,21 +49,21 @@ class MembershipController extends Controller
             return redirect(route('dashboard'));
         }
         $validatedData = $request->validate([
-            'id' => 'sometimes|exists:events,id',
+            'id' => 'sometimes|exists:memberships,id',
             'name' => 'required|string',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
         ]);
         if (!empty($validatedData['id'])) {
-            $event = Membership::findOrFail($validatedData['id']);
+            $membership = Membership::findOrFail($validatedData['id']);
         } else {
-            $event = new Membership();
+            $membership = new Membership();
         }
         if ($validatedData['start_date'] > $validatedData['end_date']) {
             return redirect()->back()->withErrors(['start_date' => 'Start date must be before end date.']);
         }
-        $event->fill($validatedData);
-        $event->save();
-        return redirect(route('memberships.edit', $event->id));
+        $membership->fill($validatedData);
+        $membership->save();
+        return redirect(route('memberships.edit', $membership->id));
     }
 }

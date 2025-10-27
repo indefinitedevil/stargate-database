@@ -86,15 +86,15 @@ class EventController extends Controller
         foreach ($attendance as $userId => $data) {
             $user = User::findOrFail($userId);
             $data['attended'] = !empty($data['attended']) && $data['attended'] == 'on';
+            $data['role'] = (int) $data['role'] ?? Event::ROLE_NONE;
             $eventsData[$user->id] = $data;
-            $role = $data['role'] ?? Event::ROLE_NONE;
-            if ($data['attended'] && in_array($role, [Event::ROLE_PLAYER, Event::ROLE_PAID_DOWNTIME]) && !empty($data['character_id'])) {
+            if ($data['attended'] && in_array($data['role'], [Event::ROLE_PLAYER, Event::ROLE_PAID_DOWNTIME]) && !empty($data['character_id'])) {
                 $character = Character::findOrFail($data['character_id']);
                 if (Status::APPROVED == $character->status_id) {
                     $character->status_id = Status::PLAYED;
                     $character->save();
                 }
-                if (Event::ROLE_PLAYER == $role) {
+                if (Event::ROLE_PLAYER == $data['role']) {
                     $tempBody = $character->temp_body;
                     $tempVigor = $character->temp_vigor;
                     if ($tempBody > 0 || $tempVigor > 0) {

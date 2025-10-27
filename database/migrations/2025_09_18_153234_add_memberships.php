@@ -45,10 +45,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('memberships');
         Schema::dropIfExists('membership_user');
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('membership_name');
-        });
+        Schema::dropIfExists('memberships');
+        if (Schema::hasColumn('users', 'membership_name')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('membership_name');
+            });
+        }
     }
 };
