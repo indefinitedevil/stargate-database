@@ -105,7 +105,7 @@ class Character extends Model
 
     public function background(): BelongsTo
     {
-        return $this->belongsTo(Background::class, 'id', 'background_id');
+        return $this->belongsTo(Background::class);
     }
 
     public function logs(): HasMany
