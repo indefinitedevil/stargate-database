@@ -6,6 +6,7 @@ use App\Models\Character;
 use App\Models\CharacterLog;
 use App\Models\LogType;
 use App\Models\Status;
+use App\Models\User;
 use Illuminate\Support\Collection;
 
 class CharacterHelper
@@ -14,6 +15,7 @@ class CharacterHelper
     {
         $logs = CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
             ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
+            ->where('characters.user_id', '!=', User::PLOT_CO_ID)
             ->selectRaw('SUM(amount_trained) AS total')
             ->groupBy('character_id')
             ->orderBy('total', 'ASC')
@@ -26,6 +28,7 @@ class CharacterHelper
         $logs = CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
             ->join('backgrounds', 'backgrounds.id', '=', 'characters.background_id')
             ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
+            ->where('characters.user_id', '!=', User::PLOT_CO_ID)
             ->selectRaw('SUM(amount_trained) - backgrounds.months AS total, character_id')
             ->groupBy('character_id', 'backgrounds.months')
             ->orderBy('total', 'ASC')
@@ -38,6 +41,7 @@ class CharacterHelper
         $logs = CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
             ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
             ->whereIn('characters.id', self::getCharacterIdsWithDowntimes())
+            ->where('characters.user_id', '!=', User::PLOT_CO_ID)
             ->selectRaw('SUM(amount_trained) AS total')
             ->groupBy('character_id')
             ->orderBy('total', 'ASC')
@@ -51,6 +55,7 @@ class CharacterHelper
             ->join('backgrounds', 'backgrounds.id', '=', 'characters.background_id')
             ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
             ->whereIn('characters.id', self::getCharacterIdsWithDowntimes())
+            ->where('characters.user_id', '!=', User::PLOT_CO_ID)
             ->selectRaw('SUM(amount_trained) - backgrounds.months AS total')
             ->groupBy('character_id', 'backgrounds.months')
             ->orderBy('total', 'ASC')
@@ -64,6 +69,7 @@ class CharacterHelper
             ->join('backgrounds', 'backgrounds.id', '=', 'characters.background_id')
             ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
             ->whereIn('characters.id', self::getCharacterIdsWithDowntimes())
+            ->where('characters.user_id', '!=', User::PLOT_CO_ID)
             ->selectRaw('SUM(amount_trained) - backgrounds.months AS total, character_id')
             ->groupBy('character_id', 'backgrounds.months')
             ->orderBy('total', 'ASC')
@@ -75,6 +81,7 @@ class CharacterHelper
     {
         $logs = CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
             ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
+            ->where('characters.user_id', '!=', User::PLOT_CO_ID)
             ->selectRaw('SUM(amount_trained) AS total')
             ->groupBy('character_id')
             ->orderBy('total', 'DESC')
@@ -87,6 +94,7 @@ class CharacterHelper
         return CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
             ->where('character_logs.log_type_id', LogType::DOWNTIME)
             ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
+            ->where('characters.user_id', '!=', User::PLOT_CO_ID)
             ->pluck('character_logs.character_id')
             ->toArray();
     }
