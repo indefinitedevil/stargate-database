@@ -1938,6 +1938,11 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'specialty_type_id' => 3,
             ],
             [
+                'id' => 98,
+                'name' => 'Cornish',
+                'specialty_type_id' => 3,
+            ],
+            [
                 'id' => 64,
                 'name' => 'Danish',
                 'specialty_type_id' => 3,
@@ -2190,6 +2195,11 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             [
                 'id' => 95,
                 'name' => 'Vietnamese',
+                'specialty_type_id' => 3,
+            ],
+            [
+                'id' => 99,
+                'name' => 'Welsh',
                 'specialty_type_id' => 3,
             ],
         ], 'id');
