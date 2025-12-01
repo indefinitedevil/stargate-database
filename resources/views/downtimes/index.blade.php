@@ -111,7 +111,8 @@
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <p>{{ __('Downtimes open between events to allow for character development to occur.') }}</p>
             <p>{{ __('When a downtime period is open, if you are eligible for it, you can submit downtime actions for your character.') }}</p>
-            <p>{{ __('Actions are split into Development actions where you train skills, teach others, and go on missions; Research actions which are up to the Plot Co to determine how they\'re used; and Miscellaneous actions where you can leave information for the Plot Co.') }}</p>
+            <p>{{ __('Actions are split into Development actions where you train skills, teach others, and go on missions; Research actions which are up to the Plot Co to determine how they\'re used; and Other actions where you can leave information for the Plot Co.') }}</p>
+            <p>{{ __('The currently available "Other" action is a Personal Research action where you can let the Plot Co know about a single item you are researching to find our more information.') }}</p>
             <p>{{ __('The number of actions available is determined by the Plot Co for any given downtime.') }}</p>
             <p>{{ __('If you are bringing in a new character, you get catchup training to minimise the training advantage existing characters have.') }}</p>
         </div>

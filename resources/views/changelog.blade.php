@@ -9,6 +9,13 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Bugfix: 1st December 2025</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: fixed issue with research project creation.</li>
+                    <li>Changed some wording regarding downtime actions.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 27th October 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: added additional edit links for organisation controls.</li>

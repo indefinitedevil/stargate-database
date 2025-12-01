@@ -59,7 +59,9 @@ class ResearchController extends Controller
             ->where('status', ResearchProject::STATUS_COMPLETED)
             ->orderBy('name')
             ->get();
-        return view('research.edit', compact('parentProjects'));
+        $skills = Skill::where('skill_category_id', '!=', SkillCategory::SYSTEM)->orderBy('skill_category_id')->orderBy('name')->get();
+        $specialtyTypes = SpecialtyType::all();
+        return view('research.edit', compact('parentProjects', 'skills', 'specialtyTypes'));
     }
 
     public function edit($projectId)
