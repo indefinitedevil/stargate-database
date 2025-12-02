@@ -11,10 +11,12 @@
     </x-slot>
     <x-slot name="sidebar2">
         @can ('edit research projects')
-            <x-dropdown-link href="{{ route('research.edit', ['projectId' => $project]) }}">
-                <i class="fa-solid fa-pen min-w-8"></i>
-                {{ __('Edit') }}
-            </x-dropdown-link>
+            @if (ResearchProject::STATUS_COMPLETED != $project->status || auth()->user()->can('approve research projects'))
+                <x-dropdown-link href="{{ route('research.edit', ['projectId' => $project]) }}">
+                    <i class="fa-solid fa-pen min-w-8"></i>
+                    {{ __('Edit') }}
+                </x-dropdown-link>
+            @endif
         @endcan
         @can ('delete research projects')
             @if (ResearchProject::STATUS_PENDING == $project->status)

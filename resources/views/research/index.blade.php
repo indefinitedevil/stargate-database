@@ -27,8 +27,10 @@
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
                         <p>
                             @can ('edit research projects')
-                                <x-link-button href="{{ route('research.edit', ['projectId' => $project->id]) }}"
-                                               class="float-right">{{ __('Edit') }}</x-link-button>
+                                @if (ResearchProject::STATUS_COMPLETED != $project->status || auth()->user()->can('approve research projects'))
+                                    <x-link-button href="{{ route('research.edit', ['projectId' => $project->id]) }}"
+                                                   class="float-right">{{ __('Edit') }}</x-link-button>
+                                @endif
                             @endcan
                             <a href="{{ $project->getViewRoute() }}"
                                class="underline"><strong>{{ $project->name }}</strong></a>

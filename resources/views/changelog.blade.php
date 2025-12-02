@@ -13,6 +13,7 @@
                 <ul class="list-inside list-disc">
                     <li>Plot Co: fixed issue with research project creation.</li>
                     <li>Researcher: fixed issue with research project status resetting.</li>
+                    <li>Researcher: removed edit buttons for completed research projects.</li>
                     <li>Changed some wording regarding downtime actions.</li>
                 </ul>
             </div>
