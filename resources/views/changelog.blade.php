@@ -9,9 +9,10 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Bugfix: 1st December 2025</h3>
+                <h3 class="text-lg font-semibold">Bugfixes: 1st & 2nd December 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: fixed issue with research project creation.</li>
+                    <li>Researcher: fixed issue with research project status resetting.</li>
                     <li>Changed some wording regarding downtime actions.</li>
                 </ul>
             </div>

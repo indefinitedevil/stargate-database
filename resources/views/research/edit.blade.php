@@ -103,7 +103,7 @@
                                     @endphp
                                 @elsecan('edit research projects')
                                     @php
-                                        if (!empty($project->id) && ResearchProject::STATUS_APPROVED == $project->status) {
+                                        if (!empty($project->id) && ResearchProject::STATUS_APPROVED <= $project->status) {
                                             $statuses = [ResearchProject::STATUS_APPROVED, ResearchProject::STATUS_ACTIVE, ResearchProject::STATUS_ON_HOLD, ResearchProject::STATUS_ABANDONED];
                                         } else {
                                             $statuses = [ResearchProject::STATUS_PENDING];
