@@ -1738,6 +1738,11 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'name' => 'Middle Eastern',
                 'specialty_type_id' => 1,
             ],
+            [
+                'id' => 101,
+                'name' => 'Judeo-Christian',
+                'specialty_type_id' => 1,
+            ],
         ], 'id');
         // Medical
         DB::table('skill_specialties')->upsert([
@@ -1774,6 +1779,11 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             [
                 'id' => 97,
                 'name' => 'Medical Mycology',
+                'specialty_type_id' => 2,
+            ],
+            [
+                'id' => 100,
+                'name' => 'Jaffa Physiology',
                 'specialty_type_id' => 2,
             ],
         ], 'id');
