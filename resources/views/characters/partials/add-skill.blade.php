@@ -142,10 +142,10 @@
                        title="{{ $feat->description }}"
                     ></i>
                     </span>
-                                        <span id="feat-{{$skill->id}}-{{ $feat->id }}"
-                                              class="text-sm hidden pl-4">
-                        {!! process_markdown($feat->description) !!}
-                    </span>
+                                        <div id="feat-{{$skill->id}}-{{ $feat->id }}"
+                                             class="text-sm hidden pl-4">
+                                            {!! process_markdown($feat->description) !!}
+                                        </div>
                                     </li>
                                 @endforeach
                             </ul>
