@@ -9,9 +9,10 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Update: 3rd December 2025</h3>
+                <h3 class="text-lg font-semibold">Update: 5th December 2025</h3>
                 <ul class="list-inside list-disc">
                     <li>Added new specialties.</li>
+                    <li>Removed levels from skill names of repeating skills with specialties.</li>
                 </ul>
             </div>
             <div>

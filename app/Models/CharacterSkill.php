@@ -175,7 +175,7 @@ class CharacterSkill extends Model
     protected function formatName($name): string
     {
         $name = $this->baseName($name);
-        if ($this->completed && $this->skill->repeatable) {
+        if ($this->completed && $this->skill->repeatable && !$this->skill->specialties) {
             return __(':name (x:level)', ['name' => $name, 'level' => $this->level]);
         }
         if (Skill::LEADERSHIP == $this->skill_id) {
