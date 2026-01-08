@@ -151,18 +151,20 @@
                                             [{{ __(':skills', ['skills' => implode(', ', $researcher['skills'])]) }}]
                                         </div>
                                     @endif
-                                    <ul class="pl-4 list-disc list-inside">
-                                        @foreach($researcher['actions'] as $action)
-                                            @if (!empty($action['notes']))
-                                                <li>
-                                                    <a href="{{ route('downtimes.view', ['downtimeId' => $action['downtime_id'], 'characterId' => $action['character_id']]) }}"
-                                                       class="underline">
-                                                        {{ __('View notes from downtime :downtime', ['downtime' => $action['downtime_id']]) }}
-                                                    </a>
-                                                </li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
+                                    @can('edit downtimes')
+                                        <ul class="pl-4 list-disc list-inside">
+                                            @foreach($researcher['actions'] as $action)
+                                                @if (!empty($action['notes']))
+                                                    <li>
+                                                        <a href="{{ route('downtimes.view', ['downtimeId' => $action['downtime_id'], 'characterId' => $action['character_id']]) }}"
+                                                           class="underline">
+                                                            {{ __('View notes from downtime :downtime', ['downtime' => $action['downtime_id']]) }}
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    @endcan
                                 </li>
                             @endforeach
                         </ul>
