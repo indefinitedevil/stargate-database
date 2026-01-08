@@ -1,3 +1,4 @@
+@php use App\Models\ResearchProject; @endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Research Projects') }}</x-slot>
     <x-slot name="header">

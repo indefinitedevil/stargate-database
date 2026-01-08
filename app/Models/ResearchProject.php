@@ -172,7 +172,7 @@ class ResearchProject extends Model
                     $researchers[$character->id]['actions'][] = $researchAction;
                 }
                 if (!empty($researchAction->character_skill_id)) {
-                    $researchers[$character->id]['skills'][] = $researchAction->characterSkill->skill->print_name ?? $researchAction->characterSkill->skill->name;
+                    $researchers[$character->id]['skills'][] = $researchAction->characterSkill->print_name ?? $researchAction->characterSkill->name;
                     $researchers[$character->id]['skills'] = array_unique($researchers[$character->id]['skills']);
                     sort($researchers[$character->id]['skills']);
                 }

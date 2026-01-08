@@ -7,13 +7,13 @@
     <x-slot name="header">
         @if(!$downtime->open && now()->gt($downtime->end_time) && !$downtime->processed)
             <x-link-button href="{{ route('plotco.downtimes.process', ['downtimeId' => $downtime]) }}"
-               class="float-right"
-               onclick="return confirm('{{ __('Are you sure you want to process this downtime? This will process all training and send notifications to affected users.') }}')"
+                           class="float-right"
+                           onclick="return confirm('{{ __('Are you sure you want to process this downtime? This will process all training and send notifications to affected users.') }}')"
             >{{ __('Process') }}</x-link-button>
         @elseif ($downtime->open)
             <x-link-button href="{{ route('plotco.downtimes.remind', ['downtimeId' => $downtime]) }}"
-               class="float-right"
-               onclick="return confirm('{{ __('Are you sure you want to send a reminder?') }}')"
+                           class="float-right"
+                           onclick="return confirm('{{ __('Are you sure you want to send a reminder?') }}')"
             ><i class="fa-solid fa-envelope"></i> {{ __('Remind') }}</x-link-button>
         @endif
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -168,12 +168,19 @@
                 <div class="sm:grid sm:grid-cols-3 gap-6">
                     @foreach ($downtime->researchProjects as $project)
                         <div>
-                            <p class="text-lg font-semibold"><a href="{{ $project->getViewRoute() }}" class="underline">{{ $project->name }}</a></p>
+                            <p class="text-lg font-semibold"><a href="{{ $project->getViewRoute() }}"
+                                                                class="underline">{{ $project->name }}</a></p>
                             <ul class="list-disc list-inside">
                                 @if ($project->researchActions()->where('downtime_id', $downtime->id)->count())
                                     @foreach($project->researchActions()->where('downtime_id', $downtime->id)->get() as $action)
                                         <li>
                                             {{ __('Researcher: :name', ['name' => $action->character->listName]) }}
+                                            @if (!empty($action['notes']))
+                                                <a href="{{ route('downtimes.view', ['downtimeId' => $action['downtime_id'], 'characterId' => $action['character_id']]) }}"
+                                                   class="underline">
+                                                    {{ __('(View notes)') }}
+                                                </a>
+                                            @endif
                                         </li>
                                     @endforeach
                                 @endif

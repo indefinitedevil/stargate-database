@@ -24,7 +24,8 @@
                       onsubmit="return confirm('{{ __('Are you sure you want to delete this research project?') }}')">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
+                    <button type="submit"
+                            class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
                         <i class="fa-solid fa-trash min-w-8"></i>
                         {{ __('Delete') }}
                     </button>
@@ -150,6 +151,18 @@
                                             [{{ __(':skills', ['skills' => implode(', ', $researcher['skills'])]) }}]
                                         </div>
                                     @endif
+                                    <ul class="pl-4 list-disc list-inside">
+                                        @foreach($researcher['actions'] as $action)
+                                            @if (!empty($action['notes']))
+                                                <li>
+                                                    <a href="{{ route('downtimes.view', ['downtimeId' => $action['downtime_id'], 'characterId' => $action['character_id']]) }}"
+                                                       class="underline">
+                                                        {{ __('View notes from downtime :downtime', ['downtime' => $action['downtime_id']]) }}
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
                                 </li>
                             @endforeach
                         </ul>
