@@ -40,7 +40,7 @@
                     {{ __('You do not need to fill in all details immediately.') }}
                     {{ __('You can come back and edit your downtime actions at any point until downtime closes.') }}
                 </p>
-                <p>{{ __('No submission is required - saved actions will all be taken into account when downtime closes.') }}</p>
+                <p>{{ __('You don\'t need to finalise your submission - saved actions will all be taken into account when downtime closes.') }}</p>
                 <p>{{ __('Information on training courses being run will be made available as teachers submit their actions.') }}</p>
             </div>
         </div>
@@ -67,6 +67,8 @@
                     class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg row-span-{{ $downtime->development_actions }}">
                     <div class="p-6 text-gray-900 dark:text-gray-100 space-y-6">
                         <p>{!! __('In order to train a skill you first need to add the skill via <a href="#add-skill" class="underline">the skills form below</a> or the skills page for your character.') !!}</p>
+                        <p>{{ __('If you are training a skill that has pre-requisites, all pre-reqs must be completed before the downtime in which you begin training.') }}</p>
+                        <p>{{ __('If you are training a skill that has levels or that can be repeatedly trained, all previous levels must be completed before the downtime in which you begin training a new level.') }}</p>
                         @php
                             $actionTypes = ActionType::where('type', ActionType::TYPE_DEVELOPMENT)->get();
                             $disableMissions = $downtime->missions->count() == 0;
