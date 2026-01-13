@@ -528,16 +528,14 @@ class Character extends Model
             $abilities = [];
             foreach ($this->trainedSkills as $characterSkill) {
                 $skillAbilities = $characterSkill->skill->abilities();
-                if ($characterSkill->skill->per_restore) {
-                    if (Skill::LEADERSHIP == $characterSkill->skill_id) {
-                        $leadershipCount = 1 + $this->skills()
-                                ->where('skill_id', Skill::LEADERSHIP_EXTRA_PERSON)
-                                ->where('completed', true)
-                                ->where('removed', false)
-                                ->count();
-                        foreach ($skillAbilities as &$ability) {
-                            $ability = trans_choice($ability, $leadershipCount, ['count' => $leadershipCount]);
-                        }
+                if (Skill::LEADERSHIP == $characterSkill->skill_id) {
+                    $leadershipCount = 1 + $this->skills()
+                            ->where('skill_id', Skill::LEADERSHIP_EXTRA_PERSON)
+                            ->where('completed', true)
+                            ->where('removed', false)
+                            ->count();
+                    foreach ($skillAbilities as &$ability) {
+                        $ability = trans_choice($ability, $leadershipCount, ['count' => $leadershipCount]);
                     }
                 }
                 $abilities = array_merge($abilities, $skillAbilities);

@@ -28,7 +28,6 @@ use Illuminate\Support\Collection;
  * @property bool repeatable
  * @property int body
  * @property int vigor
- * @property int per_restore
  * @property bool display
  * @property bool scaling
  * @property Collection characterSkills
@@ -65,7 +64,6 @@ class Skill extends Model
         'repeatable',
         'body',
         'vigor',
-        'per_restore',
         'display',
         'scaling',
         'abilities',
