@@ -36,7 +36,6 @@ class SkillCategory extends Model
     {
         return $this->skills()
             ->where('id' , '!=', Skill::ADDITIONAL_AA_SPEC)
-            ->where('id', '!=', Skill::LEADERSHIP_EXTRA_PERSON)
             ->where('skill_category_id', '!=', SkillCategory::SYSTEM)
             ->orderBy('name');
     }
