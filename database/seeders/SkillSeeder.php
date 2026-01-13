@@ -1399,7 +1399,6 @@ This effect lasts as long as the recipient remains in the interpreter\'s presenc
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
-                'per_restore' => 0,
                 'display' => 1,
             ],
             [
