@@ -428,7 +428,7 @@ You may spend additional points of Vigor to reduce the time needed to use these 
                 'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'You are able to provide comfort and support when your fellows need it most.
 
-After roleplaying with someone for at least five uninterrupted minutest, you may spend Vigor to do any and all of the following.
+After roleplaying with someone for at least five uninterrupted minutes, you may spend Vigor to do any and all of the following.
 * Spend 1 Vigor to detect their current emotional state.
 * Spend 1 Vigor to grant the target 5 Vigor.
 * Spend 2 Vigor to grant the target 10 Vigor.
