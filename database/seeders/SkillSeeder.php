@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 
 class SkillSeeder extends Seeder
 {
+    use WithoutModelEvents;
+
     /**
      * Run the database seeds.
      */
@@ -719,7 +721,7 @@ This can be information around new technology discoveries or procedures or can b
                 'name' => 'Leadership',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::COMPLEX,
-                'description' => 'Yu can take one other character under your wing.
+                'description' => 'You can take one other character under your wing.
 
 If you are actively leading them or protecting them and you are within 50 feet with line of sight, both you and they gain +2 Body.
 
