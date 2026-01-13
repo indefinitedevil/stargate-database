@@ -130,7 +130,7 @@ You may also use this feat to determine the Maximum Vigor of someone you have ob
                 'name' => 'Botch Job',
                 'description' => 'Within reason (ref\'s discretion), you improvise with what you have and immediately solve a skill game card problem.
 
-The device will only work until the next Restore call before it breaks down again. Future attempts to fix the problem will have +1 problem card added to the skill game unless it is a Demolitions problem. If this feat is used on a Demolition Skill Game, the device detonates at the call of Restore.',
+The device will only work for a short time (event ref\'s discretion). Future attempts to fix the problem will have +1 problem card added to the skill game unless it is a Demolitions problem. If this feat is used on a Demolition Skill Game, the device detonates after five minutes.',
                 'per_event' => 0,
                 'per_day' => 0,
                 'per_restore' => 0,
@@ -412,7 +412,9 @@ This feat may be used by proxy through another character translating at a cost o
             [
                 'id' => 32,
                 'name' => 'Numb3rs',
-                'description' => 'This feat allows you to use mathematical modelling to assist in solving problems. You may spend this feat when working on or assisting on any Technical Skill Game to reduce the time on the solution cards by 10%. You may use this feat even on Skill Games you do not have the relevant Technology Skill for, and do not count towards the two player per problem limit **unless** you play a solution card',
+                'description' => 'This feat allows you to use mathematical modelling to assist in solving problems. You may spend this feat when working on or assisting on any Technical Skill Game to reduce the time on the solution cards by 10%. You may use this feat even on Skill Games you do not have the relevant Technology Skill for, and do not count towards the two player per problem limit **unless** you play a solution card.
+
+You may only spend this feat once per problem, but multiple players can each spend it for a stacking discount up to 50%.',
                 'per_event' => 0,
                 'per_day' => 0,
                 'per_restore' => 0,
@@ -452,7 +454,7 @@ Once the effect of this feat ends, if the character has not been stabilised, the
             [
                 'id' => 35,
                 'name' => 'Polyglot',
-                'description' => 'You can pick up languages extremely quickly. You may identify the base roots of an Alien language, and spend 1 Vigor per call of Restore to speak, read, or write it. After a period of time interacting with an Alien Culture this cost may be waived by the Event Referee at their discretion.',
+                'description' => 'You can pick up languages extremely quickly. You may identify the base roots of an Alien language, and spend 1 Vigor per hour to speak, read, or write it. After a period of time interacting with an Alien Culture this cost may be waived by the Event Referee at their discretion.',
                 'per_event' => 0,
                 'per_day' => 0,
                 'per_restore' => 0,
@@ -496,8 +498,8 @@ Only one additional card may be played on a problem, and once a Mentor card has 
                 'name' => 'Torture Resistance',
                 'description' => 'This feat allows you to:
 - Counter the feats \'Interrogator\' and \'Negotiator\'.
-- If you have been affected by alien mind control, you may resist and break out of the mind control for 5 minutes.
-- Reduce Stun and Paralyse time from 30 and 10 seconds to 0 seconds.
+- If you have been affected by mind control, you may resist and break out of the mind control for 5 minutes.
+- Using a Torture Resistance reduces Stun and Paralyse time from 30 and 10 seconds to 0 seconds.
 
 Note: This does not work on Psychology Challenges.',
                 'per_event' => 0,
@@ -519,14 +521,14 @@ Note: This does not work on Psychology Challenges.',
             [
                 'id' => 41,
                 'name' => 'We Have A Job To Do',
-                'description' => 'Through calls of encouragement/a speech the user inspires all friendly personnel who can hear them. This grants the listeners 5 additional Vigor, up to their maximum or to 10, whichever is lower.
+                'description' => 'Through calls of encouragement/a speech the user inspires all friendly personnel who can hear them. This grants the listeners 10 additional Vigor, up to their maximum.
 
-This feat can only be used once per Restore call.
+This feat can only be used once per event, per level in the Leadership skill.
 
 **This feat does not affect the character who made the call.**',
-                'per_event' => 0,
+                'per_event' => 1,
                 'per_day' => 0,
-                'per_restore' => 1,
+                'per_restore' => 0,
                 'print_name' => NULL,
                 'cost' => '',
             ],
@@ -747,6 +749,10 @@ This feat can only be used once per Restore call.
                 'feat_id' => 34
             ],
             [
+                'skill_id' => 26,
+                'feat_id' => 33
+            ],
+            [
                 'skill_id' => 27,
                 'feat_id' => 8
             ],
@@ -775,6 +781,10 @@ This feat can only be used once per Restore call.
                 'feat_id' => 26
             ],
             [
+                'skill_id' => 34,
+                'feat_id' => 3
+            ],
+            [
                 'skill_id' => 35,
                 'feat_id' => 41
             ],
@@ -785,6 +795,10 @@ This feat can only be used once per Restore call.
             [
                 'skill_id' => 38,
                 'feat_id' => 31
+            ],
+            [
+                'skill_id' => 40,
+                'feat_id' => 3
             ],
             [
                 'skill_id' => 41,
@@ -805,6 +819,10 @@ This feat can only be used once per Restore call.
             [
                 'skill_id' => 44,
                 'feat_id' => 16
+            ],
+            [
+                'skill_id' => 45,
+                'feat_id' => 41
             ],
             [
                 'skill_id' => 60,
@@ -865,18 +883,6 @@ This feat can only be used once per Restore call.
             [
                 'skill_id' => 88,
                 'feat_id' => 43
-            ],
-            [
-                'skill_id' => 34,
-                'feat_id' => 3
-            ],
-            [
-                'skill_id' => 40,
-                'feat_id' => 3
-            ],
-            [
-                'skill_id' => 26,
-                'feat_id' => 33
             ],
         ]);
     }

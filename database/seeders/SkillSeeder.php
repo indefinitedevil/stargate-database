@@ -414,11 +414,11 @@ This skill reduces the training time of Medical Doctor to 3 months, regardless o
                 'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'You have spent time learning about human psychology, enabling you to both lie convincingly and detect when others are doing so. You can understand and anticipate actions and analyse the dysfunctional.
 
-After role-playing with someone for at least five minutes you may spend 1 Vigor to do any and all of the following:
-* See whether someone’s last statement was a lie.
-* See whether someone in the general conversation is concealing something.
-* Find out what someone is trying to achieve (in broad terms) through their words.
-* Detect their current emotional state.
+After role-playing with someone for at least five minutes you may spend Vigor to do any and all of the following:
+* Spend 1 Vigor to see whether someone’s last statement was a lie.
+* Spend 1 Vigor to see whether someone in the general conversation is concealing something.
+* Spend 1 Vigor to find out what someone is trying to achieve (in broad terms) through their words.
+* Spend 1 Vigor to detect their current emotional state.
 
 You may Spend 2 Vigor to falsify a response to a Psychological Challenge if these abilities are used against you.
 
@@ -442,17 +442,22 @@ You may spend additional points of Vigor to reduce the time needed to use these 
                 'name' => 'Psychotherapy',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
-                'description' => 'You are able to provide comfort and support when your fellows need it most. After roleplaying with someone for at least five minutes outside of combat, you may Spend 1 Vigor to do either or both of the following.
-* Refresh your target’s Vigor to full, regardless of their maximum Vigor. (This does not affect others with the Psychotherapy skill)
-* Detect their current emotional state.
+                'description' => 'You are able to provide comfort and support when your fellows need it most.
+
+After roleplaying with someone for at least five uninterrupted minutest, you may spend Vigor to do any and all of the following.
+* Spend 1 Vigor to detect their current emotional state.
+* Spend 1 Vigor to grant the target 5 Vigor.
+* Spend 2 Vigor to grant the target 10 Vigor.
+* Spend 3 Vigor to grant the target 15 Vigor.
+Note: Targets of this ability are still limited by their maximum Vigor, any overflow has no effect. This refresh ability does not work on others who have the Psychotherapy skill.
 
 After role-playing with someone for at least twenty minutes you may spend 1 Vigor to do the following:
 * Treat the Psychological element of a Wound token with the Psychology Category, restoring the patient to 1 Body.
 
-You may spend additional points of Vigor to reduce the time needed to use these abilities, at a rate of 1 Vigor per five minutes, to a minimum of 1 minute.
+You may spend additional points of Vigor to reduce the time needed to use these abilities, at a rate of 2 additional Vigor per five minutes, to a minimum of 1 minute.
 
 Note: The requirement is time spent roleplaying with your target. The form of that roleplay could be a cup of tea with the padre, a chat with your best mate about how this is all a bit shit and you\'re knackered, going for a jog around the camp because the Sgt Major thinks exercise endorphins are the cure for all - while the skill is called psychotherapy because it interacts with the psychology wound tokens, the use in play can be tailored to your character type.',
-                'abilities' => 'Refresh Vigor (1V),Detect Emotional State (1V),Treat Psych Wound (1V)',
+                'abilities' => 'Refresh 5 Vigor (1V),Refresh 10 Vigor (2V),Refresh 15 Vigor (3V),Detect Emotional State (1V),Treat Psych Wound (1V)',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -748,14 +753,16 @@ This can be information around new technology discoveries or procedures or can b
                 'name' => 'Leadership',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::COMPLEX,
-                'description' => 'Once per Restore call, you can take one other character under your wing.
+                'description' => 'Yu can take one other character under your wing.
 
 If you are actively leading them or protecting them and you are within 50 feet with line of sight, both you and they gain +2 Body.
 
-You may also spend a further three months adding additional people to the effects of this skill.
+This may be used on people on zero hits to bring them above zero while under this effect. This does not remove the need to open a wound token for going to zero hits.
 
-There is no maximum number of times you can purchase this upgrade, but no character may gain more than +2 Body gained from this skill at any one time.',
-                'abilities' => 'Under Your Wing (+2 Body) (:count person per Restore)|Under Your Wing (+2 Body) (:count people per Restore)',
+You can upgrade this skill, adding 1 additional character to the effects of this skill per three months of training spent. This upgrade may be purchased a maximum of five times.
+
+No character may gain more than +2 Body gained from this skill at any one time.',
+                'abilities' => 'Under Your Wing (+2 Body) (:count person per event)|Under Your Wing (+2 Body) (:count people per event)',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -763,7 +770,7 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'repeatable' => 0,
                 'body' => 0,
                 'vigor' => 0,
-                'per_restore' => 1,
+                'per_restore' => 0,
                 'display' => 1,
             ],
             [
@@ -777,10 +784,10 @@ There is no maximum number of times you can purchase this upgrade, but no charac
                 'cost' => 3,
                 'specialties' => 0,
                 'specialty_type_id' => NULL,
-                'repeatable' => 20,
+                'repeatable' => 5,
                 'body' => 0,
                 'vigor' => 0,
-                'per_restore' => 1,
+                'per_restore' => 0,
                 'display' => 0,
             ],
             [
@@ -1381,9 +1388,9 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'name' => 'Interpreter',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::BASIC,
-                'description' => 'After five minutes of appropriate roleplay, you may spend additional vigour (1 per person) to allow others to understand what is being said to you. This can be combined with Polyglot to allow them to understand Alien languages.
+                'description' => 'After five minutes of appropriate roleplay, you may spend additional Vigor (1 per person) to allow others to understand what is being said to you. This can be combined with Polyglot to allow them to understand Alien languages. Crucially, this does not grant them the ability to **speak** the language, only listen and understand it.
 
-This effect lasts until the next call of Restore',
+This effect lasts as long as the recipient remains in the interpreter\'s presence and part of the conversation.',
                 'abilities' => 'Interpret Languages (1V per person)',
                 'upkeep' => 0,
                 'cost' => 0,
