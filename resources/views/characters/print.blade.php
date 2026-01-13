@@ -258,13 +258,18 @@
                                 </tr>
                                 <tr>
                                     <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2">Add One Potential Complication<sup>1</sup>
+                                    <td class="border border-slate-600 px-2">Raise the difficulty<sup>2</sup> of any
+                                        Surgical Procedure by 1
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2"><em>You ain't got time to bleed</em> – You
-                                        Gain 1 Maximum Vigor for this event
+                                    <td class="border border-slate-600 px-2">Add One Extra Complication<sup>3</sup>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-slate-600"></td>
+                                    <td class="border border-slate-600 px-2">Add One Potential Complication<sup>1</sup>
                                     </td>
                                 </tr>
                                 <tr>
@@ -275,29 +280,8 @@
                                 </tr>
                                 <tr>
                                     <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2">Add One Potential Complication<sup>1</sup>
+                                    <td class="border border-slate-600 px-2">Add One Extra Complication<sup>3</sup>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2">All Med Cards take 2x the printed time on
-                                        you
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2">Add One Potential Complication<sup>1</sup>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2">Raise the difficulty of any Surgical
-                                        Procedure by 1
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-slate-600"></td>
-                                    <td class="border border-slate-600 px-2">Add one Extra Complication<sup>3</sup></td>
                                 </tr>
                                 <tr>
                                     <td class="border border-slate-600"></td>
