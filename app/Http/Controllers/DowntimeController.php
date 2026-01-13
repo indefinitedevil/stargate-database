@@ -50,7 +50,7 @@ class DowntimeController extends Controller
         return view('downtimes.submit', [
             'downtime' => $downtime,
             'character' => $character,
-        ]);
+        ])->with('errors', new MessageBag($this->checkForErrors($downtime, $character)));
     }
 
     public function create(Request $request)
@@ -89,7 +89,40 @@ class DowntimeController extends Controller
         return view('downtimes.view', [
             'downtime' => $downtime,
             'character' => $character,
-        ]);
+        ])->with('errors', new MessageBag($this->checkForErrors($downtime, $character)));
+    }
+
+    protected function checkForErrors($downtime, $character): array {
+        $downtimeActions = $downtime->actions()->where('character_id', $character->id)->get();
+        $development = $research = $other = 0;
+        foreach ($downtimeActions as $downtimeAction) {
+            switch ($downtimeAction->action_type_id) {
+                case ActionType::ACTION_TRAINING:
+                case ActionType::ACTION_TEACHING:
+                case ActionType::ACTION_UPKEEP:
+                case ActionType::ACTION_MISSION:
+                    $development++;
+                    break;
+                case ActionType::ACTION_RESEARCHING:
+                case ActionType::ACTION_UPKEEP_2:
+                    $research++;
+                    break;
+                case ActionType::ACTION_OTHER:
+                    $other++;
+                    break;
+            }
+        }
+        $errors = [];
+        if ($development > $downtime->development_actions) {
+            $errors['development_actions'][] = __(':character has too many development actions (:count)', ['character' => $character->listName, 'count' => $development]);
+        }
+        if ($research > $downtime->research_actions) {
+            $errors['research_actions'][] = __(':character has too many research actions (:count)', ['character' => $character->listName, 'count' => $research]);
+        }
+        if ($other > $downtime->other_actions) {
+            $errors['other_actions'][] = __(':character has too many personal actions (:count)', ['character' => $character->listName, 'count' => $other]);
+        }
+        return $errors;
     }
 
     /**

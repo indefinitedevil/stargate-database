@@ -9,6 +9,7 @@
         </h2>
     </x-slot>
 
+    @include('partials.errors')
     <form action="{{ route('downtimes.store-submission') }}" method="POST" class="space-y-6">
         @csrf
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
