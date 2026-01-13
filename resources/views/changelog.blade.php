@@ -9,6 +9,15 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 13th January 2026</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co: added additional notation to the character view.</li>
+                    <li>Plot Co: added additional notation to the downtime checking view.</li>
+                    <li>Sys Ref: added rules 1.5 update.</li>
+                    <li>Added error messaging regarding a glitch with duplicate actions.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 8th January 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: make research notes easier to notice.</li>
