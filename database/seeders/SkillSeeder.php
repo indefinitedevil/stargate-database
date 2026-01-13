@@ -723,7 +723,7 @@ This can be information around new technology discoveries or procedures or can b
                 'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You can take one other character under your wing.
 
-If you are actively leading them or protecting them and you are within 50 feet with line of sight, both you and they gain +2 Body.
+If you are actively leading them or protecting them and you are within 50 feet with line of sight, both you and they gain +2 Body. This is an ongoing effect that lasts until you change the target, you pass out of range, or are rendered unconscious.
 
 This may be used on people on zero hits to bring them above zero while under this effect. This does not remove the need to open a wound token for going to zero hits.
 
