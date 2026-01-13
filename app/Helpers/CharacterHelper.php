@@ -89,6 +89,19 @@ class CharacterHelper
         return $logs->count() ? $logs->first()->total : 0;
     }
 
+    public static function getHighestTrainingMonthsCharacterId(): int
+    {
+        $logs = CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')
+            ->join('backgrounds', 'backgrounds.id', '=', 'characters.background_id')
+            ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
+            ->where('characters.user_id', '!=', User::PLOT_CO_ID)
+            ->selectRaw('SUM(amount_trained) - backgrounds.months AS total, character_id')
+            ->groupBy('character_id', 'backgrounds.months')
+            ->orderBy('total', 'DESC')
+            ->get();
+        return $logs->count() ? $logs->first()->character_id : 0;
+    }
+
     public static function getCharacterIdsWithDowntimes(): array
     {
         return CharacterLog::join('characters', 'characters.id', '=', 'character_logs.character_id')

@@ -44,6 +44,12 @@
         </p>
         <p>
             <strong>{{ __('Highest training months on an active character:') }}</strong> {{ CharacterHelper::getHighestTrainingMonths() }}
+            @php
+                $characterId = CharacterHelper::getHighestTrainingMonthsCharacterId();
+            @endphp
+            @if ($characterId)
+                ({{ CharacterHelper::getCharacterById($characterId)->listName }})
+            @endif
         </p>
         <p>
             <strong>{{ __('Catchup XP:') }}</strong> {{ CharacterHelper::getCatchupXP() }}
