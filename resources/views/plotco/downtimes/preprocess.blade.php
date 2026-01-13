@@ -27,6 +27,7 @@
                 extract($downtime->preprocess());
                 $skills = $characters = [];
             @endphp
+            @include('partials.errors')
             <h3 class="text-xl font-semibold">{{ __('Teaching and training') }}</h3>
             <div class="sm:grid sm:grid-cols-3 gap-6">
                 @foreach($taughtSkills as $skillId => $teachers)

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\CharacterHelper;
 use App\Mail\DowntimeProcessed;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\MessageBag;
 
 /**
  * @property int id
@@ -230,10 +232,12 @@ class Downtime extends Model
 
     public function preprocess(): array
     {
+        $errors = $actionCount = [];
         $taughtSkills = $trainedSkills = $downtimeMissions = $researchProjects = $upkeepMaintenance = [];
         $characters = [];
         foreach ($this->actions as $action) {
             $characters[$action->character_id] = $action->character_id;
+            $actionCount[$action->character_id][$action->action_type_id] = ($actionCount[$action->character_id][$action->action_type_id] ?? 0) + 1;
             switch ($action->action_type_id) {
                 case ActionType::ACTION_TEACHING:
                     $taughtSkills[$action->characterSkill->skill_id][$action->character_id] = $action;
@@ -268,6 +272,35 @@ class Downtime extends Model
             }
             $requiredUpkeepSkills[$skill->id] = $requiredCharacters;
         }
+        foreach ($actionCount as $characterId => $counts) {
+            $development = $research = $other = 0;
+            foreach ($counts as $actionTypeId => $count) {
+                switch ($actionTypeId) {
+                    case ActionType::ACTION_TRAINING:
+                    case ActionType::ACTION_TEACHING:
+                    case ActionType::ACTION_UPKEEP:
+                    case ActionType::ACTION_MISSION:
+                        $development += $count;
+                        break;
+                    case ActionType::ACTION_RESEARCHING:
+                    case ActionType::ACTION_UPKEEP_2:
+                        $research += $count;
+                        break;
+                    case ActionType::ACTION_OTHER:
+                        $other += $count;
+                        break;
+                }
+            }
+            if ($development > $this->development_actions) {
+                $errors['development_actions'][] = __(':character has too many development actions (:count)', ['character' => CharacterHelper::getCharacterById($characterId)->listName, 'count' => $development]);
+            }
+            if ($research > $this->research_actions) {
+                $errors['research_actions'][] = __(':character has too many research actions (:count)', ['character' => CharacterHelper::getCharacterById($characterId)->listName, 'count' => $research]);
+            }
+            if ($other > $this->other_actions) {
+                $errors['other_actions'][] = __(':character has too many personal actions (:count)', ['character' => CharacterHelper::getCharacterById($characterId)->listName, 'count' => $other]);
+            }
+        }
         return [
             'taughtSkills' => $taughtSkills,
             'trainedSkills' => $trainedSkills,
@@ -275,6 +308,7 @@ class Downtime extends Model
             'researchProjects' => $researchProjects,
             'upkeepMaintenance' => $upkeepMaintenance,
             'requiredUpkeepSkills' => $requiredUpkeepSkills,
+            'errors' => new MessageBag($errors),
         ];
     }
 
