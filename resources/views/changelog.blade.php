@@ -9,6 +9,13 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 16th January 2026</h3>
+                <ul class="list-inside list-disc">
+                    <li>Plot Co/Sys Ref: added skill specialty editing.</li>
+                    <li>Exposed skill and specialty data to players.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 13th January 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: added additional notation to the character view.</li>
