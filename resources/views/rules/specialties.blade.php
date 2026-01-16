@@ -5,6 +5,14 @@
             {{ __('Specialties') }}
         </h2>
     </x-slot>
+    @can('add skill specialty')
+        <x-slot name="sidebar2">
+            <x-dropdown-link href="{{ route('rules.specialties.create') }}">
+                <i class="fa-solid fa-plus min-w-8"></i>
+                {{ __('Create') }}
+            </x-dropdown-link>
+        </x-slot>
+    @endcan
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300 space-y-6">
         <p>
@@ -22,6 +30,12 @@
                 @foreach($specialties[$specialtyType->id] as $specialty)
                     <li>
                         {{ $specialty->name }}
+                        @can('edit skill specialty')
+                            <a class="underline ms-6" href="{{ route('rules.specialties.edit', $specialty) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                {{ __('Edit') }}
+                            </a>
+                        @endcan
                     </li>
                 @endforeach
                 </ul>

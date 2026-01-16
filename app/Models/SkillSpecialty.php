@@ -21,6 +21,8 @@ class SkillSpecialty extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'specialty_type_id'];
+
     public function characterSkills(): BelongsToMany
     {
         return $this->belongsToMany(CharacterSkill::class);

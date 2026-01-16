@@ -299,7 +299,7 @@
                                     for surgical procedure is increased by one. This new card will now definitely be one
                                     of the Complication Cards added by potential complication.</p>
                                 <p><sup>3</sup> <strong>Add one extra Complication:</strong> Directly add one
-                                    complication card to the SP cards after all other modifiers.</p>
+                                    complication card to the surgical procedure cards after all other modifiers.</p>
                                 <p>After any successful surgery, your Body is reset to 1 regardless of what it was
                                     before surgery.</p>
                                 <p>If you are on 0 Body and a failed surgery would deal damage, you become Terminal.</p>

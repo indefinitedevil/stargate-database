@@ -134,6 +134,10 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => 'can:edit skill specialty'], function () {
         Route::get('/sys-ref/specialties', [SpecialtyController::class, 'index'])->name('sysref.specialties');
+        Route::get('/rules/specialties/create', [SpecialtyController::class, 'create'])->name('rules.specialties.create');
+        Route::get('/rules/specialties/edit/{specialtyId}', [SpecialtyController::class, 'edit'])->name('rules.specialties.edit');
+        Route::post('/rules/specialties/store', [SpecialtyController::class, 'store'])->name('rules.specialties.store');
+        Route::delete('/rules/specialties/delete/{specialtyId}', [SpecialtyController::class, 'delete'])->name('rules.specialties.delete');
     });
 
     Route::group(['middleware' => 'can:modify roles'], function () {
