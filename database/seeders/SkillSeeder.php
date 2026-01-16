@@ -433,6 +433,7 @@ After roleplaying with someone for at least five uninterrupted minutes, you may 
 * Spend 1 Vigor to grant the target 5 Vigor.
 * Spend 2 Vigor to grant the target 10 Vigor.
 * Spend 3 Vigor to grant the target 15 Vigor.
+
 Note: Targets of this ability are still limited by their maximum Vigor, any overflow has no effect. This refresh ability does not work on others who have the Psychotherapy skill.
 
 After role-playing with someone for at least twenty minutes you may spend 1 Vigor to do the following:
@@ -730,7 +731,7 @@ This may be used on people on zero hits to bring them above zero while under thi
 You can upgrade this skill, adding 1 additional character to the effects of this skill per three months of training spent. This upgrade may be purchased a maximum of five times.
 
 No character may gain more than +2 Body gained from this skill at any one time.',
-                'abilities' => 'Under Your Wing (+2 Body) (:count person per event)|Under Your Wing (+2 Body) (:count people per event)',
+                'abilities' => 'Under Your Wing (+2 Body) (:count person at a time)|Under Your Wing (+2 Body) (:count people at a time)',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -746,7 +747,7 @@ No character may gain more than +2 Body gained from this skill at any one time.'
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'You can take one extra person under your wing.',
-                'abilities' => NULL,
+                'abilities' => 'Under Your Wing (+2 Body) (:count person at a time)|Under Your Wing (+2 Body) (:count people at a time)',
                 'upkeep' => 0,
                 'cost' => 3,
                 'specialties' => 0,

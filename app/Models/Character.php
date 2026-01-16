@@ -536,6 +536,8 @@ class Character extends Model
                     foreach ($skillAbilities as &$ability) {
                         $ability = trans_choice($ability, $leadershipCount, ['count' => $leadershipCount]);
                     }
+                } elseif (Skill::LEADERSHIP_EXTRA_PERSON == $characterSkill->skill_id) {
+                    $skillAbilities = [];
                 }
                 $abilities = array_merge($abilities, $skillAbilities);
             }
