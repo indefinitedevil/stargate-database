@@ -1,26 +1,15 @@
-@php
-    use App\Helpers\CharacterHelper;
-@endphp
 <x-app-layout>
-    <x-slot name="title">{{ __('Skill check') }}</x-slot>
+    <x-slot name="title">{{ __('Skills') }}</x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Skill check') }}
+            {{ __('Skills') }}
         </h2>
     </x-slot>
 
-    <div class="p-4 sm:px-8 sm:py-4 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300 space-y-6">
         <p>
-            <strong>{{ __('Lowest training months on an active character:') }}</strong> {{ CharacterHelper::getLowestTrainingMonths() }}
-        </p>
-        <p>
-            <strong>{{ __('Lowest training months on an active character who has done a downtime:') }}</strong> {{ CharacterHelper::getLowestTrainingMonthsIncludingDowntime() }}
-        </p>
-        <p>
-            <strong>{{ __('Highest training months on an active character:') }}</strong> {{ CharacterHelper::getHighestTrainingMonths() }}
-        </p>
-        <p>
-            <strong>{{ __('Catchup XP:') }}</strong> {{ CharacterHelper::getCatchupXP() }}
+            {{ __('This is a list of all skills available within the character database.') }}
+            {{ __('This includes a list of feats and abilities gained from those skills, as well as skills unlocked (or locked) by skill purchases.') }}
         </p>
     </div>
 

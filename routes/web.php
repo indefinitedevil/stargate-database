@@ -12,6 +12,7 @@ use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\PlotcoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResearchController;
+use App\Http\Controllers\Rules\SkillController;
 use App\Http\Controllers\Rules\SpecialtyController;
 use App\Http\Controllers\SysrefController;
 use App\Http\Controllers\TraitsController;
@@ -127,6 +128,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['middleware' => 'can:create character'], function () {
+        Route::get('/rules/skills', [SkillController::class, 'index'])->name('rules.skills');
         Route::get('/rules/specialties', [SpecialtyController::class, 'index'])->name('rules.specialties');
     });
 
