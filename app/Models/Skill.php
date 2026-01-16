@@ -28,6 +28,7 @@ use Illuminate\Support\Collection;
  * @property bool repeatable
  * @property int body
  * @property int vigor
+ * @property bool hidden
  * @property bool display
  * @property bool scaling
  * @property Collection characterSkills
@@ -67,6 +68,7 @@ class Skill extends Model
         'display',
         'scaling',
         'abilities',
+        'hidden',
     ];
 
     public function cards(): BelongsToMany

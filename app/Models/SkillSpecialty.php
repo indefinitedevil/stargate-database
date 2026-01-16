@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
  * @param int $id
  * @param string $name
  * @param int $specialty_type_id
+ * @param int $hidden
  * @param SpecialtyType $specialtyType
  * @param CharacterSkill[]|Collection $characterSkills
  * @param ResearchProject[]|Collection $researchProjects
@@ -21,7 +22,7 @@ class SkillSpecialty extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'specialty_type_id'];
+    protected $fillable = ['name', 'specialty_type_id', 'hidden'];
 
     public function characterSkills(): BelongsToMany
     {

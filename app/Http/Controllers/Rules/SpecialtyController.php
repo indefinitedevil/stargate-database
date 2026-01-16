@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Rules;
 
 use App\Http\Controllers\Controller;
-use App\Models\Skill;
 use App\Models\SkillSpecialty;
 use App\Models\SpecialtyType;
 use Illuminate\Http\Request;
@@ -11,14 +10,16 @@ use Illuminate\Support\MessageBag;
 
 class SpecialtyController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $specialties = $specialtyTypes = [];
         foreach (SpecialtyType::all() as $type) {
             $specialtyTypes[$type->id] = $type;
         }
         foreach (SkillSpecialty::all() as $specialty) {
-            $specialties[$specialty->specialty_type_id][] = $specialty;
+            if (!$specialty->hidden || $request->user()->can('edit skill specialty')) {
+                $specialties[$specialty->specialty_type_id][] = $specialty;
+            }
         }
         uasort($specialtyTypes, [$this, 'compareModelNames']);
         foreach ($specialties as &$specialtyList) {
@@ -46,6 +47,7 @@ class SpecialtyController extends Controller
             'id' => 'sometimes|exists:skill_specialties,id|nullable|int',
             'name' => 'required|string|max:255',
             'specialty_type_id' => 'required|exists:specialty_types,id|int',
+            'hidden' => 'boolean',
         ]);
         if ($request->has('id')) {
             $specialty = SkillSpecialty::find($request->input('id'));

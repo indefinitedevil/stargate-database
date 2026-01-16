@@ -4,8 +4,6 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
             @foreach($category->skills->sortBy('name') as $skill)
                 <div class="mt-1">
-                    @php
-                        @endphp
                     <h4 class="text-lg font-semibold">{{ $skill->name }}</h4>
                     <ul>
                         <li>

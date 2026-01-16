@@ -50,6 +50,17 @@
                         </x-select>
                         <x-input-error class="mt-2" :messages="$errors->get('specialty_type_id')"/>
                     </div>
+
+                    <div class="sm:col-span-3">
+                        <x-input-label for="hidden" class="text-lg">
+                            <x-checkbox-input id="hidden"
+                                              name="hidden"
+                                              value="1"
+                                              :checked="$specialty->hidden ?? false"/>
+                            {{ __('Hidden from players') }}
+                        </x-input-label>
+                        <x-input-error class="mt-2" :messages="$errors->get('hidden')"/>
+                    </div>
                 </div>
                 <div class="flex items-center gap-4 mt-6">
                     <x-primary-button>{{ __('Save') }}</x-primary-button>
