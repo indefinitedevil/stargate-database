@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 /**
@@ -16,12 +17,16 @@ class SpecialtyType extends Model
 {
     use HasFactory;
 
-    public function skillSpecialties()
+    public function skillSpecialties(): HasMany
     {
-        return $this->hasMany(SkillSpecialty::class);
+        if (auth()->user()->can('edit skill specialty')) {
+            return $this->hasMany(SkillSpecialty::class);
+        }
+        return $this->hasMany(SkillSpecialty::class)
+            ->where('hidden', false);
     }
 
-    public function skills()
+    public function skills(): HasMany
     {
         return $this->hasMany(Skill::class);
     }
