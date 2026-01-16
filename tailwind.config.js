@@ -20,10 +20,7 @@ export default {
     plugins: [forms],
 
     safelist: [
-        { pattern: /row-span-./, responsive: true },
-        { pattern: /col-start-./, responsive: true },
-        { pattern: /col-span-./, responsive: true },
-        { pattern: /order-./, responsive: true },
+        { pattern: /(row-span|col-span|col-start|order)-./, responsive: true },
         'border-l-4',
         'border-gray-300',
         'bg-gray-50',
