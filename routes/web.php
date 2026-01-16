@@ -12,6 +12,7 @@ use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\PlotcoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResearchController;
+use App\Http\Controllers\Rules\SpecialtyController;
 use App\Http\Controllers\SysrefController;
 use App\Http\Controllers\TraitsController;
 use Illuminate\Support\Facades\Route;
@@ -123,6 +124,14 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => 'can:edit skill'], function () {
         Route::get('/sys-ref/skill-check', [SysrefController::class, 'skillCheck'])->name('sysref.skill-check');
+    });
+
+    Route::group(['middleware' => 'can:create character'], function () {
+        Route::get('/rules/specialties', [SpecialtyController::class, 'index'])->name('rules.specialties');
+    });
+
+    Route::group(['middleware' => 'can:edit skill specialty'], function () {
+        Route::get('/sys-ref/specialties', [SpecialtyController::class, 'index'])->name('sysref.specialties');
     });
 
     Route::group(['middleware' => 'can:modify roles'], function () {

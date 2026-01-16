@@ -7,7 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Support\Collection;
 
+/**
+ * @param int $id
+ * @param string $name
+ * @param int $specialty_type_id
+ * @param SpecialtyType $specialtyType
+ * @param CharacterSkill[]|Collection $characterSkills
+ * @param ResearchProject[]|Collection $researchProjects
+ */
 class SkillSpecialty extends Model
 {
     use HasFactory;
