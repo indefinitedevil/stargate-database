@@ -2,7 +2,8 @@
     use App\Models\Character;
     use App\Models\Skill;
 @endphp
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 lg:grid lg:grid-cols-6 gap-4">
+<nav x-data="{ open: false }"
+     class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 lg:grid lg:grid-cols-6 gap-4">
     <!-- Primary Navigation Menu -->
     <div class="lg:col-span-4 lg:col-start-2 px-4 lg:px-0">
         <div class="flex justify-between h-16">
@@ -59,6 +60,25 @@
                                     <x-dropdown-link :href="route('organisation.skills')"
                                                      :active="request()->routeIs('organisation.skills')">
                                         {{ __('Skill Coverage') }}
+                                    </x-dropdown-link>
+                                </div>
+                            </x-slot>
+                        </x-dropdown>
+                        <x-dropdown align="left"
+                                    contentClasses="py-1 bg-white dark:bg-gray-700 divide-y divide-gray-100">
+                            <x-slot name="trigger" class="inline-flex">
+                                <x-nav-link class="cursor-pointer"
+                                            :active="request()->routeIs('rules')">{{ __('Rules') }}</x-nav-link>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div>
+                                    <x-dropdown-link :href="route('rules.skills')"
+                                                     :active="request()->routeIs('rules.skills')">
+                                        {{ __('Skills') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('rules.specialties')"
+                                                     :active="request()->routeIs('rules.specialties')">
+                                        {{ __('Specialties') }}
                                     </x-dropdown-link>
                                 </div>
                             </x-slot>
@@ -254,6 +274,20 @@
                     <x-responsive-nav-link :href="route('organisation.skills')"
                                            :active="request()->routeIs('organisation.skills')">
                         {{ __('Skill Coverage') }}
+                    </x-responsive-nav-link>
+                </div>
+                <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                    <div class="px-4">
+                        <div
+                            class="font-medium text-base text-gray-800 dark:text-gray-200">{{ __('Rules') }}</div>
+                    </div>
+                    <x-responsive-nav-link :href="route('rules.skills')"
+                                           :active="request()->routeIs('rules.skills')">
+                        {{ __('Skills') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('rules.specialties')"
+                                           :active="request()->routeIs('rules.specialties')">
+                        {{ __('Specialties') }}
                     </x-responsive-nav-link>
                 </div>
                 @if (Auth::user()->can('edit downtimes') || Auth::user()->canAny(['viewAll', 'viewSkills'], Character::class))
