@@ -157,6 +157,7 @@ class DowntimeController extends Controller
             }
             $downtimes = $downtimes->get();
             if ($downtimes->count() > 0) {
+                request()->flash();
                 throw ValidationException::withMessages(['event_id' => __('Event already has a downtime.')]);
             }
         }
@@ -208,6 +209,7 @@ class DowntimeController extends Controller
             $this->validateActions($request->get('other_action', []), $errors, $character, $downtime, 'Personal');
         }
         if (!empty($errors)) {
+            request()->flash();
             throw ValidationException::withMessages($errors);
         }
         return redirect(route('downtimes.submit', [

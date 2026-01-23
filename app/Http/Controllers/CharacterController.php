@@ -215,6 +215,7 @@ class CharacterController extends Controller
             $errors[] = __('Character must not exceed their background training months.');
         }
         if ($errors) {
+            request()->flash();
             throw ValidationException::withMessages($errors);
         }
 
@@ -367,6 +368,7 @@ class CharacterController extends Controller
             $errors[] = __('Character must not exceed their background training months.');
         }
         if ($errors) {
+            request()->flash();
             throw ValidationException::withMessages(array_unique($errors));
         }
         $character->status_id = Status::READY;
@@ -769,12 +771,14 @@ class CharacterController extends Controller
             if ($existing) {
                 $skill = Skill::find($validatedData['skill_id']);
                 if (!$skill->repeatable || $skill->repeatable <= $existing) {
+                    request()->flash();
                     throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
                 } elseif (PlotHelper::SKILL_RESUSCITATION_BUYBACK == $skill->id) {
                     $resuscitations = CharacterSkill::where('character_id', $validatedData['character_id'])
                         ->where('skill_id', PlotHelper::SKILL_RESUSCITATION)
                         ->count();
                     if ($resuscitations <= $existing) {
+                        request()->flash();
                         throw ValidationException::withMessages([__('Skill has already been taken the maximum number of times.')]);
                     }
                 }
@@ -800,6 +804,7 @@ class CharacterController extends Controller
 
         if (!empty($validatedData['specialty_id'])) {
             if ($characterSkill->skill->specialties != count($validatedData['specialty_id'])) {
+                request()->flash();
                 throw ValidationException::withMessages([__('Character must select correct specialty count for :name.', [$characterSkill->skill->name])]);
             }
             $characterSkill->skillSpecialties()->sync($validatedData['specialty_id']);
@@ -863,12 +868,14 @@ class CharacterController extends Controller
                 ->count();
             if ($existing) {
                 if (!$skill->repeatable || $skill->repeatable <= $existing) {
+                    request()->flash();
                     throw ValidationException::withMessages(['skill_id' => __('Skill has already been taken the maximum number of times.')]);
                 } elseif (PlotHelper::SKILL_RESUSCITATION_BUYBACK == $skill->id) {
                     $resuscitations = CharacterSkill::where('character_id', $validatedData['character_id'])
                         ->where('skill_id', PlotHelper::SKILL_RESUSCITATION)
                         ->count();
                     if ($resuscitations <= $existing) {
+                        request()->flash();
                         throw ValidationException::withMessages(['skill_id' => __('Skill has already been taken the maximum number of times.')]);
                     }
                 }
@@ -878,6 +885,7 @@ class CharacterController extends Controller
         $validatedData['completed'] = $validatedData['completed'] ?? false;
 
         if (!$validatedData['completed'] && !$validatedData['amount_trained'] && $skill->cost() > 0) {
+            request()->flash();
             throw ValidationException::withMessages(['log' => __('Log must apply training or a completed skill.')]);
         }
 
@@ -913,6 +921,7 @@ class CharacterController extends Controller
 
         if (!empty($validatedData['specialty_id'])) {
             if ($characterSkill->skill->specialties != count($validatedData['specialty_id'])) {
+                request()->flash();
                 throw ValidationException::withMessages(['specialty_id' => __('You must select correct specialty count for :name.', [$characterSkill->skill->name])]);
             }
             $characterSkill->skillSpecialties()->sync($validatedData['specialty_id']);

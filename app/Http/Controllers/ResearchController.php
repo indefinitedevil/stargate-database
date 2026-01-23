@@ -126,6 +126,7 @@ class ResearchController extends Controller
         }
 
         if (count($validationMessages)) {
+            request()->flash();
             throw ValidationException::withMessages($validationMessages);
         }
 
