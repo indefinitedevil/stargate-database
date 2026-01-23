@@ -124,10 +124,10 @@
                                                    :value="__('Notes')"/>
                                     <x-textarea id="development_action_{{ $actionCount }}_notes"
                                                 name="development_action[{{ $actionCount }}][notes]"
-                                                :value="$action->notes"
+                                                :value="old('development_action[' . $actionCount . '][notes]', $action->notes)"
                                                 :disabled="!$downtime->isOpen()"
                                                 class="mt-1 block w-full"
-                                                :placeholder="__('Relevant notes regarding your mission')"/>
+                                                :placeholder="__('Relevant notes regarding your action')">{{ old('development_action[' . $actionCount . '][notes]', $action->notes) }}</x-textarea>
                                 </div>
                             </div>
                         @endforeach
@@ -167,7 +167,7 @@
                                                 name="development_action[{{ $actionCount }}][notes]"
                                                 :disabled="!$downtime->isOpen()"
                                                 class="mt-1 block w-full"
-                                                :placeholder="__('Relevant notes regarding your mission')"/>
+                                                :placeholder="__('Relevant notes regarding your action')"/>
                                 </div>
                             </div>
                         @endwhile
@@ -231,7 +231,7 @@
                                             class="mt-1 block w-full {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}"
                                             maxlength="2000"
                                             rows="6"
-                                            :placeholder="__('Relevant notes regarding your research')">{{ $action->notes }}</x-textarea>
+                                            :placeholder="__('Relevant notes regarding your research')">{{ old('research_action[' . $actionCount . '][notes]', $action->notes) }}</x-textarea>
                                 <x-input-error class="mt-2" :messages="$errors->get('research_action_'.$actionCount)" />
                             </div>
                         @endforeach
@@ -341,7 +341,7 @@
                                             class="mt-1 block w-full"
                                             maxlength="2000"
                                             rows="6"
-                                            :placeholder="__('Details regarding a single personal action you want to inform the plot coordinator about.')">{{ $action->notes }}</x-textarea>
+                                            :placeholder="__('Details regarding a single personal action you want to inform the plot coordinator about.')">{{ old('other_action[' . $actionCount . '][notes]', $action->notes) }}</x-textarea>
                                 @if (auth()->user()->can('view hidden notes') || $downtime->processed)
                                     <x-input-label for="other_action_{{ $actionCount }}_response"
                                                    class="mt-1" :value="__('Response')"/>

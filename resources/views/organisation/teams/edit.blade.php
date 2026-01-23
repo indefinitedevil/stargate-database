@@ -28,7 +28,7 @@
                         <div>
                             <x-input-label for="description" :value="__('Description')"/>
                             <x-textarea id="description" name="description" rows="4"
-                                        class="mt-1 block w-full">{{ $team->description ?? '' }}</x-textarea>
+                                        class="mt-1 block w-full">{{ old('description', $team->description ?? '') }}</x-textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('description')"/>
                             <p class="text-xs mt-1">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                         </div>

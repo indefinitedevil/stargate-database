@@ -94,21 +94,21 @@
                 <div>
                     <x-input-label for="completed">
                         {{ __('Completed') }}
-                        <input type="checkbox" id="completed" name="completed" class="" value="1"
-                               @if (!empty($editLog) && $editLog->characterSkill->completed) checked="checked" @endif
+                        <x-checkbox-input id="completed" name="completed" value="1"
+                               :checked="old('completed', empty($editLog) ? false : $editLog->characterSkill->completed)"
                         />
                     </x-input-label>
                 </div>
 
                 <div class="col-span-3">
                     <x-input-label for="notes" :value="__('Notes (player-visible)')"/>
-                    <x-textarea id="notes" name="notes" class="mt-1 block w-full" required maxlength="255">{{ empty($editLog) ? '' : $editLog->notes }}</x-textarea>
+                    <x-textarea id="notes" name="notes" class="mt-1 block w-full" required maxlength="255">{{ old('notes', $editLog->notes ?? '') }}</x-textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('notes')"/>
                 </div>
 
                 <div class="col-span-3">
                     <x-input-label for="plot_notes" :value="__('Plot notes')"/>
-                    <x-textarea id="plot_notes" name="plot_notes" class="mt-1 block w-full" maxlength="255">{{ empty($editLog) ? '' : $editLog->plot_notes }}</x-textarea>
+                    <x-textarea id="plot_notes" name="plot_notes" class="mt-1 block w-full" maxlength="255">{{ old('plot_notes', $editLog->plot_notes ?? '') }}</x-textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('plot_notes')"/>
                 </div>
             </div>

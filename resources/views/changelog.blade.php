@@ -15,6 +15,7 @@
                     <li>Plot Co: increased size of downtime action responses.</li>
                     <li>Exposed skill and specialty data to players.</li>
                     <li>Added CSS marker for required input fields.</li>
+                    <li>Potentially fixed an issue with textareas not re-populating after issues with validation.</li>
                     <li>CodeRabbit fixes.</li>
                 </ul>
             </div>

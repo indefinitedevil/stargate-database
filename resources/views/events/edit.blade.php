@@ -50,7 +50,7 @@
                     <div class="col-span-6">
                         <x-input-label for="description" :value="__('Description')"/>
                         <x-textarea id="description" name="description" rows="12" required
-                                    class="mt-1 block w-full">{{ $event->description ?? 'TBC' }}</x-textarea>
+                                    class="mt-1 block w-full">{{ old('description', $event->description ?? 'TBC') }}</x-textarea>
                         <p class="text-sm">{{ __('You can use Markdown for formatting.') }}</p>
                     </div>
 

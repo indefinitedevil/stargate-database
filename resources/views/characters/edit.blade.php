@@ -242,7 +242,7 @@
                 <div>
                     <x-input-label for="history" :value="__('History')"/>
                     <x-textarea id="history" name="history" rows="12"
-                                class="mt-1 block w-full">{{ $character->history ?? '' }}</x-textarea>
+                                class="mt-1 block w-full">{{ old('history', $character->history ?? '') }}</x-textarea>
                     <p class="text-xs">
                         {{ __('This remains editable after character creation.') }}
                     </p>
@@ -253,7 +253,7 @@
                 <div>
                     <x-input-label for="character_links" :value="__('Pre-Existing Character Links')"/>
                     <x-textarea id="character_links" name="character_links" rows="6"
-                                class="mt-1 block w-full">{{ $character->character_links ?? '' }}</x-textarea>
+                                class="mt-1 block w-full">{{ old('character_links', $character->character_links ?? '') }}</x-textarea>
                     <p class="text-xs">
                         {{ __('If you have established background links with other player characters, please note them here separately.') }}
                     </p>
@@ -267,7 +267,7 @@
                     <div>
                         <x-input-label for="plot_notes" :value="__('Plot Notes')"/>
                         <x-textarea id="plot_notes" name="plot_notes" rows="12"
-                                    class="mt-1 block w-full">{{ $character->plot_notes ?? '' }}</x-textarea>
+                                    class="mt-1 block w-full">{{ old('plot_notes', $character->plot_notes ?? '') }}</x-textarea>
                         <x-input-error class="mt-2" :messages="$errors->get('plot_notes')"/>
                         <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                     </div>
@@ -275,7 +275,7 @@
                     <div>
                         <x-input-label for="other_abilities" :value="__('Other Abilities')"/>
                         <x-textarea id="other_abilities" name="other_abilities" rows="12"
-                                    class="mt-1 block w-full">{{ $character->other_abilities ?? '' }}</x-textarea>
+                                    class="mt-1 block w-full">{{ old('other_abilities', $character->other_abilities ?? '') }}</x-textarea>
                         <x-input-error class="mt-2" :messages="$errors->get('other_abilities')"/>
                         <p class="text-xs">{!! __('Use <a href=":url" class="underline" target="_blank">Markdown formatting</a> to style.', ['url' => 'https://www.markdownguide.org/cheat-sheet/']) !!}</p>
                     </div>
