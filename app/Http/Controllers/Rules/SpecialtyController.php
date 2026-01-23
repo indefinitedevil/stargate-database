@@ -49,11 +49,12 @@ class SpecialtyController extends Controller
             'specialty_type_id' => 'required|exists:specialty_types,id|int',
             'hidden' => 'boolean',
         ]);
-        if ($request->has('id')) {
-            $specialty = SkillSpecialty::find($request->input('id'));
+        if ($request->filled('id')) {
+            $specialty = SkillSpecialty::findOrFail($request->input('id'));
         } else {
             $specialty = new SkillSpecialty();
         }
+        $validatedData['hidden'] = $request->boolean('hidden');
         $specialty->fill($validatedData);
         $specialty->save();
         return redirect(route('rules.specialties'))

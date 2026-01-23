@@ -10,13 +10,13 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
 
 /**
- * @param int $id
- * @param string $name
- * @param int $specialty_type_id
- * @param int $hidden
- * @param SpecialtyType $specialtyType
- * @param CharacterSkill[]|Collection $characterSkills
- * @param ResearchProject[]|Collection $researchProjects
+ * @property int $id
+ * @property string $name
+ * @property int $specialty_type_id
+ * @property boolean $hidden
+ * @property SpecialtyType $specialtyType
+ * @property CharacterSkill[]|Collection $characterSkills
+ * @property ResearchProject[]|Collection $researchProjects
  */
 class SkillSpecialty extends Model
 {

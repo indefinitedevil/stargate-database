@@ -14,6 +14,13 @@ class SysrefController extends Controller
             return redirect(route('dashboard'));
         }
         $categories = SkillCategory::all();
-        return view('sysref.skill-check', compact('categories'));
+        $skills = [];
+        foreach (Skill::all() as $skill) {
+            $skills[$skill->category_id][] = $skill;
+        }
+        foreach ($skills as &$skillList) {
+            usort($skillList, [$this, 'compareModelNames']);
+        }
+        return view('sysref.skill-check', compact('categories', 'skills'));
     }
 }

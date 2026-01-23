@@ -56,7 +56,7 @@
                             <x-checkbox-input id="hidden"
                                               name="hidden"
                                               value="1"
-                                              :checked="$specialty->hidden ?? false"/>
+                                              :checked="old('hidden', $specialty->hidden ?? false)"/>
                             {{ __('Hidden from players') }}
                         </x-input-label>
                         <x-input-error class="mt-2" :messages="$errors->get('hidden')"/>

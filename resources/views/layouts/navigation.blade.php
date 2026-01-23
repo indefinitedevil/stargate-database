@@ -68,7 +68,7 @@
                                     contentClasses="py-1 bg-white dark:bg-gray-700 divide-y divide-gray-100">
                             <x-slot name="trigger" class="inline-flex">
                                 <x-nav-link class="cursor-pointer"
-                                            :active="request()->routeIs('rules')">{{ __('Rules') }}</x-nav-link>
+                                            :active="request()->routeIs('rules.*')">{{ __('Rules') }}</x-nav-link>
                             </x-slot>
                             <x-slot name="content">
                                 <div>

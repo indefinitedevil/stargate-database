@@ -19,7 +19,7 @@ class SpecialtyType extends Model
 
     public function skillSpecialties(): HasMany
     {
-        if (auth()->user()->can('edit skill specialty')) {
+        if (auth()?->user()->can('edit skill specialty')) {
             return $this->hasMany(SkillSpecialty::class);
         }
         return $this->hasMany(SkillSpecialty::class)
