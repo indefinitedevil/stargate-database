@@ -13,7 +13,7 @@ class SkillController extends Controller
     {
         $categories = SkillCategory::where('id', '!=', SkillCategory::SYSTEM)->get();
         $skills = [];
-        foreach (Skill::all() as $skill) {
+        foreach (Skill::where('skill_category_id', '!=', SkillCategory::SYSTEM)->get() as $skill) {
             if (!$skill->hidden || $request->user()->can('edit skill')) {
                 $skills[$skill->skill_category_id][] = $skill;
             }
