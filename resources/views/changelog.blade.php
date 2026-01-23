@@ -14,6 +14,7 @@
                     <li>Plot Co/Sys Ref: added skill specialty editing.</li>
                     <li>Plot Co: increased size of downtime action responses.</li>
                     <li>Exposed skill and specialty data to players.</li>
+                    <li>CodeRabbit fixes.</li>
                 </ul>
             </div>
             <div>
