@@ -73,8 +73,8 @@
                     </div>
                     <div class="text-sm">
                         <p>
-                            {!! sprintf(__('<a href="%s" class="underline" target="_blank">Code</a> developed for <a href="%s" class="underline" target="_blank">Stargate LARP</a> by <a href="%s" class="underline" target="_blank">Eligos</a> and Bobbie.'), 'https://github.com/indefinitedevil/stargate-database', 'https://www.stargatelarp.co.uk/', 'https://ko-fi.com/moonemprah') !!}
-                            {!! sprintf(__('SEF logo by <a href="%s" class="underline" target="_blank">Charlie</a> based on a design by Mark.'), 'https://www.etsy.com/uk/shop/CharlieTeesTrove') !!}
+                            {!! sprintf(__('<a href="%s" class="underline" target="_blank">Code</a> developed for <a href="%s" class="underline" target="_blank">Stargate LARP</a> by <a href="%s" class="underline" target="_blank">Eligos</a>.'), 'https://github.com/indefinitedevil/stargate-database', 'https://www.stargatelarp.co.uk/', 'https://ko-fi.com/moonemprah') !!}
+                            {!! sprintf(__('SEF logo by <a href="%s" class="underline" target="_blank">Charlie</a>.'), 'https://www.etsy.com/uk/shop/CharlieTeesTrove') !!}
                         </p>
                         <p>
                             {{ __('The assistance with testing and copy-pasting from society members is truly appreciated!') }}
