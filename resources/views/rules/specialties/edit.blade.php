@@ -53,6 +53,7 @@
 
                     <div class="sm:col-span-3">
                         <x-input-label for="hidden" class="text-lg">
+                            <input type="hidden" name="hidden" value="0"/>
                             <x-checkbox-input id="hidden"
                                               name="hidden"
                                               value="1"
