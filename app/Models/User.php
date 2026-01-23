@@ -20,8 +20,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string membership_name
  * @property string membership_number
  * @property string email
- * @property Collection characters
- * @property Collection memberships
+ * @property Character[]|Collection characters
+ * @property Membership[]|Collection memberships
  */
 class User extends Authenticatable
 {
@@ -158,13 +158,13 @@ class User extends Authenticatable
     public function getMembershipStatusAttribute(): string
     {
         $membership = $this->memberships?->first();
-        if ($membership) {
+        if ($membership instanceof Membership) {
             if ($membership->isActive()) {
                 return __('Active member');
             }
             return __('Lapsed member');
         }
-        return __('Not a member');
+        return __('No membership found');
     }
 
     public function memberships(): BelongsToMany
