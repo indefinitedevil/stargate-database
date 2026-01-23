@@ -15,7 +15,7 @@ class SkillController extends Controller
         $skills = [];
         foreach (Skill::all() as $skill) {
             if (!$skill->hidden || $request->user()->can('edit skill')) {
-                $skills[$skill->category_id][] = $skill;
+                $skills[$skill->skill_category_id][] = $skill;
             }
         }
         foreach ($skills as &$skillList) {

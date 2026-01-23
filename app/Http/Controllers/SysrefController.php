@@ -16,7 +16,7 @@ class SysrefController extends Controller
         $categories = SkillCategory::all();
         $skills = [];
         foreach (Skill::all() as $skill) {
-            $skills[$skill->category_id][] = $skill;
+            $skills[$skill->skill_category_id][] = $skill;
         }
         foreach ($skills as &$skillList) {
             usort($skillList, [$this, 'compareModelNames']);
