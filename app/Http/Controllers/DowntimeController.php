@@ -232,8 +232,8 @@ class DowntimeController extends Controller
                     } else {
                         if (!empty($actionData['notes']) && strlen($actionData['notes']) > 2000) {
                             $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Notes are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
-                        } elseif (!empty($actionData['response']) && strlen($actionData['response']) > 2000) {
-                            $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Responses are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
+                        } elseif (!empty($actionData['response']) && strlen($actionData['response']) > 4000) {
+                            $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Responses are limited to 4000 characters.', ['type' => $type, 'index' => $key]);
                         } else {
                             $characterSkill = CharacterSkill::find($actionData['skill_id']);
                             if (empty($characterSkill)) {
@@ -265,7 +265,7 @@ class DowntimeController extends Controller
                 case ActionType::ACTION_OTHER:
                     if (!empty($actionData['notes']) && strlen($actionData['notes']) > 2000) {
                         $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Notes are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
-                    } elseif (!empty($actionData['response']) && strlen($actionData['response']) > 2000) {
+                    } elseif (!empty($actionData['response']) && strlen($actionData['response']) > 4000) {
                         $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Responses are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
                     } elseif (!empty($actionData['notes']) || !empty($actionData['response'])) {
                         if (!empty($actionData['id'])) {
@@ -318,7 +318,7 @@ class DowntimeController extends Controller
                     if (!empty($actionData['notes']) && strlen($actionData['notes']) > 2000) {
                         $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Notes are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
                         continue 2;
-                    } elseif (!empty($actionData['response']) && strlen($actionData['response']) > 2000) {
+                    } elseif (!empty($actionData['response']) && strlen($actionData['response']) > 4000) {
                         $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Responses are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
                         continue 2;
                     }
@@ -376,6 +376,10 @@ class DowntimeController extends Controller
                     }
                     if (!empty($actionData['notes']) && strlen($actionData['notes']) > 2000) {
                         $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Notes are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
+                        continue 2;
+                    }
+                    if (!empty($actionData['response']) && strlen($actionData['response']) > 4000) {
+                        $errors[$this->getErrorKey($type, $key)] = __(':type Action :index: Responses are limited to 2000 characters.', ['type' => $type, 'index' => $key]);
                         continue 2;
                     }
                     break;

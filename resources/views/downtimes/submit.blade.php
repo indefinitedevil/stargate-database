@@ -349,7 +349,7 @@
                                                 name="other_action[{{ $actionCount }}][response]"
                                                 :disabled="$downtime->processed"
                                                 class="mt-1 block w-full"
-                                                maxlength="2000"
+                                                maxlength="4000"
                                                 rows="6"
                                                 :placeholder="__('Plot co response to above.')">{{ $action->response }}</x-textarea>
                                 @endif
@@ -375,7 +375,7 @@
                                                 name="other_action[{{ $actionCount }}][response]"
                                                 :disabled="$downtime->processed"
                                                 class="mt-1 block w-full"
-                                                maxlength="2000"
+                                                maxlength="4000"
                                                 rows="6"
                                                 :placeholder="__('Plot co response to above.')"></x-textarea>
                                 @endif
