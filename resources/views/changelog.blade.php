@@ -9,6 +9,14 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Bugfix: 24th January 2026</h3>
+                <ul class="list-inside list-disc">
+                    <li>Fixed an issue with input size validation.</li>
+                    <li>Fixed an issue with textareas not re-populating after issues with validation.</li>
+                    <li>Minor wording updates.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 23rd January 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co/Sys Ref: added skill specialty editing.</li>
