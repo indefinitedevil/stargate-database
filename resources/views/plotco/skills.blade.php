@@ -33,6 +33,7 @@
                         @php
                             $characterSkills = $skill->characterSkills
                                 ->where('completed', true)
+                                ->where('removed', false)
                                 ->whereIn('character_id', $validCharacters)
                                 ->groupBy('character_id');
                         @endphp
