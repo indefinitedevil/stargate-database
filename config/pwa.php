@@ -19,16 +19,21 @@ return [
     */
 
     'manifest' => [
-        'name' => 'Laravel PWA',
-        'short_name' => 'LPT',
+        'name' => 'Stargate Character Database',
+        'short_name' => 'Stargate',
         'background_color' => '#6777ef',
-        'display' => 'fullscreen',
-        'description' => 'A Progressive Web Application setup for Laravel projects.',
+        'display' => 'minimal-ui',
+        'description' => 'The database for Stargate characters and downtimes.',
         'theme_color' => '#6777ef',
         'icons' => [
             [
-                'src' => 'logo.png',
+                'src' => 'images/sef-logo-512.png',
                 'sizes' => '512x512',
+                'type' => 'image/png',
+            ],
+            [
+                'src' => 'images/sef-logo-192.png',
+                'sizes' => '192x192',
                 'type' => 'image/png',
             ],
         ],
