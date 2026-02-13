@@ -21,10 +21,10 @@ return [
     'manifest' => [
         'name' => 'Stargate Character Database',
         'short_name' => 'Stargate',
-        'background_color' => '#6777ef',
+        'background_color' => '#231356',
         'display' => 'minimal-ui',
         'description' => 'The database for Stargate characters and downtimes.',
-        'theme_color' => '#6777ef',
+        'theme_color' => '#231356',
         'icons' => [
             [
                 'src' => 'images/sef-logo-512.png',
