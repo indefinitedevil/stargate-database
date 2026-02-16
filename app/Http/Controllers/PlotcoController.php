@@ -58,7 +58,7 @@ class PlotcoController extends Controller
         if ($request->has('event')) {
             $characters = Event::where('id', $request->get('event'))->first()->characters()->whereIn('status_id', [Status::APPROVED, Status::PLAYED])->sortBy('name')->pluck('id');
         } else {
-            $characters = Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->orderBy('name')->get()->pluck('id');
+            $characters = Character::whereIn('status_id', [Status::APPROVED, Status::PLAYED])->where('user_id', '!=', User::PLOT_CO_ID)->orderBy('name')->get()->pluck('id');
         }
         $currentEvents = Event::where('end_date', '>=', today())
             ->orderBy('start_date', 'asc')

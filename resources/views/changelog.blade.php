@@ -18,6 +18,8 @@
                             </li>
                         </ul>
                     </li>
+                    <li>Plot Co: removed NPCs from skills breakdown.</li>
+                    <li>Plot Co: removed removed skills from skills breakdown.</li>
                 </ul>
             </div>
             <div>
