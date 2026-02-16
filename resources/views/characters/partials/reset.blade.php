@@ -12,13 +12,22 @@
             <div class="space-y-2">
                 <p>{{ __('You can optionally reset your character to the pre-approval state. This allows you to make any changes you might want after playing your character for the first time.') }}</p>
                 <p>{{ __('This option will become unavailable when you save your first downtime submission for this character.') }}</p>
-                @php
-                    @endphp
                 @if ($character->trainingMonths < $character->background->adjustedMonths)
                     <p>
                         <strong><em>{{ __('Your character has been built with less than the current amount of training months. Resetting will allow you to use those extra months.') }}</em></strong>
                     </p>
                 @endif
+            </div>
+        </div>
+    </div>
+@elseif ($character->underCatchupThreshold())
+    <div class="p-6 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
+        <div>
+            <h3 class="text-lg font-semibold">{{ __('Under catchup XP threshold') }}</h3>
+            <div class="space-y-2">
+                <p>{{ __('Your character training is now under the catchup XP threshold.') }}</p>
+                <p>{{ __('You are eligible for :months months of additional training.', ['months' => $character->catchupDifference()]) }}</p>
+                <p>{{ __('Contact the Plot Coordinator with your desired additional training.') }}</p>
             </div>
         </div>
     </div>

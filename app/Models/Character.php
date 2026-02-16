@@ -663,4 +663,19 @@ class Character extends Model
                 ->get();
         });
     }
+
+    public function underCatchupThreshold(): bool
+    {
+        return $this->background->adjustedMonths > $this->trainingMonths;
+    }
+
+    public function catchupDifference(): int
+    {
+        return $this->background->adjustedMonths - $this->trainingMonths;
+    }
+
+    public function trainingCoursesAttended(): int
+    {
+        return $this->logs->whereNotNull('teacher_id')->where('amount_trained', '>', 0)->count();
+    }
 }

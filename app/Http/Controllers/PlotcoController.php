@@ -30,8 +30,15 @@ class PlotcoController extends Controller
             ->orderBy('characters.name');
         $activeCharacters = (clone $baseCharacters)->whereIn('status_id', [Status::APPROVED, Status::PLAYED]);
         $playerCharacters = (clone $activeCharacters)->where('user_id', '!=', User::PLOT_CO_ID);
+        $catchupCharacters = [];
+        foreach ($activeCharacters->where('status_id', Status::PLAYED)->get() as $activeCharacter) {
+            if ($activeCharacter instanceof Character && $activeCharacter->underCatchupThreshold()) {
+                $catchupCharacters[] = $activeCharacter;
+            }
+        }
         return view('plotco.characters', [
             'newCharacters' => (clone $baseCharacters)->where('status_id', Status::READY)->get(),
+            'catchupCharacters' => collect($catchupCharacters),
             'activeCharacters' => $activeCharacters->get(),
             'heroCharacters' => (clone $playerCharacters)->where('hero_scoundrel', Character::HERO)->get(),
             'scoundrelCharacters' => (clone $playerCharacters)->where('hero_scoundrel', Character::SCOUNDREL)->get(),

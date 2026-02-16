@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Models\Character;
 use App\Models\CharacterLog;
+use App\Models\Event;
 use App\Models\LogType;
 use App\Models\Status;
 use App\Models\User;
@@ -114,7 +115,7 @@ class CharacterHelper
 
     public static function getCatchupXP(): int
     {
-        return self::getLowestPostCreationTrainingMonthsIncludingDowntime();
+        return floor(Event::where('end_date', '<', now())->count() / 4) * 6;
     }
 
     public static function getCharacterById(int $characterId): ?Character

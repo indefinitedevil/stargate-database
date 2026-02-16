@@ -22,6 +22,9 @@
                 @if (empty($hideStatus))
                     - {{ $character->status->name }}
                 @endif
+                @if (!empty($catchup))
+                    - {{ __('[Missing :months months]', ['months' => $character->catchupDifference()]) }}
+                @endif
                 @if (request()->routeIs('characters.*'))
                     -
                     <a class="underline" href="{{ route('characters.print', $character) }}"><i class="fa-solid fa-print"
