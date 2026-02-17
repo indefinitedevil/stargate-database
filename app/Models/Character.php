@@ -285,7 +285,7 @@ class Character extends Model
             }
         }
         foreach ($this->trainedSkills as $characterSkill) {
-            if (!empty($characterSkill->skill->feats)) {
+            if (empty($characterSkill->discount_used) && !empty($characterSkill->skill->feats)) {
                 $feats = array_merge($feats, $characterSkill->skill->feats->all());
             }
         }
