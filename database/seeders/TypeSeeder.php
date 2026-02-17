@@ -37,6 +37,7 @@ class TypeSeeder extends Seeder
             ['id' => LogType::CHARACTER_CREATION, 'name' => 'Character Creation'],
             ['id' => LogType::DOWNTIME, 'name' => 'Downtime'],
             ['id' => LogType::PLOT, 'name' => 'Plot'],
+            ['id' => LogType::SYSTEM, 'name' => 'System'],
         ], 'id');
         // seed discount types
         DB::table('discount_types')->upsert([
