@@ -47,6 +47,10 @@ class Feat extends Model
                     $perEvent++;
                 }
             }
+            // per event should always be a minimum of 1, but unapproved characters may show 0 for background feats
+            if (!$perEvent) {
+                $perEvent = 1;
+            }
         }
         return $perEvent;
     }
