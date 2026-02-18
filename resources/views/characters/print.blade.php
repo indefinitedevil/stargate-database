@@ -66,7 +66,8 @@
                             {{ __('Skills') }}
                         </h2>
                         @php
-                            $genetics = $pathology = $mathematics = false;
+                            $genetics = $pathology = false;
+                            $numbers = 0;
                         @endphp
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 clear-both">
                             @if ($character->status_id < Status::APPROVED)
@@ -91,8 +92,9 @@
                                                     case Skill::PATHOLOGY:
                                                         $pathology = true;
                                                         break;
+                                                    case Skill::ASTROPHYSICS:
                                                     case Skill::MATHEMATICS:
-                                                        $mathematics = true;
+                                                        $numbers++;
                                                         break;
                                                 }
                                             @endphp
@@ -137,6 +139,7 @@
                             @foreach ($character->feats as $feat)
                                 <li>
                                     {{ $feat->print_name ?: $feat->name }}
+                                    @if (Feat::NUMBERS == $feat->id && $numbers > 1) {{ __('(:numbers0%)', ['numbers' => $numbers]) }} @endif
                                     {{ '' != $feat->cost ? '(' . $feat->cost . ' Vigor)' : '' }}
                                     @if ($feat->per_event)
                                         ({{ __(':count per event', ['count' => $feat->getPerEvent($character)]) }})
@@ -198,13 +201,13 @@
                                     <li>{{ $card->name }} ({{ $card->number }})</li>
                                 @endforeach
                             </ul>
-                            @if ($medic && ($genetics || $pathology) || $mathematics)
+                            @if ($medic && ($genetics || $pathology) || $numbers)
                                 <p class="mt-1 text-sm">
                                     @if ($medic && ($genetics || $pathology))
                                         {{ __('Reduce all Paramedic card times by :pct%.', ['pct' => ($genetics + $pathology) * 10]) }}
                                     @endif
-                                    @if ($mathematics)
-                                        {{ __('Reduce card times by 10% with the Numb3rs feat.') }}
+                                    @if ($numbers)
+                                        {{ __('Reduce card times by :numbers0% with the Numb3rs feat.', ['numbers' => $numbers]) }}
                                     @endif
                                 </p>
                             @endif

@@ -764,6 +764,10 @@ This feat can only be used once per event, per level in the Leadership skill.
                 'feat_id' => 28
             ],
             [
+                'skill_id' => 11,
+                'feat_id' => 32
+            ],
+            [
                 'skill_id' => 21,
                 'feat_id' => 32
             ],

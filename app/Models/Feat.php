@@ -22,6 +22,7 @@ class Feat extends Model
 
     const FLASH_OF_INSIGHT = 3;
     const BOTCH_JOB = 9;
+    const NUMBERS = 32;
 
     protected $fillable = [
         'name',

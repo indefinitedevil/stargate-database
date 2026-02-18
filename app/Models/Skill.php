@@ -48,6 +48,7 @@ class Skill extends Model
 
     const GENETICS = 13;
     const PATHOLOGY = 17;
+    const ASTROPHYSICS = 11;
     const MATHEMATICS = 21;
 
     const PLOT_CHANGE = 90;
