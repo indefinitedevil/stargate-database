@@ -124,18 +124,18 @@
                             </option>
                         @else
                             <option value="{{ LogType::PLOT }}"
-                                    @if(!empty($editLog) && LogType::PLOT == $editLog->log_type_id) selected @endif
+                                    @if(old('log_type_id', $editLog->log_type_id ?? 0)) selected @endif
                             >
                                 {{ __('Plot') }}
                             </option>
                             <option value="{{ LogType::CATCHUP }}"
-                                    @if(!empty($editLog) && LogType::CATCHUP == $editLog->log_type_id) selected @endif
+                                    @if(old('log_type_id', $editLog->log_type_id ?? 0)) selected @endif
                             >
                                 {{ __('Catchup') }}
                             </option>
                         @endif
                     </x-select>
-                    <x-input-error class="mt-2" :messages="$errors->get('specialty_id')"/>
+                    <x-input-error class="mt-2" :messages="$errors->get('log_type_id')"/>
                 </div>
             </div>
 
