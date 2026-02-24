@@ -159,7 +159,7 @@ class CharacterSkill extends Model
 
     protected function baseName($name): string
     {
-        if ($this->skill->skill_category_id == SkillCategory::SYSTEM) {
+        if ($this->skill->id == Skill::SYSTEM_CHANGE) {
             return __(':name (:id)', ['name' => $name, 'id' => $this->id]);
         }
         if (1 == $this->skill->specialties) {
