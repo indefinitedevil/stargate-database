@@ -1,5 +1,5 @@
 @php
-    use App\Models\SpecialtyType;
+    use App\Models\LogType;use App\Models\SpecialtyType;
 @endphp
 @can('edit all characters')
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
@@ -25,7 +25,7 @@
                         @endif
                         @include('characters.partials.available-skills')
                     </x-select>
-                    <x-input-error class="mt-2" :messages="$errors->get('skill_id')" />
+                    <x-input-error class="mt-2" :messages="$errors->get('skill_id')"/>
                 </div>
 
                 <div class="col-span-3">
@@ -47,7 +47,7 @@
                     <p class="text-xs">
                         {{ __('Press Ctrl (or Cmd on Mac) to select/de-select additional specialties.') }}
                     </p>
-                    <x-input-error class="mt-2" :messages="$errors->get('specialty_id')" />
+                    <x-input-error class="mt-2" :messages="$errors->get('specialty_id')"/>
                 </div>
 
                 <div>
@@ -95,21 +95,47 @@
                     <x-input-label for="completed">
                         {{ __('Completed') }}
                         <x-checkbox-input id="completed" name="completed" value="1"
-                               :checked="old('completed', empty($editLog) ? false : $editLog->characterSkill->completed)"
+                                          :checked="old('completed', empty($editLog) ? false : $editLog->characterSkill->completed)"
                         />
                     </x-input-label>
                 </div>
 
                 <div class="col-span-3">
                     <x-input-label for="notes" :value="__('Notes (player-visible)')"/>
-                    <x-textarea id="notes" name="notes" class="mt-1 block w-full" required maxlength="255">{{ old('notes', $editLog->notes ?? '') }}</x-textarea>
+                    <x-textarea id="notes" name="notes" class="mt-1 block w-full" required
+                                maxlength="255">{{ old('notes', $editLog->notes ?? '') }}</x-textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('notes')"/>
                 </div>
 
                 <div class="col-span-3">
                     <x-input-label for="plot_notes" :value="__('Plot notes')"/>
-                    <x-textarea id="plot_notes" name="plot_notes" class="mt-1 block w-full" maxlength="255">{{ old('plot_notes', $editLog->plot_notes ?? '') }}</x-textarea>
+                    <x-textarea id="plot_notes" name="plot_notes" class="mt-1 block w-full"
+                                maxlength="255">{{ old('plot_notes', $editLog->plot_notes ?? '') }}</x-textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('plot_notes')"/>
+                </div>
+
+                <div class="col-span-1">
+                    <x-input-label for="log_type_id">{{ __('Log Type') }}</x-input-label>
+                    <x-select id="log_type_id" name="log_type_id" class="mt-1 block w-full">
+                        @if(!empty($editLog) && !in_array($editLog->log_type_id, [LogType::PLOT, LogType::CATCHUP]))
+                            <option value="{{ $editLog->log_type_id }}" selected
+                            >
+                                {{ $editLog->logType->name }}
+                            </option>
+                        @else
+                            <option value="{{ LogType::PLOT }}"
+                                    @if(!empty($editLog) && LogType::PLOT == $editLog->log_type_id) selected @endif
+                            >
+                                {{ __('Plot') }}
+                            </option>
+                            <option value="{{ LogType::CATCHUP }}"
+                                    @if(!empty($editLog) && LogType::CATCHUP == $editLog->log_type_id) selected @endif
+                            >
+                                {{ __('Catchup') }}
+                            </option>
+                        @endif
+                    </x-select>
+                    <x-input-error class="mt-2" :messages="$errors->get('specialty_id')"/>
                 </div>
             </div>
 

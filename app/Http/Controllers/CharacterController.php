@@ -847,6 +847,7 @@ class CharacterController extends Controller
             'temp_vigor_change' => 'integer',
             'notes' => 'string|nullable|max:255',
             'plot_notes' => 'string|nullable|max:255',
+            'log_type_id' => 'required|exists:log_types,id',
         ]);
 
         if (!empty($validatedData['character_id']) && $request->user()->cannot('edit', Character::find($validatedData['character_id']))) {
@@ -900,11 +901,9 @@ class CharacterController extends Controller
             $log = CharacterLog::find($validatedData['log_id']);
         } else {
             $log = new CharacterLog();
-            $log->fill([
-                'log_type_id' => LogType::PLOT,
-            ]);
         }
         $log->fill([
+            'log_type_id' => $validatedData['log_type_id'],
             'character_id' => $characterSkill->character->id,
             'character_skill_id' => $characterSkill->id,
             'locked' => true,
