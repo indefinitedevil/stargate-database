@@ -20,6 +20,7 @@
                     </li>
                     <li>Plot Co: removed NPCs from skills breakdown.</li>
                     <li>Plot Co: removed removed skills from skills breakdown.</li>
+                    <li>Added markers to required form inputs.</li>
                 </ul>
             </div>
             <div>
