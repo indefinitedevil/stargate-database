@@ -38,7 +38,7 @@ class CharacterHelper
             ->join('backgrounds', 'backgrounds.id', '=', 'characters.background_id')
             ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
             ->where('characters.user_id', '!=', User::PLOT_CO_ID)
-            ->selectRaw('SUM(amount_trained) - backgrounds.months AS total, character_id')
+            ->selectRaw('SUM(amount_trained) - backgrounds.months AS total, character_logs.character_id')
             ->groupBy('character_logs.character_id', 'backgrounds.months')
             ->orderBy('total', 'ASC')
             ->get();
@@ -91,7 +91,7 @@ class CharacterHelper
             ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
             ->whereIn('characters.id', self::getCharacterIdsWithDowntimes())
             ->where('characters.user_id', '!=', User::PLOT_CO_ID)
-            ->selectRaw('SUM(amount_trained) - backgrounds.months AS total, character_id')
+            ->selectRaw('SUM(amount_trained) - backgrounds.months AS total, character_logs.character_id')
             ->groupBy('character_logs.character_id', 'backgrounds.months')
             ->orderBy('total', 'ASC')
             ->get();
@@ -124,7 +124,7 @@ class CharacterHelper
             ->join('backgrounds', 'backgrounds.id', '=', 'characters.background_id')
             ->whereIn('characters.status_id', [Status::APPROVED, Status::PLAYED])
             ->where('characters.user_id', '!=', User::PLOT_CO_ID)
-            ->selectRaw('SUM(amount_trained) - backgrounds.months AS total, character_id')
+            ->selectRaw('SUM(amount_trained) - backgrounds.months AS total, character_logs.character_id')
             ->groupBy('character_logs.character_id', 'backgrounds.months')
             ->orderBy('total', 'DESC')
             ->get();
