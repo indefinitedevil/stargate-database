@@ -64,6 +64,13 @@
             </div>
         @endif
 
+        @if (count($catchupCharacters) > 0)
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
+                <h3 class="text-lg font-semibold">{{ __('Characters under catchup XP threshold') }}</h3>
+                @include('characters.partials.index', ['characters' => $catchupCharacters, 'hideStatus' => true, 'checkbox' => true, 'catchup' => true])
+            </div>
+        @endif
+
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
             <h3 class="text-xl font-semibold">{{ __('Active characters') }}</h3>
             <div class="sm:grid sm:grid-cols-2 gap-6">

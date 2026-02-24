@@ -17,7 +17,7 @@
         @if (count($activeCharacters) === 0)
             <p>{!! __('You have no active characters. Why not <a href=":link" class="underline">create one</a>?', ['link' => route('characters.create')]) !!}</p>
         @else
-            @include('characters.partials.index', ['characters' => $activeCharacters, 'hideUser' => true,])
+            @include('characters.partials.index', ['characters' => $activeCharacters, 'hideUser' => true, 'catchup' => true,])
         @endif
         @if (count($inactiveCharacters) > 0)
             <h3 class="text-lg font-semibold mt-3">{{ __('Inactive characters') }}</h3>

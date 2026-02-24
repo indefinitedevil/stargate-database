@@ -12,9 +12,13 @@
             <div class="max-w-7xl mx-auto">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     {{ $character->listName }}
-                    @if ($character->pronouns)({{ $character->pronouns }})@endif
+                    @if ($character->pronouns)
+                        ({{ $character->pronouns }})
+                    @endif
                     <span class="text-sm ml-4">
-                        ({{ $character->user->name }}@if ($character->user->pronouns) [{{ $character->user->pronouns }}]@endif)
+                        ({{ $character->user->name }}@if ($character->user->pronouns)
+                            [{{ $character->user->pronouns }}]
+                        @endif)
                     </span>
                 </h2>
             </div>
@@ -66,7 +70,8 @@
                             {{ __('Skills') }}
                         </h2>
                         @php
-                            $genetics = $pathology = $mathematics = false;
+                            $genetics = $pathology = false;
+                            $numbers = 0;
                         @endphp
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 clear-both">
                             @if ($character->status_id < Status::APPROVED)
@@ -91,8 +96,9 @@
                                                     case Skill::PATHOLOGY:
                                                         $pathology = true;
                                                         break;
+                                                    case Skill::ASTROPHYSICS:
                                                     case Skill::MATHEMATICS:
-                                                        $mathematics = true;
+                                                        $numbers++;
                                                         break;
                                                 }
                                             @endphp
@@ -137,6 +143,9 @@
                             @foreach ($character->feats as $feat)
                                 <li>
                                     {{ $feat->print_name ?: $feat->name }}
+                                    @if (Feat::NUMBERS == $feat->id && $numbers > 1)
+                                        {{ __('(:numbers0%)', ['numbers' => $numbers]) }}
+                                    @endif
                                     {{ '' != $feat->cost ? '(' . $feat->cost . ' Vigor)' : '' }}
                                     @if ($feat->per_event)
                                         ({{ __(':count per event', ['count' => $feat->getPerEvent($character)]) }})
@@ -198,13 +207,13 @@
                                     <li>{{ $card->name }} ({{ $card->number }})</li>
                                 @endforeach
                             </ul>
-                            @if ($medic && ($genetics || $pathology) || $mathematics)
+                            @if ($medic && ($genetics || $pathology) || $numbers)
                                 <p class="mt-1 text-sm">
                                     @if ($medic && ($genetics || $pathology))
                                         {{ __('Reduce all Paramedic card times by :pct%.', ['pct' => ($genetics + $pathology) * 10]) }}
                                     @endif
-                                    @if ($mathematics)
-                                        {{ __('Reduce card times by 10% with the Numb3rs feat.') }}
+                                    @if ($numbers)
+                                        {{ __('Reduce card times by :numbers0% with the Numb3rs feat.', ['numbers' => $numbers]) }}
                                     @endif
                                 </p>
                             @endif
@@ -296,12 +305,12 @@
                                     into the Problem cards, then the normal number of cards for that wound is played.
                                 </p>
                                 <p><sup>2</sup> <strong>Raise the difficulty:</strong> The normal number of cards played
-                                    for surgical procedure is increased by one. This new card will now definitely be one
-                                    of the Complication Cards added by potential complication.</p>
+                                    for surgical procedures is increased by one. This new card will now definitely be
+                                    one of the Complication Cards added by potential complication.</p>
                                 <p><sup>3</sup> <strong>Add one extra Complication:</strong> Directly add one
                                     complication card to the surgical procedure cards after all other modifiers.</p>
-                                <p>After any successful surgery, your Body is reset to 1 regardless of what it was
-                                    before surgery.</p>
+                                <p>After any successful wound resolution, your Body is reset to 1 regardless of what it
+                                    was before resolution.</p>
                                 <p>If you are on 0 Body and a failed surgery would deal damage, you become Terminal.</p>
                             </div>
                         </div>

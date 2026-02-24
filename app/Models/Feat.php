@@ -22,6 +22,7 @@ class Feat extends Model
 
     const FLASH_OF_INSIGHT = 3;
     const BOTCH_JOB = 9;
+    const NUMBERS = 32;
 
     protected $fillable = [
         'name',
@@ -45,6 +46,10 @@ class Feat extends Model
                 if ($trainedSkill->skill->feats->contains($this)) {
                     $perEvent++;
                 }
+            }
+            // per event should always be a minimum of 1, but unapproved characters may show 0 for background feats
+            if (!$perEvent) {
+                $perEvent = 1;
             }
         }
         return $perEvent;

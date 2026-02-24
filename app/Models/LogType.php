@@ -17,4 +17,5 @@ class LogType extends Model
     const DOWNTIME = 2;
     const PLOT = 3;
     const SYSTEM = 4;
+    const CATCHUP = 5;
 }

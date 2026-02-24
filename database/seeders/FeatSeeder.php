@@ -396,7 +396,7 @@ You may only spend this feat once per problem, but multiple players can each spe
                 'name' => 'Old College Professor',
                 'description' => 'You may act as though you have a non-Alien, non-Combat skill you don\'t have for the solution of one particular problem. This does not confer any cards, feats, or special abilities. You need to roleplay where the knowledge of this skill has come from.
 
-*This feat is limited to one use per day, unless you possess the Tenured Academic skill.*',
+*This feat is limited to one use per event, unless you possess the Tenured Academic skill.*',
                 'per_event' => 1,
                 'per_day' => 0,
                 'print_name' => 'Old College Prof.',
@@ -512,6 +512,83 @@ This feat can only be used once per event, per level in the Leadership skill.
                 'per_day' => 0,
                 'print_name' => NULL,
                 'cost' => '1 or 2',
+            ],
+            [
+                'id' => 44,
+                'name' => 'Old College Professor (Archeo-Anthropology)',
+                'description' => 'You may act as though you have Archeo-Anthropology for the solution of one particular problem. This does not confer any cards, feats, or special abilities.
+
+*This feat is limited to one use per event per level in Basic Geology.*',
+                'per_event' => 1,
+                'per_day' => 0,
+                'print_name' => 'OCP (Arch-Anth)',
+                'cost' => '',
+            ],
+            [
+                'id' => 45,
+                'name' => 'Old College Professor (Botany)',
+                'description' => 'You may act as though you have Botany for the solution of one particular problem. This does not confer any cards, feats, or special abilities.
+
+*This feat is limited to one use per event per level in Basic Botany.*',
+                'per_event' => 1,
+                'per_day' => 0,
+                'print_name' => 'OCP (Physiology)',
+                'cost' => '',
+            ],
+            [
+                'id' => 46,
+                'name' => 'Old College Professor (Genetics)',
+                'description' => 'You may act as though you have Genetics & Evolutionary Biology for the solution of one particular problem. This does not confer any cards, feats, or special abilities.
+
+*This feat is limited to one use per event per level in Basic Genetics.*',
+                'per_event' => 1,
+                'per_day' => 0,
+                'print_name' => 'OCP (Genetics)',
+                'cost' => '',
+            ],
+            [
+                'id' => 47,
+                'name' => 'Old College Professor (Material Science)',
+                'description' => 'You may act as though you have Material Science for the solution of one particular problem. This does not confer any cards, feats, or special abilities.
+
+*This feat is limited to one use per event per level in Basic Chemistry and Basic Physics.*',
+                'per_event' => 1,
+                'per_day' => 0,
+                'print_name' => 'OCP (Mat Sci)',
+                'cost' => '',
+            ],
+            [
+                'id' => 48,
+                'name' => 'Old College Professor (Pathology)',
+                'description' => 'You may act as though you have Pathology for the solution of one particular problem. This does not confer any cards, feats, or special abilities.
+
+*This feat is limited to one use per event per level in Basic Pathology.*',
+                'per_event' => 1,
+                'per_day' => 0,
+                'print_name' => 'OCP (Pathology)',
+                'cost' => '',
+            ],
+            [
+                'id' => 49,
+                'name' => 'Old College Professor (Physiology)',
+                'description' => 'You may act as though you have Physiology for the solution of one particular problem. This does not confer any cards, feats, or special abilities.
+
+*This feat is limited to one use per event per level in Basic Physiology.*',
+                'per_event' => 1,
+                'per_day' => 0,
+                'print_name' => 'OCP (Physiology)',
+                'cost' => '',
+            ],
+            [
+                'id' => 50,
+                'name' => 'Old College Professor (Pure Maths)',
+                'description' => 'You may act as though you have Pure Mathematics for the solution of one particular problem. This does not confer any cards, feats, or special abilities.
+
+*This feat is limited to one use per event per level in Basic Mathematics.*',
+                'per_event' => 1,
+                'per_day' => 0,
+                'print_name' => 'OCP (Pure Maths)',
+                'cost' => '',
             ],
         ], 'id', [
             'name',
@@ -687,6 +764,10 @@ This feat can only be used once per event, per level in the Leadership skill.
                 'feat_id' => 28
             ],
             [
+                'skill_id' => 11,
+                'feat_id' => 32
+            ],
+            [
                 'skill_id' => 21,
                 'feat_id' => 32
             ],
@@ -841,6 +922,38 @@ This feat can only be used once per event, per level in the Leadership skill.
             [
                 'skill_id' => 88,
                 'feat_id' => 43
+            ],
+            [
+                'skill_id' => 52,
+                'feat_id' => 44
+            ],
+            [
+                'skill_id' => 47,
+                'feat_id' => 45
+            ],
+            [
+                'skill_id' => 95,
+                'feat_id' => 46
+            ],
+            [
+                'skill_id' => 48,
+                'feat_id' => 47
+            ],
+            [
+                'skill_id' => 56,
+                'feat_id' => 47
+            ],
+            [
+                'skill_id' => 96,
+                'feat_id' => 48
+            ],
+            [
+                'skill_id' => 97,
+                'feat_id' => 49
+            ],
+            [
+                'skill_id' => 103,
+                'feat_id' => 50
             ],
         ]);
     }

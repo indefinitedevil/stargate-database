@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-div:has(input[required], textarea[required]) > label::after,
-label:has(input[required], textarea[required])::after {
+div:has(input[required], textarea[required], select[required]) > label::after,
+label:has(input[required], textarea[required], select[required])::after {
     content: "*"
 }

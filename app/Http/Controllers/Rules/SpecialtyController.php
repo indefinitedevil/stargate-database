@@ -51,14 +51,16 @@ class SpecialtyController extends Controller
         ]);
         if ($request->filled('id')) {
             $specialty = SkillSpecialty::findOrFail($request->input('id'));
+            $action = 'updated';
         } else {
             $specialty = new SkillSpecialty();
+            $action = 'created';
         }
         $validatedData['hidden'] = $request->boolean('hidden');
         $specialty->fill($validatedData);
         $specialty->save();
         return redirect(route('rules.specialties'))
-            ->with('success', new MessageBag([__('Specialty :name created successfully.', ['name' => $specialty->name])]));
+            ->with('success', new MessageBag([__('Specialty :name :action successfully.', ['name' => $specialty->name, 'action' => $action])]));
     }
 
     public function delete(int $specialtyId)

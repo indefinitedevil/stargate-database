@@ -285,7 +285,7 @@ class Character extends Model
             }
         }
         foreach ($this->trainedSkills as $characterSkill) {
-            if (!empty($characterSkill->skill->feats)) {
+            if (empty($characterSkill->discount_used) && !empty($characterSkill->skill->feats)) {
                 $feats = array_merge($feats, $characterSkill->skill->feats->all());
             }
         }
@@ -662,5 +662,20 @@ class Character extends Model
                 ->orderBy('name')
                 ->get();
         });
+    }
+
+    public function underCatchupThreshold(): bool
+    {
+        return $this->background->adjustedMonths > $this->trainingMonths;
+    }
+
+    public function catchupDifference(): int
+    {
+        return $this->background->adjustedMonths - $this->trainingMonths;
+    }
+
+    public function trainingCoursesAttended(): int
+    {
+        return $this->logs->whereNotNull('teacher_id')->where('amount_trained', '>', 0)->count();
     }
 }
