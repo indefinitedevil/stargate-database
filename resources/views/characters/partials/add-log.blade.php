@@ -116,7 +116,7 @@
 
                 <div class="col-span-1">
                     <x-input-label for="log_type_id">{{ __('Log Type') }}</x-input-label>
-                    <x-select id="log_type_id" name="log_type_id" class="mt-1 block w-full">
+                    <x-select id="log_type_id" name="log_type_id" class="mt-1 block w-full" required>
                         @if(!empty($editLog) && !in_array($editLog->log_type_id, [LogType::PLOT, LogType::CATCHUP]))
                             <option value="{{ $editLog->log_type_id }}" selected
                             >
