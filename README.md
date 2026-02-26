@@ -1,9 +1,9 @@
 ## Stargate Database
 
-This is a Laravel application designed to serve as an initial model for the Stargate LARP Season 2 character database.
-It is seeded with tables representing the rules.
+This is a Laravel application developed for the Stargate LARP Season 2 character database.
+It includes seeds for the required rules data to populate tables.
 
-- Up to date with S2 rules v1.4 mechanics as of 27th October 2025
+- Up to date with S2 rules v1.6 mechanics as of 27th February 2026
 
 ## Design Intent
 
