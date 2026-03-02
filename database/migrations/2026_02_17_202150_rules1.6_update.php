@@ -33,7 +33,7 @@ return new class extends Migration
                     'log_type_id' => LogType::SYSTEM,
                     'locked' => true,
                     'amount_trained' => 0,
-                    'completed' => true,
+                    'completed' => $characterSkill->completed,
                     'notes' => __('Removed due to rules 1.6 update.')
                 ]);
                 $characterLog->save();
@@ -42,7 +42,7 @@ return new class extends Migration
                     $newCharacterSkill = new CharacterSkill();
                     $newCharacterSkill->character_id = $characterSkill->character_id;
                     $newCharacterSkill->skill_id = $updated_skill_id;
-                    $newCharacterSkill->completed = true;
+                    $newCharacterSkill->completed = $characterSkill->completed;
                     $newCharacterSkill->save();
 
                     $characterLog = new CharacterLog();
@@ -52,7 +52,7 @@ return new class extends Migration
                         'log_type_id' => LogType::SYSTEM,
                         'locked' => true,
                         'amount_trained' => 0,
-                        'completed' => true,
+                        'completed' => $characterSkill->completed,
                         'notes' => __('Replaced :old with :new due to rules 1.6 update.', ['old' => str_replace(' (removed)', '', $characterSkill->skill->name), 'new' => $newCharacterSkill->skill->name])
                     ]);
                     $characterLog->save();
