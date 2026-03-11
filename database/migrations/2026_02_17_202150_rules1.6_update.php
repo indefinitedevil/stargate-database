@@ -50,6 +50,13 @@ return new class extends Migration {
                 ]);
                 $characterLog->save();
 
+                $researchActions = DowntimeAction::where('action_type_id', ActionType::ACTION_RESEARCHING)
+                    ->where('character_skill_id', $characterSkill->id)
+                    ->join('downtimes', 'downtimes.id', '=', 'downtime_actions.downtime_id')
+                    ->where('downtimes.processed', false)
+                    ->select('downtime_actions.*')
+                    ->get();
+
                 foreach ($updates as $updated_skill_id) {
                     $newCharacterSkill = new CharacterSkill();
                     $newCharacterSkill->character_id = $characterSkill->character_id;
@@ -61,6 +68,13 @@ return new class extends Migration {
                         $discountUsedBy = $discountSubSkills = null;
                     }
                     $newCharacterSkill->save();
+                    if (!empty($researchActions)) {
+                        foreach ($researchActions as $researchAction) {
+                            $researchAction->character_skill_id = $newCharacterSkill->id;
+                            $researchAction->save();
+                        }
+                        $researchActions = null;
+                    }
 
                     $characterLog = new CharacterLog();
                     $characterLog->fill([
