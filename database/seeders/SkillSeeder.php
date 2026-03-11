@@ -1051,7 +1051,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 48,
                 'name' => 'Basic Chemistry (removed)',
                 'print_name' => NULL,
-                'skill_category_id' => SkillCategory::BASIC,
+                'skill_category_id' => SkillCategory::SYSTEM,
                 'description' => 'Removed in rules 2.0.',
                 'abilities' => NULL,
                 'upkeep' => 0,
@@ -1308,7 +1308,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'id' => 56,
                 'name' => 'Basic Physics (removed)',
                 'print_name' => NULL,
-                'skill_category_id' => SkillCategory::BASIC,
+                'skill_category_id' => SkillCategory::SYSTEM,
                 'description' => 'Removed in rules 2.0.',
                 'abilities' => NULL,
                 'upkeep' => 0,
@@ -2528,36 +2528,36 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
         DB::table('skill_lockouts')->truncate();
         DB::table('skill_lockouts')->upsert([
             [
-                'skill_id' => 16,
-                'lockout_id' => 18,
+                'skill_id' => 1,
+                'lockout_id' => 98,
             ],
             [
-                'skill_id' => 16,
-                'lockout_id' => 87,
+                'skill_id' => 2,
+                'lockout_id' => 102,
             ],
             [
-                'skill_id' => 18,
-                'lockout_id' => 16,
+                'skill_id' => 3,
+                'lockout_id' => 100,
             ],
             [
-                'skill_id' => 18,
-                'lockout_id' => 86,
-            ],
-            [
-                'skill_id' => 14,
-                'lockout_id' => 53,
-            ],
-            [
-                'skill_id' => 19,
-                'lockout_id' => 57,
+                'skill_id' => 4,
+                'lockout_id' => 51,
             ],
             [
                 'skill_id' => 5,
                 'lockout_id' => 54,
             ],
             [
-                'skill_id' => 4,
-                'lockout_id' => 51,
+                'skill_id' => 6,
+                'lockout_id' => 101,
+            ],
+            [
+                'skill_id' => 8,
+                'lockout_id' => 99,
+            ],
+            [
+                'skill_id' => 9,
+                'lockout_id' => 52,
             ],
             [
                 'skill_id' => 12,
@@ -2568,8 +2568,52 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
                 'lockout_id' => 104,
             ],
             [
+                'skill_id' => 12,
+                'lockout_id' => 47,
+            ],
+            [
+                'skill_id' => 13,
+                'lockout_id' => 95,
+            ],
+            [
+                'skill_id' => 14,
+                'lockout_id' => 53,
+            ],
+            [
                 'skill_id' => 15,
                 'lockout_id' => 105,
+            ],
+            [
+                'skill_id' => 16,
+                'lockout_id' => 18,
+            ],
+            [
+                'skill_id' => 16,
+                'lockout_id' => 87,
+            ],
+            [
+                'skill_id' => 17,
+                'lockout_id' => 96,
+            ],
+            [
+                'skill_id' => 18,
+                'lockout_id' => 16,
+            ],
+            [
+                'skill_id' => 18,
+                'lockout_id' => 86,
+            ],
+            [
+                'skill_id' => 18,
+                'lockout_id' => 97,
+            ],
+            [
+                'skill_id' => 19,
+                'lockout_id' => 57,
+            ],
+            [
+                'skill_id' => 21,
+                'lockout_id' => 103,
             ],
             [
                 'skill_id' => 42,
