@@ -9,18 +9,24 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Update: 7th March 2026</h3>
+                <h3 class="text-lg font-semibold">Update: 11th March 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Sys Ref: implemented rules 1.6 update.
                         <ul class="list-inside list-disc pl-4">
                             <li>Catchup XP changed to be 6 per year. Approved characters under the threshold will be
                                 granted the opportunity to add additional training to bring them to the threshold.
                             </li>
+                            <li>Basic Skills have had an overhaul and anyone with affected skills has had their sheets
+                                modified automatically to match the new rules. If you believe a change to be in error,
+                                consult the Plot Co and System Referees.
+                            </li>
                         </ul>
                     </li>
                     <li>Plot Co: removed NPCs from skills breakdown.</li>
                     <li>Plot Co: removed removed skills from skills breakdown.</li>
                     <li>Added markers to required form inputs.</li>
+                    <li>Training benefits from a teacher are now applied to Basic skills before the main skill.</li>
+                    <li>Fixed some issues with upkeep skills displaying and being removed.</li>
                 </ul>
             </div>
             <div>
