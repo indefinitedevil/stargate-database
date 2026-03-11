@@ -399,7 +399,7 @@ This skill reduces the training time of Medical Doctor to 3 months, regardless o
                 'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'You have spent time learning about human psychology, enabling you to both lie convincingly and detect when others are doing so. You can understand and anticipate actions and analyse the dysfunctional.
 
-After role-playing with someone for at least five minutes you may spend Vigor to do any and all of the following:
+After role-playing with someone for at least five minutes you may spend Vigor to do any and all of the following Psychological Challenges:
 * Spend 1 Vigor to see whether someone’s last statement was a lie.
 * Spend 1 Vigor to see whether someone in the general conversation is concealing something.
 * Spend 1 Vigor to find out what someone is trying to achieve (in broad terms) through their words.
@@ -407,7 +407,7 @@ After role-playing with someone for at least five minutes you may spend Vigor to
 
 You may Spend 2 Vigor to falsify a response to a Psychological Challenge if these abilities are used against you.
 
-After role-playing with someone for at least twenty minutes you may spend 2 Vigor to do the following:
+After role-playing with someone for at least twenty minutes you may spend 2 Vigor to do the following Psychological Challenge:
 * Detect someone’s psychological flaws.
 
 You may spend additional points of Vigor to reduce the time needed to use these abilities, at a rate of 1 Vigor per five minutes, to a minimum of 1 minute.',
@@ -429,7 +429,7 @@ You may spend additional points of Vigor to reduce the time needed to use these 
                 'description' => 'You are able to provide comfort and support when your fellows need it most.
 
 After roleplaying with someone for at least five uninterrupted minutes, you may spend Vigor to do any and all of the following.
-* Spend 1 Vigor to detect their current emotional state.
+* Spend 1 Vigor to detect their current emotional state. (Counts as a Psychological Challenge)
 * Spend 1 Vigor to grant the target 5 Vigor.
 * Spend 2 Vigor to grant the target 10 Vigor.
 * Spend 3 Vigor to grant the target 15 Vigor.
@@ -437,7 +437,7 @@ After roleplaying with someone for at least five uninterrupted minutes, you may 
 Note: Targets of this ability are still limited by their maximum Vigor, any overflow has no effect. This refresh ability does not work on others who have the Psychotherapy skill.
 
 After role-playing with someone for at least twenty minutes you may spend 1 Vigor to do the following:
-* Treat the Psychological element of a Wound token with the Psychology Category, restoring the patient to 1 Body.
+* Treat a Psychological Wound token, restoring the patient to 1 Body.
 
 You may spend additional points of Vigor to reduce the time needed to use these abilities, at a rate of 2 additional Vigor per five minutes, to a minimum of 1 minute.
 
