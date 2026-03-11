@@ -362,13 +362,14 @@ class Downtime extends Model
                         foreach ($skillChanges[$subSkill->id] as &$skillChange) {
                             if ($skillChange['amount_trained'] > 0 && $skillChange['character_id'] != $characterId && !in_array($skillChange['character_id'], $trainedCharacters)) {
                                 $skillChange['teacher_id'] = $characterId;
+                                $trainedCharacters[] = $skillChange['character_id'];
                                 $skillChange['amount_trained']++;
                             }
                         }
                     }
                 }
                 foreach ($skillChanges[$skillId] as &$skillChange) {
-                    if ($skillChange['amount_trained'] > 0 && (!in_array($skillChange['character_id'], $teachers) || count($teachers) > 1)) {
+                    if ($skillChange['amount_trained'] > 0 && (!in_array($skillChange['character_id'], $teachers) || count($teachers) > 1) && !in_array($skillChange['character_id'], $trainedCharacters)) {
                         $skillChange['teacher_id'] = $characterId;
                         $trainedCharacters[] = $skillChange['character_id'];
                         $skillChange['amount_trained']++;
