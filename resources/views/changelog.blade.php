@@ -11,7 +11,7 @@
             <div>
                 <h3 class="text-lg font-semibold">Update: 11th March 2026</h3>
                 <ul class="list-inside list-disc">
-                    <li>Sys Ref: implemented rules 1.6 update.
+                    <li>Sys Ref: implemented rules 2.0 update.
                         <ul class="list-inside list-disc pl-4">
                             <li>Catchup XP changed to be 6 per year. Approved characters under the threshold will be
                                 granted the opportunity to add additional training to bring them to the threshold.

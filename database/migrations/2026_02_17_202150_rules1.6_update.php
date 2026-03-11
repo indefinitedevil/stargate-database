@@ -46,7 +46,7 @@ return new class extends Migration {
                     'locked' => true,
                     'amount_trained' => 0,
                     'completed' => $characterSkill->completed,
-                    'notes' => __('Removed due to rules 1.6 update.')
+                    'notes' => __('Removed due to rules 2.0 update.')
                 ]);
                 $characterLog->save();
 
@@ -70,7 +70,7 @@ return new class extends Migration {
                         'locked' => true,
                         'amount_trained' => 0,
                         'completed' => $characterSkill->completed,
-                        'notes' => __('Replaced :old with :new due to rules 1.6 update.', ['old' => str_replace(' (removed)', '', $characterSkill->skill->name), 'new' => $newCharacterSkill->skill->name])
+                        'notes' => __('Replaced :old with :new due to rules 2.0 update.', ['old' => str_replace(' (removed)', '', $characterSkill->skill->name), 'new' => $newCharacterSkill->skill->name])
                     ]);
                     $characterLog->save();
                 }
