@@ -27,6 +27,7 @@
                     <li>Added markers to required form inputs.</li>
                     <li>Training benefits from a teacher are now applied to Basic skills before the main skill.</li>
                     <li>Fixed some issues with upkeep skills displaying and being removed.</li>
+                    <li>Added notes about when to mark off the Complications table on your character sheets.</li>
                 </ul>
             </div>
             <div>

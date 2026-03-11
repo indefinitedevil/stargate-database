@@ -251,6 +251,7 @@
 
                 <div class="py-2 bg-white text-gray-800 mt-2 break-before-page">
                     <div class="">
+                        <p class="text-sm">Mark off a row on this table when you have been treated for a Surgical Procedure. If you were treated using the Emergency Measures feat, mark off two rows instead.</p>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4">
                             <table class="table-auto border border-collapse border-slate-600 w-full sm:col-span-2">
                                 <thead>
