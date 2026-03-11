@@ -590,6 +590,17 @@ This feat can only be used once per event, per level in the Leadership skill.
                 'print_name' => 'OCP (Pure Maths)',
                 'cost' => '',
             ],
+            [
+                'id' => 51,
+                'name' => 'Old College Professor (Astrophysics)',
+                'description' => 'You may act as though you have Astrophysics for the solution of one particular problem. This does not confer any cards, feats, or special abilities.
+
+*This feat is limited to one use per event per level in Basic Astrophysics.*',
+                'per_event' => 1,
+                'per_day' => 0,
+                'print_name' => 'OCP (Astrophysics)',
+                'cost' => '',
+            ],
         ], 'id', [
             'name',
             'print_name',
@@ -936,11 +947,7 @@ This feat can only be used once per event, per level in the Leadership skill.
                 'feat_id' => 46
             ],
             [
-                'skill_id' => 48,
-                'feat_id' => 47
-            ],
-            [
-                'skill_id' => 56,
+                'skill_id' => 105,
                 'feat_id' => 47
             ],
             [
@@ -954,6 +961,10 @@ This feat can only be used once per event, per level in the Leadership skill.
             [
                 'skill_id' => 103,
                 'feat_id' => 50
+            ],
+            [
+                'skill_id' => 104,
+                'feat_id' => 51
             ],
         ]);
     }

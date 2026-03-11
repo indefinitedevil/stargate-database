@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property Skill skill
  * @property int skill_id
  * @property bool discount_used
+ * @property int|null discount_used_by
  * @property bool discount_available
  * @property CharacterSkill discountUsedBy
  * @property Collection discountedBy
@@ -246,5 +247,10 @@ class CharacterSkill extends Model
             return $this->character->trainedSkills->where('skill_id', $this->skill_id)->count();
         }
         return 0;
+    }
+
+    public function downtimeActions(): HasMany
+    {
+        return $this->hasMany(DowntimeAction::class);
     }
 }
