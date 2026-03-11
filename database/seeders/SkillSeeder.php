@@ -778,7 +778,7 @@ No character may gain more than +2 Body gained from this skill at any one time.'
                 'name' => 'Micro-Expressions',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::COMPLEX,
-                'description' => 'This Skill allows the use of Psychology or Psychotherapy skills through observation rather than direct interaction with the Subject. This includes Audio and Visual Recordings.',
+                'description' => 'This Skill allows the use of perception-based Psychology or Psychotherapy skills (such as determining truth or the emotional state of the subject) through observation rather than direct interaction with the Subject. This includes Audio and Visual Recordings.',
                 'abilities' => NULL,
                 'upkeep' => 0,
                 'cost' => 0,
