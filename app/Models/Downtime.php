@@ -383,19 +383,20 @@ class Downtime extends Model
             }
             foreach ($characters as $characterId) {
                 if (!isset($upkeepMaintenance[$skillId][$characterId])) {
+                    $characterSkill = CharacterSkill::where('character_id', $characterId)
+                        ->where('skill_id', $skillId)
+                        ->first();
+                    $characterSkill->removed = true;
+                    $characterSkill->save();
                     $skillChanges[$skillId][] = [
                         'character_id' => $characterId,
+                        'character_skill_id' => $characterSkill->id,
                         'log_type_id' => LogType::DOWNTIME,
                         'amount_trained' => 0,
                         'locked' => true,
                         'downtime_id' => $this->id,
                         'notes' => __('Removed :skill due to lack of upkeep', ['skill' => $skills[$skillId]->name]),
                     ];
-                    $characterSkill = CharacterSkill::where('character_id', $characterId)
-                        ->where('skill_id', $skillId)
-                        ->first();
-                    $characterSkill->removed = true;
-                    $characterSkill->save();
                 } else {
                     $action = $upkeepMaintenance[$skillId][$characterId];
                     $skillChanges[$skillId][] = [
