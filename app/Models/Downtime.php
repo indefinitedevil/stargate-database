@@ -241,9 +241,11 @@ class Downtime extends Model
             switch ($action->action_type_id) {
                 case ActionType::ACTION_TEACHING:
                     $taughtSkills[$action->characterSkill->skill_id][$action->character_id] = $action;
+                    $upkeepMaintenance[$action->characterSkill->skill_id][$action->character_id] = $action;
                     break;
                 case ActionType::ACTION_TRAINING:
                     $trainedSkills[$action->characterSkill->skill_id][$action->character_id][] = $action;
+                    $upkeepMaintenance[$action->characterSkill->skill_id][$action->character_id] = $action;
                     break;
                 case ActionType::ACTION_MISSION:
                     $downtimeMissions[$action->downtime_mission_id][] = $action->character_id;
