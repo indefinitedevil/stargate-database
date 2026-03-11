@@ -52,23 +52,6 @@
                                     ({{ __('+1 Vigor at next event') }})
                                 </li>
                             @endforeach
-                            @if (!empty($trainedSkills[$skillId]))
-                                @foreach($trainedSkills[$skillId] as $characterId => $actions)
-                                    @php
-                                        if (empty($characters[$characterId])) {
-                                            $characters[$characterId] = Character::find($characterId);
-                                        }
-                                        $trainedCharacters[] = $characterId;
-                                    @endphp
-                                    <li>
-                                        {{ trans_choice('Trained by :name (:months month)|Trained by :name (:months months)', count($actions), ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
-                                        @if (!in_array($characterId, $teacherIds) || count($teacherIds) > 1)
-                                            ({{ __('+1 month from course') }})
-                                        @endif
-                                    </li>
-                                @endforeach
-                                @php unset($trainedSkills[$skillId]); @endphp
-                            @endif
                             @foreach ($skills[$skillId]->subskills as $subSkill)
                                 @if (!empty($trainedSkills[$subSkill->id]))
                                     @foreach($trainedSkills[$subSkill->id] as $characterId => $actions)
@@ -90,6 +73,23 @@
                                     @php unset($trainedSkills[$subSkill->id]); @endphp
                                 @endif
                             @endforeach
+                            @if (!empty($trainedSkills[$skillId]))
+                                @foreach($trainedSkills[$skillId] as $characterId => $actions)
+                                    @php
+                                        if (empty($characters[$characterId])) {
+                                            $characters[$characterId] = Character::find($characterId);
+                                        }
+                                        $trainedCharacters[] = $characterId;
+                                    @endphp
+                                    <li>
+                                        {{ trans_choice('Trained by :name (:months month)|Trained by :name (:months months)', count($actions), ['name' => $characters[$characterId]->listName, 'months' => count($actions)]) }}
+                                        @if (!in_array($characterId, $teacherIds) || count($teacherIds) > 1)
+                                            ({{ __('+1 month from course') }})
+                                        @endif
+                                    </li>
+                                @endforeach
+                                @php unset($trainedSkills[$skillId]); @endphp
+                            @endif
                         </ul>
                     </div>
                 @endforeach
