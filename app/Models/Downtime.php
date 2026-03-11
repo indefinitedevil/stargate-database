@@ -260,7 +260,7 @@ class Downtime extends Model
                     break;
             }
         }
-        $upkeepSkills = Skill::where('upkeep', true);
+        $upkeepSkills = Skill::where('upkeep', true)->get();
         $requiredUpkeepSkills = [];
         foreach ($upkeepSkills as $skill) {
             $relevantCharacters = [];

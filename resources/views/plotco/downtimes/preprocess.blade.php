@@ -137,7 +137,7 @@
                                         }
                                     @endphp
                                     <li>
-                                        @if (!empty($upkeepMaintenance[$skillId]) && in_array($characterId, $upkeepMaintenance[$skillId]))
+                                        @if (!empty($upkeepMaintenance[$skillId]) && in_array($characterId, array_keys($upkeepMaintenance[$skillId])))
                                             {{ __('Maintained by :name', ['name' => $characters[$characterId]->listName]) }}
                                         @else
                                             {{ __('Required by :name - WILL BE LOST', ['name' => $characters[$characterId]->listName]) }}
