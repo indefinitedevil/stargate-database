@@ -77,7 +77,7 @@
                             {!! sprintf(__('SEF logo by <a href="%s" class="underline" target="_blank">Charlie</a>.'), 'https://www.etsy.com/uk/shop/CharlieTeesTrove') !!}
                         </p>
                         <p>
-                            {{ __('The assistance with testing and copy-pasting from society members is truly appreciated!') }}
+                            {{ __('The assistance with testing, reviewing, and copy-pasting from society members is truly appreciated!') }}
                         </p>
                         <p>
                         </p>
