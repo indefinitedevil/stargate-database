@@ -9,7 +9,7 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Update: 11th March 2026</h3>
+                <h3 class="text-lg font-semibold">Update: 13th March 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Sys Ref: implemented rules 2.0 update.
                         <ul class="list-inside list-disc pl-4">
@@ -28,6 +28,9 @@
                     <li>Training benefits from a teacher are now applied to Basic skills before the main skill.</li>
                     <li>Fixed some issues with upkeep skills displaying and being removed.</li>
                     <li>Added notes about when to mark off the Complications table on your character sheets.</li>
+                    <li>Implemented auto-discounts for skills. Basic skills will now automatically be applied to the
+                        main skill they discount.
+                    </li>
                 </ul>
             </div>
             <div>
