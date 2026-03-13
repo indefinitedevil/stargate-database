@@ -20,11 +20,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int|null discount_used_by
  * @property bool discount_available
  * @property CharacterSkill discountUsedBy
- * @property Collection discountedBy
+ * @property CharacterSkill[]|Collection discountedBy
  * @property Collection skillSpecialties
  * @property Collection specialties
  * @property Collection allSpecialties
- * @property Collection characterLogs
+ * @property CharacterLog[]|Collection characterLogs
  * @property bool completed
  * @property bool locked
  * @property int cost
@@ -252,5 +252,60 @@ class CharacterSkill extends Model
     public function downtimeActions(): HasMany
     {
         return $this->hasMany(DowntimeAction::class);
+    }
+
+    public function save(array $options = [], bool $autoDiscount = true)
+    {
+        parent::save($options);
+        if (!$this->removed && $autoDiscount) {
+            if ($this->skill->subSkills->count()) {
+                // check sub-skills for potential discounts
+                $skills = $this->character->skills()
+                    ->whereIn('skill_id', $this->skill->subSkills->pluck('id'))
+                    ->where('completed', true)
+                    ->where('discount_used', false)
+                    ->where('removed', false)
+                    ->get();
+                foreach ($skills as $skill) {
+                    $skill->discount_used = true;
+                    $skill->discount_used_by = $this->id;
+                    $skill->save();
+                }
+                if ($this->cost <= 0) {
+                    $this->completed = true;
+                }
+            } elseif (!$this->discount_used && $this->skill->superSkills->count()) {
+                // check for super-skills to discount
+                $skill = $this->character->skills()
+                    ->whereIn('skill_id', $this->skill->superSkills->pluck('id'))
+                    ->where('completed', false)
+                    ->where('removed', false)
+                    ->first();
+                if ($skill) {
+                    $this->discount_used = true;
+                    $this->discount_used_by = $skill->id;
+                    parent::save($options);
+                    if ($skill->cost <= 0) {
+                        $skill->completed = true;
+                        $skill->save();
+                    }
+                }
+            }
+        }
+        return parent::save($options);
+    }
+
+    public function delete()
+    {
+        $this->removed = true;
+        $this->save();
+        if ($this->discountedBy->count()) {
+            foreach ($this->discountedBy as $discountedBy) {
+                $discountedBy->discount_used = false;
+                $discountedBy->discount_used_by = null;
+                $discountedBy->save(autoDiscount: false);
+            }
+        }
+        return parent::delete();
     }
 }

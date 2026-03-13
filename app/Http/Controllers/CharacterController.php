@@ -982,7 +982,7 @@ class CharacterController extends Controller
             foreach ($characterSkill->discountedBy as $discountedBy) {
                 $discountedBy->discount_used = false;
                 $discountedBy->discount_used_by = null;
-                $discountedBy->save();
+                $discountedBy->save(autoDiscount: false);
             }
         }
         $characterSkill->removed = true;

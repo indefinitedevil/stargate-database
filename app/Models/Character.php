@@ -142,7 +142,8 @@ class Character extends Model
             ->join('character_skills', function (JoinClause $join) {
                 $join->on('skill_lockouts.skill_id', '=', 'character_skills.skill_id');
                 $join->on('character_skills.character_id', '=', DB::raw($this->id));
-            });
+            })
+            ->where('character_skills.completed', true);
         $skills = Skill::select('skills.*')
             ->leftJoin('character_skills', function (JoinClause $join) {
                 $join->on('skills.id', '=', 'character_skills.skill_id');
