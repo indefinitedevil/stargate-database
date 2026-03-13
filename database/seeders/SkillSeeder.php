@@ -1574,7 +1574,7 @@ This effect lasts as long as the recipient remains in the interpreter\'s presenc
                 'name' => 'Mythology',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::BASIC,
-                'description' => 'You have knowledge of one specific area of Religion/occult knowledge – For example, Judeo-Christian dogma, or Yoga Positions.',
+                'description' => 'You have full knowledge of one specific area of Religion/occult knowledge – For example, Judeo-Christian dogma, or Yoga Positions.',
                 'abilities' => NULL,
                 'upkeep' => 0,
                 'cost' => 0,

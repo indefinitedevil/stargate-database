@@ -383,7 +383,9 @@ This feat may be used by proxy through another character translating at a cost o
             [
                 'id' => 32,
                 'name' => 'Numb3rs',
-                'description' => 'This feat allows you to use mathematical modelling to assist in solving problems. You may spend this feat when working on or assisting on any Technical Skill Game to reduce the time on the solution cards by 10%. You may use this feat even on Skill Games you do not have the relevant Technology Skill for, and do not count towards the two player per problem limit **unless** you play a solution card.
+                'description' => 'This feat allows you to use mathematical modelling to assist in solving problems. You may spend this feat when working on or assisting on any Technical Skill Game to reduce the time on the solution cards by 10%.  If you have both Astrophysics and Pure Maths, the time reduction is increased to 20%.
+
+You may use this feat even on Skill Games you do not have the relevant Technology Skill for, and do not count towards the two player per problem limit **unless** you play a solution card.
 
 You may only spend this feat once per problem, but multiple players can each spend it for a stacking discount up to 50%.',
                 'per_event' => 0,
@@ -433,7 +435,7 @@ Once the effect of this feat ends, if the character has not been stabilised, the
                 'name' => 'Technical Mentor',
                 'description' => 'You, or another player you designate, can now play a card on a problem which is already being worked on by two people.
 
-Only one additional card may be played on a problem, and once a Mentor card has been played on a problem, no-one else can use Technical Mentor on that problem.',
+Only one additional card may be played on a problem, and once a card has been played on a problem via Technical Mentor, no-one else can use the Technical Mentor feat on that problem.',
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
