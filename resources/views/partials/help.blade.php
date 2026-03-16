@@ -11,8 +11,8 @@
         rulebook when creating your character.
     </p>
     <p>
-        That said, this information is provided to help you in getting started.
-        If you have any questions, please don't hesitate to ask.
+        The below information is provided to help you in getting started.
+        If you have any questions, please don't hesitate to ask on Discord or via email.
     </p>
     <h3 class="text-lg font-bold mt-3">Guidance</h3>
     <ol class="list-decimal list-inside space-y-1">
@@ -31,7 +31,7 @@
                     Name and Background are the only required fields on this form.
                 </li>
                 <li>
-                    Providing a character history and other information may help inform the plot cos and event runners.
+                    Providing a character history and other information may help inform the Plot Cos and event runners.
                 </li>
             </ul>
         </li>
@@ -64,13 +64,14 @@
                     If a desired skill has a prerequisite, you must add the prerequisite first.
                 </li>
                 <li>
-                    Basic skills sometimes provide benefits beyond the discounted cost.
-                    For example: Basic Computing gives you a card for both Computing and Signals Intelligence problems; and Basic Geology gives you additional grounding in geology not necessarily provided by Archeo-Anthropology.
-                    Check to see if you can gain an extra benefit by taking a Basic skill first.
+                    Basic skills let you build up to the skills they discount by giving you smaller benefits as you
+                    learn them and discount their associated main skill.
+                    If you find yourself with months remaining, you may want to invest in a Basic skill.
                 </li>
                 <li>
-                    You have <span class="underline decoration-dashed underline-offset-4" title="base 36 + {{ CharacterHelper::getCatchupXP() }} catchup">{{ 36 + CharacterHelper::getCatchupXP() }} months</span> to spend on skills and all of
-                    them must be used.
+                    You have <span class="underline decoration-dashed underline-offset-4"
+                                   title="base 36 + {{ CharacterHelper::getCatchupXP() }} catchup">{{ 36 + CharacterHelper::getCatchupXP() }} months</span>
+                    to spend on skills and all of them must be used.
                     A running count of how many you have used will be shown under your trained skills.
                 </li>
                 <li>
@@ -80,19 +81,21 @@
                 <li>
                     You can have one unfinished skill at the end of character creation - any remaining months will be
                     assigned to it.
+                    If you have more months remaining than it would take to complete it, you will need to add additional
+                    skill(s) to round out your spending.
                 </li>
             </ul>
         </li>
         <li>
             Once you're happy, click the "<i class="fa-solid fa-check"></i> <span
                 class="sm:hidden"> {{ __('Ready for approval') }}</span><span
-                class="hidden sm:inline">{{ __('Ready') }}</span>" button and the plot co will look over your sheet.
+                class="hidden sm:inline">{{ __('Ready') }}</span>" button and the Plot Co will look over your sheet.
             <ul class="list-inside list-disc pl-4">
                 <li>
                     You can still make changes to your character after this point up until your character is approved,
                     but the limit of one unfinished skill still applies, and adding additional skills will prevent the
-                    plot co from approving your character.
-                    [This is a system limitation that the plot co cannot override.]
+                    Plot Co from approving your character.
+                    [This is a system limitation that the Plot Co cannot override.]
                 </li>
             </ul>
         </li>

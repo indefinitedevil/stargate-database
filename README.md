@@ -3,7 +3,7 @@
 This is a Laravel application developed for the Stargate LARP Season 2 character database.
 It includes seeds for the required rules data to populate tables.
 
-- Up to date with S2 rules v1.6 mechanics as of 27th February 2026
+- Up to date with S2 rules v2.0 mechanics as of 16th March 2026
 
 ## Design Intent
 
