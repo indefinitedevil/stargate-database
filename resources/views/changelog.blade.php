@@ -31,6 +31,7 @@
                     <li>Implemented auto-discounts for skills. Basic skills will now automatically be applied to the
                         main skill they discount.
                     </li>
+                    <li>Fixed skill lockouts to only lock out skills when the locking skill has been completed.</li>
                 </ul>
             </div>
             <div>
