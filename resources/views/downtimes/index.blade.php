@@ -53,7 +53,7 @@
                                         @if ($downtime->event->users->where('id', Auth::user()->id)->count())
                                             @foreach ($activeCharacterIds as $characterId)
                                                 <li>
-                                                    <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, 'characterId' => $characterId]) }}"
+                                                    <a href="{{ route($downtime->isOpen() ? 'downtimes.submit' : 'downtimes.view', ['downtimeId' => $downtime->id, 'characterId' => $characterId]) }}"
                                                        class="underline">
                                                         {{ __('Downtime actions for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
                                                     </a>
