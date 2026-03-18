@@ -12,7 +12,10 @@
                 <h3 class="text-lg font-semibold">Bugfix: 18th March 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Secretary: only show approved characters in event attendance options.</li>
-                    <li>Fix downtime view for previous downtimes where a character for an event had not been selected.</li>
+                    <li>Fix downtime view for completed downtimes where an event character had not been selected.</li>
+                    <li>Characters will now be assigned to an event after downtime submissions have been saved if they
+                        had not previously been selected.
+                    </li>
                 </ul>
             </div>
             <div>

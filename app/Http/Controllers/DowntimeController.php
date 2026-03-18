@@ -200,6 +200,12 @@ class DowntimeController extends Controller
         } elseif (!$downtime->isOpen() && !auth()->user()->can('view hidden notes')) {
             $errors[] = __('Downtime is not open.');
         }
+        if ($downtime->event_id) {
+            $eventCharacterIds = $downtime->event->allCharacters()->pluck('id')->toArray();
+            if (!in_array($character->id, $eventCharacterIds)) {
+                $downtime->event->users()->updateExistingPivot($character->user->id, ['character_id' => $character->id]);
+            }
+        }
         if (empty($errors)) {
             if ($downtime->open) {
                 $this->validateActions($request->get('development_action', []), $errors, $character, $downtime, 'Development');

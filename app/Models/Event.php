@@ -13,8 +13,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $name
  * @property string $start_date
  * @property string $end_date
- * @property Collection $users
- * @property Collection $characters
+ * @property User[]|Collection $users
+ * @property Character[]|Collection $characters
+ * @property Character[]|Collection $allCharacters
  * @property Downtime $downtime
  */
 class Event extends Model
@@ -53,6 +54,22 @@ class Event extends Model
     {
         $users = $this->users()->where('role', self::ROLE_PLAYER)->get();
         return Character::whereIn('id', $users->pluck('pivot.character_id'))->get();
+    }
+
+    public function allCharacters(): Collection
+    {
+        $users = $this->users()->get();
+        return Character::whereIn('id', $users->pluck('pivot.character_id'))->get();
+    }
+
+    public function getCharactersAttribute(): Collection
+    {
+        return $this->characters();
+    }
+
+    public function getAllCharactersAttribute(): Collection
+    {
+        return $this->allCharacters();
     }
 
     public static function roleName($role): string
