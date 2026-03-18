@@ -103,7 +103,7 @@ class User extends Authenticatable
         return $this->hasMany(Character::class);
     }
 
-    public function approvedCharacters(): Collection
+    public function getApprovedCharactersAttribute(): Collection
     {
         return $this->characters()->where('status_id', '>=', Status::APPROVED)->get();
     }
