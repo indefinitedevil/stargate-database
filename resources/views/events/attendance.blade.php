@@ -57,7 +57,7 @@
                             </x-select>
                             <x-select name="attendance[{{ $user->id }}][character_id]" class="w-full sm:w-1/2">
                                 <option value="">{{ __('None') }}</option>
-                                @foreach ($user->characters as $character)
+                                @foreach ($user->approvedCharacters as $character)
                                     <option value="{{ $character->id }}"
                                         {{ !empty($characters[$user->id]) && $characters[$user->id] == $character->id ? 'selected' : '' }}>
                                         {{ $character->listName }}

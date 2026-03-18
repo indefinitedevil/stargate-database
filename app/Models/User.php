@@ -21,6 +21,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string membership_number
  * @property string email
  * @property Character[]|Collection characters
+ * @property Character[]|Collection approvedCharacters
  * @property Membership[]|Collection memberships
  */
 class User extends Authenticatable
@@ -100,6 +101,11 @@ class User extends Authenticatable
     public function characters(): HasMany
     {
         return $this->hasMany(Character::class);
+    }
+
+    public function approvedCharacters(): Collection
+    {
+        return $this->characters()->where('status_id', '>=', Status::APPROVED)->get();
     }
 
     public function events(): BelongsToMany
