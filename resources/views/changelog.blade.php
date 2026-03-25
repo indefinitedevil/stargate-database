@@ -9,7 +9,7 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Bugfix: 18th March 2026</h3>
+                <h3 class="text-lg font-semibold">Bugfix: 25th March 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Secretary: only show approved characters in event attendance options.</li>
                     <li>Fix downtime view for completed downtimes where an event character had not been selected.</li>

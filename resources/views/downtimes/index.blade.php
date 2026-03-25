@@ -30,7 +30,7 @@
                     @foreach($downtimes as $downtime)
                         @if ($downtime->event_id)
                             @php
-                                $eventCharacters = $downtime->event->characters()->whereIn('id', $characterIds);
+                                $eventCharacters = $downtime->event->allCharacters()->whereIn('id', $characterIds);
                             @endphp
                             @if ($eventCharacters->isNotEmpty())
                                 <li>
