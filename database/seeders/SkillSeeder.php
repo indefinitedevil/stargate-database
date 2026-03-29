@@ -2946,15 +2946,15 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
         DB::table('skill_training')->upsert([
             [
                 'taught_skill_id' => 1,
-                'trained_skill_id' => 49,
+                'trained_skill_id' => 98,
             ],
             [
                 'taught_skill_id' => 2,
-                'trained_skill_id' => 55,
+                'trained_skill_id' => 102,
             ],
             [
                 'taught_skill_id' => 3,
-                'trained_skill_id' => 50,
+                'trained_skill_id' => 100,
             ],
             [
                 'taught_skill_id' => 4,
@@ -2966,11 +2966,11 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             ],
             [
                 'taught_skill_id' => 6,
-                'trained_skill_id' => 50,
+                'trained_skill_id' => 101,
             ],
             [
                 'taught_skill_id' => 8,
-                'trained_skill_id' => 49,
+                'trained_skill_id' => 99,
             ],
             [
                 'taught_skill_id' => 9,
@@ -2982,7 +2982,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             ],
             [
                 'taught_skill_id' => 13,
-                'trained_skill_id' => 46,
+                'trained_skill_id' => 95,
             ],
             [
                 'taught_skill_id' => 14,
@@ -2998,11 +2998,11 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             ],
             [
                 'taught_skill_id' => 17,
-                'trained_skill_id' => 46,
+                'trained_skill_id' => 96,
             ],
             [
                 'taught_skill_id' => 18,
-                'trained_skill_id' => 46,
+                'trained_skill_id' => 97,
             ],
             [
                 'taught_skill_id' => 19,
@@ -3010,7 +3010,7 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
             ],
             [
                 'taught_skill_id' => 21,
-                'trained_skill_id' => 55,
+                'trained_skill_id' => 103,
             ],
             [
                 'taught_skill_id' => 42,
