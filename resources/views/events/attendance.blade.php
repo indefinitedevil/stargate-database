@@ -10,8 +10,8 @@
         </h2>
     </x-slot>
     <x-slot name="sidebar2">
-        <x-dropdown-link href="#" onclick="event.preventDefault();toggleHideable()" class="cursor-pointer"
-                         id="toggle-hideable">
+        <x-dropdown-link href="#" onclick="event.preventDefault();toggleBooked()" class="cursor-pointer"
+                         id="toggle-booked">
             <i class="fa-solid fa-toggle-off min-w-8"></i>
             <i class="fa-solid fa-toggle-large-on min-w-8 hidden"></i>
             {{ __('Toggle booked only') }}
@@ -36,7 +36,7 @@
                 </thead>
                 <tbody>
                 @foreach ($users as $user)
-                    <tr class="{{ empty($attended[$user->id]) ? 'hideable' : '' }}">
+                    <tr class="{{ empty($attended[$user->id]) ? 'not-attended' : '' }} {{ empty($eventRoles[$user->id]) ? 'not-booked' : '' }}">
                         <td class="{{ $cellClass }}">
                             <label>
                                 <input type="checkbox" name="attendance[{{ $user->id }}][attended]"
@@ -81,5 +81,5 @@
             </div>
         </form>
     </div>
-    <script src="{{ asset('js/events.js') }}" defer></script>
+    <script src="{{ asset('js/events.js?20260329') }}" defer></script>
 </x-app-layout>
