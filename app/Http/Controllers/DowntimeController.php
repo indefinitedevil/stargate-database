@@ -201,18 +201,18 @@ class DowntimeController extends Controller
             $errors[] = __('Downtime is not open.');
         }
         if (empty($errors)) {
-            if ($downtime->event_id) {
-                $eventCharacterIds = $downtime->event->allCharacters()->pluck('id')->toArray();
-                if (!in_array($character->id, $eventCharacterIds)) {
-                    $downtime->event->users()->updateExistingPivot($character->user->id, ['character_id' => $character->id]);
-                }
-            }
             if ($downtime->open) {
                 $this->validateActions($request->get('development_action', []), $errors, $character, $downtime, 'Development');
                 $this->validateActions($request->get('research_action', []), $errors, $character, $downtime, 'Research');
                 $this->validateActions($request->get('research_subject_action', []), $errors, $character, $downtime, 'Research Subject');
             }
             $this->validateActions($request->get('other_action', []), $errors, $character, $downtime, 'Personal');
+        }
+        if ($downtime->event_id) {
+            $eventCharacterIds = $downtime->event->allCharacters()->pluck('id')->toArray();
+            if (!in_array($character->id, $eventCharacterIds)) {
+                $downtime->event->users()->updateExistingPivot($character->user->id, ['character_id' => $character->id]);
+            }
         }
         if (!empty($errors)) {
             request()->flash();
