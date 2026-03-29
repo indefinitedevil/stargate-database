@@ -45,6 +45,7 @@ class Event extends Model
     {
         return $this->belongsToMany(User::class)
             ->withPivot('character_id', 'attended', 'role')
+            ->where('users.id' , '!=', User::PLOT_CO_ID)
             ->where('role', '>', self::ROLE_NONE)
             ->orderBy('role')
             ->orderBy('name');
