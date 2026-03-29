@@ -1,5 +1,6 @@
 @php
     use App\Models\Event;
+    use App\Models\Status;
 @endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Record attendance: :event', ['event' => $event->name]) }}</x-slot>
@@ -27,7 +28,8 @@
             <table class="table-auto w-full">
                 <thead>
                 <tr>
-                    <th class="{{ $cellClass }} text-left"><span class="hidden sm:inline">{{ __('Attended') }}</span></th>
+                    <th class="{{ $cellClass }} text-left"><span class="hidden sm:inline">{{ __('Attended') }}</span>
+                    </th>
                     <th class="{{ $cellClass }} text-left">{{ __('User') }}</th>
                     <th class="{{ $cellClass }} text-left">{{ __('Role/Character') }}</th>
                 </tr>
@@ -61,6 +63,9 @@
                                     <option value="{{ $character->id }}"
                                         {{ !empty($characters[$user->id]) && $characters[$user->id] == $character->id ? 'selected' : '' }}>
                                         {{ $character->listName }}
+                                        @if (Status::PLAYED < $character->status_id)
+                                            ({{ $character->status->name }})
+                                        @endif
                                     </option>
                                 @endforeach
                             </x-select>
