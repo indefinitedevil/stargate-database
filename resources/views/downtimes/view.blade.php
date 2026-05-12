@@ -128,7 +128,7 @@
                     @foreach ($savedActions as $action)
                         <div>
                             <p class="text-lg">{{ trans_choice('Personal Action|Personal Action :number', count($savedActions), ['number' => ++$actionCount]) }}</p>
-                            {!! process_markdown($action->notes) !!}
+                            {!! process_markdown($action->notes ?: '') !!}
                             @if ($action->response && $downtime->processed)
                                 <p><strong>{{ __('Response') }}:</strong></p>
                                 {!! process_markdown($action->response) !!}

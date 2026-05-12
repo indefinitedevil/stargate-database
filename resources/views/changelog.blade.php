@@ -9,6 +9,12 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Bugfix: 12th May 2026</h3>
+                <ul class="list-inside list-disc">
+                    <li>Fix downtime view where a personal research action had not been entered but a response had.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 29th March 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Secretary: only show approved characters in event attendance options.</li>
