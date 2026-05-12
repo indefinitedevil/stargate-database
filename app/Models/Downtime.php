@@ -264,7 +264,7 @@ class Downtime extends Model
         $requiredUpkeepSkills = [];
         foreach ($upkeepSkills as $skill) {
             $relevantCharacters = [];
-            $relevantCharacterSkills = $skill->characterSkills()->whereIn('character_id', $characters)->get();
+            $relevantCharacterSkills = $skill->characterSkills()->whereIn('character_id', $characters)->where('completed', true)->get();
             foreach ($relevantCharacterSkills as $characterSkill) {
                 $relevantCharacters[$characterSkill->character_id][] = $characterSkill->id;
             }

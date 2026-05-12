@@ -12,6 +12,7 @@
                 <h3 class="text-lg font-semibold">Bugfix: 12th May 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: allow editing of downtime submissions after downtime close.</li>
+                    <li>Plot Co: fix upkeep skill check to only show <em>completed</em> skills.</li>
                     <li>Fix downtime view where a personal research action had not been entered but a response had.</li>
                 </ul>
             </div>
