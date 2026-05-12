@@ -87,7 +87,7 @@
                                        value="{{ $action->id }}">
                                 <x-select id="development_action_{{ $actionCount }}"
                                           name="development_action[{{ $actionCount }}][type]"
-                                          :disabled="!$downtime->isOpen()"
+                                          :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                           class="mt-1 block" required>
                                     @foreach($actionTypes as $type)
                                         <option value="{{ $type->id }}"
@@ -98,7 +98,7 @@
                                 </x-select>
                                 <x-select id="development_skill_{{ $actionCount }}"
                                           name="development_action[{{ $actionCount }}][skill_id]"
-                                          :disabled="!$downtime->isOpen()"
+                                          :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                           class="mt-1 block">
                                     @if (ActionType::ACTION_TRAINING == $action->action_type_id)
                                         @include('downtimes.partials.training-skills', ['action' => $action])
@@ -125,7 +125,7 @@
                                     <x-textarea id="development_action_{{ $actionCount }}_notes"
                                                 name="development_action[{{ $actionCount }}][notes]"
                                                 :value="old('development_action[' . $actionCount . '][notes]', $action->notes)"
-                                                :disabled="!$downtime->isOpen()"
+                                                :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                                 class="mt-1 block w-full"
                                                 :placeholder="__('Relevant notes regarding your action')">{{ old('development_action.' . $actionCount . '.notes', $action->notes) }}</x-textarea>
                                 </div>
@@ -136,7 +136,7 @@
                                 <p class="text-lg">{{ trans_choice('Development Action|Development Action :number', $downtime->development_actions, ['number' => ++$actionCount]) }}</p>
                                 <x-select id="development_action_{{ $actionCount }}"
                                           name="development_action[{{ $actionCount }}][type]"
-                                          :disabled="!$downtime->isOpen()"
+                                          :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                           class="mt-1 block" required>
                                     @foreach($actionTypes as $type)
                                         <option value="{{ $type->id }}"
@@ -146,7 +146,7 @@
                                 </x-select>
                                 <x-select id="development_skill_{{ $actionCount }}"
                                           name="development_action[{{ $actionCount }}][skill_id]"
-                                          :disabled="!$downtime->isOpen()"
+                                          :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                           class="mt-1 block">
                                     @include('downtimes.partials.training-skills', ['action' => null])
                                 </x-select>
@@ -165,7 +165,7 @@
                                                    :value="__('Notes')"/>
                                     <x-textarea id="development_action_{{ $actionCount }}_notes"
                                                 name="development_action[{{ $actionCount }}][notes]"
-                                                :disabled="!$downtime->isOpen()"
+                                                :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                                 class="mt-1 block w-full"
                                                 :placeholder="__('Relevant notes regarding your action')"/>
                                 </div>
@@ -195,7 +195,7 @@
                                        value="{{ $action->id }}">
                                 <x-select id="research_action_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][type]"
-                                          :disabled="!$downtime->isOpen()"
+                                          :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                           class="mt-1 block" required>
                                     <option value="0">{{ __('No action') }}</option>
                                     @foreach($actionTypes as $type)
@@ -206,11 +206,11 @@
                                 </x-select>
                                 <x-select id="research_project_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][research_project_id]"
-                                          :disabled="!$downtime->isOpen()"
+                                          :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                           class="mt-1 block {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}">@include('downtimes.partials.research-projects', ['action' => $action])</x-select>
                                 <x-select id="research_skill_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][skill_id]"
-                                          :disabled="!$downtime->isOpen()"
+                                          :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                           class="mt-1 block">
                                     @if (ActionType::ACTION_UPKEEP_2 == $action->action_type_id)
                                         @include('downtimes.partials.upkeep-skills', ['action' => $action])
@@ -219,7 +219,7 @@
                                     @endif
                                 </x-select>
                                 <x-select id="rs_{{ $actionCount }}_{{ ActionType::ACTION_UPKEEP_2 }}"
-                                          :disabled="!$downtime->isOpen()"
+                                          :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                           class="mt-1 block hidden">
                                     @include('downtimes.partials.upkeep-skills', ['action' => $action])
                                 </x-select>
@@ -227,7 +227,7 @@
                                           class="mt-1 block hidden">@include('downtimes.partials.research-skills', ['action' => $action])</x-select>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
-                                            :disabled="!$downtime->isOpen()"
+                                            :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                             class="mt-1 block w-full {{ ActionType::ACTION_RESEARCHING == $action->action_type_id ? '' : 'hidden' }}"
                                             maxlength="2000"
                                             rows="6"
@@ -240,7 +240,7 @@
                                 <p class="text-lg">{{ trans_choice('Research Action|Research Action :number', $downtime->research_actions, ['number' => ++$actionCount]) }}</p>
                                 <x-select id="research_action_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][type]"
-                                          :disabled="!$downtime->isOpen()"
+                                          :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                           class="mt-1 block" required>
                                     <option value="0">{{ __('No action') }}</option>
                                     @foreach($actionTypes as $type)
@@ -249,16 +249,16 @@
                                 </x-select>
                                 <x-select id="research_project_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][research_project_id]"
-                                          :disabled="!$downtime->isOpen()"
+                                          :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                           class="mt-1 block hidden">@include('downtimes.partials.research-projects', ['action' => null])</x-select>
                                 <x-select id="research_skill_{{ $actionCount }}"
                                           name="research_action[{{ $actionCount }}][skill_id]"
-                                          :disabled="!$downtime->isOpen()"
+                                          :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                           class="mt-1 block hidden">
                                     <option>{{ __('Select an action type') }}</option>
                                 </x-select>
                                 <x-select id="rs_{{ $actionCount }}_{{ ActionType::ACTION_UPKEEP_2 }}"
-                                          :disabled="!$downtime->isOpen()"
+                                          :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                           class="mt-1 block hidden">
                                     @include('downtimes.partials.upkeep-skills', ['action' => null])
                                 </x-select>
@@ -266,7 +266,7 @@
                                           class="mt-1 block hidden">@include('downtimes.partials.research-skills', ['action' => null])</x-select>
                                 <x-textarea id="research_action_{{ $actionCount }}_notes"
                                             name="research_action[{{ $actionCount }}][notes]"
-                                            :disabled="!$downtime->isOpen()"
+                                            :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                             class="mt-1 block w-full hidden"
                                             maxlength="2000"
                                             rows="6"
@@ -292,7 +292,7 @@
                                            value="{{ ActionType::ACTION_RESEARCH_SUBJECT }}">
                                     <x-select id="research_subject_project_{{ $actionCount }}"
                                               name="research_subject_action[{{ $actionCount }}][research_project_id]"
-                                              :disabled="!$downtime->isOpen()"
+                                              :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                               class="mt-1 block">@include('downtimes.partials.research-volunteers', ['action' => $action])</x-select>
                                     <x-input-error class="mt-2" :messages="$errors->get('research_subject_action_'.$actionCount)" />
                                     <p class="text-xs mt-1">{{ __('You may consent to being the subject of a research project that requires volunteer subjects. This will not prevent you from taking other actions.') }}</p>
@@ -306,7 +306,7 @@
                                                value="{{ ActionType::ACTION_RESEARCH_SUBJECT }}">
                                         <x-select id="research_subject_project_{{ $actionCount }}"
                                                   name="research_subject_action[{{ $actionCount }}][research_project_id]"
-                                                  :disabled="!$downtime->isOpen()"
+                                                  :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                                   class="mt-1 block">@include('downtimes.partials.research-volunteers', ['action' => null])</x-select>
                                         <x-input-error class="mt-2" :messages="$errors->get('research_subject_action_'.$actionCount)" />
                                         <p class="text-xs mt-1">{{ __('You may consent to being the subject of a research project that requires volunteer subjects. This will not prevent you from taking other actions.') }}</p>
@@ -337,7 +337,7 @@
                                        value="{{ ActionType::ACTION_OTHER }}">
                                 <x-textarea id="other_action_{{ $actionCount }}_notes"
                                             name="other_action[{{ $actionCount }}][notes]"
-                                            :disabled="!$downtime->isOpen()"
+                                            :disabled="!$downtime->isOpen() && !auth()->user()->can('edit downtimes') || $downtime->processed"
                                             class="mt-1 block w-full"
                                             maxlength="2000"
                                             rows="6"
