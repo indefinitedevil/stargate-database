@@ -1685,7 +1685,7 @@ Allows use of a Riot Shield (+2 BP).',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'You gain access to the Covering Fire and Spray Fire calls for any weapon capable of using them that you have access to.',
-                'abilities' => NULL,
+                'abilities' => 'Covering Fire,Spray Fire',
                 'upkeep' => 0,
                 'cost' => 6,
                 'specialties' => 0,
@@ -1702,10 +1702,10 @@ Allows use of a Riot Shield (+2 BP).',
                 'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'You can use all weapons in the Heavy Weapons Table. Any calls you already had access to can now be applied to Heavy Weapons capable of using them.
 
-* You gain access to the Explosive call for any weapon capable of using it.
+* You gain access to the Global call for any weapon capable of using it.
 * You gain access to the Rend call for any weapon capable of using it.
 * You gain access to the Spray Fire and Heavy Fire Calls.',
-                'abilities' => NULL,
+                'abilities' => 'Spray Fire,Heavy Fire,Rend Special,Global Special',
                 'upkeep' => 0,
                 'cost' => 6,
                 'specialties' => 0,
@@ -1803,7 +1803,7 @@ You gain access to the Bleed Call for any Primitive Weapon capable of making it.
 
 You gain the following abilities using Primitive Weapons:
 * Disarm (Costs 1 Vigor): Your opponent must drop/place their weapon on the floor, or otherwise release it with both hands.',
-                'abilities' => 'Melee Disarm (1V)',
+                'abilities' => 'Melee Disarm (1V),Melee Special',
                 'upkeep' => 0,
                 'cost' => 9,
                 'specialties' => 0,
