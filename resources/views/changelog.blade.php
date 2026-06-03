@@ -11,7 +11,9 @@
             <div>
                 <h3 class="text-lg font-semibold">Bugfix: 3rd June 2026</h3>
                 <ul class="list-inside list-disc">
+                    <li>Plot Co: made it possible to add logs to existing skills.</li>
                     <li>Excluded non-active characters from organisation chart and team lists.</li>
+                    <li>Removed basic skills used to discount full skills from display.</li>
                 </ul>
             </div>
             <div>
