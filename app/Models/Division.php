@@ -41,6 +41,7 @@ class Division extends Model
     public function characters(): BelongsToMany
     {
         return $this->belongsToMany(Character::class)
+            ->whereIn('status_id', [Status::APPROVED, Status::PLAYED])
             ->withPivot('position');
     }
 
