@@ -19,7 +19,7 @@
             <div>
                 <h3 class="text-lg font-semibold">Bugfix: 18th May 2026</h3>
                 <ul class="list-inside list-disc">
-                    <li>Fix wording of Heavy Weapons.</li>
+                    <li>Fixed wording of Heavy Weapons.</li>
                     <li>Added special calls as abilities.</li>
                 </ul>
             </div>

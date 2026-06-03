@@ -184,7 +184,7 @@ class Character extends Model
                 }
             });
         if ($user->cannot('edit all characters')) {
-            $skills->where('skills.skill_category_id', '!=', 7);
+            $skillsWithAnyPrerequisiteMet->where('skills.skill_category_id', '!=', 7);
         }
 
         if ($this->status_id < Status::APPROVED) {
@@ -194,6 +194,9 @@ class Character extends Model
                     $join->on('skill_prereqs.prereq_id', '=', 'background_skill.skill_id');
                     $join->on('background_skill.background_id', '=', DB::raw($this->background_id));
                 });
+            if ($user->cannot('edit all characters')) {
+                $skillsWithAllPrerequisitesUnmet->where('skills.skill_category_id', '!=', 7);
+            }
             $lockedOutSkills = SkillLockout::select('skill_lockouts.lockout_id')
                 ->join('background_skill', function (JoinClause $join) {
                     $join->on('skill_lockouts.skill_id', '=', 'background_skill.skill_id');
@@ -203,9 +206,6 @@ class Character extends Model
                 ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
                 ->whereIn('skills.id', $skillsWithAllPrerequisitesUnmet)
                 ->whereNotIn('skills.id', $lockedOutSkills);
-            if ($user->cannot('edit all characters')) {
-                $skills->where('skills.skill_category_id', '!=', 7);
-            }
 
             return $skills->union($backgroundSkills)
                 ->union($skillsWithAnyPrerequisiteMet)
