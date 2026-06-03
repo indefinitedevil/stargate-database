@@ -868,7 +868,7 @@ class CharacterController extends Controller
                 ->where('skill_id', $validatedData['skill_id'])
                 ->count();
             if ($existing) {
-                if (!$skill->repeatable || $skill->repeatable <= $existing) {
+                if ($skill->repeatable && $skill->repeatable <= $existing) {
                     request()->flash();
                     throw ValidationException::withMessages(['skill_id' => __('Skill has already been taken the maximum number of times.')]);
                 } elseif (PlotHelper::SKILL_RESUSCITATION_BUYBACK == $skill->id) {
@@ -879,9 +879,15 @@ class CharacterController extends Controller
                         request()->flash();
                         throw ValidationException::withMessages(['skill_id' => __('Skill has already been taken the maximum number of times.')]);
                     }
+                } elseif (!$skill->repeatable) {
+                    $characterSkill = CharacterSkill::where('character_id', $validatedData['character_id'])
+                        ->where('skill_id', $validatedData['skill_id'])
+                        ->first();
                 }
             }
-            $characterSkill = new CharacterSkill();
+            if (empty($characterSkill)) {
+                $characterSkill = new CharacterSkill();
+            }
         }
         $validatedData['completed'] = $validatedData['completed'] ?? false;
 

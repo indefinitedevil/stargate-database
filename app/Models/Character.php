@@ -122,6 +122,7 @@ class Character extends Model
 
     public function getAvailableSkillsAttribute(): Collection
     {
+        $user = Auth::user();
         $skillsWithAllPrerequisitesUnmet = SkillPrereq::select('skill_prereqs.skill_id')
             ->leftJoin('character_skills', function (JoinClause $join) {
                 $join->on('skill_prereqs.prereq_id', '=', 'character_skills.skill_id');
@@ -152,11 +153,15 @@ class Character extends Model
             ->whereNotIn('skills.id', $skillsWithAllPrerequisitesUnmet)
             ->whereNotIn('skills.id', $lockedOutSkills)
             ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
-            ->where(function (Builder $query) {
-                $query->whereNull('character_skills.id')
-                    ->orWhere('skills.repeatable', '>', 0);
+            ->where(function (Builder $query) use ($user) {
+                if ($user->cannot('edit all characters')) {
+                    $query->whereNull('character_skills.id')
+                        ->orWhere('skills.repeatable', '>', 0);
+                } else {
+                    $query->where('character_skills.completed', false)
+                        ->orWhere('character_skills.completed', null);
+                }
             });
-        $user = Auth::user();
         if ($user->cannot('edit all characters')) {
             $skills->where('skills.skill_category_id', '!=', 7);
         }
@@ -169,9 +174,14 @@ class Character extends Model
             ->whereIn('skills.id', $skillsWithAnyPrerequisitesMet)
             ->whereNotIn('skills.id', $lockedOutSkills)
             ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
-            ->where(function (Builder $query) {
-                $query->whereNull('character_skills.id')
-                    ->orWhere('skills.repeatable', '>', 0);
+            ->where(function (Builder $query) use ($user) {
+                if ($user->cannot('edit all characters')) {
+                    $query->whereNull('character_skills.id')
+                        ->orWhere('skills.repeatable', '>', 0);
+                } else {
+                    $query->where('character_skills.completed', false)
+                        ->orWhere('character_skills.completed', null);
+                }
             });
         if ($user->cannot('edit all characters')) {
             $skills->where('skills.skill_category_id', '!=', 7);
@@ -230,6 +240,38 @@ class Character extends Model
     {
         return $this->trainedSkills()
             ->where('skills.display', true);
+    }
+
+    public function getDisplayedTrainedSkillsAttribute(): Collection
+    {
+        $skills = $this->displayedTrainedSkills()->get();
+        $displaySkills = [];
+        $displayedSkillIds = [];
+        /** @var CharacterSkill $characterSkill */
+        foreach ($skills as $characterSkill) {
+            if (in_array($characterSkill->skill_id, $displayedSkillIds)) {
+                continue;
+            }
+            if (SkillCategory::BASIC == $characterSkill->skill->skill_category_id) {
+                if ($characterSkill->discount_used && is_null($characterSkill->discountUsedBy)) {
+                    foreach ($characterSkill->skill->superSkills as $superSkill) {
+                        $findSkill = CharacterSkill::where('character_id', $this->id)
+                            ->where('skill_id', $superSkill->id)
+                            ->where('completed', true)
+                            ->get();
+                        if ($findSkill->count() > 0) {
+                            continue 2;
+                        }
+                    }
+                }
+                if ($characterSkill->discount_used && $characterSkill->discountUsedBy?->completed) {
+                    continue;
+                }
+            }
+            $displayedSkillIds[] = $characterSkill->skill_id;
+            $displaySkills[] = $characterSkill;
+        }
+        return collect($displaySkills);
     }
 
     public function trainedSkillsWithoutSystem(): HasMany
