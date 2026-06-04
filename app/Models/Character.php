@@ -163,7 +163,7 @@ class Character extends Model
                 }
             });
         if ($user->cannot('edit all characters')) {
-            $skills->where('skills.skill_category_id', '!=', 7);
+            $skills->where('skills.skill_category_id', '!=', SkillCategory::SYSTEM);
         }
 
         $skillsWithAnyPrerequisiteMet = Skill::select('skills.*')
@@ -184,7 +184,7 @@ class Character extends Model
                 }
             });
         if ($user->cannot('edit all characters')) {
-            $skillsWithAnyPrerequisiteMet->where('skills.skill_category_id', '!=', 7);
+            $skillsWithAnyPrerequisiteMet->where('skills.skill_category_id', '!=', SkillCategory::SYSTEM);
         }
 
         if ($this->status_id < Status::APPROVED) {
@@ -195,7 +195,7 @@ class Character extends Model
                     $join->on('background_skill.background_id', '=', DB::raw($this->background_id));
                 });
             if ($user->cannot('edit all characters')) {
-                $skillsWithAllPrerequisitesUnmet->where('skills.skill_category_id', '!=', 7);
+                $skillsWithAllPrerequisitesUnmet->where('skills.skill_category_id', '!=', SkillCategory::SYSTEM);
             }
             $lockedOutSkills = SkillLockout::select('skill_lockouts.lockout_id')
                 ->join('background_skill', function (JoinClause $join) {
@@ -258,6 +258,7 @@ class Character extends Model
                         $findSkill = CharacterSkill::where('character_id', $this->id)
                             ->where('skill_id', $superSkill->id)
                             ->where('completed', true)
+                            ->where('removed', false)
                             ->get();
                         if ($findSkill->count() > 0) {
                             continue 2;
