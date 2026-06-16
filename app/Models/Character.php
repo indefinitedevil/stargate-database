@@ -160,6 +160,7 @@ class Character extends Model
                         ->orWhere('skills.repeatable', '>', 0);
                 } else {
                     $query->where('character_skills.completed', false)
+                        ->orWhereNull('character_skills.id')
                         ->orWhere('skills.repeatable', '>', 0);
                 }
             });
@@ -182,6 +183,7 @@ class Character extends Model
                         ->orWhere('skills.repeatable', '>', 0);
                 } else {
                     $query->where('character_skills.completed', false)
+                        ->orWhereNull('character_skills.id')
                         ->orWhere('skills.repeatable', '>', 0);
                 }
             });
