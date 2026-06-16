@@ -11,9 +11,9 @@ class SkillController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = SkillCategory::where('id', '!=', SkillCategory::SYSTEM)->get();
+        $categories = SkillCategory::whereNotIn('id', [SkillCategory::SYSTEM, SkillCategory::REMOVED])->get();
         $skills = [];
-        foreach (Skill::where('skill_category_id', '!=', SkillCategory::SYSTEM)->get() as $skill) {
+        foreach (Skill::whereNotIn('skill_category_id', [SkillCategory::SYSTEM, SkillCategory::REMOVED])->get() as $skill) {
             if (!$skill->hidden || $request->user()->can('edit skill')) {
                 $skills[$skill->skill_category_id][] = $skill;
             }
