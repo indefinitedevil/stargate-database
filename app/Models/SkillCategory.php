@@ -19,13 +19,14 @@ class SkillCategory extends Model
 {
     use HasFactory;
 
-    const TECHNOLOGY = 1;
-    const SCIENCE_SOCIAL = 2;
-    const COMPLEX = 3;
-    const BASIC = 4;
-    const COMBAT = 5;
-    const ALIEN = 6;
-    const SYSTEM = 7;
+    const int TECHNOLOGY = 1;
+    const int SCIENCE_SOCIAL = 2;
+    const int COMPLEX = 3;
+    const int BASIC = 4;
+    const int COMBAT = 5;
+    const int ALIEN = 6;
+    const int SYSTEM = 7;
+    const int REMOVED = 8;
 
     public function skills(): HasMany
     {

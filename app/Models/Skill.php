@@ -40,19 +40,19 @@ class Skill extends Model
 {
     use HasFactory;
 
-    const ARCHEO_ANTHROPOLOGY = 9;
-    const ADDITIONAL_AA_SPEC = 10;
+    const int ARCHEO_ANTHROPOLOGY = 9;
+    const int ADDITIONAL_AA_SPEC = 10;
 
-    const LEADERSHIP = 35;
-    const LEADERSHIP_EXTRA_PERSON = 45;
+    const int LEADERSHIP = 35;
+    const int LEADERSHIP_EXTRA_PERSON = 45;
 
-    const GENETICS = 13;
-    const PATHOLOGY = 17;
-    const ASTROPHYSICS = 11;
-    const MATHEMATICS = 21;
+    const int GENETICS = 13;
+    const int PATHOLOGY = 17;
+    const int ASTROPHYSICS = 11;
+    const int MATHEMATICS = 21;
 
-    const PLOT_CHANGE = 90;
-    const SYSTEM_CHANGE = 94;
+    const int PLOT_CHANGE = 90;
+    const int SYSTEM_CHANGE = 94;
 
     protected $fillable = [
         'name',

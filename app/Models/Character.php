@@ -153,13 +153,14 @@ class Character extends Model
             ->whereNotIn('skills.id', $skillsWithAllPrerequisitesUnmet)
             ->whereNotIn('skills.id', $lockedOutSkills)
             ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
+            ->where('skills.skill_category_id', '!=', SkillCategory::REMOVED)
             ->where(function (Builder $query) use ($user) {
                 if ($user->cannot('edit all characters')) {
                     $query->whereNull('character_skills.id')
                         ->orWhere('skills.repeatable', '>', 0);
                 } else {
                     $query->where('character_skills.completed', false)
-                        ->orWhere('character_skills.completed', null);
+                        ->orWhere('skills.repeatable', '>', 0);
                 }
             });
         if ($user->cannot('edit all characters')) {
@@ -174,13 +175,14 @@ class Character extends Model
             ->whereIn('skills.id', $skillsWithAnyPrerequisitesMet)
             ->whereNotIn('skills.id', $lockedOutSkills)
             ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
+            ->where('skills.skill_category_id', '!=', SkillCategory::REMOVED)
             ->where(function (Builder $query) use ($user) {
                 if ($user->cannot('edit all characters')) {
                     $query->whereNull('character_skills.id')
                         ->orWhere('skills.repeatable', '>', 0);
                 } else {
                     $query->where('character_skills.completed', false)
-                        ->orWhere('character_skills.completed', null);
+                        ->orWhere('skills.repeatable', '>', 0);
                 }
             });
         if ($user->cannot('edit all characters')) {
@@ -194,9 +196,6 @@ class Character extends Model
                     $join->on('skill_prereqs.prereq_id', '=', 'background_skill.skill_id');
                     $join->on('background_skill.background_id', '=', DB::raw($this->background_id));
                 });
-            if ($user->cannot('edit all characters')) {
-                $skillsWithAllPrerequisitesUnmet->where('skills.skill_category_id', '!=', SkillCategory::SYSTEM);
-            }
             $lockedOutSkills = SkillLockout::select('skill_lockouts.lockout_id')
                 ->join('background_skill', function (JoinClause $join) {
                     $join->on('skill_lockouts.skill_id', '=', 'background_skill.skill_id');
@@ -204,6 +203,7 @@ class Character extends Model
                 });
             $backgroundSkills = Skill::select('skills.*')
                 ->whereNotIn('skills.id', $this->background->skills()->select('skills.id'))
+                ->where('skills.skill_category_id', '!=', SkillCategory::REMOVED)
                 ->whereIn('skills.id', $skillsWithAllPrerequisitesUnmet)
                 ->whereNotIn('skills.id', $lockedOutSkills);
 
