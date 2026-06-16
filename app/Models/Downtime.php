@@ -186,7 +186,12 @@ class Downtime extends Model
     public function getCharacters(): Collection
     {
         return once(function () {
-            return $this->actions()->with('character')->get()->pluck('character')->unique('id');
+            return $this->actions()
+                ->with('character')
+                ->get()
+                ->pluck('character')
+                ->unique('id')
+                ->sortBy('name');
         });
     }
 

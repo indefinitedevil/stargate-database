@@ -12,6 +12,7 @@
                 <h3 class="text-lg font-semibold">Bugfix: 16th June 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Plot Co: fixed available skills list.</li>
+                    <li>Plot Co: sorted downtime characters by name.</li>
                     <li>System: added "removed" skill category.</li>
                 </ul>
             </div>
