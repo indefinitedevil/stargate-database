@@ -12,6 +12,7 @@
                 <h3 class="text-lg font-semibold">Bugfix: 18th June 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed Basic skill OCP feats display.</li>
+                    <li>Fixed removed skills displaying on characters.</li>
                 </ul>
             </div>
             <div>

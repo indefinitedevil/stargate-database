@@ -117,6 +117,7 @@ class Character extends Model
         return $this->hasMany(CharacterSkill::class)
             ->select('character_skills.*')
             ->join('skills', 'character_skills.skill_id', '=', 'skills.id')
+            ->where('skills.skill_category_id', '!=', SkillCategory::REMOVED)
             ->orderBy('skills.name');
     }
 
