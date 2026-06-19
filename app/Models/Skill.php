@@ -100,7 +100,11 @@ class Skill extends Model
 
     public function skillSpecialties(): HasManyThrough
     {
-        return $this->hasManyThrough(SkillSpecialty::class, SpecialtyType::class, 'id', 'specialty_type_id', 'specialty_type_id', 'id');
+        if (auth()->user()?->can('edit skill specialty')) {
+            return $this->hasManyThrough(SkillSpecialty::class, SpecialtyType::class, 'id', 'specialty_type_id', 'specialty_type_id', 'id');
+        }
+        return $this->hasManyThrough(SkillSpecialty::class, SpecialtyType::class, 'id', 'specialty_type_id', 'specialty_type_id', 'id')
+            ->where('skill_specialit.hidden', false);
     }
 
     public function getSpecialtyListAttribute(): Collection

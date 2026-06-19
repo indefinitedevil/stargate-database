@@ -55,10 +55,13 @@
                         </x-input-label>
                         <x-select id="specialty" name="specialty_id[]" class="mt-1 block w-full"
                                   :multiple="$editSkill->skill->specialties > 1">
-                            @foreach ($editSkill->skill->specialtyType->skillSpecialties->sortBy('name') as $specialty)
-                                <option value="{{ $specialty->id }}"
-                                        @if($editSkill->skillSpecialties->contains($specialty)) selected @endif
-                                >
+                            @foreach ($editSkill->skillSpecialties as $specialty)
+                                <option value="{{ $specialty->id }}" selected>
+                                    {{ $specialty->name }}
+                                </option>
+                            @endforeach
+                            @foreach ($editSkill->skill->specialtyType->skillSpecialties as $specialty)
+                                <option value="{{ $specialty->id }}">
                                     {{ $specialty->name }}
                                 </option>
                             @endforeach

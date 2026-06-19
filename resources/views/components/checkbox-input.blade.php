@@ -1,3 +1,3 @@
-@props(['disabled' => false])
+@props(['disabled' => false, 'checked' => false])
 
-<input type="checkbox" @disabled($disabled) {{ $attributes->merge(['class' => '']) }}>
+<input type="checkbox" @disabled($disabled) @checked($checked) {{ $attributes->merge(['class' => '']) }}>
