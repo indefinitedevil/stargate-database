@@ -1179,7 +1179,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'You have learnt the basic techniques of Explosives & Demolitions. You may use C4 & Claymores.
 
-' . __($basicKnowledgeDescription, ['skill' => 'Demolitions']),
+' . __($basicCardDescription, ['skill' => 'Explosives Training']),
                 'abilities' => NULL,
                 'upkeep' => 0,
                 'cost' => 0,
