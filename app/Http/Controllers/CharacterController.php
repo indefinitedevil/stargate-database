@@ -254,7 +254,12 @@ class CharacterController extends Controller
         \App\Events\CharacterApproved::dispatch($character);
 
         $notes = $request->post('notes', '');
-        Mail::to($character->user->email)->send(new CharacterApproved($character, $notes));
+        try {
+            Mail::to($character->user->email)->send(new CharacterApproved($character, $notes));
+        } catch (\Exception $e) {
+            return redirect(route('characters.index'))
+                ->with('error', new MessageBag([__('Character :character approved, but email could not be sent (:exception).', ['character' => $character->listName, 'exception' => $e->getMessage()])]));
+        }
 
         return redirect(route('plotco.characters'))
             ->with('success', new MessageBag([__('Character :character approved.', ['character' => $character->listName])]));
@@ -279,7 +284,12 @@ class CharacterController extends Controller
         $character->save();
 
         $notes = $request->post('notes', '');
-        Mail::to($character->user->email)->send(new CharacterDenied($character, $notes));
+        try {
+            Mail::to($character->user->email)->send(new CharacterDenied($character, $notes));
+        } catch (\Exception $e) {
+            return redirect(route('characters.index'))
+                ->with('error', new MessageBag([__('Character :character denied, but email could not be sent (:exception).', ['character' => $character->listName, 'exception' => $e->getMessage()])]));
+        }
 
         return redirect(route('characters.index'))
             ->with('success', new MessageBag([__('Character :character denied.', ['character' => $character->listName])]));
@@ -374,7 +384,12 @@ class CharacterController extends Controller
         $character->status_id = Status::READY;
         $character->save();
 
-        Mail::to(config('mail.plot_coordinator.address'))->send(new CharacterReady($character));
+        try {
+            Mail::to(config('mail.plot_coordinator.address'))->send(new CharacterReady($character));
+        } catch (\Exception $e) {
+            return redirect($character->getViewRoute())
+                ->with('error', new MessageBag([__('Character :character marked as ready, but email could not be sent (:exception).', ['character' => $character->listName, 'exception' => $e->getMessage()])]));
+        }
 
         return redirect($character->getViewRoute())
             ->with('success', new MessageBag([__('Character :character marked as ready.', ['character' => $character->listName])]));
