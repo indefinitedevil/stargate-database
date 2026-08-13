@@ -164,6 +164,15 @@ If you leave a **Critical** character, or the **Critical** Character moves they 
                 'cost' => '',
             ],
             [
+                'id' => 52,
+                'name' => 'Defying Gravity',
+                'description' => 'For the cost of 1 vigour, you may ignore all environmental penalties relating to Gravity and G Force. *This includes fall damage, within event ref discretion.*',
+                'per_event' => 0,
+                'per_day' => 0,
+                'print_name' => NULL,
+                'cost' => '',
+            ],
+            [
                 'id' => 13,
                 'name' => 'Drug Resistance',
                 'description' => 'The character can resist the effects of a drug that has entered into their system for up to five minutes per point of Vigor spent.
@@ -446,7 +455,7 @@ Only one additional card may be played on a problem, and once a card has been pl
             [
                 'id' => 37,
                 'name' => 'Tick Tock Motherfucker',
-                'description' => 'Use of this feat reduces the time required to deploy a pre-made explosive with the bomb trait (claymore, IED etc) to 30 seconds.',
+                'description' => 'When deploying a pre-made explosive with the bomb trait (claymore, IED, etc), you can use this feat to reduce the time you require for deployment to 30 seconds.',
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
@@ -969,6 +978,14 @@ This feat can only be used once per event, per level in the Leadership skill.
             [
                 'skill_id' => 104,
                 'feat_id' => 51
+            ],
+            [
+                'skill_id' => 23,
+                'feat_id' => 52
+            ],
+            [
+                'skill_id' => 39,
+                'feat_id' => 52
             ],
         ]);
     }
