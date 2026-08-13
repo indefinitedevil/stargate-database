@@ -76,7 +76,7 @@ class Skill extends Model
     public function cards(): BelongsToMany
     {
         return $this->belongsToMany(CardType::class)
-            ->withPivot('number', 'total');
+            ->withPivot('number', 'total', 'alien');
     }
 
     public function feats(): BelongsToMany

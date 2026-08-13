@@ -34,7 +34,7 @@
             </h2>
             <ul class="grid grid-cols-1 sm:grid-cols-4 mt-1 gap-x-6 gap-y-2">
                 @foreach ($character->cards as $card)
-                    <li>{{ $card->name }} ({{ $card->number }})</li>
+                    <li>{{ $card->name }} ({{ $card->number }} / A{{ $card->alien }})</li>
                 @endforeach
             </ul>
         @endif

@@ -446,9 +446,11 @@ class Character extends Model
                         $card->id = $skillCard->id;
                         $card->name = $skillCard->name;
                         $card->number = $skillCard->pivot->number;
+                        $card->alien = 0;
                         $unsortedCards[$skillCard->id][$skillCard->pivot->total] = $card;
                     } elseif ($skillCard->pivot->total) {
                         $unsortedCards[$skillCard->id][$skillCard->pivot->total]->number += $skillCard->pivot->number;
+                        $unsortedCards[$skillCard->id][$skillCard->pivot->total]->alien += $skillCard->pivot->alien;
                     }
                 }
             }
@@ -456,8 +458,10 @@ class Character extends Model
         $cards = [];
         foreach ($unsortedCards as $unsortedCard) {
             if (!empty($unsortedCard[1])) {
+                $unsortedCard[1]->alien = ceil($unsortedCard[1]->number / 2) + $unsortedCard[1]->alien;
                 $cards[] = $unsortedCard[1];
             } else {
+                $unsortedCard[0]->alien = ceil($unsortedCard[0]->number / 2) + $unsortedCard[0]->alien;
                 $cards[] = $unsortedCard[0];
             }
         }

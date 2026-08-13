@@ -204,7 +204,7 @@
                                 @php $medic = false; @endphp
                                 @foreach ($character->cards as $card)
                                     @php if (CardType::PARAMEDIC == $card->id) $medic = true; @endphp
-                                    <li>{{ $card->name }} ({{ $card->number }})</li>
+                                    <li>{{ $card->name }} ({{ $card->number }} / A{{ $card->alien }})</li>
                                 @endforeach
                             </ul>
                             @if ($medic && ($genetics || $pathology) || $numbers)
