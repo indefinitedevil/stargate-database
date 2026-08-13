@@ -246,6 +246,9 @@ class CharacterSkill extends Model
         if ($this->skill->repeatable) {
             return $this->character->trainedSkills->where('skill_id', $this->skill_id)->count();
         }
+        if ($this->completed && !$this->removed) {
+            return 1;
+        }
         return 0;
     }
 

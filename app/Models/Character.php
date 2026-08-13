@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -129,14 +130,43 @@ class Character extends Model
                 $join->on('skill_prereqs.prereq_id', '=', 'character_skills.skill_id');
                 $join->on('character_skills.character_id', '=', DB::raw($this->id));
                 $join->where('character_skills.completed', true);
+                $join->where('character_skills.removed', false);
                 $join->where('skill_prereqs.always_required', true);
             })
             ->whereNull('character_skills.id');
+        $skillsWithLevelsRequired = SkillPrereq::select('skill_prereqs.*')
+            ->leftJoin('character_skills', function (JoinClause $join) {
+                $join->on('skill_prereqs.prereq_id', '=', 'character_skills.skill_id');
+                $join->on('character_skills.character_id', '=', DB::raw($this->id));
+                $join->where('character_skills.completed', true);
+                $join->where('character_skills.removed', false);
+                $join->where('skill_prereqs.always_required', true);
+            })
+            ->where('skill_prereqs.level_required', '>', 0);
+        $levelsRequired = [];
+        foreach ($skillsWithLevelsRequired->get() as $skillPrereq) {
+            $prereqSkill = CharacterSkill::where('character_id', $this->id)
+                ->where('skill_id', $skillPrereq->prereq_id)
+                ->where('completed', true)
+                ->where('removed', false)
+                ->first();
+            if (!$prereqSkill || $prereqSkill->level < $skillPrereq->level_required) {
+                $levelsRequired[] = $skillPrereq->skill_id;
+            }
+        }
+        if (count($levelsRequired) > 0) {
+            $levelsRequired = array_unique($levelsRequired);
+            $skillsWithAllPrerequisitesUnmet->orWhere(function ($query) use ($levelsRequired) {
+                $query->whereIn('skill_prereqs.skill_id', $levelsRequired);
+            });
+        }
+
         $skillsWithAnyPrerequisitesMet = SkillPrereq::select('skill_prereqs.skill_id')
             ->leftJoin('character_skills', function (JoinClause $join) {
                 $join->on('skill_prereqs.prereq_id', '=', 'character_skills.skill_id');
                 $join->on('character_skills.character_id', '=', DB::raw($this->id));
                 $join->where('character_skills.completed', true);
+                $join->where('character_skills.removed', false);
                 $join->where('skill_prereqs.always_required', false);
             })
             ->whereNotNull('character_skills.id');
@@ -210,11 +240,15 @@ class Character extends Model
                 ->whereIn('skills.id', $skillsWithAllPrerequisitesUnmet)
                 ->whereNotIn('skills.id', $lockedOutSkills);
 
-            return $skills->union($backgroundSkills)
+            $availableSkills = $skills->union($backgroundSkills)
                 ->union($skillsWithAnyPrerequisiteMet)
                 ->orderBy('skill_category_id')
-                ->orderBy('name')
-                ->get();
+                ->orderBy('name');
+
+            if ($user->cannot('edit all characters')) {
+                $availableSkills->where('skills.skill_category_id', '!=', SkillCategory::ALIEN);
+            }
+            return $availableSkills->get();
         }
         return $skills->union($skillsWithAnyPrerequisiteMet)
             ->orderBy('skill_category_id')
@@ -332,7 +366,7 @@ class Character extends Model
             }
         }
         foreach ($this->trainedSkills as $characterSkill) {
-            if (!empty($characterSkill->skill->feats) && (empty($characterSkill->discount_used) || !$characterSkill->discountUsedBy?->completed )) {
+            if (!empty($characterSkill->skill->feats) && (empty($characterSkill->discount_used) || !$characterSkill->discountUsedBy?->completed)) {
                 $feats = array_merge($feats, $characterSkill->skill->feats->all());
             }
         }
