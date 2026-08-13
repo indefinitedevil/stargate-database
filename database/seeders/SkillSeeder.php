@@ -2930,7 +2930,7 @@ This Skill discounts Alien Language: Fomori by 1 month.',
             ],
             [
                 'skill_id' => 116,
-                'prereq_id' => 67,
+                'prereq_id' => 68,
                 'always_required' => 1,
                 'level_required' => 3,
             ],
