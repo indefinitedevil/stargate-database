@@ -26,6 +26,7 @@ use Illuminate\Support\MessageBag;
  * @property Collection actions
  * @property Collection missions
  * @property Collection trainingCourses
+ * @property array trainingCourseSkillIds
  * @property Collection researchProjects
  * @property Collection researchVolunteerProjects
  * @property Event event
@@ -159,6 +160,11 @@ class Downtime extends Model
             ->join('character_skills', 'character_skill_id', 'character_skills.id')
             ->join('skills', 'skill_id', 'skills.id')
             ->orderBy('skills.name');
+    }
+
+    public function getTrainingCourseSkillIdsAttribute(): array
+    {
+        return once(fn() => $this->trainingCourses()->pluck('skill_id')->toArray());
     }
 
     public function getTrainees($skillId): Collection

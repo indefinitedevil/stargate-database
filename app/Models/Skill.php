@@ -29,6 +29,7 @@ use Illuminate\Support\Collection;
  * @property int body
  * @property int vigor
  * @property bool hidden
+ * @property bool requires_teacher
  * @property bool display
  * @property bool scaling
  * @property Collection characterSkills
