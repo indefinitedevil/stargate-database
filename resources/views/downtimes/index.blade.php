@@ -75,7 +75,7 @@
                                 @endphp
                                 <li>
                                     <a href="{{ route($downtime->isOpen() ? 'downtimes.submit' : 'downtimes.view', ['downtimeId' => $downtime->id, 'characterId' => $character->id]) }}"
-                                       class="text-blue-500 hover:underline">
+                                       class="underline">
                                         {{ $downtime->name }} - {{ $character->listName }}
                                     </a>
                                     ({{ format_datetime($downtime->start_time, 'd/m/Y H:i') }}
@@ -92,7 +92,7 @@
                                         @foreach ($activeCharacterIds as $characterId)
                                             <li>
                                                 <a href="{{ route('downtimes.submit', ['downtimeId' => $downtime->id, $characterId]) }}"
-                                                   class="text-blue-500 hover:underline">
+                                                   class="underline">
                                                     {{ __('Downtime actions for :character', ['character' => Auth::user()->getCharacter($characterId)->listName]) }}
                                                 </a>
                                             </li>
