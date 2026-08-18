@@ -210,7 +210,7 @@
                             @endif
                             @foreach($backgrounds as $background)
                                 <option value="{{ $background->id }}"
-                                        @if(!empty($character) && $background->id === $character->background_id) selected @endif >
+                                        @if(old('background_id', $character->background_id ?? 0) === $background->id) selected @endif >
                                     {{ $background->name }}
                                 </option>
                             @endforeach
