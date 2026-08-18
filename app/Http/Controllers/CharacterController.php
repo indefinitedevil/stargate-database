@@ -258,7 +258,7 @@ class CharacterController extends Controller
             Mail::to($character->user->email)->send(new CharacterApproved($character, $notes));
         } catch (\Exception $e) {
             return redirect(route('characters.index'))
-                ->with('error', new MessageBag([__('Character :character approved, but email could not be sent (:exception).', ['character' => $character->listName, 'exception' => $e->getMessage()])]));
+                ->with('errors', new MessageBag([__('Character :character approved, but email could not be sent (:exception).', ['character' => $character->listName, 'exception' => $e->getMessage()])]));
         }
 
         return redirect(route('plotco.characters'))
@@ -288,7 +288,7 @@ class CharacterController extends Controller
             Mail::to($character->user->email)->send(new CharacterDenied($character, $notes));
         } catch (\Exception $e) {
             return redirect(route('characters.index'))
-                ->with('error', new MessageBag([__('Character :character denied, but email could not be sent (:exception).', ['character' => $character->listName, 'exception' => $e->getMessage()])]));
+                ->with('errors', new MessageBag([__('Character :character denied, but email could not be sent (:exception).', ['character' => $character->listName, 'exception' => $e->getMessage()])]));
         }
 
         return redirect(route('characters.index'))
@@ -388,7 +388,7 @@ class CharacterController extends Controller
             Mail::to(config('mail.plot_coordinator.address'))->send(new CharacterReady($character));
         } catch (\Exception $e) {
             return redirect($character->getViewRoute())
-                ->with('error', new MessageBag([__('Character :character marked as ready, but email could not be sent (:exception).', ['character' => $character->listName, 'exception' => $e->getMessage()])]));
+                ->with('errors', new MessageBag([__('Character :character marked as ready, but email could not be sent (:exception).', ['character' => $character->listName, 'exception' => $e->getMessage()])]));
         }
 
         return redirect($character->getViewRoute())
