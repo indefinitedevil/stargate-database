@@ -73,12 +73,22 @@ class Skill extends Model
         'hidden',
     ];
 
+    /**
+     * Retrieves the card types associated with the skill.
+     *
+     * @return BelongsToMany The related card types with pivot data for number, total, and alien status.
+     */
     public function cards(): BelongsToMany
     {
         return $this->belongsToMany(CardType::class)
             ->withPivot('number', 'total', 'alien');
     }
 
+    /**
+     * Retrieves the feats associated with the skill.
+     *
+     * @return BelongsToMany The skill's associated feats.
+     */
     public function feats(): BelongsToMany
     {
         return $this->belongsToMany(Feat::class);
