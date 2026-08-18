@@ -9,7 +9,7 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Update: 13th August 2026</h3>
+                <h3 class="text-lg font-semibold">Update: 18th August 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Sys Ref: Rules 2.1 update
                         <ul class="list-inside list-disc pl-4">
@@ -20,6 +20,8 @@
                             <li>Added alien card hand size to character sheets.</li>
                         </ul>
                     </li>
+                    <li>Fixed a bug where ranks would be removed.</li>
+                    <li>Fixed a bug where backgrounds would not be saved on new characters if there was an error.</li>
                     <li>Fixed some weird bugs.</li>
                 </ul>
             </div>
