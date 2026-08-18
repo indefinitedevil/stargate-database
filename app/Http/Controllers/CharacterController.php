@@ -616,8 +616,10 @@ class CharacterController extends Controller
             if (in_array($character->status_id, [Status::DEAD, Status::RETIRED])) {
                 throw ValidationException::withMessages([__('Character can no longer be modified.')]);
             }
+            $validatedData['rank'] = $validatedData['rank'] ?? $character->rank;
         } else {
             $character = new Character();
+            $validatedData['rank'] = $validatedData['rank'] ?? '';
         }
         $validatedData['short_name'] = $validatedData['short_name'] ?? null;
         $validatedData['pronouns'] = $validatedData['pronouns'] ?? null;
@@ -626,7 +628,6 @@ class CharacterController extends Controller
         $validatedData['plot_notes'] = $validatedData['plot_notes'] ?? '';
         $validatedData['other_abilities'] = $validatedData['other_abilities'] ?? '';
         $validatedData['former_rank'] = $validatedData['former_rank'] ?? '';
-        $validatedData['rank'] = $validatedData['rank'] ?? '';
         if (Status::APPROVED <= $character->status_id && $character->background_id != $validatedData['background_id']) {
             $this->plotLog($character, __('Character background changed from :old to :new.', [
                 'old' => $character->background->name,
