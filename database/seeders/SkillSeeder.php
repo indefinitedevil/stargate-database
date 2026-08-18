@@ -3381,8 +3381,8 @@ This Skill discounts Alien Language: Fomori by 1 month.',
             [
                 'skill_id' => 116,
                 'card_type_id' => 8,
-                'number' => 1,
-                'total' => 0,
+                'number' => 0,
+                'total' => 1,
                 'alien' => 1,
             ],
         ], 'skill_id');
