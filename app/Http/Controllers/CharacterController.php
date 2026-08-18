@@ -257,7 +257,7 @@ class CharacterController extends Controller
         try {
             Mail::to($character->user->email)->send(new CharacterApproved($character, $notes));
         } catch (\Exception $e) {
-            return redirect(route('characters.index'))
+            return redirect(route('plotco.characters'))
                 ->with('errors', new MessageBag([__('Character :character approved, but email could not be sent (:exception).', ['character' => $character->listName, 'exception' => $e->getMessage()])]));
         }
 
