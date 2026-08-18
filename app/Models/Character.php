@@ -122,6 +122,13 @@ class Character extends Model
             ->orderBy('skills.name');
     }
 
+    /**
+     * Determines which skills are available for the character to acquire.
+     *
+     * Available skills account for prerequisites, lockouts, background skills, character status, and the current user's editing permissions.
+     *
+     * @return Collection The available skills ordered by category and name.
+     */
     public function getAvailableSkillsAttribute(): Collection
     {
         $user = Auth::user();
@@ -357,6 +364,11 @@ class Character extends Model
         return $this->belongsTo(Status::class);
     }
 
+    /**
+     * Collects the character's feats from its background and eligible skills.
+     *
+     * @return array The character's unique feats, sorted by name.
+     */
     public function getFeatsAttribute()
     {
         $feats = $this->background->feats->all();
@@ -434,6 +446,11 @@ class Character extends Model
         return $totalTraining;
     }
 
+    /**
+     * Collects and sorts the cards granted by the character's trained skills.
+     *
+     * @return array Card objects aggregated by card and quantity, with adjusted alien counts, sorted by name.
+     */
     public function getCardsAttribute(): array
     {
         $unsortedCards = [];

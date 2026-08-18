@@ -16,11 +16,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class SkillPrereq extends Model
 {
+    /**
+     * Defines the owning skill relationship.
+     *
+     * @return BelongsTo The owning skill relationship.
+     */
     public function skill(): BelongsTo
     {
         return $this->belongsTo(Skill::class);
     }
 
+    /**
+     * Defines the prerequisite skill associated with this relationship.
+     *
+     * @return BelongsTo The prerequisite skill relationship.
+     */
     public function requiredSkill(): BelongsTo
     {
         return $this->belongsTo(Skill::class, 'prereq_id');
