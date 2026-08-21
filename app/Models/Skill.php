@@ -49,6 +49,7 @@ class Skill extends Model
 
     const int GENETICS = 13;
     const int PATHOLOGY = 17;
+    const int SPEEDY_SUTURING = 107;
     const int ASTROPHYSICS = 11;
     const int MATHEMATICS = 21;
 
