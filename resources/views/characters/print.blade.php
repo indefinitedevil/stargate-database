@@ -46,7 +46,7 @@
                             <strong>{{ __('Traits') }}:</strong> {!! $character->traits_indicator !!}
                         </p>
                         <p class="mt-1">
-                            <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor)
+                            <strong>{{ __('Vigour') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor)
                                 {{ __('(+:temp for this event)', ['temp' => $character->temp_vigor]) }}
                             @endif
                         </p>
@@ -70,7 +70,7 @@
                             {{ __('Skills') }}
                         </h2>
                         @php
-                            $genetics = $pathology = false;
+                            $genetics = $pathology = $speedy = false;
                             $numbers = 0;
                         @endphp
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 clear-both">
@@ -95,6 +95,9 @@
                                                         break;
                                                     case Skill::PATHOLOGY:
                                                         $pathology = true;
+                                                        break;
+                                                    case Skill::SPEEDY_SUTURING:
+                                                        $speedy = true;
                                                         break;
                                                     case Skill::ASTROPHYSICS:
                                                     case Skill::MATHEMATICS:
@@ -146,7 +149,7 @@
                                     @if (Feat::NUMBERS == $feat->id && $numbers > 1)
                                         {{ __('(:numbers0%)', ['numbers' => $numbers]) }}
                                     @endif
-                                    {{ '' != $feat->cost ? '(' . $feat->cost . ' Vigor)' : '' }}
+                                    {{ '' != $feat->cost ? '(' . $feat->cost . ' Vigour)' : '' }}
                                     @if ($feat->per_event)
                                         ({{ __(':count per event', ['count' => $feat->getPerEvent($character)]) }})
                                         @php $trackers['per_event'][$feat->print_name ?: $feat->name] = $feat->getPerEvent($character); @endphp
@@ -207,10 +210,13 @@
                                     <li>{{ $card->name }} ({{ $card->number }} / A{{ $card->alien }})</li>
                                 @endforeach
                             </ul>
-                            @if ($medic && ($genetics || $pathology) || $numbers)
+                            @if ($medic && ($genetics || $pathology) || $numbers || $speedy)
                                 <p class="mt-1 text-sm">
                                     @if ($medic && ($genetics || $pathology))
                                         {{ __('Reduce all Paramedic card times by :pct%.', ['pct' => ($genetics + $pathology) * 10]) }}
+                                    @endif
+                                    @if ($speedy)
+                                        {{ __('Reduce Paramedic card times by 10% with Speedy Suturing.') }}
                                     @endif
                                     @if ($numbers)
                                         {{ __('Reduce card times by :numbers0% with the Numb3rs feat.', ['numbers' => $numbers]) }}
@@ -251,7 +257,11 @@
 
                 <div class="py-2 bg-white text-gray-800 mt-2 break-before-page">
                     <div class="">
-                        <p class="text-sm">Mark off a row on this table when you have been treated for a Surgical Procedure. If you were treated using the Emergency Measures feat, mark off two rows instead.</p>
+                        <p class="text-sm">
+                            Mark off a row on this table when you have been treated for a Surgical Procedure or been
+                            given morphine. If you were treated using the Emergency Measures feat, mark off two rows
+                            instead unless the user has the Ditch Doctor skill.
+                        </p>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4">
                             <table class="table-auto border border-collapse border-slate-600 w-full sm:col-span-2">
                                 <thead>
@@ -325,7 +335,7 @@
                                 <div>
                                     <p>While on 0 Body (Critical), you are:</p>
                                     <ul class="list-inside list-disc">
-                                        <li>Bleeding (you will be Terminal in three minutes) unless treated</li>
+                                        <li>Bleeding unless treated with Cauterize, Stabilise, or Prep For Movement</li>
                                         <li>Unable to stand or walk unassisted (crawling slowly is your limit)</li>
                                         <li>Unable to use any skills or abilities (including Medic)</li>
                                         <li>Unable to partake in combat</li>
@@ -336,19 +346,20 @@
                                     </ul>
                                 </div>
                                 <div>
-                                    <p>How bleeding works:</p>
+                                    <p>How Bleeding works:</p>
                                     <ul class="list-inside list-disc">
                                         <li>If you are above 0 Body, treating a Bleed effect resets your bleed count to
                                             three minutes
                                         </li>
                                         <li>If you are on 0 Body, treating your bleeding pauses your bleed count</li>
-                                        <li>Any significant movement while on 0 Body restarts your bleed count</li>
+                                        <li>Moving faster than a crawl while on 0 Body restarts your bleed count</li>
                                         <li>Use of "On Your Feet, Soldier" while on 0 Body allows you to move with that
                                             character's assistance and pauses your bleed count for the duration
                                         </li>
                                         <li>Use of "Prep For Movement" while stabilised resets your bleed count to three
                                             minutes
                                         </li>
+                                        <li>After three minutes of untreated bleeding, you become Terminal</li>
                                     </ul>
                                 </div>
                             </div>

@@ -26,7 +26,7 @@
                                         <li>
                                             {{ $feat->name }}
                                             @if ($feat->cost)
-                                                {{ __('(:cost Vigor)', ['cost' => $feat->cost]) }}
+                                                {{ __('(:cost Vigour)', ['cost' => $feat->cost]) }}
                                             @endif
                                             @if ($feat->per_day)
                                                 {{ __('(:count per day)', ['count' => $feat->per_day]) }}
@@ -111,7 +111,7 @@
                         @endif
                         @if ($skill->vigor)
                             <li>
-                                {!! __('<strong>Vigor:</strong> +:vigor', ['vigor' => $skill->vigor]) !!}
+                                {!! __('<strong>Vigour:</strong> +:vigor', ['vigor' => $skill->vigor]) !!}
                             </li>
                         @endif
                     </ul>

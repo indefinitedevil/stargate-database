@@ -405,18 +405,18 @@ This skill reduces the training time of Medical Doctor to 3 months, regardless o
                 'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'You have spent time learning about human psychology, enabling you to both lie convincingly and detect when others are doing so. You can understand and anticipate actions and analyse the dysfunctional.
 
-After role-playing with someone for at least five minutes you may spend Vigor to do any and all of the following Psychological Challenges:
-* Spend 1 Vigor to see whether someone’s last statement was a lie.
-* Spend 1 Vigor to see whether someone in the general conversation is concealing something.
-* Spend 1 Vigor to find out what someone is trying to achieve (in broad terms) through their words.
-* Spend 1 Vigor to detect their current emotional state.
+After role-playing with someone for at least five minutes you may spend Vigour to do any and all of the following Psychological Challenges:
+* Spend 1 Vigour to see whether someone’s last statement was a lie.
+* Spend 1 Vigour to see whether someone in the general conversation is concealing something.
+* Spend 1 Vigour to find out what someone is trying to achieve (in broad terms) through their words.
+* Spend 1 Vigour to detect their current emotional state.
 
-You may Spend 2 Vigor to falsify a response to a Psychological Challenge if these abilities are used against you.
+You may Spend 2 Vigour to falsify a response to a Psychological Challenge if these abilities are used against you.
 
-After role-playing with someone for at least twenty minutes you may spend 2 Vigor to do the following Psychological Challenge:
+After role-playing with someone for at least twenty minutes you may spend 2 Vigour to do the following Psychological Challenge:
 * Detect someone’s psychological flaws.
 
-You may spend additional points of Vigor to reduce the time needed to use these abilities, at a rate of 1 Vigor per five minutes, to a minimum of 1 minute.',
+You may spend additional points of Vigour to reduce the time needed to use these abilities, at a rate of 1 Vigour per five minutes, to a minimum of 1 minute.',
                 'abilities' => 'Detect Lie (1V),Detect Concealment (1V),Detect Goal (1V),Detect Emotional State (1V),Detect Psych Flaws (2V),Falsify Psych Response (2V)',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -434,21 +434,21 @@ You may spend additional points of Vigor to reduce the time needed to use these 
                 'skill_category_id' => SkillCategory::SCIENCE_SOCIAL,
                 'description' => 'You are able to provide comfort and support when your fellows need it most.
 
-After roleplaying with someone for at least five uninterrupted minutes, you may spend Vigor to do any and all of the following.
-* Spend 1 Vigor to detect their current emotional state. (Counts as a Psychological Challenge)
-* Spend 1 Vigor to grant the target 5 Vigor.
-* Spend 2 Vigor to grant the target 10 Vigor.
-* Spend 3 Vigor to grant the target 15 Vigor.
+After roleplaying with someone for at least five uninterrupted minutes, you may spend Vigour to do any and all of the following.
+* Spend 1 Vigour to detect their current emotional state. (Counts as a Psychological Challenge)
+* Spend 1 Vigour to grant the target 5 Vigour.
+* Spend 2 Vigour to grant the target 10 Vigour.
+* Spend 3 Vigour to grant the target 15 Vigour.
 
-Note: Targets of this ability are still limited by their maximum Vigor, any overflow has no effect. This refresh ability does not work on others who have the Psychotherapy skill.
+Note: Targets of this ability are still limited by their maximum Vigour, any overflow has no effect. This refresh ability does not work on others who have the Psychotherapy skill.
 
-After role-playing with someone for at least twenty minutes you may spend 1 Vigor to do the following:
+After role-playing with someone for at least twenty minutes you may spend 1 Vigour to do the following:
 * Treat a Psychological Wound token, restoring the patient to 1 Body.
 
-You may spend additional points of Vigor to reduce the time needed to use these abilities, at a rate of 2 additional Vigor per five minutes, to a minimum of 1 minute.
+You may spend additional points of Vigour to reduce the time needed to use these abilities, at a rate of 2 additional Vigour per five minutes, to a minimum of 1 minute.
 
 Note: The requirement is time spent roleplaying with your target. The form of that roleplay could be a cup of tea with the padre, a chat with your best mate about how this is all a bit shit and you\'re knackered, going for a jog around the camp because the Sgt Major thinks exercise endorphins are the cure for all - while the skill is called psychotherapy because it interacts with the psychology wound tokens, the use in play can be tailored to your character type.',
-                'abilities' => 'Refresh 5 Vigor (1V),Refresh 10 Vigor (2V),Refresh 15 Vigor (3V),Detect Emotional State (1V),Treat Psych Wound (1V)',
+                'abilities' => 'Refresh 5 Vigour (1V),Refresh 10 Vigour (2V),Refresh 15 Vigour (3V),Detect Emotional State (1V),Treat Psych Wound (1V)',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
@@ -517,6 +517,9 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
         ], 'id');
     }
 
+    /**
+     * Seeds complex skills and updates existing records by skill ID.
+     */
     public function seedComplexSkills()
     {
         DB::table('skills')->upsert([
@@ -754,7 +757,7 @@ Use of this skill requires a physical token - this can be a morale patch, a pin 
 
 Changing Target requires you to recover the token from the original Target, and pass it to the new Target.
 
-When a token is given to a new target, **it must remain with them for 20 minutes before you can recover it**. This time can be reduced by spending Vigor, at a rate of 1 Vigor per five minutes, which can reduce this timer to zero.
+When a token is given to a new target, **it must remain with them for 20 minutes before you can recover it**. This time can be reduced by spending Vigour, at a rate of 1 Vigour per five minutes, which can reduce this timer to zero.
 
 You can upgrade this skill, adding 1 additional character to the effects of this skill per three months of training spent. This upgrade may be purchased a maximum of five times.',
                 'abilities' => 'Under Your Wing (+2 Body) (:count person at a time)|Under Your Wing (+2 Body) (:count people at a time)',
@@ -964,6 +967,12 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
         ], 'id');
     }
 
+    /**
+     * Seeds basic, removed, and system-support skill definitions.
+     *
+     * Creates or updates basic knowledge, card access, language, physical, combat-support,
+     * expert knowledge, technical savant, and related skills.
+     */
     public function seedBasicSkills()
     {
         $basicKnowledgeDescription = 'You gain one use per event of OCP :skill for normal vigor cost. This Skill may be purchased twice.';
@@ -1352,7 +1361,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
                 'name' => 'Basic Psychology',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::BASIC,
-                'description' => 'You may spend 3 Vigor to falsify the response to a psychological challenge.',
+                'description' => 'You may spend 3 Vigour to falsify the response to a psychological challenge.',
                 'abilities' => 'Falsify Psych Response (3V)',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1544,10 +1553,10 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
             ],
             [
                 'id' => 70,
-                'name' => 'Heroic Vigor',
+                'name' => 'Heroic Vigour',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::BASIC,
-                'description' => 'This increases your Heroic Vigor by 1. This Skill can be repeatedly trained, granting +1 Vigor each time to a max of +5. This may be lost if you undertake actions deemed Villainous by the Plot Co.',
+                'description' => 'This increases your Heroic Vigour by 1. This Skill can be repeatedly trained, granting +1 Vigour each time to a max of +5. This may be lost if you undertake actions deemed Villainous by the Plot Co.',
                 'abilities' => NULL,
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1564,7 +1573,7 @@ This Skill allows the use of ‘Negotiator’ feats on animal targets if you als
                 'name' => 'Interpreter',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::BASIC,
-                'description' => 'After five minutes of appropriate roleplay, you may spend additional Vigor (1 per person) to allow others to understand what is being said to you. This can be combined with Polyglot to allow them to understand Alien languages. Crucially, this does not grant them the ability to **speak** the language, only listen and understand it.
+                'description' => 'After five minutes of appropriate roleplay, you may spend additional Vigour (1 per person) to allow others to understand what is being said to you. This can be combined with Polyglot to allow them to understand Alien languages. Crucially, this does not grant them the ability to **speak** the language, only listen and understand it.
 
 This effect lasts as long as the recipient remains in the interpreter\'s presence and part of the conversation.',
                 'abilities' => 'Interpret Languages (1V per person)',
@@ -1600,7 +1609,7 @@ This effect lasts as long as the recipient remains in the interpreter\'s presenc
                 'name' => 'Medic',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::BASIC,
-                'description' => 'Stabilise - with 10 Seconds of appropriate Roleplay, you may negate a Bleed effect on yourself or another player. **This ability does not cost Vigor.**',
+                'description' => 'Stabilise - with 10 Seconds of appropriate Roleplay, you may negate a Bleed effect on yourself or another player. **This ability does not cost Vigour.**',
                 'abilities' => 'Stabilise Casualty (10s)',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1635,7 +1644,7 @@ This effect lasts as long as the recipient remains in the interpreter\'s presenc
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::BASIC,
                 'description' => 'This skill grants access to the following ability.
-* Break Hold (Costs 1 Vigor): You call "Break Hold". The target must release you from a grapple, or you can resist a throw as you’ve broken their hold.',
+* Break Hold (Costs 1 Vigour): You call "Break Hold". The target must release you from a grapple, or you can resist a throw as you’ve broken their hold.',
                 'abilities' => 'Break Hold (1V)',
                 'upkeep' => 0,
                 'cost' => 0,
@@ -1820,6 +1829,9 @@ This effect lasts as long as the recipient remains in the interpreter\'s presenc
         ], 'id');
     }
 
+    /**
+     * Seeds combat-related skills and updates existing records by skill ID.
+     */
     public function seedCombatSkills()
     {
         DB::table('skills')->upsert([
@@ -1918,13 +1930,13 @@ Allows use of a Riot Shield (+2 BP).',
                 'skill_category_id' => SkillCategory::COMBAT,
                 'description' => 'You gain the following abilities using your hands:
 * Strike (unlimited): You cause damage as per Boxing.
-* Grapple (Costs 1 Vigor) You can keep the target restrained for 10 seconds. The target may still use small ranged weapons (not Unarmed or Melee strikes) against you, provided they were holding them when the grapple began.
+* Grapple (Costs 1 Vigour) You can keep the target restrained for 10 seconds. The target may still use small ranged weapons (not Unarmed or Melee strikes) against you, provided they were holding them when the grapple began.
     A grappled target may not use any feats or abilities other than Break Hold.
     You MUST use both hands to grapple, or it ends immediately. ANY unarmed call you make after the grapple begins, (Except Knockout), ends it. If you are incapacitated or rendered unconscious the grapple automatically ends.
-* Killing Blow (Costs 1 Vigor on top of the Grapple): You can, after 10 seconds of grappling an opponent, use the Killing Blow feat to make the Lethal or Sleep calls.
-* Throw (Costs 1 Vigor): You call “Knockback”. The target must role-play being thrown away from you and Knocked Down.
-* Break Hold (Costs 1 Vigor): You call “Break Hold”. The target must release you from a grapple, or you can resist a throw as you’ve broken their hold.
-* Disarm (Costs 1 Vigor): Your opponent must drop/place what they are holding on the floor, or otherwise release it with both hands.',
+* Killing Blow (Costs 1 Vigour on top of the Grapple): You can, after 10 seconds of grappling an opponent, use the Killing Blow feat to make the Lethal or Sleep calls.
+* Throw (Costs 1 Vigour): You call “Knockback”. The target must role-play being thrown away from you and Knocked Down.
+* Break Hold (Costs 1 Vigour): You call “Break Hold”. The target must release you from a grapple, or you can resist a throw as you’ve broken their hold.
+* Disarm (Costs 1 Vigour): Your opponent must drop/place what they are holding on the floor, or otherwise release it with both hands.',
                 'abilities' => 'Unarmed Strike,Grapple (1V),Throw (1V),Break Hold (1V),Unarmed Disarm (1V)',
                 'upkeep' => 0,
                 'cost' => 12,
@@ -1998,7 +2010,7 @@ Allows the use of a Public Order Shield. (+1BP).',
 You gain access to the Bleed Call for any Primitive Weapon capable of making it.
 
 You gain the following abilities using Primitive Weapons:
-* Disarm (Costs 1 Vigor): Your opponent must drop/place their weapon on the floor, or otherwise release it with both hands.',
+* Disarm (Costs 1 Vigour): Your opponent must drop/place their weapon on the floor, or otherwise release it with both hands.',
                 'abilities' => 'Melee Disarm (1V),Melee Special',
                 'upkeep' => 0,
                 'cost' => 9,
@@ -2064,6 +2076,9 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
         ], 'id');
     }
 
+    /**
+     * Seeds alien technology and language skills.
+     */
     public function seedAlienSkills()
     {
         DB::table('skills')->upsert([
@@ -2157,6 +2172,9 @@ This Skill discounts Alien Language: Fomori by 1 month.',
         ], 'id');
     }
 
+    /**
+     * Seeds archeo-anthropology, medical, and mythology specialties, then seeds language specialties.
+     */
     public function seedSkillSpecialties()
     {
         // Archeo-anthropology
@@ -2678,6 +2696,9 @@ This Skill discounts Alien Language: Fomori by 1 month.',
         ], 'id');
     }
 
+    /**
+     * Rebuilds the skill prerequisite relationships used by the application.
+     */
     public function seedSkillPrereqs()
     {
         DB::table('skill_prereqs')->truncate();
@@ -3052,6 +3073,9 @@ This Skill discounts Alien Language: Fomori by 1 month.',
         ], ['skill_id', 'lockout_id']);
     }
 
+    /**
+     * Rebuilds the skill discount relationships used during skill seeding.
+     */
     public function seedSkillDiscounts()
     {
         DB::table('skill_discounts')->truncate();
@@ -3164,6 +3188,9 @@ This Skill discounts Alien Language: Fomori by 1 month.',
         ], ['discounting_skill', 'discounted_skill']);
     }
 
+    /**
+     * Rebuilds the mappings between skills and card types.
+     */
     public function seedCardSkills()
     {
         DB::table('card_type_skill')->truncate();
@@ -3580,10 +3607,10 @@ This Skill discounts Alien Language: Fomori by 1 month.',
             ],
             [
                 'id' => 92,
-                'name' => 'Resuscitation Vigor Buyback',
+                'name' => 'Resuscitation Vigour Buyback',
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::SYSTEM,
-                'description' => 'Getting your lost Vigor back.',
+                'description' => 'Getting your lost Vigour back.',
                 'upkeep' => 0,
                 'cost' => 3,
                 'specialties' => 0,

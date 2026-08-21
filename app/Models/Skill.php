@@ -49,6 +49,7 @@ class Skill extends Model
 
     const int GENETICS = 13;
     const int PATHOLOGY = 17;
+    const int SPEEDY_SUTURING = 107;
     const int ASTROPHYSICS = 11;
     const int MATHEMATICS = 21;
 
@@ -73,12 +74,22 @@ class Skill extends Model
         'hidden',
     ];
 
+    /**
+     * Retrieves the card types associated with the skill.
+     *
+     * @return BelongsToMany The related card types with pivot data for number, total, and alien status.
+     */
     public function cards(): BelongsToMany
     {
         return $this->belongsToMany(CardType::class)
             ->withPivot('number', 'total', 'alien');
     }
 
+    /**
+     * Retrieves the feats associated with the skill.
+     *
+     * @return BelongsToMany The skill's associated feats.
+     */
     public function feats(): BelongsToMany
     {
         return $this->belongsToMany(Feat::class);
