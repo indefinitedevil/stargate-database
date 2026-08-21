@@ -15,7 +15,7 @@
                     <li>Updated all displayed uses of "Vigor" to "Vigour".</li>
                     <li>Added Speedy Suturing note to card section of character sheet.</li>
                     <li>Added notes about morphine and Ditch Doctor to surgical procedures section.</li>
-                    <li>Coderabbit added documentation notes.</li>
+                    <li>CodeRabbit added docstrings.</li>
                 </ul>
             </div>
             <div>
