@@ -14,6 +14,7 @@
                     <li>Updated Critical/Bleeding information on printed character sheets.</li>
                     <li>Updated all displayed uses of "Vigor" to "Vigour".</li>
                     <li>Added Speedy Suturing note to card section of character sheet.</li>
+                    <li>Added notes about morphine and Ditch Doctor to surgical procedures section.</li>
                 </ul>
             </div>
             <div>
