@@ -9,16 +9,15 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Update: 24th September 2026</h3>
+                <h3 class="text-lg font-semibold">Bugfix: 24th September 2026</h3>
                 <ul class="list-inside list-disc">
-                    <li>Actually updated all displayed uses of "Vigor" to "Vigour".</li>
+                    <li>Actually updated all displayed uses of "Vigour" to "Vigor".</li>
                 </ul>
             </div>
             <div>
                 <h3 class="text-lg font-semibold">Update: 21st August 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Updated Critical/Bleeding information on printed character sheets.</li>
-                    <li>Updated all displayed uses of "Vigor" to "Vigour".</li>
                     <li>Added Speedy Suturing note to card section of character sheet.</li>
                     <li>Added notes about morphine and Ditch Doctor to surgical procedures section.</li>
                     <li>CodeRabbit added docstrings.</li>
@@ -436,7 +435,7 @@
                     <li>Event runners now have access to the skill breakdown based on their attendance role for future
                         events.
                     </li>
-                    <li>Updated feat display to be clearer regarding uses per day/event and Vigour costs.</li>
+                    <li>Updated feat display to be clearer regarding uses per day/event and Vigor costs.</li>
                     <li>Added a banner to make it clear when on a test site.</li>
                     <li>Changed "miscellaneous actions" to "personal actions" in downtime and added explanatory text.
                     </li>
@@ -464,7 +463,7 @@
                     <li>Track ID of user making changes to characters.</li>
                     <li>Add plot coordinator user for system use.</li>
                     <li>Changed Endurance Training additions from E1 to be permanent Body changes instead.</li>
-                    <li>Changed attendance tracking to remove temporary Body/Vigour.</li>
+                    <li>Changed attendance tracking to remove temporary Body/Vigor.</li>
                     <li>Refactored inline scripts to be shared files.</li>
                     <li>Had CodeRabbit do a code review and fixed some bugs as a result.</li>
                     <li>Corrected the parameters for when skill upkeep is required.</li>
