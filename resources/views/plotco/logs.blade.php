@@ -36,13 +36,13 @@
                         <p>{{ __('Body: :amount', ['amount' => add_positive_modifier($log->body_change)]) }}</p>
                     @endif
                     @if (0 != $log->vigor_change)
-                        <p>{{ __('Vigor: :amount', ['amount' => add_positive_modifier($log->vigor_change)]) }}</p>
+                        <p>{{ __('Vigour: :amount', ['amount' => add_positive_modifier($log->vigor_change)]) }}</p>
                     @endif
                     @if (0 != $log->temp_body_change)
                         <p>{{ __('Temp Body: :amount', ['amount' => add_positive_modifier($log->temp_body_change)]) }}</p>
                     @endif
                     @if (0 != $log->temp_vigor_change)
-                        <p>{{ __('Temp Vigor: :amount', ['amount' => add_positive_modifier($log->temp_vigor_change)]) }}</p>
+                        <p>{{ __('Temp Vigour: :amount', ['amount' => add_positive_modifier($log->temp_vigor_change)]) }}</p>
                     @endif
                     <p>{{ __('Notes: :notes', ['notes' => $log->notes]) }}</p>
                     <p>{{ __('Plot notes: :notes', ['notes' => $log->plot_notes]) }}</p>

@@ -9,7 +9,7 @@
                     <span class="cursor-pointer underline decoration-dashed underline-offset-4"
                           onclick="toggleVisibility('feat-{{ $feat->id }}')">
                         {{ $feat->print_name ?: $feat->name }}
-                        {{ '' != $feat->cost ? '(' . $feat->cost . ' Vigor)' : '' }}
+                        {{ '' != $feat->cost ? '(' . $feat->cost . ' Vigour)' : '' }}
                         @if ($feat->per_event)
                             ({{ __(':count per event', ['count' => $feat->getPerEvent($character)]) }})
                         @endif

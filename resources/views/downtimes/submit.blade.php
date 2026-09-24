@@ -117,7 +117,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('development_action_'.$actionCount)" />
 
                                 <p id="da_{{ $actionCount }}_teaching"
-                                   class="{{ ActionType::ACTION_TEACHING == $action->action_type_id ? '' : 'hidden' }} text-sm mt-1">{{ __('Teaching a training course provides you with +1 maximum Vigor for the next event.') }}</p>
+                                   class="{{ ActionType::ACTION_TEACHING == $action->action_type_id ? '' : 'hidden' }} text-sm mt-1">{{ __('Teaching a training course provides you with +1 maximum Vigour for the next event.') }}</p>
                                 <div id="da_{{ $actionCount }}_notes"
                                      class="{{ ActionType::ACTION_MISSION == $action->action_type_id ? '' : 'hidden' }}">
                                     <x-input-label for="development_action_{{ $actionCount }}_notes" class="mt-1"
@@ -159,7 +159,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('development_action_'.$actionCount)" />
 
                                 <p id="da_{{ $actionCount }}_teaching"
-                                   class="hidden text-sm mt-1">{{ __('Teaching a training course provides you with +1 maximum Vigor for the next event.') }}</p>
+                                   class="hidden text-sm mt-1">{{ __('Teaching a training course provides you with +1 maximum Vigour for the next event.') }}</p>
                                 <div id="da_{{ $actionCount }}_notes" class="hidden">
                                     <x-input-label for="development_action_{{ $actionCount }}_notes" class="mt-1"
                                                    :value="__('Notes')"/>

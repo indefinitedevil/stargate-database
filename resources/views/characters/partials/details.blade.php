@@ -24,7 +24,7 @@
             @endif
         </p>
         <p class="mt-1">
-            <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor)
+            <strong>{{ __('Vigour') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor)
                 {{ __('(+:temp for next event)', ['temp' => $character->temp_vigor]) }}
             @endif
         </p>

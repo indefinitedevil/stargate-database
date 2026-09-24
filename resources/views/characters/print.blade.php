@@ -46,7 +46,7 @@
                             <strong>{{ __('Traits') }}:</strong> {!! $character->traits_indicator !!}
                         </p>
                         <p class="mt-1">
-                            <strong>{{ __('Vigor') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor)
+                            <strong>{{ __('Vigour') }}:</strong> {{ $character->vigor }} @if ($character->temp_vigor)
                                 {{ __('(+:temp for this event)', ['temp' => $character->temp_vigor]) }}
                             @endif
                         </p>
@@ -146,7 +146,7 @@
                                     @if (Feat::NUMBERS == $feat->id && $numbers > 1)
                                         {{ __('(:numbers0%)', ['numbers' => $numbers]) }}
                                     @endif
-                                    {{ '' != $feat->cost ? '(' . $feat->cost . ' Vigor)' : '' }}
+                                    {{ '' != $feat->cost ? '(' . $feat->cost . ' Vigour)' : '' }}
                                     @if ($feat->per_event)
                                         ({{ __(':count per event', ['count' => $feat->getPerEvent($character)]) }})
                                         @php $trackers['per_event'][$feat->print_name ?: $feat->name] = $feat->getPerEvent($character); @endphp

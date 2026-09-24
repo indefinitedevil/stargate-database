@@ -48,7 +48,7 @@
                                 @endphp
                                 <li>
                                     {{ __('Taught by :name', ['name' => $characters[$teacherId]->listName]) }}
-                                    ({{ __('+1 Vigor at next event') }})
+                                    ({{ __('+1 Vigour at next event') }})
                                 </li>
                             @endforeach
                             @foreach ($skills[$skillId]->subskills as $subSkill)

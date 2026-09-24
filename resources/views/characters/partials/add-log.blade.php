@@ -58,7 +58,7 @@
                 </div>
 
                 <div>
-                    <x-input-label for="vigor_change" :value="__('Vigor Change')"/>
+                    <x-input-label for="vigor_change" :value="__('Vigour Change')"/>
                     <x-text-input id="vigor_change" name="vigor_change" type="number" class="mt-1 block w-full"
                                   :value="old('vigor_change', empty($editLog) ? 0 : $editLog->vigor_change)"
                                   required/>
@@ -75,7 +75,7 @@
                 </div>
 
                 <div>
-                    <x-input-label for="temp_vigor_change" :value="__('Temporary Vigor Change')"/>
+                    <x-input-label for="temp_vigor_change" :value="__('Temporary Vigour Change')"/>
                     <x-text-input id="temp_vigor_change" name="temp_vigor_change" type="number"
                                   class="mt-1 block w-full"
                                   :value="old('temp_vigor_change', empty($editLog) ? 0 : $editLog->temp_vigor_change)"

@@ -420,7 +420,7 @@
                     <li>Event runners now have access to the skill breakdown based on their attendance role for future
                         events.
                     </li>
-                    <li>Updated feat display to be clearer regarding uses per day/event and Vigor costs.</li>
+                    <li>Updated feat display to be clearer regarding uses per day/event and Vigour costs.</li>
                     <li>Added a banner to make it clear when on a test site.</li>
                     <li>Changed "miscellaneous actions" to "personal actions" in downtime and added explanatory text.
                     </li>
@@ -448,7 +448,7 @@
                     <li>Track ID of user making changes to characters.</li>
                     <li>Add plot coordinator user for system use.</li>
                     <li>Changed Endurance Training additions from E1 to be permanent Body changes instead.</li>
-                    <li>Changed attendance tracking to remove temporary Body/Vigor.</li>
+                    <li>Changed attendance tracking to remove temporary Body/Vigour.</li>
                     <li>Refactored inline scripts to be shared files.</li>
                     <li>Had CodeRabbit do a code review and fixed some bugs as a result.</li>
                     <li>Corrected the parameters for when skill upkeep is required.</li>
