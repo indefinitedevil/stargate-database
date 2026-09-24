@@ -9,6 +9,12 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 24th September 2026</h3>
+                <ul class="list-inside list-disc">
+                    <li>Actually updated all displayed uses of "Vigor" to "Vigour".</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 21st August 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Updated Critical/Bleeding information on printed character sheets.</li>
