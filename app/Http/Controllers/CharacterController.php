@@ -138,7 +138,12 @@ class CharacterController extends Controller
     }
 
     /**
-     * @throws ValidationException
+     * Approves a character after validating creation training and specialties.
+     *
+     * @param \Illuminate\Http\Request $request The approval request, including optional notification notes.
+     * @param int|string $characterId The character identifier.
+     *
+     * @throws \Illuminate\Validation\ValidationException If the character's training data is invalid.
      */
     public function approve(Request $request, $characterId)
     {
@@ -266,7 +271,10 @@ class CharacterController extends Controller
     }
 
     /**
-     * @throws ValidationException
+     * Denies a character application and notifies the character owner.
+     *
+     * @param mixed $characterId The identifier of the character to deny.
+     * @return \Illuminate\Http\RedirectResponse A redirect with success or error feedback.
      */
     public function deny(Request $request, $characterId)
     {
@@ -326,7 +334,11 @@ class CharacterController extends Controller
     }
 
     /**
-     * @throws ValidationException
+     * Marks a character as ready after validating training requirements.
+     *
+     * @param int|string $characterId The character to mark as ready.
+     * @return \Illuminate\Http\RedirectResponse A redirect with the operation result.
+     * @throws \Illuminate\Validation\ValidationException If the character's training requirements are invalid.
      */
     public function ready(Request $request, $characterId)
     {
@@ -572,7 +584,10 @@ class CharacterController extends Controller
     }
 
     /**
-     * @throws ValidationException
+     * Creates or updates a character and synchronizes its traits and organizational relationships.
+     *
+     * @throws ValidationException If the character cannot be modified.
+     * @return \Illuminate\Http\RedirectResponse Redirects to the character view with a success message.
      */
     public function store(Request $request)
     {

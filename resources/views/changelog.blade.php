@@ -9,20 +9,30 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 21st August 2026</h3>
+                <ul class="list-inside list-disc">
+                    <li>Updated Critical/Bleeding information on printed character sheets.</li>
+                    <li>Updated all displayed uses of "Vigor" to "Vigour".</li>
+                    <li>Added Speedy Suturing note to card section of character sheet.</li>
+                    <li>Added notes about morphine and Ditch Doctor to surgical procedures section.</li>
+                    <li>CodeRabbit added docstrings.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Update: 18th August 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Sys Ref: Rules 2.1 update
                         <ul class="list-inside list-disc pl-4">
                             <li>Added new skills and feat.</li>
-                            <li>Restricted certain skills to require a teacher to add months.</li>
                             <li>Restricted alien skills to post-character creation (with Plot Co override).</li>
-                            <li>Restricted certain skills to require a number of levels in a prerequisite skills.</li>
                             <li>Added alien card hand size to character sheets.</li>
                         </ul>
                     </li>
-                    <li>Fixed a bug where ranks would be removed.</li>
+                    <li>Added functionality to require skills to have a teacher to add months.</li>
+                    <li>Added functionality to require skills have a number of levels in prerequisite skills.</li>
+                    <li>Fixed a bug where ranks would be removed when saving the character.</li>
                     <li>Fixed a bug where backgrounds would not be saved on new characters if there was an error.</li>
-                    <li>Fixed some weird bugs.</li>
+                    <li>Fixed some other weird bugs.</li>
                 </ul>
             </div>
             <div>

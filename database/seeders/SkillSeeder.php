@@ -517,6 +517,9 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
         ], 'id');
     }
 
+    /**
+     * Seeds complex skills and updates existing records by skill ID.
+     */
     public function seedComplexSkills()
     {
         DB::table('skills')->upsert([
@@ -964,6 +967,12 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
         ], 'id');
     }
 
+    /**
+     * Seeds basic, removed, and system-support skill definitions.
+     *
+     * Creates or updates basic knowledge, card access, language, physical, combat-support,
+     * expert knowledge, technical savant, and related skills.
+     */
     public function seedBasicSkills()
     {
         $basicKnowledgeDescription = 'You gain one use per event of OCP :skill for normal vigor cost. This Skill may be purchased twice.';
@@ -1820,6 +1829,9 @@ This effect lasts as long as the recipient remains in the interpreter\'s presenc
         ], 'id');
     }
 
+    /**
+     * Seeds combat-related skills and updates existing records by skill ID.
+     */
     public function seedCombatSkills()
     {
         DB::table('skills')->upsert([
@@ -2064,6 +2076,9 @@ You gain access to the Stun and Shrapnel calls for any weapon in the Ranged Weap
         ], 'id');
     }
 
+    /**
+     * Seeds alien technology and language skills.
+     */
     public function seedAlienSkills()
     {
         DB::table('skills')->upsert([
@@ -2157,6 +2172,9 @@ This Skill discounts Alien Language: Fomori by 1 month.',
         ], 'id');
     }
 
+    /**
+     * Seeds archeo-anthropology, medical, and mythology specialties, then seeds language specialties.
+     */
     public function seedSkillSpecialties()
     {
         // Archeo-anthropology
@@ -2678,6 +2696,9 @@ This Skill discounts Alien Language: Fomori by 1 month.',
         ], 'id');
     }
 
+    /**
+     * Rebuilds the skill prerequisite relationships used by the application.
+     */
     public function seedSkillPrereqs()
     {
         DB::table('skill_prereqs')->truncate();
@@ -3052,6 +3073,9 @@ This Skill discounts Alien Language: Fomori by 1 month.',
         ], ['skill_id', 'lockout_id']);
     }
 
+    /**
+     * Rebuilds the skill discount relationships used during skill seeding.
+     */
     public function seedSkillDiscounts()
     {
         DB::table('skill_discounts')->truncate();
@@ -3164,6 +3188,9 @@ This Skill discounts Alien Language: Fomori by 1 month.',
         ], ['discounting_skill', 'discounted_skill']);
     }
 
+    /**
+     * Rebuilds the mappings between skills and card types.
+     */
     public function seedCardSkills()
     {
         DB::table('card_type_skill')->truncate();

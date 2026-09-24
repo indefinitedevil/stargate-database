@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Adds skill prerequisite level and teacher requirement columns to the relevant tables.
      */
     public function up(): void
     {

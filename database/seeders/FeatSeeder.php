@@ -20,6 +20,9 @@ class FeatSeeder extends Seeder
         $this->seedSkillFeats();
     }
 
+    /**
+     * Seeds the feats table with the game's available feat definitions.
+     */
     public function seedFeats()
     {
         $toolkitDescription = '**For a cost of 1 Vigour**, you can use this feat to automatically solve one problem card from a skill game that you are attempting of the appropriate type (with a time of zero). You must state that you are using this feat before the problem solving has begun and indicate which card it is to be used on before any are revealed – and only one card can be negated per problem, regardless of the number of participants.
@@ -691,6 +694,9 @@ This feat can only be used once per event, per level in the Leadership skill.
         ]);
     }
 
+    /**
+     * Rebuilds the skill-to-feat associations.
+     */
     public function seedSkillFeats()
     {
         DB::table('feat_skill')->truncate();

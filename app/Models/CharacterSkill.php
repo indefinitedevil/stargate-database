@@ -241,6 +241,11 @@ class CharacterSkill extends Model
         return $discount->discount ?? 0;
     }
 
+    /**
+     * Determines the character's level for this skill.
+     *
+     * @return int The number of trained instances for repeatable skills, 1 for a completed non-removed skill, or 0 otherwise.
+     */
     public function getLevelAttribute(): int
     {
         if ($this->skill->repeatable) {

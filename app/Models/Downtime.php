@@ -154,6 +154,11 @@ class Downtime extends Model
             ->get());
     }
 
+    /**
+     * Retrieves teaching actions with their associated character skills, ordered by skill name.
+     *
+     * @return HasMany The downtime's teaching actions.
+     */
     public function trainingCourses(): HasMany
     {
         return $this->actions()->where('action_type_id', ActionType::ACTION_TEACHING)
@@ -162,11 +167,22 @@ class Downtime extends Model
             ->orderBy('skills.name');
     }
 
+    /**
+     * Retrieves the skill IDs associated with the downtime's training courses.
+     *
+     * @return array The training course skill IDs.
+     */
     public function getTrainingCourseSkillIdsAttribute(): array
     {
         return once(fn() => $this->trainingCourses()->pluck('skill_id')->toArray());
     }
 
+    /**
+     * Retrieves the characters training a specified skill during this downtime.
+     *
+     * @param int $skillId The skill identifier.
+     * @return Collection The distinct characters participating in training for the skill.
+     */
     public function getTrainees($skillId): Collection
     {
         $cacheKey = "trainees_{$this->id}_{$skillId}";
