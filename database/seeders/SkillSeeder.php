@@ -975,7 +975,7 @@ You are also knowledgeable in a variety of occult practices and their beliefs.',
      */
     public function seedBasicSkills()
     {
-        $basicKnowledgeDescription = 'You gain one use per event of OCP :skill for normal vigor cost. This Skill may be purchased twice.';
+        $basicKnowledgeDescription = 'You gain one use per event of OCP :skill for normal vigour cost. This Skill may be purchased twice.';
         $basicCardDescription = 'You gain the ability to use one card from the :skill Skill game. This skill may be purchased repeatedly for extra cards (up to 3).';
         $expertKnowledgeDescription = 'This increases your hand size for a chosen technology skill by one. This Skill can be repeatedly trained, granting +1 hand size each time. The maximum hand size for any skill is 12. You may **not** use this skill to increase the hand size of a Basic Skill that grants a card.';
         $technicalSavantDescription = 'This increases your Alien Technology hand size for a chosen Technology Skill by one. This Skill can be repeatedly trained, granting +1 Alien Technology hand size each time. This may be purchased up to 3 times per Technology Skill.';

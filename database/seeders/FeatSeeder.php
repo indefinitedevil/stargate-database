@@ -83,7 +83,7 @@ This feat costs zero Vigour to use, however it prevents your Vigour track from r
 
 Whilst under the effects of this feat you may ignore all damage and all restraining calls and ignore the effects on any previously opened wound cards. You also immediately gain all combat skills. Once the feat has run its duration you become Terminal, and this cannot be changed by any means. Your character either dies, or is for some appropriate reason no longer able to serve with the SEF and must be retired.
 
-**THIS FEAT MAY BE USED EVEN WHEN YOU HAVE ZERO VIGOR.**',
+**THIS FEAT MAY BE USED EVEN WHEN YOU HAVE ZERO VIGOUR.**',
                 'per_event' => 0,
                 'per_day' => 0,
                 'print_name' => NULL,
