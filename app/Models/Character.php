@@ -542,7 +542,7 @@ class Character extends Model
 
     public function downtimes(): Builder
     {
-        return Downtime::with('actions', 'event')
+        return Downtime::with('event')
             ->whereIn('id',  function ($query) {
                 $query->select('downtime_actions.downtime_id')
                     ->from('downtime_actions')
