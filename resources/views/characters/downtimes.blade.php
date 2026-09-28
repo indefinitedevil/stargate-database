@@ -19,11 +19,8 @@
     @foreach ($downtimes as $downtime)
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
             <div>
-                <a href="{{ route('downtimes.view', ['characterId' => $character, 'downtimeId' => $downtime]) }}"
-                   class="underline float-right">
-                    <i class="fa-solid fa-eye" title="{{ __('View downtime') }}"></i>
-                    {{ __('View') }}
-                </a>
+                <strong><a href="{{ route('downtimes.view', ['characterId' => $character, 'downtimeId' => $downtime]) }}"
+                           class="underline">{{ $downtime->name }}</a></strong>
                 <p>{{ __('Date: :start - :end', ['start' => format_datetime($downtime->start_time, 'j M Y'), 'end' => format_datetime($downtime->end_time, 'j M Y')]) }}</p>
                 @if ($downtime->event)
                     <p>{{ __('Event: :event', ['event' => $downtime->event->name]) }}</p>
@@ -31,7 +28,7 @@
                 <p>{{ __('Status: :status', ['status' => $downtime->getStatusLabel()]) }}</p>
 
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 clear-both gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 clear-both gap-4 mt-2">
                 @foreach($downtimeActions[$downtime->id] as $action)
                     <div @if (ActionType::ACTION_OTHER == $action->action_type_id)class="col-span-2"@endif>
                         <p>{{ __('Action: :action', ['action' => $action->actionType?->name]) }}</p>
