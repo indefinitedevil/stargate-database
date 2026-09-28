@@ -117,6 +117,29 @@ class CharacterController extends Controller
         ]);
     }
 
+    public function downtimes(Request $request, $characterId, $logId = null)
+    {
+        $character = Character::find($characterId);
+        if ($request->user()->cannot('view', $character)) {
+            return redirect(route('characters.index'))
+                ->with('errors', new MessageBag([__('Character not found.')]));
+        }
+        if ($character->status_id < Status::APPROVED) {
+            return redirect($character->getViewRoute())
+                ->with('errors', new MessageBag([__('Character must be approved to view downtimes.')]));
+        }
+        $downtimes = $character->downtimes()->paginate(5);
+        $downtimeActions = [];
+        foreach ($downtimes as $downtime) {
+            $downtimeActions[$downtime->id] = $character->downtimeActions()->where('downtime_id', $downtime->id)->get();
+        }
+        return view('characters.downtimes', [
+            'character' => $character,
+            'downtimes' => $downtimes,
+            'downtimeActions' => $downtimeActions,
+        ]);
+    }
+
     public function print(Request $request, $characterId)
     {
         $character = Character::find($characterId);

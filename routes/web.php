@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/characters', [CharacterController::class, 'index'])->name('characters.index');
         Route::get('/characters/view/{characterId}/{characterName?}', [CharacterController::class, 'view'])->name('characters.view');
         Route::get('/characters/logs/{characterId}/{characterName?}', [CharacterController::class, 'logs'])->name('characters.logs');
+        Route::get('/characters/downtimes/{characterId}/{characterName?}', [CharacterController::class, 'downtimes'])->name('characters.downtimes');
         Route::get('/characters/print/{characterId}', [CharacterController::class, 'print'])->name('characters.print');
         Route::get('/characters/print-skills/{characterId}', [CharacterController::class, 'printSkills'])->name('characters.print-skills');
         Route::get('/characters/edit/{characterId}', [CharacterController::class, 'edit'])->name('characters.edit');

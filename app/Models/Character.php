@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Collection;
@@ -539,6 +540,18 @@ class Character extends Model
         return $this->hasMany(DowntimeAction::class);
     }
 
+    public function downtimes(): Builder
+    {
+        return Downtime::with('actions', 'event')
+            ->whereIn('id',  function ($query) {
+                $query->select('downtime_actions.downtime_id')
+                    ->from('downtime_actions')
+                    ->where('downtime_actions.character_id', $this->id)
+                    ->groupBy('downtime_actions.downtime_id');
+            })
+            ->orderBy('end_time', 'desc');
+    }
+
     public function canBeReset(): bool
     {
         return in_array($this->status_id, [Status::APPROVED, Status::PLAYED]) && $this->downtimeActions->isEmpty();
@@ -576,6 +589,12 @@ class Character extends Model
     {
         $name = $this->short_name ?: $this->name;
         return route('characters.logs', ['characterId' => $this, 'characterName' => Str::slug($name)]);
+    }
+
+    public function getDowntimesRoute(): string
+    {
+        $name = $this->short_name ?: $this->name;
+        return route('characters.downtimes', ['characterId' => $this, 'characterName' => Str::slug($name)]);
     }
 
     public function getListNameAttribute(): string

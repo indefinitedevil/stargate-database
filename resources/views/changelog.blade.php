@@ -9,6 +9,12 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
+                <h3 class="text-lg font-semibold">Update: 28th September 2026</h3>
+                <ul class="list-inside list-disc">
+                    <li>Added view to easily see downtime actions and responses for a character in one place.</li>
+                </ul>
+            </div>
+            <div>
                 <h3 class="text-lg font-semibold">Bugfix: 24th September 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Actually updated all displayed uses of "Vigour" to "Vigor".</li>

@@ -65,6 +65,14 @@
                     {{ __('Character Logs') }}
                 </x-dropdown-link>
             @endif
+            @if(!request()->routeIs('characters.downtimes') && $character->status_id > Status::READY)
+                <x-dropdown-link :href="$character->getDowntimesRoute()"
+                                 title="{{ __('Downtimes') }}"
+                >
+                    <i class="fa-solid fa-inbox min-w-8"></i>
+                    {{ __('Downtimes') }}
+                </x-dropdown-link>
+            @endif
             <x-dropdown-link :href="route('characters.print', ['characterId' => $character->id])"
                              title="{{ __('Print Sheet') }}"
             >
