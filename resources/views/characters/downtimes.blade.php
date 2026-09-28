@@ -30,7 +30,7 @@
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 clear-both gap-4 mt-2">
                 @foreach($downtimeActions[$downtime->id] as $action)
-                    <div @if (ActionType::ACTION_OTHER == $action->action_type_id)class="col-span-2"@endif>
+                    <div @if (ActionType::ACTION_OTHER == $action->action_type_id)class="sm:col-span-2"@endif>
                         <p>{{ __('Action: :action', ['action' => $action->actionType?->name]) }}</p>
                         @if ($action->characterSkill)
                             <p>{{ __('Skill: :skill', ['skill' => $action->characterSkill->name]) }}</p>
