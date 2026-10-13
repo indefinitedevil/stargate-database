@@ -1,7 +1,3 @@
-@php
-    use App\Models\User;
-    use Spatie\Permission\Models\Role;
-@endphp
 <x-app-layout>
     <x-slot name="title">{{ __('Manage roles') }}</x-slot>
     <x-slot name="header">
@@ -12,7 +8,6 @@
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow lg:rounded-lg text-gray-800 dark:text-gray-300">
         @php
-            $roles = Role::all();
             $cellClass = 'border-b border-slate-100 dark:border-slate-700 p-2 text-center';
         @endphp
         <form method="POST" action="{{ route('admin.store-roles') }}">
@@ -27,7 +22,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach (User::whereNot('id', User::PLOT_CO_ID)->orderBy('name')->get() as $user)
+                @foreach ($users as $user)
                     <tr>
                         <td class="{{ $cellClass }}">{{ $user->name }}</td>
                         @foreach($roles as $role)

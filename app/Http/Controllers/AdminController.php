@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -13,7 +13,12 @@ class AdminController extends Controller
         if ($request->user()->cannot('modify roles')) {
             return redirect(route('dashboard'));
         }
-        return view('admin.manage-roles');
+        return view('admin.manage-roles', [
+            'users' => User::whereNot('id', User::PLOT_CO_ID)
+                ->where('users.deleted', false)
+                ->orderBy('name')->get(),
+            'roles' => Role::all(),
+        ]);
     }
 
     public function storeRoles(Request $request)

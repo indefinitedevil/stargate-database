@@ -23,6 +23,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property Character[]|Collection characters
  * @property Character[]|Collection approvedCharacters
  * @property Membership[]|Collection memberships
+ * @property bool deleted
  */
 class User extends Authenticatable
 {
@@ -84,6 +85,7 @@ class User extends Authenticatable
 
         $this->email = $this->id . '-no-email@example.com';
         $this->name = $this->id . '-deleted';
+        $this->deleted = true;
         $this->save();
 
         foreach ($this->characters as $character) {
