@@ -15,15 +15,14 @@ use Illuminate\Support\Collection;
  */
 class SpecialtyType extends Model
 {
-    use HasFactory;
-
     public function skillSpecialties(): HasMany
     {
         if (auth()->user()?->can('edit skill specialty')) {
-            return $this->hasMany(SkillSpecialty::class);
+            return $this->hasMany(SkillSpecialty::class)->orderBy('name');
         }
         return $this->hasMany(SkillSpecialty::class)
-            ->where('hidden', false);
+            ->where('hidden', false)
+            ->orderBy('name');
     }
 
     public function skills(): HasMany

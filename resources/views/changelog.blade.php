@@ -12,6 +12,7 @@
                 <h3 class="text-lg font-semibold">Bugfix: 14th October 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed issue with medical skill abilities duplicating.</li>
+                    <li>Order specialties by name.</li>
                 </ul>
             </div>
             <div>
