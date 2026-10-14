@@ -504,7 +504,7 @@ This skill reduces the training time of Medical Doctor to 3 months, regardless o
 * **Assisting Keywords:** All
 
 This skill reduces the training time of Physiology to 3 months, regardless of how many other Science and Social skills you have.',
-                'abilities' => 'Stabilise Casualty,Read All Wound Tokens,Prep for Movement',
+                'abilities' => 'Stabilise Casualty (10s),Read All Wound Tokens,Prep for Movement (60s)',
                 'upkeep' => 0,
                 'cost' => 3,
                 'specialties' => 0,
@@ -580,7 +580,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'This Skill grants the ability ‘Prep For Movement’ if you do not already possess it.',
-                'abilities' => 'Prep For Movement',
+                'abilities' => 'Prep For Movement (60s)',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,
