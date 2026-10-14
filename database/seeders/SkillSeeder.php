@@ -580,7 +580,7 @@ This skill reduces the training time of Physiology to 3 months, regardless of ho
                 'print_name' => NULL,
                 'skill_category_id' => SkillCategory::COMPLEX,
                 'description' => 'This Skill grants the ability ‘Prep For Movement’ if you do not already possess it.',
-                'abilities' => 'Prep For Movement (60s)',
+                'abilities' => 'Prep for Movement (60s)',
                 'upkeep' => 0,
                 'cost' => 0,
                 'specialties' => 0,

@@ -166,6 +166,6 @@
         </div>
     </div>
 
-    @include('characters.partials.feats-cards')
+    @include('characters.partials.feats-cards-abilities')
     @include('characters.partials.add-skill')
 </x-app-layout>

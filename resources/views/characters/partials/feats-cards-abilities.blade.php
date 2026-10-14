@@ -38,5 +38,16 @@
                 @endforeach
             </ul>
         @endif
+
+        @if (!empty($character->abilities()))
+            <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100 mt-4">
+                {{ __('Abilities') }}
+            </h2>
+            <ul class="grid grid-cols-1 sm:grid-cols-4 mt-1 gap-x-6 gap-y-2">
+                @foreach ($character->abilities() as $ability)
+                    <li>{{ $ability }}</li>
+                @endforeach
+            </ul>
+        @endif
     </div>
 </div>
