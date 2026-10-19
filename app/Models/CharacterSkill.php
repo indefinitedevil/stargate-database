@@ -279,7 +279,7 @@ class CharacterSkill extends Model
                     $skill->discount_used_by = $this->id;
                     $skill->save();
                 }
-                if ($this->cost <= 0) {
+                if ($this->cost - $this->trained <= 0) {
                     $this->completed = true;
                 }
             } elseif (!$this->discount_used && $this->skill->superSkills->count()) {
@@ -293,7 +293,7 @@ class CharacterSkill extends Model
                     $this->discount_used = true;
                     $this->discount_used_by = $skill->id;
                     parent::save($options);
-                    if ($skill->cost <= 0) {
+                    if ($skill->cost - $skill->trained <= 0) {
                         $skill->completed = true;
                         $skill->save();
                     }
@@ -310,7 +310,7 @@ class CharacterSkill extends Model
                     $skill->discount_used_by = $this->id;
                     $skill->save();
                 }
-                if ($this->cost <= 0) {
+                if ($this->cost - $this->trained <= 0) {
                     $this->completed = true;
                 }
             } elseif (!$this->discount_used && $this->skill->discountedBy->count()) {
@@ -324,7 +324,7 @@ class CharacterSkill extends Model
                     $this->discount_used = true;
                     $this->discount_used_by = $skill->id;
                     parent::save($options);
-                    if ($skill->cost <= 0) {
+                    if ($skill->cost - $skill->trained <= 0) {
                         $skill->completed = true;
                         $skill->save();
                     }
