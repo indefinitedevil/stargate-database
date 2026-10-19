@@ -298,6 +298,37 @@ class CharacterSkill extends Model
                         $skill->save();
                     }
                 }
+            } elseif ($this->skill->discountedBy->count()) {
+                $skills = $this->character->skills()
+                    ->whereIn('skill_id', $this->skill->discountedBy->pluck('id'))
+                    ->where('completed', true)
+                    ->where('discount_used', false)
+                    ->where('removed', false)
+                    ->get();
+                foreach ($skills as $skill) {
+                    $skill->discount_used = true;
+                    $skill->discount_used_by = $this->id;
+                    $skill->save();
+                }
+                if ($this->cost <= 0) {
+                    $this->completed = true;
+                }
+            } elseif (!$this->discount_used && $this->skill->discountedBy->count()) {
+                // check for super-skills to discount
+                $skill = $this->character->skills()
+                    ->whereIn('skill_id', $this->skill->discountedBy->pluck('id'))
+                    ->where('completed', false)
+                    ->where('removed', false)
+                    ->first();
+                if ($skill) {
+                    $this->discount_used = true;
+                    $this->discount_used_by = $skill->id;
+                    parent::save($options);
+                    if ($skill->cost <= 0) {
+                        $skill->completed = true;
+                        $skill->save();
+                    }
+                }
             }
         }
         return parent::save($options);
