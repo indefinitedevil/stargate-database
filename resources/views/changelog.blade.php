@@ -12,6 +12,7 @@
                 <h3 class="text-lg font-semibold">Bugfix: 19th October 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed issue with skills not auto-completing with discounts.</li>
+                    <li>Swapping research interface elements at Plot Co request.</li>
                 </ul>
             </div>
             <div>
