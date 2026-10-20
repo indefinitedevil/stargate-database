@@ -300,7 +300,7 @@ class CharacterSkill extends Model
                 }
             } elseif ($this->skill->discountedBy->count()) {
                 $skills = $this->character->skills()
-                    ->whereIn('skill_id', $this->skill->discountedBy->pluck('id'))
+                    ->whereIn('skill_id', $this->skill->discountedBy->pluck('discounting_skill'))
                     ->where('completed', true)
                     ->where('discount_used', false)
                     ->where('removed', false)
@@ -313,10 +313,10 @@ class CharacterSkill extends Model
                 if ($this->cost - $this->trained <= 0) {
                     $this->completed = true;
                 }
-            } elseif (!$this->discount_used && $this->skill->discountedBy->count()) {
+            } elseif (!$this->discount_used && $this->skill->discounts->count()) {
                 // check for super-skills to discount
                 $skill = $this->character->skills()
-                    ->whereIn('skill_id', $this->skill->discountedBy->pluck('id'))
+                    ->whereIn('skill_id', $this->skill->discounts->pluck('discounted_skill'))
                     ->where('completed', false)
                     ->where('removed', false)
                     ->first();

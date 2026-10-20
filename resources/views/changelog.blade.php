@@ -9,7 +9,7 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm lg:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100 space-y-2">
             <div>
-                <h3 class="text-lg font-semibold">Bugfix: 19th October 2026</h3>
+                <h3 class="text-lg font-semibold">Bugfix: 20th October 2026</h3>
                 <ul class="list-inside list-disc">
                     <li>Fixed issue with skills not auto-completing with discounts.</li>
                     <li>Swapping research interface elements at Plot Co request.</li>
