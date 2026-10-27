@@ -266,6 +266,25 @@ class CharacterSkill extends Model
     {
         parent::save($options);
         if (!$this->removed && $autoDiscount) {
+            if (!$this->completed && $this->discount_used) {
+                $this->discount_used = false;
+                $this->discount_used_by = null;
+            } elseif (!$this->completed && $this->skill->discountedBy->count()) {
+                $skills = $this->character->skills()
+                    ->whereIn('skill_id', $this->skill->discountedBy->pluck('discounting_skill'))
+                    ->where('completed', false)
+                    ->where('discount_used', true)
+                    ->where('removed', false)
+                    ->get();
+                foreach ($skills as $skill) {
+                    $skill->discount_used = false;
+                    $skill->discount_used_by = null;
+                    $skill->save(autoDiscount: false);
+                }
+                if ($this->cost - $this->trained <= 0) {
+                    $this->completed = true;
+                }
+            }
             if ($this->skill->subSkills->count()) {
                 // check sub-skills for potential discounts
                 $skills = $this->character->skills()
@@ -277,12 +296,12 @@ class CharacterSkill extends Model
                 foreach ($skills as $skill) {
                     $skill->discount_used = true;
                     $skill->discount_used_by = $this->id;
-                    $skill->save();
+                    $skill->save(autoDiscount: false);
                 }
                 if ($this->cost - $this->trained <= 0) {
                     $this->completed = true;
                 }
-            } elseif (!$this->discount_used && $this->skill->superSkills->count()) {
+            } elseif ($this->completed && !$this->removed && !$this->discount_used && $this->skill->superSkills->count()) {
                 // check for super-skills to discount
                 $skill = $this->character->skills()
                     ->whereIn('skill_id', $this->skill->superSkills->pluck('id'))
@@ -295,7 +314,7 @@ class CharacterSkill extends Model
                     parent::save($options);
                     if ($skill->cost - $skill->trained <= 0) {
                         $skill->completed = true;
-                        $skill->save();
+                        $skill->save(autoDiscount: false);
                     }
                 }
             } elseif ($this->skill->discountedBy->count()) {
@@ -308,12 +327,12 @@ class CharacterSkill extends Model
                 foreach ($skills as $skill) {
                     $skill->discount_used = true;
                     $skill->discount_used_by = $this->id;
-                    $skill->save();
+                    $skill->save(autoDiscount: false);
                 }
                 if ($this->cost - $this->trained <= 0) {
                     $this->completed = true;
                 }
-            } elseif (!$this->discount_used && $this->skill->discounts->count()) {
+            } elseif ($this->completed && !$this->removed && !$this->discount_used && $this->skill->discounts->count()) {
                 // check for super-skills to discount
                 $skill = $this->character->skills()
                     ->whereIn('skill_id', $this->skill->discounts->pluck('discounted_skill'))
@@ -326,7 +345,7 @@ class CharacterSkill extends Model
                     parent::save($options);
                     if ($skill->cost - $skill->trained <= 0) {
                         $skill->completed = true;
-                        $skill->save();
+                        $skill->save(autoDiscount: false);
                     }
                 }
             }
